@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Portfolio from "./pages/Portfolio";
+import Blog from "./pages/Blog";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ const homeNavItems = [
   { label: "Interests", href: "#interests" },
   { label: "Awards & Certs", href: "#awards" },
   { label: "Project Portfolio", href: "/portfolio" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const portfolioNavItems = [
@@ -32,6 +34,14 @@ const portfolioNavItems = [
   { label: "Customer Engagement Deliverables", href: "#customer-engagement-deliverables" },
   { label: "Portfolio Website", href: "#portfolio-website" },
   { label: "Home", href: "/" },
+  { label: "Blog", href: "/blog" },
+];
+
+const blogNavItems = [
+  { label: "Recent Posts", href: "#recent-posts" },
+  { label: "Create Post", href: "#create-post" },
+  { label: "Home", href: "/" },
+  { label: "Portfolio", href: "/portfolio" },
 ];
 
 const App = () => {
@@ -59,7 +69,7 @@ const App = () => {
             <Route path="/" element={
               <Layout 
                 navItems={homeNavItems} 
-                profileImage="/assets/img/profile.jpg"
+                profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
                 name="Mike Macri"
               >
                 <Home />
@@ -68,10 +78,19 @@ const App = () => {
             <Route path="/portfolio" element={
               <Layout 
                 navItems={portfolioNavItems} 
-                profileImage="/assets/img/profile.jpg"
+                profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
                 name="Mike Macri"
               >
                 <Portfolio />
+              </Layout>
+            } />
+            <Route path="/blog" element={
+              <Layout 
+                navItems={blogNavItems} 
+                profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+                name="Mike Macri"
+              >
+                <Blog />
               </Layout>
             } />
             <Route path="*" element={<NotFound />} />

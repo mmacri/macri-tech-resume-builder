@@ -1,6 +1,7 @@
 
 import React, { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { scrollToElement } from '../utils/scrollUtils';
 
 interface LayoutProps {
   children: ReactNode;
@@ -12,7 +13,6 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -33,10 +33,20 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
     };
   }, [isNavOpen]);
 
-  // Close mobile nav when a link is clicked
-  const handleNavLinkClick = () => {
+  // Handle navigation link clicks
+  const handleNavLinkClick = (href: string) => {
+    // Close mobile nav
     if (window.innerWidth < 992) {
       setIsNavOpen(false);
+    }
+
+    // Handle anchor links (section navigation)
+    if (href.startsWith('#')) {
+      const targetId = href.substring(1);
+      // If we're already on the page with the anchor, scroll to it
+      if (document.getElementById(targetId)) {
+        scrollToElement(targetId);
+      }
     }
   };
 
@@ -52,7 +62,7 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
           <Link 
             to="/" 
             className="flex items-center mb-8 lg:mb-12 justify-between"
-            onClick={handleNavLinkClick}
+            onClick={() => handleNavLinkClick('/')}
           >
             <span className="text-xl font-bold lg:hidden">{name}</span>
             <button 
@@ -95,20 +105,35 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
                     <a 
                       href={item.href} 
                       className="nav-link"
-                      onClick={handleNavLinkClick}
+                      onClick={() => handleNavLinkClick(item.href)}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       {item.label}
                     </a>
                   ) : (
-                    <Link 
-                      to={item.href} 
-                      className="nav-link"
-                      onClick={handleNavLinkClick}
-                    >
-                      {item.label}
-                    </Link>
+                    item.href.startsWith('#') ? (
+                      // Handle anchor links within the same page
+                      <a 
+                        href={item.href} 
+                        className="nav-link"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavLinkClick(item.href);
+                        }}
+                      >
+                        {item.label}
+                      </a>
+                    ) : (
+                      // Handle links to other pages
+                      <Link 
+                        to={item.href} 
+                        className="nav-link"
+                        onClick={() => handleNavLinkClick(item.href)}
+                      >
+                        {item.label}
+                      </Link>
+                    )
                   )}
                 </li>
               ))}
