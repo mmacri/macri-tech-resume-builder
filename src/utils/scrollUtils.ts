@@ -1,46 +1,48 @@
 
-// Helper function to handle smooth scrolling for anchor links
+/**
+ * Utility functions for smooth scrolling behavior
+ */
+
+/**
+ * Scrolls to the element with the given ID with smooth behavior
+ * @param elementId - The ID of the element to scroll to
+ */
 export const scrollToElement = (elementId: string): void => {
   const element = document.getElementById(elementId);
   if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
   }
 };
 
-// Helper function to activate tooltip functionality
-export const initTooltips = (): void => {
-  const tooltipElements = document.querySelectorAll('[data-tooltip]');
-  
-  tooltipElements.forEach(element => {
-    const tooltip = document.createElement('span');
-    tooltip.className = 'tooltip';
-    tooltip.textContent = element.getAttribute('data-tooltip') || '';
-    element.appendChild(tooltip);
-  });
+/**
+ * Handles navigation link clicks for smooth scrolling
+ * @param event - The click event
+ * @param targetId - The ID of the element to scroll to
+ */
+export const handleLinkClick = (
+  event: React.MouseEvent<HTMLAnchorElement>,
+  targetId: string
+): void => {
+  event.preventDefault();
+  const element = document.getElementById(targetId);
+  if (element) {
+    const offsetTop = element.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({
+      top: offsetTop,
+      behavior: 'smooth',
+    });
+  }
 };
 
-// Helper to handle the active state of navigation links
-export const setActiveNavLink = (): void => {
-  const sections = document.querySelectorAll('.resume-section');
-  const navLinks = document.querySelectorAll('.nav-link');
-  
-  window.addEventListener('scroll', () => {
-    let current = '';
-    
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-      if (window.pageYOffset >= sectionTop - 100) {
-        current = section.getAttribute('id') || '';
-      }
-    });
-
-    navLinks.forEach((link) => {
-      link.classList.remove('active');
-      const href = link.getAttribute('href')?.substring(1);
-      if (href === current) {
-        link.classList.add('active');
-      }
-    });
-  });
+/**
+ * Returns a function to handle navigation link clicks
+ * @param targetId - The ID of the element to scroll to
+ */
+export const createScrollHandler = (targetId: string) => {
+  return (event: React.MouseEvent<HTMLAnchorElement>) => {
+    handleLinkClick(event, targetId);
+  };
 };
