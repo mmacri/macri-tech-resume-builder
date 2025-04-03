@@ -6,16 +6,18 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
 
+interface BlogComment {
+  id: string;
+  content: string;
+  name: string | null;
+  created_at: string;
+  user_id: string | null;
+  updated_at: string;
+  approved: boolean | null;
+}
+
 interface BlogCommentProps {
-  comment: {
-    id: string;
-    content: string;
-    name: string | null;
-    created_at: string;
-    user_id: string | null;
-    updated_at: string;
-    approved: boolean | null;
-  };
+  comment: BlogComment;
   onCommentDeleted: () => void;
   onCommentApproved?: () => void;
 }

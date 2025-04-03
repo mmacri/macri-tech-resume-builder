@@ -130,9 +130,14 @@ const Blog = () => {
         throw error;
       }
       
+      const transformedData = data?.map(comment => ({
+        ...comment,
+        approved: comment.approved === undefined ? null : comment.approved
+      })) as BlogComment[];
+      
       setComments(prev => ({
         ...prev,
-        [postId]: data || []
+        [postId]: transformedData || []
       }));
       
       setShowCommentsFor(prev => ({
@@ -315,10 +320,15 @@ const Blog = () => {
         throw error;
       }
       
-      if (isAdmin || data.approved === true) {
+      const transformedData = {
+        ...data,
+        approved: data.approved === undefined ? null : data.approved
+      } as BlogComment;
+      
+      if (isAdmin || transformedData.approved === true) {
         setComments(prev => ({
           ...prev,
-          [postId]: [...(prev[postId] || []), data]
+          [postId]: [...(prev[postId] || []), transformedData]
         }));
       } else {
         toast.success('Comment submitted for approval!');
@@ -327,7 +337,7 @@ const Blog = () => {
       setCommentContent('');
       if (!user) setCommentName('');
       
-      if (data.approved === true) {
+      if (transformedData.approved === true) {
         toast.success('Comment added successfully!');
       }
     } catch (error: any) {
@@ -362,9 +372,14 @@ const Blog = () => {
         throw error;
       }
       
+      const transformedData = data?.map(comment => ({
+        ...comment,
+        approved: comment.approved === undefined ? null : comment.approved
+      })) as BlogComment[];
+      
       setComments(prev => ({
         ...prev,
-        [postId]: data || []
+        [postId]: transformedData || []
       }));
       
       if (isAdmin) {
