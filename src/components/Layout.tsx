@@ -1,9 +1,11 @@
 
 import React, { ReactNode, useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { scrollToElement } from '../utils/scrollUtils';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogOut } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { toast } from "sonner";
+import { useAuth } from '@/contexts/AuthContext';
 
 interface LayoutProps {
   children: ReactNode;
@@ -15,6 +17,8 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, isAdmin, signOut } = useAuth();
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -51,6 +55,19 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
       }
     }
   };
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/');
+  };
+
+  // Filter out login link if user is logged in
+  const filteredNavItems = navItems.filter(item => {
+    if (user && item.href === '/auth') {
+      return false;
+    }
+    return true;
+  });
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
@@ -91,10 +108,34 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
             />
           </div>
           
+          {/* User auth status (visible only on large screens or when menu is open) */}
+          <div className={`${isNavOpen ? 'block' : 'hidden'} lg:block mb-4`}>
+            {user ? (
+              <div className="flex flex-col items-center">
+                <p className="text-center mb-2">
+                  Logged in as: <br />
+                  <span className="font-semibold">{user.email}</span>
+                  {isAdmin && <span className="ml-1 text-amber-300">(Admin)</span>}
+                </p>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={handleLogout}
+                  className="border-white text-white hover:bg-white/20 transition-colors"
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Logout
+                </Button>
+              </div>
+            ) : (
+              <p className="text-center text-white/70 text-sm">Not logged in</p>
+            )}
+          </div>
+          
           {/* Navigation Links */}
           <div className={`${isNavOpen ? 'block' : 'hidden'} lg:block`}>
             <ul className="space-y-2">
-              {navItems.map((item, index) => (
+              {filteredNavItems.map((item, index) => (
                 <li key={index} className="nav-item">
                   {item.external ? (
                     <a 

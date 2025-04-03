@@ -4,12 +4,14 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React, { useEffect } from "react"; // Explicitly import React and useEffect
+import React, { useEffect } from "react";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Portfolio from "./pages/Portfolio";
 import Blog from "./pages/Blog";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +25,7 @@ const homeNavItems = [
   { label: "Awards & Certs", href: "#awards" },
   { label: "Project Portfolio", href: "/portfolio" },
   { label: "Blog", href: "/blog" },
+  { label: "Login", href: "/auth" },
 ];
 
 const portfolioNavItems = [
@@ -35,14 +38,16 @@ const portfolioNavItems = [
   { label: "Portfolio Website", href: "#portfolio-website" },
   { label: "Home", href: "/" },
   { label: "Blog", href: "/blog" },
+  { label: "Login", href: "/auth" },
 ];
 
 const blogNavItems = [
   { label: "Recent Posts", href: "#recent-posts" },
   { label: "Create Post", href: "#create-post" },
-  { label: "Search", href: "#", external: true }, // This will be handled in-page
+  { label: "Search", href: "#", external: true },
   { label: "Home", href: "/" },
   { label: "Portfolio", href: "/portfolio" },
+  { label: "Login", href: "/auth" },
 ];
 
 const App = () => {
@@ -63,40 +68,43 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={
-              <Layout 
-                navItems={homeNavItems} 
-                profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-                name="Mike Macri"
-              >
-                <Home />
-              </Layout>
-            } />
-            <Route path="/portfolio" element={
-              <Layout 
-                navItems={portfolioNavItems} 
-                profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-                name="Mike Macri"
-              >
-                <Portfolio />
-              </Layout>
-            } />
-            <Route path="/blog" element={
-              <Layout 
-                navItems={blogNavItems} 
-                profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-                name="Mike Macri"
-              >
-                <Blog />
-              </Layout>
-            } />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <AuthProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={
+                <Layout 
+                  navItems={homeNavItems} 
+                  profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+                  name="Mike Macri"
+                >
+                  <Home />
+                </Layout>
+              } />
+              <Route path="/portfolio" element={
+                <Layout 
+                  navItems={portfolioNavItems} 
+                  profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+                  name="Mike Macri"
+                >
+                  <Portfolio />
+                </Layout>
+              } />
+              <Route path="/blog" element={
+                <Layout 
+                  navItems={blogNavItems} 
+                  profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+                  name="Mike Macri"
+                >
+                  <Blog />
+                </Layout>
+              } />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
