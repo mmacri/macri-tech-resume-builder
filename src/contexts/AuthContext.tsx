@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { Session, User } from '@supabase/supabase-js';
+import { Session, User, AuthResponse } from '@supabase/supabase-js';
 import { toast } from 'sonner';
 
 type AuthContextType = {
@@ -9,8 +9,8 @@ type AuthContextType = {
   user: User | null;
   isAdmin: boolean;
   isLoading: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<AuthResponse>;
+  signUp: (email: string, password: string) => Promise<AuthResponse>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
 };
@@ -112,40 +112,38 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       console.log("Attempting to sign in with email:", email);
       
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const response = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) {
+      if (response.error) {
         console.error("Sign in error details:", {
-          message: error.message,
-          status: error.status,
-          name: error.name
+          message: response.error.message,
+          status: response.error.status,
+          name: response.error.name
         });
-        throw error;
-      }
-      
-      console.log("Sign in successful, data:", data);
-      
-      toast.success('Signed in successfully');
-      return data;
-    } catch (error: any) {
-      console.error("Sign in error:", error);
-      
-      // Improved error handling with specific messages
-      let errorMessage = 'Error signing in';
-      if (error.message) {
-        if (error.message.includes('Invalid login credentials')) {
+        
+        // Improve error messages for better user experience
+        let errorMessage = 'Error signing in';
+        if (response.error.message.includes('Invalid login credentials')) {
           errorMessage = 'Invalid email or password';
-        } else if (error.message.includes('Email not confirmed')) {
+        } else if (response.error.message.includes('Email not confirmed')) {
           errorMessage = 'Please confirm your email before signing in';
         } else {
-          errorMessage = error.message;
+          errorMessage = response.error.message;
         }
+        
+        toast.error(errorMessage);
+        throw response.error;
       }
       
-      toast.error(errorMessage);
+      console.log("Sign in successful, data:", response.data);      
+      toast.success('Signed in successfully');
+      
+      return response;
+    } catch (error: any) {
+      console.error("Sign in error:", error);
       throw error;
     }
   };
@@ -154,30 +152,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       console.log("Attempting to sign up with email:", email);
       
-      const { data, error } = await supabase.auth.signUp({
+      const response = await supabase.auth.signUp({
         email,
         password,
       });
 
-      if (error) {
+      if (response.error) {
         console.error("Sign up error details:", {
-          message: error.message,
-          status: error.status,
-          name: error.name
+          message: response.error.message,
+          status: response.error.status,
+          name: response.error.name
         });
-        throw error;
+        
+        // Improved error handling with specific messages
+        let errorMessage = 'Error signing up';
+        if (response.error.message.includes('already registered')) {
+          errorMessage = 'This email is already registered';
+        } else {
+          errorMessage = response.error.message;
+        }
+        
+        toast.error(errorMessage);
+        throw response.error;
       }
       
-      console.log("Sign up successful, data:", data);
+      console.log("Sign up successful, data:", response.data);
       
       // Create a profile for the new user
-      if (data.user) {
+      if (response.data.user) {
         const { error: profileError } = await supabase
           .from('profiles')
           .insert({
-            id: data.user.id,
+            id: response.data.user.id,
             is_admin: false,
-            full_name: data.user.user_metadata?.full_name || '',
+            full_name: response.data.user.user_metadata?.full_name || '',
             username: email.split('@')[0] || ''
           });
           
@@ -187,21 +195,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       
       toast.success('Signed up successfully! Please check your email for verification.');
-      return data;
+      return response;
     } catch (error: any) {
       console.error("Sign up error:", error);
-      
-      // Improved error handling with specific messages
-      let errorMessage = 'Error signing up';
-      if (error.message) {
-        if (error.message.includes('already registered')) {
-          errorMessage = 'This email is already registered';
-        } else {
-          errorMessage = error.message;
-        }
-      }
-      
-      toast.error(errorMessage);
       throw error;
     }
   };

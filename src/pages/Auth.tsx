@@ -85,11 +85,17 @@ const Auth = () => {
     
     try {
       console.log(`Attempting to signup with email: ${values.email}`);
-      await signUp(values.email, values.password);
-      loginForm.setValue('email', values.email);
-      loginForm.setValue('password', values.password);
-      setDefaultTab('login');
-      toast.success('Account created! Please check your email to verify your account before signing in.');
+      const response = await signUp(values.email, values.password);
+      
+      // Handle the various possible states after signup
+      if (response.data?.user) {
+        loginForm.setValue('email', values.email);
+        loginForm.setValue('password', values.password);
+        setDefaultTab('login');
+        toast.success('Account created! Please check your email to verify your account before signing in.');
+      } else {
+        toast.error('Something went wrong during signup.');
+      }
     } catch (error: any) {
       console.error('Signup error:', error);
       setError(error.message || 'Failed to create account. Please try again.');
