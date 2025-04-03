@@ -27,13 +27,11 @@ const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [defaultTab, setDefaultTab] = useState('login');
 
-  // Check for query params to set default tab
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     const tab = queryParams.get('tab');
     if (tab === 'signup') {
       setDefaultTab('signup');
-      // Pre-fill admin credentials if directed to signup tab
       if (!signupForm.getValues().email) {
         signupForm.setValue('email', 'mikemacri@gmail.com');
         signupForm.setValue('password', '#2Pencil!!');
@@ -41,7 +39,6 @@ const Auth = () => {
     }
   }, []);
 
-  // Redirect if already logged in
   useEffect(() => {
     if (user) {
       navigate('/');
@@ -81,7 +78,6 @@ const Auth = () => {
     try {
       await signUp(values.email, values.password);
       toast.success('Please check your email to verify your account');
-      // Don't navigate away, let them verify first
     } catch (error) {
       console.error('Signup error:', error);
     } finally {

@@ -13,8 +13,8 @@ import { Database } from '@/integrations/supabase/types';
 
 // Define types for our data
 type UserProfile = Database['public']['Tables']['profiles']['Row'];
-type BlogPost = Database['public']['Tables']['posts']['Row'];
-type BlogComment = Database['public']['Tables']['comments']['Row'];
+type BlogPost = Database['public']['Tables']['blog_posts']['Row'];
+type BlogComment = Database['public']['Tables']['blog_comments']['Row'];
 
 const AdminPanel = () => {
   const { user, isAdmin } = useAuth();
@@ -58,7 +58,7 @@ const AdminPanel = () => {
   const fetchPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('posts')
+        .from('blog_posts')
         .select('*');
       
       if (error) throw error;
@@ -72,7 +72,7 @@ const AdminPanel = () => {
   const fetchComments = async () => {
     try {
       const { data, error } = await supabase
-        .from('comments')
+        .from('blog_comments')
         .select('*');
       
       if (error) throw error;
@@ -136,7 +136,7 @@ const AdminPanel = () => {
   const handleDeletePost = async (postId: string) => {
     try {
       const { error } = await supabase
-        .from('posts')
+        .from('blog_posts')
         .delete()
         .eq('id', postId);
       
@@ -152,7 +152,7 @@ const AdminPanel = () => {
   const handleDeleteComment = async (commentId: string) => {
     try {
       const { error } = await supabase
-        .from('comments')
+        .from('blog_comments')
         .delete()
         .eq('id', commentId);
       
@@ -213,16 +213,18 @@ const AdminPanel = () => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Role</TableHead>
+                    <TableHead>Username</TableHead>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Admin</TableHead>
                     <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {users.map((user) => (
                     <TableRow key={user.id}>
-                      <TableCell>{user.email}</TableCell>
-                      <TableCell>{user.role || 'user'}</TableCell>
+                      <TableCell>{user.username}</TableCell>
+                      <TableCell>{user.full_name}</TableCell>
+                      <TableCell>{user.is_admin ? 'Yes' : 'No'}</TableCell>
                       <TableCell className="space-x-2">
                         <Button variant="outline" size="sm" onClick={() => handleResetPassword(user.id)}>
                           Reset Password
