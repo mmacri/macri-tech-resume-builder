@@ -40,6 +40,7 @@ const portfolioNavItems = [
 const blogNavItems = [
   { label: "Recent Posts", href: "#recent-posts" },
   { label: "Create Post", href: "#create-post" },
+  { label: "Search", href: "#", external: true }, // This will be handled in-page
   { label: "Home", href: "/" },
   { label: "Portfolio", href: "/portfolio" },
 ];

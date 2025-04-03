@@ -2,6 +2,8 @@
 import React, { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { scrollToElement } from '../utils/scrollUtils';
+import { Menu, X } from 'lucide-react';
+import { toast } from "sonner";
 
 interface LayoutProps {
   children: ReactNode;
@@ -55,40 +57,33 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
       {/* Navigation */}
       <nav 
         id="sideNav"
-        className="bg-macri-primary text-white lg:fixed lg:w-64 lg:h-screen z-10"
+        className={`bg-macri-primary text-white lg:fixed lg:w-64 lg:h-screen z-10 transition-all duration-300 ${isNavOpen ? 'h-screen' : 'h-16 lg:h-screen'}`}
       >
         <div className="p-4 flex flex-col h-full">
           {/* Brand/Logo Section */}
-          <Link 
-            to="/" 
-            className="flex items-center mb-8 lg:mb-12 justify-between"
-            onClick={() => handleNavLinkClick('/')}
-          >
-            <span className="text-xl font-bold lg:hidden">{name}</span>
+          <div className="flex items-center mb-8 lg:mb-12 justify-between">
+            <Link 
+              to="/" 
+              className="flex items-center"
+              onClick={() => handleNavLinkClick('/')}
+            >
+              <span className="text-xl font-bold lg:hidden">{name}</span>
+            </Link>
             <button 
               className="lg:hidden p-2 focus:outline-none"
               onClick={toggleNav}
               aria-label="Toggle navigation"
             >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                className="h-6 w-6" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d={isNavOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} 
-                />
-              </svg>
+              {isNavOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
-          </Link>
+          </div>
           
-          {/* Profile Image (visible only on large screens) */}
-          <div className="hidden lg:flex justify-center mb-6">
+          {/* Profile Image (visible only on large screens or when menu is open) */}
+          <div className={`${isNavOpen ? 'flex' : 'hidden'} lg:flex justify-center mb-6`}>
             <img 
               src={profileImage} 
               alt={`${name} Profile`} 
@@ -97,14 +92,14 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
           </div>
           
           {/* Navigation Links */}
-          <div className={`lg:block ${isNavOpen ? 'block' : 'hidden'}`}>
+          <div className={`${isNavOpen ? 'block' : 'hidden'} lg:block`}>
             <ul className="space-y-2">
               {navItems.map((item, index) => (
                 <li key={index} className="nav-item">
                   {item.external ? (
                     <a 
                       href={item.href} 
-                      className="nav-link"
+                      className="nav-link block py-2 hover:opacity-80 transition-opacity"
                       onClick={() => handleNavLinkClick(item.href)}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -116,7 +111,7 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
                       // Handle anchor links within the same page
                       <a 
                         href={item.href} 
-                        className="nav-link"
+                        className="nav-link block py-2 hover:opacity-80 transition-opacity"
                         onClick={(e) => {
                           e.preventDefault();
                           handleNavLinkClick(item.href);
@@ -128,7 +123,7 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
                       // Handle links to other pages
                       <Link 
                         to={item.href} 
-                        className="nav-link"
+                        className={`nav-link block py-2 hover:opacity-80 transition-opacity ${location.pathname === item.href ? 'font-bold' : ''}`}
                         onClick={() => handleNavLinkClick(item.href)}
                       >
                         {item.label}
@@ -140,13 +135,13 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
             </ul>
           </div>
           
-          {/* Social Icons (visible only on large screens and at bottom) */}
-          <div className="mt-auto hidden lg:block pt-6">
-            <div className="social-icons justify-center">
-              <a className="social-icon" href="https://linkedin.com/in/mikemacri" target="_blank" rel="noopener noreferrer">
+          {/* Social Icons (visible only on large screens and at bottom or when menu is open) */}
+          <div className={`mt-auto ${isNavOpen ? 'block' : 'hidden'} lg:block pt-6`}>
+            <div className="social-icons flex justify-center space-x-4">
+              <a className="social-icon rounded-full border border-white p-2 hover:bg-white/20 transition-colors" href="https://linkedin.com/in/mikemacri" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-linkedin-in"></i>
               </a>
-              <a className="social-icon" href="https://github.com/mmacri/my-portfolio" target="_blank" rel="noopener noreferrer">
+              <a className="social-icon rounded-full border border-white p-2 hover:bg-white/20 transition-colors" href="https://github.com/mmacri/my-portfolio" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-github"></i>
               </a>
             </div>

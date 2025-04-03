@@ -10,7 +10,9 @@
 export const scrollToElement = (elementId: string): void => {
   const element = document.getElementById(elementId);
   if (element) {
-    const yOffset = -20; // Adjust this value based on your header height
+    // Calculate header height for mobile vs desktop
+    const isMobile = window.innerWidth < 992;
+    const yOffset = isMobile ? -70 : -20; // Adjust this value based on your header height
     const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
     
     window.scrollTo({
@@ -83,4 +85,29 @@ export const setupScrollSpy = (
   window.addEventListener('scroll', scrollHandler);
   // Call once on load to set initial state
   scrollHandler();
+};
+
+/**
+ * Detects if an element is in the viewport
+ * @param el - The element to check
+ * @param partiallyVisible - Whether partially visible elements should be considered in viewport
+ */
+export const isElementInViewport = (el: Element, partiallyVisible = false): boolean => {
+  const rect = el.getBoundingClientRect();
+  const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+  const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+
+  if (partiallyVisible) {
+    return (
+      (rect.top <= windowHeight && rect.bottom >= 0) &&
+      (rect.left <= windowWidth && rect.right >= 0)
+    );
+  }
+
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= windowHeight &&
+    rect.right <= windowWidth
+  );
 };
