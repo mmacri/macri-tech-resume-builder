@@ -12,13 +12,21 @@ import {
   TooltipContent,
   TooltipTrigger
 } from '@/components/ui/tooltip';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 
 interface AddUserFormProps {
   onUserAdded: () => void;
 }
 
 const AddUserForm: React.FC<AddUserFormProps> = ({ onUserAdded }) => {
-  const [newUser, setNewUser] = useState({ email: '', password: '', fullName: '', username: '' });
+  const [newUser, setNewUser] = useState({ 
+    email: '', 
+    password: '', 
+    fullName: '', 
+    username: '',
+    isAdmin: false 
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -38,6 +46,13 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onUserAdded }) => {
     setError(null);
     
     try {
+      console.log("Creating user with data:", {
+        email: newUser.email,
+        isAdmin: newUser.isAdmin,
+        fullName: newUser.fullName,
+        username: newUser.username
+      });
+      
       // First create the user in auth
       const { data: authData, error: authError } = await supabase.auth.admin.createUser({
         email: newUser.email,
@@ -49,19 +64,26 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onUserAdded }) => {
       
       // Then update their profile data
       if (authData?.user) {
+        console.log("User created successfully, updating profile with ID:", authData.user.id);
         const { error: profileError } = await supabase
           .from('profiles')
           .update({
             full_name: newUser.fullName,
-            username: newUser.username
+            username: newUser.username,
+            is_admin: newUser.isAdmin
           })
           .eq('id', authData.user.id);
         
-        if (profileError) throw profileError;
+        if (profileError) {
+          console.error("Error updating profile:", profileError);
+          throw profileError;
+        }
+        
+        console.log("Profile updated successfully with admin status:", newUser.isAdmin);
       }
       
-      toast.success('User created successfully');
-      setNewUser({ email: '', password: '', fullName: '', username: '' });
+      toast.success(`User created successfully${newUser.isAdmin ? ' with admin privileges' : ''}`);
+      setNewUser({ email: '', password: '', fullName: '', username: '', isAdmin: false });
       onUserAdded();
     } catch (error: any) {
       console.error('Error creating user:', error);
@@ -131,6 +153,17 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onUserAdded }) => {
               onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
               disabled={isLoading}
             />
+          </div>
+          <div className="flex items-center space-x-2">
+            <Checkbox 
+              id="isAdmin" 
+              checked={newUser.isAdmin}
+              onCheckedChange={(checked) => 
+                setNewUser({ ...newUser, isAdmin: checked === true })
+              }
+              disabled={isLoading}
+            />
+            <Label htmlFor="isAdmin">Grant Admin Privileges</Label>
           </div>
           <Button 
             onClick={handleAddUser} 

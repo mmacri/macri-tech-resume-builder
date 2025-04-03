@@ -68,6 +68,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (error) {
         console.error('Error checking admin status:', error);
         setIsAdmin(false);
+        
+        // If the profile doesn't exist, create it
+        if (error.code === 'PGRST116') {
+          console.log("Profile not found, creating default profile");
+          const { error: insertError } = await supabase
+            .from('profiles')
+            .insert({
+              id: userId,
+              is_admin: false,
+              full_name: user?.user_metadata?.full_name || '',
+              username: user?.email?.split('@')[0] || ''
+            });
+            
+          if (insertError) {
+            console.error('Error creating profile:', insertError);
+          }
+        }
       } else {
         console.log("Admin check result:", data);
         setIsAdmin(data?.is_admin || false);
@@ -97,6 +114,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       
       console.log("Sign in successful, data:", data);
+      
+      // Ensure profile exists
+      if (data.user) {
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', data.user.id)
+          .single();
+          
+        if (profileError) {
+          console.log("Profile not found, creating default profile");
+          const { error: insertError } = await supabase
+            .from('profiles')
+            .insert({
+              id: data.user.id,
+              is_admin: false,
+              full_name: data.user.user_metadata?.full_name || '',
+              username: data.user.email?.split('@')[0] || ''
+            });
+            
+          if (insertError) {
+            console.error('Error creating profile:', insertError);
+          }
+        } else {
+          console.log("Profile found:", profileData);
+          // Update isAdmin state based on profile
+          setIsAdmin(profileData?.is_admin || false);
+        }
+      }
+      
       toast.success('Signed in successfully');
     } catch (error: any) {
       console.error("Sign in error:", error);
