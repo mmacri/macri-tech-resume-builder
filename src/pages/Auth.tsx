@@ -1,7 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,9 +10,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { useEffect } from 'react';
 import { toast } from 'sonner';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2 } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address' }),
@@ -27,22 +26,11 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 const Auth = () => {
   const { signIn, signUp, user } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
-  const [defaultTab, setDefaultTab] = useState('login');
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const tab = queryParams.get('tab');
-    if (tab === 'signup') {
-      setDefaultTab('signup');
-    }
-  }, []);
-
+  // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      console.log("User is logged in, redirecting to home:", user.email);
       navigate('/');
     }
   }, [user, navigate]);
@@ -65,15 +53,11 @@ const Auth = () => {
 
   const handleLogin = async (values: LoginFormValues) => {
     setIsLoading(true);
-    setError(null);
-    
     try {
-      console.log(`Attempting to login with email: ${values.email}`);
       await signIn(values.email, values.password);
-      // The redirect is handled in the useEffect hook
-    } catch (error: any) {
+      navigate('/');
+    } catch (error) {
       console.error('Login error:', error);
-      setError(error.message || 'Failed to login. Please check your credentials and try again.');
     } finally {
       setIsLoading(false);
     }
@@ -81,24 +65,12 @@ const Auth = () => {
 
   const handleSignup = async (values: SignupFormValues) => {
     setIsLoading(true);
-    setError(null);
-    
     try {
-      console.log(`Attempting to signup with email: ${values.email}`);
-      const response = await signUp(values.email, values.password);
-      
-      // Handle the various possible states after signup
-      if (response.data?.user) {
-        loginForm.setValue('email', values.email);
-        loginForm.setValue('password', values.password);
-        setDefaultTab('login');
-        toast.success('Account created! Please check your email to verify your account before signing in.');
-      } else {
-        toast.error('Something went wrong during signup.');
-      }
-    } catch (error: any) {
+      await signUp(values.email, values.password);
+      toast.success('Please check your email to verify your account');
+      // Don't navigate away, let them verify first
+    } catch (error) {
       console.error('Signup error:', error);
-      setError(error.message || 'Failed to create account. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -114,13 +86,7 @@ const Auth = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {error && (
-            <Alert variant="destructive" className="mb-4">
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
-          
-          <Tabs defaultValue={defaultTab} className="w-full">
+          <Tabs defaultValue="login" className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="login">Login</TabsTrigger>
               <TabsTrigger value="signup">Sign Up</TabsTrigger>
@@ -155,14 +121,7 @@ const Auth = () => {
                     )}
                   />
                   <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Logging in...
-                      </>
-                    ) : (
-                      'Login'
-                    )}
+                    {isLoading ? 'Logging in...' : 'Login'}
                   </Button>
                 </form>
               </Form>
@@ -197,29 +156,15 @@ const Auth = () => {
                     )}
                   />
                   <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Creating account...
-                      </>
-                    ) : (
-                      'Sign Up'
-                    )}
+                    {isLoading ? 'Creating account...' : 'Sign Up'}
                   </Button>
                 </form>
               </Form>
             </TabsContent>
           </Tabs>
         </CardContent>
-        <CardFooter className="flex flex-col gap-2">
-          <p className="text-sm text-center text-gray-500 w-full">
-            For testing, you can create a new account or use: 
-            <br />
-            <span className="font-semibold">Email: test@example.com</span>
-            <br />
-            <span className="font-semibold">Password: password123</span>
-          </p>
-          <p className="text-xs text-center text-gray-400 w-full mt-2">
+        <CardFooter className="flex justify-center">
+          <p className="text-sm text-center text-gray-500">
             This site is protected by reCAPTCHA and the{' '}
             <a href="https://policies.google.com/privacy" className="underline">
               Privacy Policy
