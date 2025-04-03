@@ -13,6 +13,7 @@ interface BlogCommentProps {
     name: string | null;
     created_at: string;
     user_id: string | null;
+    updated_at: string;
     approved: boolean | null;
   };
   onCommentDeleted: () => void;

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,6 +34,7 @@ interface BlogComment {
   name: string | null;
   content: string;
   created_at: string;
+  updated_at: string;
   approved: boolean | null;
 }
 
@@ -59,7 +59,6 @@ const Blog = () => {
 
   const { user, isAdmin } = useAuth();
 
-  // Load posts from Supabase on component mount
   useEffect(() => {
     fetchPosts();
     if (isAdmin) {
@@ -107,7 +106,6 @@ const Blog = () => {
 
   const fetchComments = async (postId: string) => {
     if (comments[postId]) {
-      // Comments already loaded, just toggle visibility
       setShowCommentsFor(prev => ({
         ...prev,
         [postId]: !prev[postId]
@@ -122,7 +120,6 @@ const Blog = () => {
         .eq('post_id', postId)
         .order('created_at', { ascending: true });
       
-      // If not admin, only show approved comments
       if (!isAdmin) {
         query = query.eq('approved', true);
       }
@@ -181,10 +178,8 @@ const Blog = () => {
         throw error;
       }
       
-      // Add new post to state
       setPosts(prev => [data, ...prev]);
       
-      // Reset form
       setTitle('');
       setContent('');
       
@@ -228,12 +223,10 @@ const Blog = () => {
         throw error;
       }
       
-      // Update post in state
       setPosts(posts.map(post => 
         post.id === editingPostId ? data : post
       ));
       
-      // Reset edit state
       setEditingPostId(null);
       setEditTitle('');
       setEditContent('');
@@ -274,10 +267,8 @@ const Blog = () => {
         throw error;
       }
       
-      // Remove post from state
       setPosts(posts.filter(post => post.id !== postToDelete));
       
-      // Clean up
       setShowDeleteDialog(false);
       setPostToDelete(null);
       
@@ -301,20 +292,16 @@ const Blog = () => {
         approved: null // Pending approval by default
       };
       
-      // If user is logged in, use their ID
       if (user) {
         commentData.user_id = user.id;
-        commentData.name = user.email; // Or get from profile if available
+        commentData.name = user.email;
         
-        // Auto-approve comments from admin users
         if (isAdmin) {
           commentData.approved = true;
         }
       } else if (commentName.trim()) {
-        // If not logged in but name provided
         commentData.name = commentName;
       } else {
-        // Default anonymous
         commentData.name = 'Anonymous';
       }
       
@@ -328,7 +315,6 @@ const Blog = () => {
         throw error;
       }
       
-      // Add new comment to state if admin or if comment is auto-approved
       if (isAdmin || data.approved === true) {
         setComments(prev => ({
           ...prev,
@@ -338,14 +324,8 @@ const Blog = () => {
         toast.success('Comment submitted for approval!');
       }
       
-      // Reset form
       setCommentContent('');
       if (!user) setCommentName('');
-      
-      // Update pending count if admin
-      if (isAdmin && data.approved === null) {
-        setPendingCommentsCount(prev => prev + 1);
-      }
       
       if (data.approved === true) {
         toast.success('Comment added successfully!');
@@ -357,17 +337,14 @@ const Blog = () => {
   };
 
   const handleCommentApproved = async (postId: string) => {
-    // Refetch pending count when a comment is approved/rejected
     if (isAdmin) {
       fetchPendingCommentsCount();
     }
     
-    // Refetch comments for this post
     await handleCommentDeleted(postId);
   };
 
   const handleCommentDeleted = async (postId: string) => {
-    // Refetch comments for this post
     try {
       let query = supabase
         .from('blog_comments')
@@ -375,7 +352,6 @@ const Blog = () => {
         .eq('post_id', postId)
         .order('created_at', { ascending: true });
       
-      // If not admin, only show approved comments
       if (!isAdmin) {
         query = query.eq('approved', true);
       }
@@ -391,7 +367,6 @@ const Blog = () => {
         [postId]: data || []
       }));
       
-      // Update pending count if admin
       if (isAdmin) {
         fetchPendingCommentsCount();
       }
@@ -409,13 +384,11 @@ const Blog = () => {
     });
   };
 
-  // Filter posts based on search term
   const filteredPosts = posts.filter(post => 
     post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
     post.content.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Count pending comments per post
   const getPendingCommentsCount = (postId: string) => {
     if (!comments[postId]) return 0;
     return comments[postId].filter(comment => comment.approved === null).length;
@@ -608,12 +581,10 @@ const Blog = () => {
                           )}
                         </div>
                         
-                        {/* Comments section */}
                         {showCommentsFor[post.id] && (
                           <div className="mt-6 border-t pt-4">
                             <h4 className="font-bold mb-4">Comments</h4>
                             
-                            {/* Comments list */}
                             {comments[post.id]?.length > 0 ? (
                               <div className="mb-4">
                                 {comments[post.id].map(comment => (
@@ -629,7 +600,6 @@ const Blog = () => {
                               <p className="text-gray-500 mb-4">No comments yet.</p>
                             )}
                             
-                            {/* Add comment form */}
                             <div className="border rounded-lg p-4">
                               <h5 className="font-semibold mb-3">Add a Comment</h5>
                               {!user && (
@@ -714,7 +684,6 @@ const Blog = () => {
         </div>
       )}
 
-      {/* Delete Confirmation Dialog */}
       <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <DialogContent>
           <DialogHeader>

@@ -15,12 +15,19 @@ import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 const queryClient = new QueryClient();
 
+interface NavItem {
+  label: string;
+  href?: string;
+  onClick?: () => Promise<void>;
+  external?: boolean;
+}
+
 const AppRoutes = () => {
   const { user, isAdmin, signOut } = useAuth();
   
   // Navigation items for the sidebar
-  const getHomeNavItems = () => {
-    const baseItems = [
+  const getHomeNavItems = (): NavItem[] => {
+    const baseItems: NavItem[] = [
       { label: "About", href: "#about" },
       { label: "Experience", href: "#experience" },
       { label: "Education", href: "#education" },
@@ -35,7 +42,7 @@ const AppRoutes = () => {
       return [
         ...baseItems,
         ...(isAdmin ? [{ label: "Admin Dashboard", href: "/admin" }] : []),
-        { label: "Logout", onClick: signOut },
+        { label: "Logout", onClick: signOut, href: "#" },
       ];
     } else {
       return [
@@ -45,8 +52,8 @@ const AppRoutes = () => {
     }
   };
 
-  const getPortfolioNavItems = () => {
-    const baseItems = [
+  const getPortfolioNavItems = (): NavItem[] => {
+    const baseItems: NavItem[] = [
       { label: "Index of Projects", href: "#index-of-projects" },
       { label: "Home", href: "/" },
       { label: "Blog", href: "/blog" },
@@ -56,7 +63,7 @@ const AppRoutes = () => {
       return [
         ...baseItems,
         ...(isAdmin ? [{ label: "Admin Dashboard", href: "/admin" }] : []),
-        { label: "Logout", onClick: signOut },
+        { label: "Logout", onClick: signOut, href: "#" },
       ];
     } else {
       return [
@@ -66,8 +73,8 @@ const AppRoutes = () => {
     }
   };
 
-  const getBlogNavItems = () => {
-    const baseItems = [
+  const getBlogNavItems = (): NavItem[] => {
+    const baseItems: NavItem[] = [
       { label: "Recent Posts", href: "#recent-posts" },
       { label: "Home", href: "/" },
       { label: "Portfolio", href: "/portfolio" },
@@ -79,12 +86,12 @@ const AppRoutes = () => {
           ...baseItems,
           { label: "Create Post", href: "#create-post" },
           { label: "Admin Dashboard", href: "/admin" },
-          { label: "Logout", onClick: signOut },
+          { label: "Logout", onClick: signOut, href: "#" },
         ];
       } else {
         return [
           ...baseItems,
-          { label: "Logout", onClick: signOut },
+          { label: "Logout", onClick: signOut, href: "#" },
         ];
       }
     } else {
