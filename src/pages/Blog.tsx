@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -120,9 +119,7 @@ const Blog = () => {
         throw error;
       }
       
-      // Ensure each comment has the approved property properly set
       const transformedData = data?.map(comment => {
-        // Create a properly typed comment with all required fields
         const typedComment: BlogCommentType = {
           id: comment.id,
           content: comment.content,
@@ -131,7 +128,7 @@ const Blog = () => {
           updated_at: comment.updated_at,
           user_id: comment.user_id,
           post_id: comment.post_id,
-          approved: comment.approved === undefined ? null : comment.approved
+          approved: comment.approved
         };
         return typedComment;
       });
@@ -321,7 +318,6 @@ const Blog = () => {
         throw error;
       }
       
-      // Create a properly typed comment with all required fields
       const typedComment: BlogCommentType = {
         id: data.id,
         content: data.content,
@@ -330,7 +326,7 @@ const Blog = () => {
         updated_at: data.updated_at,
         user_id: data.user_id,
         post_id: data.post_id,
-        approved: data.approved === undefined ? null : data.approved
+        approved: data.approved
       };
       
       if (isAdmin || typedComment.approved === true) {
@@ -380,9 +376,7 @@ const Blog = () => {
         throw error;
       }
       
-      // Ensure each comment has the approved property properly set
       const transformedData = data?.map(comment => {
-        // Create a properly typed comment with all required fields
         const typedComment: BlogCommentType = {
           id: comment.id,
           content: comment.content,
@@ -391,7 +385,7 @@ const Blog = () => {
           updated_at: comment.updated_at,
           user_id: comment.user_id,
           post_id: comment.post_id,
-          approved: comment.approved === undefined ? null : comment.approved
+          approved: comment.approved
         };
         return typedComment;
       });
