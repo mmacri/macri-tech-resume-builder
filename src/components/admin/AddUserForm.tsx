@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { UserPlus } from 'lucide-react';
+import { UserPlus, Loader2 } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface AddUserFormProps {
   onUserAdded: () => void;
@@ -14,9 +15,23 @@ interface AddUserFormProps {
 const AddUserForm: React.FC<AddUserFormProps> = ({ onUserAdded }) => {
   const [newUser, setNewUser] = useState({ email: '', password: '', fullName: '', username: '' });
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleAddUser = async () => {
+    // Basic validation
+    if (!newUser.email || !newUser.password) {
+      setError('Email and password are required');
+      return;
+    }
+    
+    if (newUser.password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+    
     setIsLoading(true);
+    setError(null);
+    
     try {
       // First create the user in auth
       const { data: authData, error: authError } = await supabase.auth.admin.createUser({
@@ -45,6 +60,7 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onUserAdded }) => {
       onUserAdded();
     } catch (error: any) {
       console.error('Error creating user:', error);
+      setError(`Failed to create user: ${error.message}`);
       toast.error(`Failed to create user: ${error.message}`);
     } finally {
       setIsLoading(false);
@@ -57,12 +73,20 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onUserAdded }) => {
         <CardTitle>Add New User</CardTitle>
       </CardHeader>
       <CardContent>
+        {error && (
+          <Alert variant="destructive" className="mb-4">
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+        
         <div className="grid gap-4">
           <div className="grid gap-2">
             <Input
               placeholder="Email"
+              type="email"
               value={newUser.email}
               onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+              disabled={isLoading}
             />
           </div>
           <div className="grid gap-2">
@@ -70,6 +94,7 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onUserAdded }) => {
               placeholder="Full Name"
               value={newUser.fullName}
               onChange={(e) => setNewUser({ ...newUser, fullName: e.target.value })}
+              disabled={isLoading}
             />
           </div>
           <div className="grid gap-2">
@@ -77,6 +102,7 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onUserAdded }) => {
               placeholder="Username"
               value={newUser.username}
               onChange={(e) => setNewUser({ ...newUser, username: e.target.value })}
+              disabled={isLoading}
             />
           </div>
           <div className="grid gap-2">
@@ -85,10 +111,19 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onUserAdded }) => {
               placeholder="Password"
               value={newUser.password}
               onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+              disabled={isLoading}
             />
           </div>
-          <Button onClick={handleAddUser} disabled={isLoading} className="flex items-center">
-            <UserPlus className="mr-2 h-4 w-4" />
+          <Button 
+            onClick={handleAddUser} 
+            disabled={isLoading} 
+            className="flex items-center"
+          >
+            {isLoading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <UserPlus className="mr-2 h-4 w-4" />
+            )}
             {isLoading ? 'Adding...' : 'Add User'}
           </Button>
         </div>
