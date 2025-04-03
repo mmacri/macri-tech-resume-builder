@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import BlogComment from '@/components/BlogComment';
+import BlogComment, { BlogComment as BlogCommentType } from '@/components/BlogComment';
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -25,17 +25,6 @@ interface BlogPost {
   created_at: string;
   updated_at?: string;
   user_id: string;
-}
-
-interface BlogComment {
-  id: string;
-  post_id: string;
-  user_id: string | null;
-  name: string | null;
-  content: string;
-  created_at: string;
-  updated_at: string;
-  approved: boolean | null;
 }
 
 const Blog = () => {
@@ -52,7 +41,7 @@ const Blog = () => {
   const [commentName, setCommentName] = useState('');
   const [commentContent, setCommentContent] = useState('');
   const [activePostForComments, setActivePostForComments] = useState<string | null>(null);
-  const [comments, setComments] = useState<Record<string, BlogComment[]>>({});
+  const [comments, setComments] = useState<Record<string, BlogCommentType[]>>({});
   const [showCommentsFor, setShowCommentsFor] = useState<Record<string, boolean>>({});
   const [currentTab, setCurrentTab] = useState<string>('all');
   const [pendingCommentsCount, setPendingCommentsCount] = useState<number>(0);
@@ -133,7 +122,7 @@ const Blog = () => {
       const transformedData = data?.map(comment => ({
         ...comment,
         approved: comment.approved === undefined ? null : comment.approved
-      })) as BlogComment[];
+      })) as BlogCommentType[];
       
       setComments(prev => ({
         ...prev,
@@ -323,7 +312,7 @@ const Blog = () => {
       const transformedData = {
         ...data,
         approved: data.approved === undefined ? null : data.approved
-      } as BlogComment;
+      } as BlogCommentType;
       
       if (isAdmin || transformedData.approved === true) {
         setComments(prev => ({
@@ -375,7 +364,7 @@ const Blog = () => {
       const transformedData = data?.map(comment => ({
         ...comment,
         approved: comment.approved === undefined ? null : comment.approved
-      })) as BlogComment[];
+      })) as BlogCommentType[];
       
       setComments(prev => ({
         ...prev,
