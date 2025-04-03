@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,6 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address' }),
@@ -25,18 +26,16 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 const Auth = () => {
   const { signIn, signUp, user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [defaultTab, setDefaultTab] = useState('login');
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     const tab = queryParams.get('tab');
     if (tab === 'signup') {
       setDefaultTab('signup');
-      if (!signupForm.getValues().email) {
-        signupForm.setValue('email', 'mikemacri@gmail.com');
-        signupForm.setValue('password', '#2Pencil!!');
-      }
     }
   }, []);
 
@@ -64,11 +63,14 @@ const Auth = () => {
 
   const handleLogin = async (values: LoginFormValues) => {
     setIsLoading(true);
+    setError(null);
+    
     try {
       await signIn(values.email, values.password);
       navigate('/');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login error:', error);
+      setError(error.message || 'Failed to login. Please check your credentials and try again.');
     } finally {
       setIsLoading(false);
     }
@@ -76,11 +78,14 @@ const Auth = () => {
 
   const handleSignup = async (values: SignupFormValues) => {
     setIsLoading(true);
+    setError(null);
+    
     try {
       await signUp(values.email, values.password);
       toast.success('Please check your email to verify your account');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Signup error:', error);
+      setError(error.message || 'Failed to create account. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -96,6 +101,12 @@ const Auth = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {error && (
+            <Alert variant="destructive" className="mb-4">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+          
           <Tabs defaultValue={defaultTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="login">Login</TabsTrigger>

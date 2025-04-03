@@ -27,6 +27,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log("Auth state changed:", event, session?.user?.email);
         setSession(session);
         setUser(session?.user ?? null);
 
@@ -41,6 +42,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     // THEN check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log("Existing session check:", session?.user?.email);
       setSession(session);
       setUser(session?.user ?? null);
       
@@ -66,6 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         console.error('Error checking admin status:', error);
         setIsAdmin(false);
       } else {
+        console.log("Admin check result:", data);
         setIsAdmin(data?.is_admin || false);
       }
     } catch (error) {
@@ -76,7 +79,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -85,8 +88,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         throw error;
       }
       
+      console.log("Sign in successful:", data);
       toast.success('Signed in successfully');
     } catch (error: any) {
+      console.error("Sign in error:", error);
       toast.error(error.message || 'Error signing in');
       throw error;
     }
@@ -94,7 +99,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signUp = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
       });
@@ -103,8 +108,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         throw error;
       }
       
+      console.log("Sign up successful:", data);
       toast.success('Signed up successfully! Please check your email for verification.');
     } catch (error: any) {
+      console.error("Sign up error:", error);
       toast.error(error.message || 'Error signing up');
       throw error;
     }
