@@ -70,7 +70,7 @@ const Auth = () => {
     try {
       console.log(`Attempting to login with email: ${values.email}`);
       await signIn(values.email, values.password);
-      navigate('/');
+      // The redirect is handled in the useEffect hook
     } catch (error: any) {
       console.error('Login error:', error);
       setError(error.message || 'Failed to login. Please check your credentials and try again.');
@@ -86,7 +86,10 @@ const Auth = () => {
     try {
       console.log(`Attempting to signup with email: ${values.email}`);
       await signUp(values.email, values.password);
-      toast.success('Please check your email to verify your account');
+      loginForm.setValue('email', values.email);
+      loginForm.setValue('password', values.password);
+      setDefaultTab('login');
+      toast.success('Account created! Please check your email to verify your account before signing in.');
     } catch (error: any) {
       console.error('Signup error:', error);
       setError(error.message || 'Failed to create account. Please try again.');
@@ -202,8 +205,15 @@ const Auth = () => {
             </TabsContent>
           </Tabs>
         </CardContent>
-        <CardFooter className="flex justify-center">
-          <p className="text-sm text-center text-gray-500">
+        <CardFooter className="flex flex-col gap-2">
+          <p className="text-sm text-center text-gray-500 w-full">
+            For testing, you can create a new account or use: 
+            <br />
+            <span className="font-semibold">Email: test@example.com</span>
+            <br />
+            <span className="font-semibold">Password: password123</span>
+          </p>
+          <p className="text-xs text-center text-gray-400 w-full mt-2">
             This site is protected by reCAPTCHA and the{' '}
             <a href="https://policies.google.com/privacy" className="underline">
               Privacy Policy

@@ -33,7 +33,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
         // Check if user is admin
         if (session?.user) {
-          checkIfAdmin(session.user.id);
+          // Use setTimeout to avoid Supabase SDK deadlock issues
+          setTimeout(() => {
+            checkIfAdmin(session.user.id);
+          }, 0);
         } else {
           setIsAdmin(false);
         }
@@ -63,7 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .from('profiles')
         .select('is_admin')
         .eq('id', userId)
-        .single();
+        .maybeSingle(); // Using maybeSingle instead of single to avoid errors
         
       if (error) {
         console.error('Error checking admin status:', error);
@@ -72,18 +75,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // If the profile doesn't exist, create it
         if (error.code === 'PGRST116') {
           console.log("Profile not found, creating default profile");
-          const { error: insertError } = await supabase
-            .from('profiles')
-            .insert({
-              id: userId,
-              is_admin: false,
-              full_name: user?.user_metadata?.full_name || '',
-              username: user?.email?.split('@')[0] || ''
-            });
-            
-          if (insertError) {
-            console.error('Error creating profile:', insertError);
-          }
+          await createDefaultProfile(userId);
         }
       } else {
         console.log("Admin check result:", data);
@@ -92,6 +84,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       console.error('Error checking admin status:', error);
       setIsAdmin(false);
+    }
+  };
+
+  const createDefaultProfile = async (userId: string) => {
+    try {
+      const { data: userData } = await supabase.auth.getUser();
+      
+      const { error: insertError } = await supabase
+        .from('profiles')
+        .insert({
+          id: userId,
+          is_admin: false,
+          full_name: userData.user?.user_metadata?.full_name || '',
+          username: userData.user?.email?.split('@')[0] || ''
+        });
+        
+      if (insertError) {
+        console.error('Error creating profile:', insertError);
+      }
+    } catch (error) {
+      console.error('Error creating default profile:', error);
     }
   };
 
@@ -115,39 +128,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       
       console.log("Sign in successful, data:", data);
       
-      // Ensure profile exists
-      if (data.user) {
-        const { data: profileData, error: profileError } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', data.user.id)
-          .single();
-          
-        if (profileError) {
-          console.log("Profile not found, creating default profile");
-          const { error: insertError } = await supabase
-            .from('profiles')
-            .insert({
-              id: data.user.id,
-              is_admin: false,
-              full_name: data.user.user_metadata?.full_name || '',
-              username: data.user.email?.split('@')[0] || ''
-            });
-            
-          if (insertError) {
-            console.error('Error creating profile:', insertError);
-          }
+      toast.success('Signed in successfully');
+      return data;
+    } catch (error: any) {
+      console.error("Sign in error:", error);
+      
+      // Improved error handling with specific messages
+      let errorMessage = 'Error signing in';
+      if (error.message) {
+        if (error.message.includes('Invalid login credentials')) {
+          errorMessage = 'Invalid email or password';
+        } else if (error.message.includes('Email not confirmed')) {
+          errorMessage = 'Please confirm your email before signing in';
         } else {
-          console.log("Profile found:", profileData);
-          // Update isAdmin state based on profile
-          setIsAdmin(profileData?.is_admin || false);
+          errorMessage = error.message;
         }
       }
       
-      toast.success('Signed in successfully');
-    } catch (error: any) {
-      console.error("Sign in error:", error);
-      toast.error(error.message || 'Error signing in');
+      toast.error(errorMessage);
       throw error;
     }
   };
@@ -189,9 +187,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       
       toast.success('Signed up successfully! Please check your email for verification.');
+      return data;
     } catch (error: any) {
       console.error("Sign up error:", error);
-      toast.error(error.message || 'Error signing up');
+      
+      // Improved error handling with specific messages
+      let errorMessage = 'Error signing up';
+      if (error.message) {
+        if (error.message.includes('already registered')) {
+          errorMessage = 'This email is already registered';
+        } else {
+          errorMessage = error.message;
+        }
+      }
+      
+      toast.error(errorMessage);
       throw error;
     }
   };
