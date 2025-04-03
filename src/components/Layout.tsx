@@ -2,7 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Sidebar, 
-  SidebarProvider 
+  SidebarProvider,
+  SidebarContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarFooter,
 } from './ui/sidebar';
 import { Button } from './ui/button';
 import { Menu, X } from 'lucide-react';
@@ -60,11 +66,40 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
         )}
         <div className="flex flex-1">
           <Sidebar
-            items={filteredNavItems}
-            avatar={profileImage}
-            name={name}
             className={mobile ? "fixed top-[49px] z-30 h-[calc(100vh-49px)]" : "sticky top-0 h-screen"}
-          />
+          >
+            <SidebarHeader>
+              {profileImage && name && (
+                <div className="flex items-center gap-2 p-2">
+                  <img src={profileImage} alt={name} className="h-8 w-8 rounded-full object-cover" />
+                  <span className="font-semibold">{name}</span>
+                </div>
+              )}
+            </SidebarHeader>
+            <SidebarContent>
+              <SidebarMenu>
+                {filteredNavItems.map((item, index) => (
+                  <SidebarMenuItem key={index}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={location.pathname === item.href || location.hash === item.href}
+                    >
+                      {item.external ? (
+                        <a href={item.href} target="_blank" rel="noopener noreferrer">
+                          {item.label}
+                        </a>
+                      ) : (
+                        <a href={item.href}>
+                          {item.label}
+                        </a>
+                      )}
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarContent>
+            <SidebarFooter />
+          </Sidebar>
           <div className="flex-1">
             <div className="container mx-auto p-4 md:p-8">
               {user && isAdmin && <AdminButtons />}
