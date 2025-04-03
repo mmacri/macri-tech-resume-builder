@@ -11,6 +11,7 @@ export type Database = {
     Tables: {
       blog_comments: {
         Row: {
+          approved: boolean | null
           content: string
           created_at: string
           id: string
@@ -20,6 +21,7 @@ export type Database = {
           user_id: string | null
         }
         Insert: {
+          approved?: boolean | null
           content: string
           created_at?: string
           id?: string
@@ -29,6 +31,7 @@ export type Database = {
           user_id?: string | null
         }
         Update: {
+          approved?: boolean | null
           content?: string
           created_at?: string
           id?: string

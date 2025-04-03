@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -119,10 +120,21 @@ const Blog = () => {
         throw error;
       }
       
-      const transformedData = data?.map(comment => ({
-        ...comment,
-        approved: comment.approved === undefined ? null : comment.approved
-      })) as BlogCommentType[];
+      // Ensure each comment has the approved property properly set
+      const transformedData = data?.map(comment => {
+        // Create a properly typed comment with all required fields
+        const typedComment: BlogCommentType = {
+          id: comment.id,
+          content: comment.content,
+          name: comment.name,
+          created_at: comment.created_at,
+          updated_at: comment.updated_at,
+          user_id: comment.user_id,
+          post_id: comment.post_id,
+          approved: comment.approved === undefined ? null : comment.approved
+        };
+        return typedComment;
+      });
       
       setComments(prev => ({
         ...prev,
@@ -309,15 +321,22 @@ const Blog = () => {
         throw error;
       }
       
-      const transformedData = {
-        ...data,
+      // Create a properly typed comment with all required fields
+      const typedComment: BlogCommentType = {
+        id: data.id,
+        content: data.content,
+        name: data.name,
+        created_at: data.created_at,
+        updated_at: data.updated_at,
+        user_id: data.user_id,
+        post_id: data.post_id,
         approved: data.approved === undefined ? null : data.approved
-      } as BlogCommentType;
+      };
       
-      if (isAdmin || transformedData.approved === true) {
+      if (isAdmin || typedComment.approved === true) {
         setComments(prev => ({
           ...prev,
-          [postId]: [...(prev[postId] || []), transformedData]
+          [postId]: [...(prev[postId] || []), typedComment]
         }));
       } else {
         toast.success('Comment submitted for approval!');
@@ -326,7 +345,7 @@ const Blog = () => {
       setCommentContent('');
       if (!user) setCommentName('');
       
-      if (transformedData.approved === true) {
+      if (typedComment.approved === true) {
         toast.success('Comment added successfully!');
       }
     } catch (error: any) {
@@ -361,10 +380,21 @@ const Blog = () => {
         throw error;
       }
       
-      const transformedData = data?.map(comment => ({
-        ...comment,
-        approved: comment.approved === undefined ? null : comment.approved
-      })) as BlogCommentType[];
+      // Ensure each comment has the approved property properly set
+      const transformedData = data?.map(comment => {
+        // Create a properly typed comment with all required fields
+        const typedComment: BlogCommentType = {
+          id: comment.id,
+          content: comment.content,
+          name: comment.name,
+          created_at: comment.created_at,
+          updated_at: comment.updated_at,
+          user_id: comment.user_id,
+          post_id: comment.post_id,
+          approved: comment.approved === undefined ? null : comment.approved
+        };
+        return typedComment;
+      });
       
       setComments(prev => ({
         ...prev,
