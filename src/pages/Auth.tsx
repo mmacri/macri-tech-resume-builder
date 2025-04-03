@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Loader2 } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address' }),
@@ -41,6 +42,7 @@ const Auth = () => {
 
   useEffect(() => {
     if (user) {
+      console.log("User is logged in, redirecting to home:", user.email);
       navigate('/');
     }
   }, [user, navigate]);
@@ -66,6 +68,7 @@ const Auth = () => {
     setError(null);
     
     try {
+      console.log(`Attempting to login with email: ${values.email}`);
       await signIn(values.email, values.password);
       navigate('/');
     } catch (error: any) {
@@ -81,6 +84,7 @@ const Auth = () => {
     setError(null);
     
     try {
+      console.log(`Attempting to signup with email: ${values.email}`);
       await signUp(values.email, values.password);
       toast.success('Please check your email to verify your account');
     } catch (error: any) {
@@ -142,7 +146,14 @@ const Auth = () => {
                     )}
                   />
                   <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? 'Logging in...' : 'Login'}
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Logging in...
+                      </>
+                    ) : (
+                      'Login'
+                    )}
                   </Button>
                 </form>
               </Form>
@@ -177,7 +188,14 @@ const Auth = () => {
                     )}
                   />
                   <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? 'Creating account...' : 'Sign Up'}
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Creating account...
+                      </>
+                    ) : (
+                      'Sign Up'
+                    )}
                   </Button>
                 </form>
               </Form>

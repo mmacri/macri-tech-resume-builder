@@ -58,6 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkIfAdmin = async (userId: string) => {
     try {
+      console.log("Checking admin status for user ID:", userId);
       const { data, error } = await supabase
         .from('profiles')
         .select('is_admin')
@@ -79,69 +80,116 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     try {
+      console.log("Attempting to sign in with email:", email);
+      
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) {
+        console.error("Sign in error details:", {
+          message: error.message,
+          status: error.status,
+          name: error.name
+        });
         throw error;
       }
       
-      console.log("Sign in successful:", data);
+      console.log("Sign in successful, data:", data);
       toast.success('Signed in successfully');
     } catch (error: any) {
       console.error("Sign in error:", error);
-      toast.error(error.message || 'Error signing in');
+      const errorMessage = error.message || 'Error signing in';
+      console.error("Detailed error information:", {
+        message: errorMessage,
+        code: error.code,
+        status: error.status,
+        name: error?.name,
+      });
+      toast.error(errorMessage);
       throw error;
     }
   };
 
   const signUp = async (email: string, password: string) => {
     try {
+      console.log("Attempting to sign up with email:", email);
+      
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
       });
 
       if (error) {
+        console.error("Sign up error details:", {
+          message: error.message,
+          status: error.status,
+          name: error.name
+        });
         throw error;
       }
       
-      console.log("Sign up successful:", data);
+      console.log("Sign up successful, data:", data);
       toast.success('Signed up successfully! Please check your email for verification.');
     } catch (error: any) {
       console.error("Sign up error:", error);
-      toast.error(error.message || 'Error signing up');
+      const errorMessage = error.message || 'Error signing up';
+      console.error("Detailed error information:", {
+        message: errorMessage,
+        code: error.code,
+        status: error.status,
+        name: error?.name,
+      });
+      toast.error(errorMessage);
       throw error;
     }
   };
 
   const signOut = async () => {
     try {
+      console.log("Attempting to sign out");
       const { error } = await supabase.auth.signOut();
       if (error) {
         throw error;
       }
+      console.log("Sign out successful");
       toast.success('Signed out successfully');
     } catch (error: any) {
+      console.error("Sign out error:", error);
       toast.error(error.message || 'Error signing out');
     }
   };
 
   const resetPassword = async (email: string) => {
     try {
+      console.log("Attempting to reset password for email:", email);
+      
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/auth?tab=reset`,
       });
       
       if (error) {
+        console.error("Password reset error details:", {
+          message: error.message,
+          status: error.status,
+          name: error.name
+        });
         throw error;
       }
       
+      console.log("Password reset email sent successfully");
       toast.success('Password reset email sent. Please check your inbox.');
     } catch (error: any) {
-      toast.error(error.message || 'Error sending password reset email');
+      console.error("Password reset error:", error);
+      const errorMessage = error.message || 'Error sending password reset email';
+      console.error("Detailed error information:", {
+        message: errorMessage,
+        code: error.code,
+        status: error.status,
+        name: error?.name,
+      });
+      toast.error(errorMessage);
       throw error;
     }
   };
