@@ -147,14 +147,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       toast.success('Signed in successfully');
     } catch (error: any) {
       console.error("Sign in error:", error);
-      const errorMessage = error.message || 'Error signing in';
-      console.error("Detailed error information:", {
-        message: errorMessage,
-        code: error.code,
-        status: error.status,
-        name: error?.name,
-      });
-      toast.error(errorMessage);
+      toast.error(error.message || 'Error signing in');
       throw error;
     }
   };
@@ -178,17 +171,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       
       console.log("Sign up successful, data:", data);
+      
+      // Create a profile for the new user
+      if (data.user) {
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert({
+            id: data.user.id,
+            is_admin: false,
+            full_name: data.user.user_metadata?.full_name || '',
+            username: email.split('@')[0] || ''
+          });
+          
+        if (profileError) {
+          console.error('Error creating profile:', profileError);
+        }
+      }
+      
       toast.success('Signed up successfully! Please check your email for verification.');
     } catch (error: any) {
       console.error("Sign up error:", error);
-      const errorMessage = error.message || 'Error signing up';
-      console.error("Detailed error information:", {
-        message: errorMessage,
-        code: error.code,
-        status: error.status,
-        name: error?.name,
-      });
-      toast.error(errorMessage);
+      toast.error(error.message || 'Error signing up');
       throw error;
     }
   };
@@ -229,14 +232,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       toast.success('Password reset email sent. Please check your inbox.');
     } catch (error: any) {
       console.error("Password reset error:", error);
-      const errorMessage = error.message || 'Error sending password reset email';
-      console.error("Detailed error information:", {
-        message: errorMessage,
-        code: error.code,
-        status: error.status,
-        name: error?.name,
-      });
-      toast.error(errorMessage);
+      toast.error(error.message || 'Error sending password reset email');
       throw error;
     }
   };
