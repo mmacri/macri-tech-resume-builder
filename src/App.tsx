@@ -11,44 +11,124 @@ import Portfolio from "./pages/Portfolio";
 import Blog from "./pages/Blog";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 const queryClient = new QueryClient();
 
-// Navigation items for the sidebar
-const homeNavItems = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Education", href: "#education" },
-  { label: "Skills & Methods", href: "#skills" },
-  { label: "Interests", href: "#interests" },
-  { label: "Awards & Certs", href: "#awards" },
-  { label: "Project Portfolio", href: "/portfolio" },
-  { label: "Blog", href: "/blog" },
-  { label: "Login", href: "/auth" },
-];
+const AppRoutes = () => {
+  const { user, isAdmin, signOut } = useAuth();
+  
+  // Navigation items for the sidebar
+  const getHomeNavItems = () => {
+    const baseItems = [
+      { label: "About", href: "#about" },
+      { label: "Experience", href: "#experience" },
+      { label: "Education", href: "#education" },
+      { label: "Skills & Methods", href: "#skills" },
+      { label: "Interests", href: "#interests" },
+      { label: "Awards & Certs", href: "#awards" },
+      { label: "Project Portfolio", href: "/portfolio" },
+      { label: "Blog", href: "/blog" },
+    ];
+    
+    if (user) {
+      return [
+        ...baseItems,
+        ...(isAdmin ? [{ label: "Admin Dashboard", href: "/admin" }] : []),
+        { label: "Logout", onClick: signOut },
+      ];
+    } else {
+      return [
+        ...baseItems,
+        { label: "Login", href: "/auth" },
+      ];
+    }
+  };
 
-const portfolioNavItems = [
-  { label: "Index of Projects", href: "#index-of-projects" },
-  { label: "Sentiment Analyzer", href: "#sentiment-analyzer" },
-  { label: "Financial Dashboard", href: "#financial-dashboard" },
-  { label: "AI/ML Policies", href: "#ai-ml-policies" },
-  { label: "Policy Registrar", href: "#policy-registrar" },
-  { label: "Customer Engagement Deliverables", href: "#customer-engagement-deliverables" },
-  { label: "Portfolio Website", href: "#portfolio-website" },
-  { label: "Home", href: "/" },
-  { label: "Blog", href: "/blog" },
-  { label: "Login", href: "/auth" },
-];
+  const getPortfolioNavItems = () => {
+    const baseItems = [
+      { label: "Index of Projects", href: "#index-of-projects" },
+      { label: "Home", href: "/" },
+      { label: "Blog", href: "/blog" },
+    ];
+    
+    if (user) {
+      return [
+        ...baseItems,
+        ...(isAdmin ? [{ label: "Admin Dashboard", href: "/admin" }] : []),
+        { label: "Logout", onClick: signOut },
+      ];
+    } else {
+      return [
+        ...baseItems,
+        { label: "Login", href: "/auth" },
+      ];
+    }
+  };
 
-const blogNavItems = [
-  { label: "Recent Posts", href: "#recent-posts" },
-  { label: "Create Post", href: "#create-post" },
-  { label: "Search", href: "#", external: true },
-  { label: "Home", href: "/" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Login", href: "/auth" },
-];
+  const getBlogNavItems = () => {
+    const baseItems = [
+      { label: "Recent Posts", href: "#recent-posts" },
+      { label: "Home", href: "/" },
+      { label: "Portfolio", href: "/portfolio" },
+    ];
+    
+    if (user) {
+      if (isAdmin) {
+        return [
+          ...baseItems,
+          { label: "Create Post", href: "#create-post" },
+          { label: "Admin Dashboard", href: "/admin" },
+          { label: "Logout", onClick: signOut },
+        ];
+      } else {
+        return [
+          ...baseItems,
+          { label: "Logout", onClick: signOut },
+        ];
+      }
+    } else {
+      return [
+        ...baseItems,
+        { label: "Login", href: "/auth" },
+      ];
+    }
+  };
+
+  return (
+    <Routes>
+      <Route path="/" element={
+        <Layout 
+          navItems={getHomeNavItems()} 
+          profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+          name="Mike Macri"
+        >
+          <Home />
+        </Layout>
+      } />
+      <Route path="/portfolio" element={
+        <Layout 
+          navItems={getPortfolioNavItems()} 
+          profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+          name="Mike Macri"
+        >
+          <Portfolio />
+        </Layout>
+      } />
+      <Route path="/blog" element={
+        <Layout 
+          navItems={getBlogNavItems()} 
+          profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+          name="Mike Macri"
+        >
+          <Blog />
+        </Layout>
+      } />
+      <Route path="/auth" element={<Auth />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
 
 const App = () => {
   // Add FontAwesome script to document
@@ -72,37 +152,7 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={
-                <Layout 
-                  navItems={homeNavItems} 
-                  profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-                  name="Mike Macri"
-                >
-                  <Home />
-                </Layout>
-              } />
-              <Route path="/portfolio" element={
-                <Layout 
-                  navItems={portfolioNavItems} 
-                  profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-                  name="Mike Macri"
-                >
-                  <Portfolio />
-                </Layout>
-              } />
-              <Route path="/blog" element={
-                <Layout 
-                  navItems={blogNavItems} 
-                  profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-                  name="Mike Macri"
-                >
-                  <Blog />
-                </Layout>
-              } />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <AppRoutes />
           </BrowserRouter>
         </AuthProvider>
       </TooltipProvider>

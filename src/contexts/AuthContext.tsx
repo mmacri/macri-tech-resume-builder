@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { Session, User } from '@supabase/supabase-js';
+import { Session, User, AuthResponse } from '@supabase/supabase-js';
 import { toast } from 'sonner';
 
 type AuthContextType = {
@@ -9,9 +9,10 @@ type AuthContextType = {
   user: User | null;
   isAdmin: boolean;
   isLoading: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<AuthResponse>;
+  signUp: (email: string, password: string) => Promise<AuthResponse>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -25,13 +26,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
+      (event, currentSession) => {
+        setSession(currentSession);
+        setUser(currentSession?.user ?? null);
 
-        // Check if user is admin
-        if (session?.user) {
-          checkIfAdmin(session.user.id);
+        // Check if user is admin - use setTimeout to prevent potential deadlocks
+        if (currentSession?.user) {
+          setTimeout(() => {
+            checkIfAdmin(currentSession.user.id);
+          }, 0);
         } else {
           setIsAdmin(false);
         }
@@ -39,13 +42,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     );
 
     // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
+    supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
+      setSession(currentSession);
+      setUser(currentSession?.user ?? null);
       
       // Check if user is admin
-      if (session?.user) {
-        checkIfAdmin(session.user.id);
+      if (currentSession?.user) {
+        checkIfAdmin(currentSession.user.id);
       }
       setIsLoading(false);
     });
@@ -64,8 +67,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (error) {
         console.error('Error checking admin status:', error);
         setIsAdmin(false);
-      } else {
-        setIsAdmin(data?.is_admin || false);
+        return;
+      } 
+      
+      setIsAdmin(data?.is_admin || false);
+      
+      // Create profile if it doesn't exist
+      if (!data) {
+        await createUserProfile(userId);
       }
     } catch (error) {
       console.error('Error checking admin status:', error);
@@ -73,18 +82,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const createUserProfile = async (userId: string) => {
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .insert([
+          { 
+            id: userId,
+            is_admin: false // Default to non-admin
+          }
+        ]);
+        
+      if (error) {
+        console.error('Error creating user profile:', error);
+      }
+    } catch (error) {
+      console.error('Error creating user profile:', error);
+    }
+  };
+
   const signIn = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const response = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) {
-        throw error;
+      if (response.error) {
+        toast.error(response.error.message || 'Error signing in');
+        throw response.error;
       }
       
       toast.success('Signed in successfully');
+      return response;
     } catch (error: any) {
       toast.error(error.message || 'Error signing in');
       throw error;
@@ -93,16 +123,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signUp = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signUp({
+      const response = await supabase.auth.signUp({
         email,
         password,
       });
 
-      if (error) {
-        throw error;
+      if (response.error) {
+        toast.error(response.error.message || 'Error signing up');
+        throw response.error;
       }
       
       toast.success('Signed up successfully! Please check your email for verification.');
+      return response;
     } catch (error: any) {
       toast.error(error.message || 'Error signing up');
       throw error;
@@ -113,11 +145,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) {
+        toast.error(error.message || 'Error signing out');
         throw error;
       }
       toast.success('Signed out successfully');
     } catch (error: any) {
       toast.error(error.message || 'Error signing out');
+    }
+  };
+
+  const resetPassword = async (email: string) => {
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth?reset=true`,
+      });
+      
+      if (error) {
+        toast.error(error.message || 'Error resetting password');
+        throw error;
+      }
+      
+      toast.success('Password reset email sent. Please check your inbox.');
+    } catch (error: any) {
+      toast.error(error.message || 'Error resetting password');
+      throw error;
     }
   };
 
@@ -129,6 +180,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     signIn,
     signUp,
     signOut,
+    resetPassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

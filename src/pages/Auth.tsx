@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,8 +10,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { useEffect } from 'react';
 import { toast } from 'sonner';
+import { AlertCircle } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address' }),
@@ -20,13 +21,21 @@ const loginSchema = z.object({
 
 const signupSchema = loginSchema;
 
+const resetSchema = z.object({
+  email: z.string().email({ message: 'Please enter a valid email address' }),
+});
+
 type LoginFormValues = z.infer<typeof loginSchema>;
 type SignupFormValues = z.infer<typeof signupSchema>;
+type ResetFormValues = z.infer<typeof resetSchema>;
 
 const Auth = () => {
-  const { signIn, signUp, user } = useAuth();
+  const { signIn, signUp, resetPassword, user } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<string>(searchParams.get('reset') ? 'reset' : 'login');
 
   // Redirect if already logged in
   useEffect(() => {
@@ -51,13 +60,26 @@ const Auth = () => {
     },
   });
 
+  const resetForm = useForm<ResetFormValues>({
+    resolver: zodResolver(resetSchema),
+    defaultValues: {
+      email: '',
+    },
+  });
+
   const handleLogin = async (values: LoginFormValues) => {
     setIsLoading(true);
+    setAuthError(null);
     try {
       await signIn(values.email, values.password);
-      navigate('/');
-    } catch (error) {
+      // The redirect will happen automatically via the useEffect
+    } catch (error: any) {
       console.error('Login error:', error);
+      if (error.message) {
+        setAuthError(error.message);
+      } else {
+        setAuthError('An unexpected error occurred during login.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -65,12 +87,37 @@ const Auth = () => {
 
   const handleSignup = async (values: SignupFormValues) => {
     setIsLoading(true);
+    setAuthError(null);
     try {
       await signUp(values.email, values.password);
-      toast.success('Please check your email to verify your account');
-      // Don't navigate away, let them verify first
-    } catch (error) {
+      // Don't redirect away since we want user to confirm their email
+      // Instead, show a success message and direct them to login tab
+      setActiveTab('login');
+    } catch (error: any) {
       console.error('Signup error:', error);
+      if (error.message) {
+        setAuthError(error.message);
+      } else {
+        setAuthError('An unexpected error occurred during signup.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResetPassword = async (values: ResetFormValues) => {
+    setIsLoading(true);
+    setAuthError(null);
+    try {
+      await resetPassword(values.email);
+      // Don't navigate away, let user check their email
+    } catch (error: any) {
+      console.error('Password reset error:', error);
+      if (error.message) {
+        setAuthError(error.message);
+      } else {
+        setAuthError('An unexpected error occurred during password reset.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -86,11 +133,22 @@ const Auth = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6">
+          {authError && (
+            <Alert variant="destructive" className="mb-4">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                {authError}
+              </AlertDescription>
+            </Alert>
+          )}
+          
+          <Tabs defaultValue={activeTab} value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-3 mb-6">
               <TabsTrigger value="login">Login</TabsTrigger>
               <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              <TabsTrigger value="reset">Reset</TabsTrigger>
             </TabsList>
+            
             <TabsContent value="login">
               <Form {...loginForm}>
                 <form onSubmit={loginForm.handleSubmit(handleLogin)} className="space-y-4">
@@ -126,6 +184,7 @@ const Auth = () => {
                 </form>
               </Form>
             </TabsContent>
+            
             <TabsContent value="signup">
               <Form {...signupForm}>
                 <form onSubmit={signupForm.handleSubmit(handleSignup)} className="space-y-4">
@@ -157,6 +216,29 @@ const Auth = () => {
                   />
                   <Button type="submit" className="w-full" disabled={isLoading}>
                     {isLoading ? 'Creating account...' : 'Sign Up'}
+                  </Button>
+                </form>
+              </Form>
+            </TabsContent>
+            
+            <TabsContent value="reset">
+              <Form {...resetForm}>
+                <form onSubmit={resetForm.handleSubmit(handleResetPassword)} className="space-y-4">
+                  <FormField
+                    control={resetForm.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input placeholder="email@example.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? 'Sending reset email...' : 'Reset Password'}
                   </Button>
                 </form>
               </Form>

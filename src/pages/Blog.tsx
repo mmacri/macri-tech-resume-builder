@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Search, Edit, Trash2, Save, X, PlusCircle, MessageCircle } from "lucide-react";
+import { Search, Edit, Trash2, Save, X, PlusCircle, MessageCircle, Clock } from "lucide-react";
 import { 
   Dialog,
   DialogContent,
@@ -15,6 +15,9 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import BlogComment from '@/components/BlogComment';
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface BlogPost {
   id: string;
@@ -32,6 +35,7 @@ interface BlogComment {
   name: string | null;
   content: string;
   created_at: string;
+  approved: boolean | null;
 }
 
 const Blog = () => {
@@ -50,13 +54,18 @@ const Blog = () => {
   const [activePostForComments, setActivePostForComments] = useState<string | null>(null);
   const [comments, setComments] = useState<Record<string, BlogComment[]>>({});
   const [showCommentsFor, setShowCommentsFor] = useState<Record<string, boolean>>({});
-  
+  const [currentTab, setCurrentTab] = useState<string>('all');
+  const [pendingCommentsCount, setPendingCommentsCount] = useState<number>(0);
+
   const { user, isAdmin } = useAuth();
 
   // Load posts from Supabase on component mount
   useEffect(() => {
     fetchPosts();
-  }, []);
+    if (isAdmin) {
+      fetchPendingCommentsCount();
+    }
+  }, [isAdmin]);
 
   const fetchPosts = async () => {
     try {
@@ -79,6 +88,23 @@ const Blog = () => {
     }
   };
 
+  const fetchPendingCommentsCount = async () => {
+    try {
+      const { count, error } = await supabase
+        .from('blog_comments')
+        .select('*', { count: 'exact', head: true })
+        .is('approved', null);
+        
+      if (error) {
+        throw error;
+      }
+      
+      setPendingCommentsCount(count || 0);
+    } catch (error: any) {
+      console.error('Error fetching pending comments count:', error);
+    }
+  };
+
   const fetchComments = async (postId: string) => {
     if (comments[postId]) {
       // Comments already loaded, just toggle visibility
@@ -90,11 +116,18 @@ const Blog = () => {
     }
     
     try {
-      const { data, error } = await supabase
+      let query = supabase
         .from('blog_comments')
         .select('*')
         .eq('post_id', postId)
         .order('created_at', { ascending: true });
+      
+      // If not admin, only show approved comments
+      if (!isAdmin) {
+        query = query.eq('approved', true);
+      }
+        
+      const { data, error } = await query;
         
       if (error) {
         throw error;
@@ -265,12 +298,18 @@ const Blog = () => {
       const commentData: any = {
         post_id: postId,
         content: commentContent,
+        approved: null // Pending approval by default
       };
       
       // If user is logged in, use their ID
       if (user) {
         commentData.user_id = user.id;
         commentData.name = user.email; // Or get from profile if available
+        
+        // Auto-approve comments from admin users
+        if (isAdmin) {
+          commentData.approved = true;
+        }
       } else if (commentName.trim()) {
         // If not logged in but name provided
         commentData.name = commentName;
@@ -289,31 +328,59 @@ const Blog = () => {
         throw error;
       }
       
-      // Add new comment to state
-      setComments(prev => ({
-        ...prev,
-        [postId]: [...(prev[postId] || []), data]
-      }));
+      // Add new comment to state if admin or if comment is auto-approved
+      if (isAdmin || data.approved === true) {
+        setComments(prev => ({
+          ...prev,
+          [postId]: [...(prev[postId] || []), data]
+        }));
+      } else {
+        toast.success('Comment submitted for approval!');
+      }
       
       // Reset form
       setCommentContent('');
       if (!user) setCommentName('');
       
-      toast.success('Comment added successfully!');
+      // Update pending count if admin
+      if (isAdmin && data.approved === null) {
+        setPendingCommentsCount(prev => prev + 1);
+      }
+      
+      if (data.approved === true) {
+        toast.success('Comment added successfully!');
+      }
     } catch (error: any) {
       toast.error(error.message || 'Error posting comment');
       console.error('Error posting comment:', error);
     }
   };
 
+  const handleCommentApproved = async (postId: string) => {
+    // Refetch pending count when a comment is approved/rejected
+    if (isAdmin) {
+      fetchPendingCommentsCount();
+    }
+    
+    // Refetch comments for this post
+    await handleCommentDeleted(postId);
+  };
+
   const handleCommentDeleted = async (postId: string) => {
     // Refetch comments for this post
     try {
-      const { data, error } = await supabase
+      let query = supabase
         .from('blog_comments')
         .select('*')
         .eq('post_id', postId)
         .order('created_at', { ascending: true });
+      
+      // If not admin, only show approved comments
+      if (!isAdmin) {
+        query = query.eq('approved', true);
+      }
+        
+      const { data, error } = await query;
         
       if (error) {
         throw error;
@@ -323,6 +390,11 @@ const Blog = () => {
         ...prev,
         [postId]: data || []
       }));
+      
+      // Update pending count if admin
+      if (isAdmin) {
+        fetchPendingCommentsCount();
+      }
     } catch (error: any) {
       console.error('Error refreshing comments:', error);
     }
@@ -337,170 +409,273 @@ const Blog = () => {
     });
   };
 
+  // Filter posts based on search term
   const filteredPosts = posts.filter(post => 
     post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
     post.content.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Count pending comments per post
+  const getPendingCommentsCount = (postId: string) => {
+    if (!comments[postId]) return 0;
+    return comments[postId].filter(comment => comment.approved === null).length;
+  };
+
   return (
     <div className="w-full px-6 py-12 md:px-12">
       <h1 className="text-4xl font-bold mb-10" id="recent-posts">Blog</h1>
       
-      <div className="mb-12">
-        <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">Recent Posts</h2>
-          <div className="relative mt-4 md:mt-0 w-full md:w-64">
-            <Input
-              type="text"
-              placeholder="Search posts..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pr-10"
-            />
-            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-          </div>
-        </div>
-        
-        {loadingPosts ? (
-          <p className="text-gray-500">Loading posts...</p>
-        ) : filteredPosts.length === 0 ? (
-          <p className="text-gray-500">{searchTerm ? "No matching posts found." : "No blog posts yet."}</p>
-        ) : (
-          <div className="space-y-8">
-            {filteredPosts.map((post) => (
-              <div key={post.id} className="card border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
-                <div className="card-body">
-                  {editingPostId === post.id ? (
-                    <div className="space-y-4">
-                      <Input
-                        type="text"
-                        value={editTitle}
-                        onChange={(e) => setEditTitle(e.target.value)}
-                        className="text-lg font-bold"
-                        placeholder="Post title"
-                      />
-                      <Textarea
-                        value={editContent}
-                        onChange={(e) => setEditContent(e.target.value)}
-                        className="w-full min-h-[200px]"
-                        placeholder="Post content"
-                      />
-                      <div className="flex space-x-2 justify-end">
-                        <Button variant="outline" onClick={cancelEdit}>
-                          <X className="mr-2 h-4 w-4" />
-                          Cancel
-                        </Button>
-                        <Button onClick={saveEdit}>
-                          <Save className="mr-2 h-4 w-4" />
-                          Save
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <>
-                      <h3 className="card-title text-xl font-bold">{post.title}</h3>
-                      <p className="card-subtitle text-sm text-gray-500 mb-3">
-                        {formatDate(post.created_at)}
-                        {post.updated_at && post.created_at !== post.updated_at && 
-                          <span> (edited: {formatDate(post.updated_at)})</span>
-                        }
-                      </p>
-                      <p className="whitespace-pre-line">{post.content}</p>
-                      
-                      <div className="flex justify-end space-x-2 mt-4">
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => fetchComments(post.id)}
-                          className="text-blue-500 border-blue-500 hover:bg-blue-50"
-                        >
-                          <MessageCircle className="mr-1 h-4 w-4" />
-                          {comments[post.id]?.length || 0} Comments
-                        </Button>
-                        
-                        {isAdmin && (
-                          <>
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
-                              onClick={() => startEditing(post)}
-                              className="text-blue-500 border-blue-500 hover:bg-blue-50"
-                            >
-                              <Edit className="mr-1 h-4 w-4" />
-                              Edit
-                            </Button>
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
-                              onClick={() => confirmDelete(post.id)}
-                              className="text-red-500 border-red-500 hover:bg-red-50"
-                            >
-                              <Trash2 className="mr-1 h-4 w-4" />
-                              Delete
-                            </Button>
-                          </>
-                        )}
-                      </div>
-                      
-                      {/* Comments section */}
-                      {showCommentsFor[post.id] && (
-                        <div className="mt-6 border-t pt-4">
-                          <h4 className="font-bold mb-4">Comments</h4>
-                          
-                          {/* Comments list */}
-                          {comments[post.id]?.length > 0 ? (
-                            <div className="mb-4">
-                              {comments[post.id].map(comment => (
-                                <BlogComment 
-                                  key={comment.id} 
-                                  comment={comment} 
-                                  onCommentDeleted={() => handleCommentDeleted(post.id)}
-                                />
-                              ))}
-                            </div>
-                          ) : (
-                            <p className="text-gray-500 mb-4">No comments yet.</p>
-                          )}
-                          
-                          {/* Add comment form */}
-                          <div className="border rounded-lg p-4">
-                            <h5 className="font-semibold mb-3">Add a Comment</h5>
-                            {!user && (
-                              <div className="mb-3">
-                                <Input
-                                  type="text"
-                                  placeholder="Your Name (optional)"
-                                  value={commentName}
-                                  onChange={(e) => setCommentName(e.target.value)}
-                                  className="mb-3"
-                                />
-                              </div>
-                            )}
-                            <Textarea
-                              placeholder="Write your comment here..."
-                              value={commentContent}
-                              onChange={(e) => setCommentContent(e.target.value)}
-                              className="mb-3"
-                            />
-                            <Button 
-                              onClick={() => submitComment(post.id)}
-                              className="w-full md:w-auto"
-                            >
-                              Post Comment
-                            </Button>
-                          </div>
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-      
       {isAdmin && (
+        <Tabs value={currentTab} onValueChange={setCurrentTab} className="mb-8">
+          <TabsList>
+            <TabsTrigger value="all">All Posts</TabsTrigger>
+            <TabsTrigger value="pending">
+              Pending Comments
+              {pendingCommentsCount > 0 && (
+                <Badge variant="destructive" className="ml-2">
+                  {pendingCommentsCount}
+                </Badge>
+              )}
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="all">
+            {/* All posts content - handled below */}
+          </TabsContent>
+          
+          <TabsContent value="pending">
+            <div className="mt-4">
+              <h2 className="text-2xl font-bold mb-4">Comments Awaiting Approval</h2>
+              {pendingCommentsCount === 0 ? (
+                <p className="text-gray-500">No comments pending approval.</p>
+              ) : (
+                <div className="space-y-4">
+                  {Object.keys(comments).map(postId => {
+                    const pendingComments = comments[postId].filter(c => c.approved === null);
+                    if (pendingComments.length === 0) return null;
+                    
+                    const post = posts.find(p => p.id === postId);
+                    if (!post) return null;
+                    
+                    return (
+                      <div key={postId} className="border rounded-lg p-4">
+                        <h3 className="font-bold mb-2">
+                          {post.title}
+                        </h3>
+                        <p className="text-sm text-gray-500 mb-4">
+                          {formatDate(post.created_at)}
+                        </p>
+                        
+                        <div className="space-y-3">
+                          {pendingComments.map(comment => (
+                            <BlogComment 
+                              key={comment.id} 
+                              comment={comment} 
+                              onCommentDeleted={() => handleCommentDeleted(postId)}
+                              onCommentApproved={() => handleCommentApproved(postId)}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </TabsContent>
+        </Tabs>
+      )}
+      
+      {currentTab === 'all' && (
+        <div className="mb-12">
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold">Recent Posts</h2>
+            <div className="relative mt-4 md:mt-0 w-full md:w-64">
+              <Input
+                type="text"
+                placeholder="Search posts..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pr-10"
+              />
+              <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            </div>
+          </div>
+          
+          {loadingPosts ? (
+            <div className="space-y-8">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="card border rounded-lg p-6 shadow-sm">
+                  <Skeleton className="h-8 w-1/3 mb-2" />
+                  <Skeleton className="h-4 w-1/4 mb-4" />
+                  <Skeleton className="h-4 w-full mb-2" />
+                  <Skeleton className="h-4 w-full mb-2" />
+                  <Skeleton className="h-4 w-3/4 mb-4" />
+                  <div className="flex justify-end space-x-2">
+                    <Skeleton className="h-9 w-24" />
+                    {isAdmin && (
+                      <>
+                        <Skeleton className="h-9 w-20" />
+                        <Skeleton className="h-9 w-20" />
+                      </>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : filteredPosts.length === 0 ? (
+            <p className="text-gray-500">{searchTerm ? "No matching posts found." : "No blog posts yet."}</p>
+          ) : (
+            <div className="space-y-8">
+              {filteredPosts.map((post) => (
+                <div key={post.id} className="card border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="card-body">
+                    {editingPostId === post.id ? (
+                      <div className="space-y-4">
+                        <Input
+                          type="text"
+                          value={editTitle}
+                          onChange={(e) => setEditTitle(e.target.value)}
+                          className="text-lg font-bold"
+                          placeholder="Post title"
+                        />
+                        <Textarea
+                          value={editContent}
+                          onChange={(e) => setEditContent(e.target.value)}
+                          className="w-full min-h-[200px]"
+                          placeholder="Post content"
+                        />
+                        <div className="flex space-x-2 justify-end">
+                          <Button variant="outline" onClick={cancelEdit}>
+                            <X className="mr-2 h-4 w-4" />
+                            Cancel
+                          </Button>
+                          <Button onClick={saveEdit}>
+                            <Save className="mr-2 h-4 w-4" />
+                            Save
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <h3 className="card-title text-xl font-bold">{post.title}</h3>
+                        <p className="card-subtitle text-sm text-gray-500 mb-3">
+                          {formatDate(post.created_at)}
+                          {post.updated_at && post.created_at !== post.updated_at && 
+                            <span> (edited: {formatDate(post.updated_at)})</span>
+                          }
+                        </p>
+                        <p className="whitespace-pre-line">{post.content}</p>
+                        
+                        <div className="flex justify-end space-x-2 mt-4">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => fetchComments(post.id)}
+                            className="text-blue-500 border-blue-500 hover:bg-blue-50"
+                          >
+                            <MessageCircle className="mr-1 h-4 w-4" />
+                            {comments[post.id]?.length || 0} Comments
+                            
+                            {isAdmin && getPendingCommentsCount(post.id) > 0 && (
+                              <Badge variant="destructive" className="ml-2">
+                                {getPendingCommentsCount(post.id)}
+                              </Badge>
+                            )}
+                          </Button>
+                          
+                          {isAdmin && (
+                            <>
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                onClick={() => startEditing(post)}
+                                className="text-blue-500 border-blue-500 hover:bg-blue-50"
+                              >
+                                <Edit className="mr-1 h-4 w-4" />
+                                Edit
+                              </Button>
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                onClick={() => confirmDelete(post.id)}
+                                className="text-red-500 border-red-500 hover:bg-red-50"
+                              >
+                                <Trash2 className="mr-1 h-4 w-4" />
+                                Delete
+                              </Button>
+                            </>
+                          )}
+                        </div>
+                        
+                        {/* Comments section */}
+                        {showCommentsFor[post.id] && (
+                          <div className="mt-6 border-t pt-4">
+                            <h4 className="font-bold mb-4">Comments</h4>
+                            
+                            {/* Comments list */}
+                            {comments[post.id]?.length > 0 ? (
+                              <div className="mb-4">
+                                {comments[post.id].map(comment => (
+                                  <BlogComment 
+                                    key={comment.id} 
+                                    comment={comment} 
+                                    onCommentDeleted={() => handleCommentDeleted(post.id)}
+                                    onCommentApproved={() => handleCommentApproved(post.id)}
+                                  />
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="text-gray-500 mb-4">No comments yet.</p>
+                            )}
+                            
+                            {/* Add comment form */}
+                            <div className="border rounded-lg p-4">
+                              <h5 className="font-semibold mb-3">Add a Comment</h5>
+                              {!user && (
+                                <div className="mb-3">
+                                  <Input
+                                    type="text"
+                                    placeholder="Your Name (optional)"
+                                    value={commentName}
+                                    onChange={(e) => setCommentName(e.target.value)}
+                                    className="mb-3"
+                                  />
+                                </div>
+                              )}
+                              <Textarea
+                                placeholder="Write your comment here..."
+                                value={commentContent}
+                                onChange={(e) => setCommentContent(e.target.value)}
+                                className="mb-3"
+                              />
+                              <Button 
+                                onClick={() => submitComment(post.id)}
+                                className="w-full md:w-auto"
+                              >
+                                Post Comment
+                              </Button>
+                              
+                              {!isAdmin && (
+                                <p className="mt-2 text-xs text-gray-500 flex items-center">
+                                  <Clock className="h-3 w-3 mr-1" />
+                                  Comments require approval before they appear publicly
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+      
+      {currentTab === 'all' && isAdmin && (
         <div className="mt-12" id="create-post">
           <h2 className="text-2xl font-bold mb-6">Create a New Blog Post</h2>
           <div className="space-y-4 p-6 border rounded-lg shadow-sm">
