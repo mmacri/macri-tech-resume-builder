@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -27,6 +27,21 @@ const Auth = () => {
   const { signIn, signUp, user } = useAuth();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [defaultTab, setDefaultTab] = useState('login');
+
+  // Check for query params to set default tab
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const tab = queryParams.get('tab');
+    if (tab === 'signup') {
+      setDefaultTab('signup');
+      // Pre-fill admin credentials if directed to signup tab
+      if (!signupForm.getValues().email) {
+        signupForm.setValue('email', 'mikemacri@gmail.com');
+        signupForm.setValue('password', '#2Pencil!!');
+      }
+    }
+  }, []);
 
   // Redirect if already logged in
   useEffect(() => {
@@ -86,7 +101,7 @@ const Auth = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="login" className="w-full">
+          <Tabs defaultValue={defaultTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="login">Login</TabsTrigger>
               <TabsTrigger value="signup">Sign Up</TabsTrigger>

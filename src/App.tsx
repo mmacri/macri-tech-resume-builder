@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Portfolio from "./pages/Portfolio";
 import Blog from "./pages/Blog";
 import Auth from "./pages/Auth";
+import AdminPanel from "./pages/AdminPanel";
 import NotFound from "./pages/NotFound";
 import { AuthProvider } from "./contexts/AuthContext";
 
@@ -26,6 +27,7 @@ const homeNavItems = [
   { label: "Project Portfolio", href: "/portfolio" },
   { label: "Blog", href: "/blog" },
   { label: "Login", href: "/auth" },
+  { label: "Admin Panel", href: "/admin" },
 ];
 
 const portfolioNavItems = [
@@ -39,6 +41,7 @@ const portfolioNavItems = [
   { label: "Home", href: "/" },
   { label: "Blog", href: "/blog" },
   { label: "Login", href: "/auth" },
+  { label: "Admin Panel", href: "/admin" },
 ];
 
 const blogNavItems = [
@@ -48,6 +51,15 @@ const blogNavItems = [
   { label: "Home", href: "/" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Login", href: "/auth" },
+  { label: "Admin Panel", href: "/admin" },
+];
+
+const adminNavItems = [
+  { label: "User Management", href: "#" },
+  { label: "Blog Management", href: "#" },
+  { label: "Home", href: "/" },
+  { label: "Blog", href: "/blog" },
+  { label: "Portfolio", href: "/portfolio" },
 ];
 
 const App = () => {
@@ -98,6 +110,15 @@ const App = () => {
                   name="Mike Macri"
                 >
                   <Blog />
+                </Layout>
+              } />
+              <Route path="/admin" element={
+                <Layout 
+                  navItems={adminNavItems} 
+                  profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+                  name="Mike Macri"
+                >
+                  <AdminPanel />
                 </Layout>
               } />
               <Route path="/auth" element={<Auth />} />
