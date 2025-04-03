@@ -1,544 +1,314 @@
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
-} from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogFooter 
-} from '@/components/ui/dialog';
-import { Mail, User, Key, Trash2, Check, X, RefreshCw } from 'lucide-react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
+import { Database } from '@/integrations/supabase/types';
 
-interface UserData {
-  id: string;
-  email: string;
-  created_at: string;
-  is_admin?: boolean;
-  last_sign_in_at?: string;
-}
-
-interface BlogPostData {
-  id: string;
-  title: string;
-  content: string;
-  created_at: string;
-  updated_at?: string;
-}
-
-interface BlogCommentData {
-  id: string;
-  post_id: string;
-  user_id: string | null;
-  name: string | null;
-  content: string;
-  created_at: string;
-}
+// Define types for our data
+type UserProfile = Database['public']['Tables']['profiles']['Row'];
+type BlogPost = Database['public']['Tables']['posts']['Row'];
+type BlogComment = Database['public']['Tables']['comments']['Row'];
 
 const AdminPanel = () => {
   const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
-  const [users, setUsers] = useState<UserData[]>([]);
-  const [blogPosts, setBlogPosts] = useState<BlogPostData[]>([]);
-  const [blogComments, setBlogComments] = useState<BlogCommentData[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [newUserEmail, setNewUserEmail] = useState('');
-  const [newUserPassword, setNewUserPassword] = useState('');
-  const [showAddUserDialog, setShowAddUserDialog] = useState(false);
-  const [showResetPasswordDialog, setShowResetPasswordDialog] = useState(false);
-  const [resetEmail, setResetEmail] = useState('');
-  const [resetPassword, setResetPassword] = useState('');
-  const [userToReset, setUserToReset] = useState<string | null>(null);
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState<{ id: string, type: 'user' | 'post' | 'comment' } | null>(null);
+  const [users, setUsers] = useState<UserProfile[]>([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [comments, setComments] = useState<BlogComment[]>([]);
+  const [newUser, setNewUser] = useState({ email: '', password: '' });
+  const [isLoading, setIsLoading] = useState(false);
 
   // Redirect if not admin
   useEffect(() => {
-    if (!loading && (!user || !isAdmin)) {
-      toast.error('You do not have permission to access the admin panel');
+    if (!isAdmin) {
       navigate('/');
     }
-  }, [user, isAdmin, loading, navigate]);
+  }, [isAdmin, navigate]);
 
+  // Fetch data on mount
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        // Fetch users
-        const { data: usersData, error: usersError } = await supabase
-          .from('profiles')
-          .select('id, is_admin, created_at');
-
-        if (usersError) throw usersError;
-
-        // Fetch user emails from auth.users
-        const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers();
-
-        if (authError) throw authError;
-        
-        // Combine data
-        const combinedUsers = usersData.map(profile => {
-          const authUser = authUsers.users.find(u => u.id === profile.id);
-          return {
-            ...profile,
-            email: authUser?.email || 'Unknown',
-            last_sign_in_at: authUser?.last_sign_in_at || 'Never'
-          };
-        });
-        
-        setUsers(combinedUsers);
-
-        // Fetch blog posts
-        const { data: postsData, error: postsError } = await supabase
-          .from('blog_posts')
-          .select('*')
-          .order('created_at', { ascending: false });
-
-        if (postsError) throw postsError;
-        setBlogPosts(postsData);
-
-        // Fetch blog comments
-        const { data: commentsData, error: commentsError } = await supabase
-          .from('blog_comments')
-          .select('*')
-          .order('created_at', { ascending: false });
-
-        if (commentsError) throw commentsError;
-        setBlogComments(commentsData);
-
-      } catch (error: any) {
-        console.error('Error fetching admin data:', error);
-        toast.error(error.message || 'Failed to load admin data');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (user && isAdmin) {
-      fetchData();
-    } else {
-      setLoading(false);
+    if (isAdmin) {
+      fetchUsers();
+      fetchPosts();
+      fetchComments();
     }
-  }, [user, isAdmin]);
+  }, [isAdmin]);
+
+  const fetchUsers = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*');
+      
+      if (error) throw error;
+      setUsers(data || []);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      toast.error('Failed to fetch users');
+    }
+  };
+
+  const fetchPosts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*');
+      
+      if (error) throw error;
+      setPosts(data || []);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+      toast.error('Failed to fetch blog posts');
+    }
+  };
+
+  const fetchComments = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('comments')
+        .select('*');
+      
+      if (error) throw error;
+      setComments(data || []);
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+      toast.error('Failed to fetch comments');
+    }
+  };
 
   const handleAddUser = async () => {
-    if (!newUserEmail || !newUserPassword) {
-      toast.error('Email and password are required');
-      return;
-    }
-
+    setIsLoading(true);
     try {
-      // Create user with Supabase auth
       const { data, error } = await supabase.auth.admin.createUser({
-        email: newUserEmail,
-        password: newUserPassword,
+        email: newUser.email,
+        password: newUser.password,
         email_confirm: true
       });
 
       if (error) throw error;
-
-      toast.success(`User ${newUserEmail} created successfully`);
-      setShowAddUserDialog(false);
-      setNewUserEmail('');
-      setNewUserPassword('');
       
-      // Refresh user list
-      const { data: usersData } = await supabase
-        .from('profiles')
-        .select('id, is_admin, created_at');
-        
-      const { data: authUsers } = await supabase.auth.admin.listUsers();
-      
-      const combinedUsers = usersData.map(profile => {
-        const authUser = authUsers.users.find(u => u.id === profile.id);
-        return {
-          ...profile,
-          email: authUser?.email || 'Unknown',
-          last_sign_in_at: authUser?.last_sign_in_at || 'Never'
-        };
-      });
-      
-      setUsers(combinedUsers);
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to create user');
+      toast.success('User created successfully');
+      setNewUser({ email: '', password: '' });
+      fetchUsers();
+    } catch (error) {
+      console.error('Error creating user:', error);
+      toast.error('Failed to create user');
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const openResetPasswordDialog = (userId: string, email: string) => {
-    setUserToReset(userId);
-    setResetEmail(email);
-    setResetPassword('');
-    setShowResetPasswordDialog(true);
-  };
-
-  const handleResetPassword = async () => {
-    if (!userToReset || !resetPassword) {
-      toast.error('User ID and new password are required');
-      return;
-    }
-
+  const handleResetPassword = async (userId: string) => {
     try {
       const { error } = await supabase.auth.admin.updateUserById(
-        userToReset,
-        { password: resetPassword }
+        userId,
+        { password: '#2Pencil!!' }
       );
-
+      
       if (error) throw error;
-
-      toast.success(`Password reset for ${resetEmail}`);
-      setShowResetPasswordDialog(false);
-      setUserToReset(null);
-      setResetEmail('');
-      setResetPassword('');
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to reset password');
+      toast.success('Password reset to default');
+    } catch (error) {
+      console.error('Error resetting password:', error);
+      toast.error('Failed to reset password');
     }
   };
 
-  const confirmDelete = (id: string, type: 'user' | 'post' | 'comment') => {
-    setItemToDelete({ id, type });
-    setShowDeleteDialog(true);
-  };
-
-  const handleDelete = async () => {
-    if (!itemToDelete) return;
-
+  const handleDeleteUser = async (userId: string) => {
     try {
-      const { id, type } = itemToDelete;
-
-      if (type === 'user') {
-        // Delete user
-        const { error } = await supabase.auth.admin.deleteUser(id);
-        if (error) throw error;
-        setUsers(users.filter(user => user.id !== id));
-        toast.success('User deleted successfully');
-      } else if (type === 'post') {
-        // Delete blog post
-        const { error } = await supabase
-          .from('blog_posts')
-          .delete()
-          .eq('id', id);
-        if (error) throw error;
-        setBlogPosts(blogPosts.filter(post => post.id !== id));
-        toast.success('Blog post deleted successfully');
-      } else if (type === 'comment') {
-        // Delete blog comment
-        const { error } = await supabase
-          .from('blog_comments')
-          .delete()
-          .eq('id', id);
-        if (error) throw error;
-        setBlogComments(blogComments.filter(comment => comment.id !== id));
-        toast.success('Comment deleted successfully');
-      }
-
-      setShowDeleteDialog(false);
-      setItemToDelete(null);
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to delete item');
+      const { error } = await supabase.auth.admin.deleteUser(userId);
+      
+      if (error) throw error;
+      toast.success('User deleted successfully');
+      fetchUsers();
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      toast.error('Failed to delete user');
     }
   };
 
-  const toggleAdminStatus = async (userId: string, currentStatus: boolean) => {
+  const handleDeletePost = async (postId: string) => {
     try {
       const { error } = await supabase
-        .from('profiles')
-        .update({ is_admin: !currentStatus })
-        .eq('id', userId);
-
+        .from('posts')
+        .delete()
+        .eq('id', postId);
+      
       if (error) throw error;
-
-      // Update local state
-      setUsers(users.map(user => 
-        user.id === userId ? { ...user, is_admin: !currentStatus } : user
-      ));
-
-      toast.success(`User ${currentStatus ? 'removed from' : 'added to'} admin role`);
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to update admin status');
+      toast.success('Post deleted successfully');
+      fetchPosts();
+    } catch (error) {
+      console.error('Error deleting post:', error);
+      toast.error('Failed to delete post');
     }
   };
 
-  if (loading) {
-    return (
-      <div className="w-full px-6 py-12 md:px-12 flex items-center justify-center">
-        <div className="text-center">
-          <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-4" />
-          <p>Loading admin panel...</p>
-        </div>
-      </div>
-    );
-  }
+  const handleDeleteComment = async (commentId: string) => {
+    try {
+      const { error } = await supabase
+        .from('comments')
+        .delete()
+        .eq('id', commentId);
+      
+      if (error) throw error;
+      toast.success('Comment deleted successfully');
+      fetchComments();
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+      toast.error('Failed to delete comment');
+    }
+  };
 
   return (
-    <div className="w-full px-6 py-12 md:px-12">
-      <h1 className="text-4xl font-bold mb-10">Admin Panel</h1>
-
-      <Tabs defaultValue="users" className="w-full">
-        <TabsList className="mb-6">
-          <TabsTrigger value="users">Users</TabsTrigger>
-          <TabsTrigger value="blog_posts">Blog Posts</TabsTrigger>
-          <TabsTrigger value="blog_comments">Blog Comments</TabsTrigger>
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Admin Panel</h1>
+      
+      <Tabs defaultValue="users">
+        <TabsList>
+          <TabsTrigger value="users">User Management</TabsTrigger>
+          <TabsTrigger value="posts">Blog Posts</TabsTrigger>
+          <TabsTrigger value="comments">Comments</TabsTrigger>
         </TabsList>
-
-        <TabsContent value="users" className="space-y-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold">User Management</h2>
-            <Button onClick={() => setShowAddUserDialog(true)}>Add New User</Button>
-          </div>
-
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Email</TableHead>
-                <TableHead>Created</TableHead>
-                <TableHead>Last Sign In</TableHead>
-                <TableHead>Admin</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {users.map(user => (
-                <TableRow key={user.id}>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{new Date(user.created_at).toLocaleDateString()}</TableCell>
-                  <TableCell>
-                    {user.last_sign_in_at && user.last_sign_in_at !== 'Never' 
-                      ? new Date(user.last_sign_in_at).toLocaleDateString() 
-                      : 'Never'}
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => toggleAdminStatus(user.id, !!user.is_admin)}
-                    >
-                      {user.is_admin ? <Check className="h-4 w-4 text-green-500" /> : <X className="h-4 w-4 text-red-500" />}
-                    </Button>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex space-x-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => openResetPasswordDialog(user.id, user.email)}
-                      >
-                        <Key className="h-4 w-4 mr-1" />
-                        Reset Password
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="text-red-500 hover:text-red-700"
-                        onClick={() => confirmDelete(user.id, 'user')}
-                      >
-                        <Trash2 className="h-4 w-4 mr-1" />
-                        Delete
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+        
+        <TabsContent value="users" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Add New User</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4">
+                <div className="grid gap-2">
+                  <Input
+                    placeholder="Email"
+                    value={newUser.email}
+                    onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    value={newUser.password}
+                    onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                  />
+                </div>
+                <Button onClick={handleAddUser} disabled={isLoading}>
+                  {isLoading ? 'Adding...' : 'Add User'}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle>User List</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Role</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {users.map((user) => (
+                    <TableRow key={user.id}>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>{user.role || 'user'}</TableCell>
+                      <TableCell className="space-x-2">
+                        <Button variant="outline" size="sm" onClick={() => handleResetPassword(user.id)}>
+                          Reset Password
+                        </Button>
+                        <Button variant="destructive" size="sm" onClick={() => handleDeleteUser(user.id)}>
+                          Delete
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
         </TabsContent>
-
-        <TabsContent value="blog_posts" className="space-y-6">
-          <h2 className="text-2xl font-bold mb-4">Blog Posts Management</h2>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Title</TableHead>
-                <TableHead>Created</TableHead>
-                <TableHead>Last Updated</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {blogPosts.map(post => (
-                <TableRow key={post.id}>
-                  <TableCell className="font-medium">{post.title}</TableCell>
-                  <TableCell>{new Date(post.created_at).toLocaleDateString()}</TableCell>
-                  <TableCell>
-                    {post.updated_at && post.updated_at !== post.created_at 
-                      ? new Date(post.updated_at).toLocaleDateString() 
-                      : 'N/A'}
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="text-red-500 hover:text-red-700"
-                      onClick={() => confirmDelete(post.id, 'post')}
-                    >
-                      <Trash2 className="h-4 w-4 mr-1" />
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+        
+        <TabsContent value="posts" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Blog Posts</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Title</TableHead>
+                    <TableHead>Author</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {posts.map((post) => (
+                    <TableRow key={post.id}>
+                      <TableCell>{post.title}</TableCell>
+                      <TableCell>{post.user_id}</TableCell>
+                      <TableCell>{new Date(post.created_at).toLocaleDateString()}</TableCell>
+                      <TableCell>
+                        <Button variant="destructive" size="sm" onClick={() => handleDeletePost(post.id)}>
+                          Delete
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
         </TabsContent>
-
-        <TabsContent value="blog_comments" className="space-y-6">
-          <h2 className="text-2xl font-bold mb-4">Blog Comments Management</h2>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Comment</TableHead>
-                <TableHead>Author</TableHead>
-                <TableHead>Created</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {blogComments.map(comment => (
-                <TableRow key={comment.id}>
-                  <TableCell className="max-w-md truncate">{comment.content}</TableCell>
-                  <TableCell>{comment.name || 'Anonymous'}</TableCell>
-                  <TableCell>{new Date(comment.created_at).toLocaleDateString()}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="text-red-500 hover:text-red-700"
-                      onClick={() => confirmDelete(comment.id, 'comment')}
-                    >
-                      <Trash2 className="h-4 w-4 mr-1" />
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+        
+        <TabsContent value="comments" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Comments</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Content</TableHead>
+                    <TableHead>Post ID</TableHead>
+                    <TableHead>User</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {comments.map((comment) => (
+                    <TableRow key={comment.id}>
+                      <TableCell className="max-w-[200px] truncate">{comment.content}</TableCell>
+                      <TableCell>{comment.post_id}</TableCell>
+                      <TableCell>{comment.user_id}</TableCell>
+                      <TableCell>{new Date(comment.created_at).toLocaleDateString()}</TableCell>
+                      <TableCell>
+                        <Button variant="destructive" size="sm" onClick={() => handleDeleteComment(comment.id)}>
+                          Delete
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
-
-      {/* Add User Dialog */}
-      <Dialog open={showAddUserDialog} onOpenChange={setShowAddUserDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Add New User</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <label htmlFor="email">Email</label>
-              <div className="flex items-center border rounded-md focus-within:ring-1 focus-within:ring-blue-500">
-                <Mail className="h-4 w-4 mx-3 text-gray-500" />
-                <Input
-                  id="email"
-                  type="email"
-                  value={newUserEmail}
-                  onChange={(e) => setNewUserEmail(e.target.value)}
-                  placeholder="user@example.com"
-                  className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="password">Password</label>
-              <div className="flex items-center border rounded-md focus-within:ring-1 focus-within:ring-blue-500">
-                <Key className="h-4 w-4 mx-3 text-gray-500" />
-                <Input
-                  id="password"
-                  type="password"
-                  value={newUserPassword}
-                  onChange={(e) => setNewUserPassword(e.target.value)}
-                  placeholder="Password"
-                  className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                />
-              </div>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowAddUserDialog(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleAddUser}>
-              Add User
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Reset Password Dialog */}
-      <Dialog open={showResetPasswordDialog} onOpenChange={setShowResetPasswordDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Reset Password</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <label>Email</label>
-              <div className="flex items-center border rounded-md bg-gray-50">
-                <Mail className="h-4 w-4 mx-3 text-gray-500" />
-                <Input
-                  type="email"
-                  value={resetEmail}
-                  readOnly
-                  className="border-0 bg-gray-50 focus-visible:ring-0 focus-visible:ring-offset-0"
-                />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="new-password">New Password</label>
-              <div className="flex items-center border rounded-md focus-within:ring-1 focus-within:ring-blue-500">
-                <Key className="h-4 w-4 mx-3 text-gray-500" />
-                <Input
-                  id="new-password"
-                  type="password"
-                  value={resetPassword}
-                  onChange={(e) => setResetPassword(e.target.value)}
-                  placeholder="New Password"
-                  className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                />
-              </div>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowResetPasswordDialog(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleResetPassword}>
-              Reset Password
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Delete Confirmation Dialog */}
-      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Confirm Deletion</DialogTitle>
-          </DialogHeader>
-          <p>Are you sure you want to delete this {itemToDelete?.type}? This action cannot be undone.</p>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowDeleteDialog(false)}>
-              Cancel
-            </Button>
-            <Button variant="destructive" onClick={handleDelete}>
-              Delete
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

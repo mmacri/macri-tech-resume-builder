@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Sidebar } from './ui/sidebar';
 import { Button } from './ui/button';
 import { Menu, X } from 'lucide-react';
-import { useMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import AdminButtons from './AdminButtons';
@@ -21,7 +21,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const mobile = useMobile();
+  const mobile = useIsMobile();
   const navigate = useNavigate();
   const location = useLocation();
   const { user, isAdmin } = useAuth();
@@ -56,9 +56,9 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
       )}
       <div className="flex flex-1">
         <Sidebar
-          isOpen={isOpen || !mobile}
-          navItems={filteredNavItems}
-          profileImage={profileImage}
+          open={isOpen || !mobile}
+          items={filteredNavItems}
+          avatar={profileImage}
           name={name}
           className={mobile ? "fixed top-[49px] z-30 h-[calc(100vh-49px)]" : "sticky top-0 h-screen"}
         />
