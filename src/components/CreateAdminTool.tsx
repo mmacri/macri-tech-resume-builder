@@ -13,17 +13,40 @@ const CreateAdminTool: React.FC = () => {
     setIsLoading(true);
     
     try {
+      console.log("Attempting to create admin user");
+      
+      // Check if user already exists
+      const { data: existingUsers, error: checkError } = await supabase
+        .from('auth.users')
+        .select('id')
+        .eq('email', 'admin@recoveryessentials')
+        .maybeSingle();
+        
+      if (checkError) {
+        console.log("Error checking for existing user:", checkError);
+      }
+      
+      if (existingUsers) {
+        console.log("User already exists:", existingUsers);
+        toast.error("Admin user already exists!");
+        setIsLoading(false);
+        return;
+      }
+      
       // Create admin user
-      const { data: authData, error: authError } = await supabase.auth.admin.createUser({
+      const { data: authData, error: authError } = await supabase.auth.signUp({
         email: 'admin@recoveryessentials',
         password: 'A5!Paper',
-        email_confirm: true
       });
 
-      if (authError) throw authError;
+      if (authError) {
+        console.error("Auth error:", authError);
+        throw authError;
+      }
       
       // Update profile as admin
       if (authData?.user) {
+        console.log("User created successfully, now setting admin status");
         const { error: profileError } = await supabase
           .from('profiles')
           .update({
@@ -33,7 +56,10 @@ const CreateAdminTool: React.FC = () => {
           })
           .eq('id', authData.user.id);
         
-        if (profileError) throw profileError;
+        if (profileError) {
+          console.error("Profile update error:", profileError);
+          throw profileError;
+        }
       }
       
       toast.success('Admin user created successfully!');
