@@ -13,6 +13,7 @@ import { z } from 'zod';
 import { toast } from 'sonner';
 import { AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { supabase } from '@/integrations/supabase/client';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address' }),
@@ -36,10 +37,41 @@ const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>(searchParams.get('reset') ? 'reset' : 'login');
+  
+  // Check for hash params that might contain recovery token
+  useEffect(() => {
+    const checkForRecoveryToken = async () => {
+      // Check for hash params from password reset email
+      if (window.location.hash && window.location.hash.includes('type=recovery')) {
+        console.log('Found recovery hash:', window.location.hash);
+        setActiveTab('reset');
+        try {
+          // Process the hash to allow password reset
+          const { data, error } = await supabase.auth.refreshSession();
+          
+          if (error) {
+            console.error('Error processing recovery token:', error);
+            toast.error('Invalid or expired recovery link');
+          } else if (data.session) {
+            console.log('Successfully authenticated with recovery token');
+            toast.success('You can now set a new password');
+            // Redirect to home page after successful authentication
+            navigate('/');
+          }
+        } catch (error) {
+          console.error('Error processing recovery token:', error);
+          toast.error('Error processing recovery token');
+        }
+      }
+    };
+    
+    checkForRecoveryToken();
+  }, [navigate]);
 
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
+      console.log('User is already logged in, redirecting to home');
       navigate('/');
     }
   }, [user, navigate]);
@@ -71,6 +103,7 @@ const Auth = () => {
     setIsLoading(true);
     setAuthError(null);
     try {
+      console.log('Logging in with:', values.email);
       await signIn(values.email, values.password);
       // The redirect will happen automatically via the useEffect
     } catch (error: any) {
@@ -89,6 +122,7 @@ const Auth = () => {
     setIsLoading(true);
     setAuthError(null);
     try {
+      console.log('Signing up with:', values.email);
       await signUp(values.email, values.password);
       // Don't redirect away since we want user to confirm their email
       // Instead, show a success message and direct them to login tab
@@ -109,6 +143,7 @@ const Auth = () => {
     setIsLoading(true);
     setAuthError(null);
     try {
+      console.log('Resetting password for:', values.email);
       await resetPassword(values.email);
       // Don't navigate away, let user check their email
     } catch (error: any) {
