@@ -5,8 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { UserPlus, Loader2 } from 'lucide-react';
+import { UserPlus, Loader2, Info } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from '@/components/ui/tooltip';
 
 interface AddUserFormProps {
   onUserAdded: () => void;
@@ -70,7 +75,20 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onUserAdded }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Add New User</CardTitle>
+        <CardTitle className="flex items-center">
+          Add New User
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" className="ml-2 h-5 w-5">
+                <Info className="h-4 w-4" />
+                <span className="sr-only">Info</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Create a new user account with access to the platform</p>
+            </TooltipContent>
+          </Tooltip>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         {error && (
