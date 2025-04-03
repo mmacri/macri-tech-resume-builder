@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Portfolio from "./pages/Portfolio";
 import Blog from "./pages/Blog";
 import Auth from "./pages/Auth";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
@@ -132,6 +133,7 @@ const AppRoutes = () => {
         </Layout>
       } />
       <Route path="/auth" element={<Auth />} />
+      <Route path="/admin" element={<Admin />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
