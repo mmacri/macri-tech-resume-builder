@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const loginSchema = z.object({
   email: z.string()
@@ -31,6 +31,8 @@ interface LoginFormProps {
 const LoginForm = ({ setAuthError, isLoading, setIsLoading, setActiveTab }: LoginFormProps) => {
   const { signIn } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get('redirectTo') || '/';
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -44,12 +46,13 @@ const LoginForm = ({ setAuthError, isLoading, setIsLoading, setActiveTab }: Logi
     setIsLoading(true);
     setAuthError(null);
     try {
-      console.log('Logging in with:', values.email);
+      console.log('Attempting login with:', values.email);
       const response = await signIn(values.email, values.password);
       
       if (response.data.user) {
+        console.log('Login successful, user:', response.data.user);
         toast.success('Successfully logged in');
-        navigate('/');
+        navigate(redirectTo);
       }
     } catch (error: any) {
       console.error('Login error:', error);

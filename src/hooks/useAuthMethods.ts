@@ -4,7 +4,7 @@ import { AuthResponse } from '@supabase/supabase-js';
 import { toast } from 'sonner';
 
 export function useAuthMethods() {
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email: string, password: string): Promise<AuthResponse> => {
     try {
       console.log('Signing in with:', email);
       const response = await supabase.auth.signInWithPassword({
@@ -18,6 +18,7 @@ export function useAuthMethods() {
         throw response.error;
       }
       
+      console.log('Sign in successful:', response.data.user?.email);
       toast.success('Signed in successfully');
       return response;
     } catch (error: any) {
@@ -27,7 +28,7 @@ export function useAuthMethods() {
     }
   };
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string): Promise<AuthResponse> => {
     try {
       console.log('Signing up with:', email);
       const response = await supabase.auth.signUp({

@@ -7,18 +7,17 @@ import { useAuth } from '@/contexts/AuthContext';
 
 interface ProfileSectionProps {
   profileImage: string;
-  user: any;
-  isAdmin: boolean;
+  name: string;
   handleLogout: () => Promise<void>;
 }
 
 export const ProfileSection: React.FC<ProfileSectionProps> = ({
   profileImage,
-  user,
-  isAdmin,
+  name,
   handleLogout
 }) => {
   const navigate = useNavigate();
+  const { user, isAdmin } = useAuth();
   
   const goToAdmin = () => {
     navigate('/admin');
@@ -37,7 +36,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
       <div className="mb-4">
         {user ? (
           <div className="flex flex-col items-center">
-            <p className="text-center mb-2">
+            <p className="text-center mb-2 text-white">
               Logged in as: <br />
               <span className="font-semibold">{user.email}</span>
               {isAdmin && (
