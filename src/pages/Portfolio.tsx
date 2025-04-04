@@ -71,6 +71,7 @@ const Portfolio = () => {
         title: "Sentiment Analyzer",
         description: "This project involves developing a sentiment analysis tool that uses natural language processing (NLP) techniques to analyze and classify the sentiment of text data. The tool can be used to gauge public opinion, customer feedback, and social media sentiment.",
         link: "https://github.com/mmacri/my-portfolio/tree/master/Projects/Sentiment-Analyzer",
+        image_url: null, // Adding the missing image_url property
         technologies: ["Python", "NLTK", "Scikit-learn", "Flask"],
         display_order: 1
       },
@@ -79,6 +80,7 @@ const Portfolio = () => {
         title: "Financial Dashboard",
         description: "This project is a financial dashboard that provides real-time insights into financial data. It includes features such as data visualization, trend analysis, and performance metrics to help users make informed financial decisions.",
         link: "https://github.com/mmacri/my-portfolio/tree/master/Projects/Financial-Dashboard",
+        image_url: null, // Adding the missing image_url property
         technologies: ["JavaScript", "D3.js", "React", "Node.js"],
         display_order: 2
       },
@@ -87,6 +89,7 @@ const Portfolio = () => {
         title: "AI/ML Policies",
         description: "This project focuses on creating policies for the ethical and responsible use of AI and machine learning technologies. It includes guidelines for data privacy, algorithmic transparency, and bias mitigation.",
         link: "https://github.com/mmacri/my-portfolio/tree/master/Projects/AI-ML-Policies",
+        image_url: null, // Adding the missing image_url property
         technologies: ["Python", "TensorFlow", "Keras", "Jupyter Notebook"],
         display_order: 3
       },
@@ -95,6 +98,7 @@ const Portfolio = () => {
         title: "Policy Registrar",
         description: "This project involves developing a policy registrar system that helps organizations manage and track their policies and procedures. It includes features such as policy creation, approval workflows, and compliance tracking.",
         link: "https://github.com/mmacri/my-portfolio/tree/master/Projects/Policy-Registrar",
+        image_url: null, // Adding the missing image_url property
         technologies: ["Java", "Spring Boot", "MySQL", "Thymeleaf"],
         display_order: 4
       },
@@ -103,6 +107,7 @@ const Portfolio = () => {
         title: "Customer Engagement Deliverables",
         description: "This project focuses on creating deliverables that enhance customer engagement and satisfaction. It includes tools and resources for customer onboarding, support, and feedback collection.",
         link: "https://github.com/mmacri/my-portfolio/tree/master/Projects/Customer-Engagement-Deliverables",
+        image_url: null, // Adding the missing image_url property
         technologies: ["HTML", "CSS", "JavaScript", "Bootstrap"],
         display_order: 5
       },
@@ -111,6 +116,7 @@ const Portfolio = () => {
         title: "Portfolio Website",
         description: "This website serves as a comprehensive portfolio to showcase my projects and skills. It is built using modern web technologies and provides an overview of various projects I have worked on, including tools for sentiment analysis, financial dashboards, AI/ML policy creation, policy management systems, and customer engagement deliverables.",
         link: "https://github.com/mmacri/Websites",
+        image_url: null, // Adding the missing image_url property
         technologies: ["HTML", "CSS", "JavaScript", "Bootstrap"],
         display_order: 6
       }
