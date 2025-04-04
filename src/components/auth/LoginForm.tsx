@@ -50,7 +50,7 @@ const LoginForm = ({ setAuthError, isLoading, setIsLoading, setActiveTab }: Logi
       const response = await signIn(values.email, values.password);
       
       if (response.data.user) {
-        console.log('Login successful, user:', response.data.user);
+        console.log('Login successful, user:', response.data.user.email);
         toast.success('Successfully logged in');
         navigate(redirectTo);
       }

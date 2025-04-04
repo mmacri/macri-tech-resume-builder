@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { Session, User, AuthResponse } from '@supabase/supabase-js';
+import { Session, User } from '@supabase/supabase-js';
 import { toast } from 'sonner';
 
 export function useSupabaseAuth() {
@@ -11,6 +11,8 @@ export function useSupabaseAuth() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    console.log('Setting up auth state listener');
+    
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, currentSession) => {
@@ -59,20 +61,12 @@ export function useSupabaseAuth() {
       if (error) {
         console.error('Error checking admin status:', error);
         setIsAdmin(false);
-        setIsLoading(false);
-        return;
-      } 
-      
-      // If profile exists, set admin status based on profile data
-      if (data) {
+      } else if (data) {
         console.log('Admin status from database:', data.is_admin);
         setIsAdmin(data.is_admin || false);
       } else {
-        // Create profile if it doesn't exist - make the first user an admin
         console.log('No profile found, creating new profile');
-        await createUserProfile(userId, true);
-        console.log('Created new profile for first user with admin status: true');
-        setIsAdmin(true);
+        await createUserProfile(userId);
       }
     } catch (error) {
       console.error('Error checking admin status:', error);
@@ -82,7 +76,7 @@ export function useSupabaseAuth() {
     }
   };
 
-  const createUserProfile = async (userId: string, makeAdmin: boolean = false) => {
+  const createUserProfile = async (userId: string, makeAdmin: boolean = true) => {
     try {
       console.log('Creating user profile, admin status:', makeAdmin);
       const { error } = await supabase

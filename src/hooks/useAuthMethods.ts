@@ -13,8 +13,8 @@ export function useAuthMethods() {
       });
 
       if (response.error) {
-        toast.error(response.error.message || 'Error signing in');
         console.error('Sign in error:', response.error);
+        toast.error(response.error.message || 'Error signing in');
         throw response.error;
       }
       
@@ -34,11 +34,14 @@ export function useAuthMethods() {
       const response = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth`
+        }
       });
 
       if (response.error) {
-        toast.error(response.error.message || 'Error signing up');
         console.error('Sign up error:', response.error);
+        toast.error(response.error.message || 'Error signing up');
         throw response.error;
       }
       
@@ -56,8 +59,8 @@ export function useAuthMethods() {
       console.log('Signing out');
       const { error } = await supabase.auth.signOut();
       if (error) {
-        toast.error(error.message || 'Error signing out');
         console.error('Sign out error:', error);
+        toast.error(error.message || 'Error signing out');
         throw error;
       }
       toast.success('Signed out successfully');
@@ -79,8 +82,8 @@ export function useAuthMethods() {
       });
       
       if (error) {
-        toast.error(error.message || 'Error resetting password');
         console.error('Reset password error:', error);
+        toast.error(error.message || 'Error resetting password');
         throw error;
       }
       
