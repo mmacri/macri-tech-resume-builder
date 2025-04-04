@@ -38,11 +38,17 @@ const Portfolio = () => {
         throw error;
       }
       
-      // If there are no projects in the database and the user is an admin
+      // If there are no projects in the database and the user is admin
       // let's seed the database with the default projects
-      if (data?.length === 0 && isAdmin) {
-        await seedProjects();
-        return; // fetchProjects will be called again after seeding
+      if (data?.length === 0) {
+        console.log('No projects found, checking if user is admin to seed data');
+        if (isAdmin) {
+          console.log('Admin user detected, seeding default projects');
+          await seedProjects();
+          return; // fetchProjects will be called again after seeding
+        } else {
+          console.log('Not an admin user, showing empty state');
+        }
       }
       
       setProjects(data || []);

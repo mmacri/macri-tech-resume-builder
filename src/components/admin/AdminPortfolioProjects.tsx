@@ -41,25 +41,43 @@ const AdminPortfolioProjects = () => {
     }
   });
 
+  // Convert technologies between array and string formats
+  const technologiesToString = (techs?: string[]): string => {
+    return techs ? techs.join(', ') : '';
+  };
+
+  const stringToTechnologies = (techString: string): string[] => {
+    return techString.split(',').map(tech => tech.trim()).filter(tech => tech !== '');
+  };
+
   // Create or update portfolio project
   const mutation = useMutation({
     mutationFn: async (project: Partial<PortfolioProject>) => {
-      // Convert technologies from comma-separated string to array if needed
+      // Make sure required fields are present
+      if (!project.title || !project.description) {
+        throw new Error('Title and description are required');
+      }
+      
+      // Convert technologies from string to array if needed
       let techArray = project.technologies;
       if (typeof project.technologies === 'string') {
-        techArray = (project.technologies as string).split(',').map(tech => tech.trim());
+        techArray = stringToTechnologies(project.technologies as string);
       }
+      
+      const projectData = {
+        title: project.title,
+        description: project.description,
+        technologies: techArray as string[],
+        link: project.link || null,
+        image_url: project.image_url || null,
+      };
       
       if (project.id) {
         // Update
         const { data, error } = await supabase
           .from('portfolio_projects')
           .update({
-            title: project.title || '',
-            description: project.description || '',
-            technologies: techArray as string[],
-            link: project.link,
-            image_url: project.image_url,
+            ...projectData,
             updated_at: new Date().toISOString()
           })
           .eq('id', project.id)
@@ -77,11 +95,7 @@ const AdminPortfolioProjects = () => {
         const { data, error } = await supabase
           .from('portfolio_projects')
           .insert({
-            title: project.title || '',
-            description: project.description || '',
-            technologies: techArray as string[],
-            link: project.link,
-            image_url: project.image_url,
+            ...projectData,
             display_order: highestOrder + 1
           })
           .select()
@@ -159,7 +173,7 @@ const AdminPortfolioProjects = () => {
     setCurrentProject({ 
       title: '', 
       description: '', 
-      technologies: [] as string[],
+      technologies: [],
       link: '',
       image_url: ''
     });
@@ -167,8 +181,6 @@ const AdminPortfolioProjects = () => {
   };
 
   const handleEditProject = (project: PortfolioProject) => {
-    // Convert technologies array to comma-separated string for input field
-    const techString = project.technologies ? project.technologies.join(', ') : '';
     setCurrentProject({
       ...project,
       technologies: project.technologies || []
@@ -189,12 +201,6 @@ const AdminPortfolioProjects = () => {
     } else {
       toast.error('Title and description are required');
     }
-  };
-
-  const handleTechnologiesChange = (value: string) => {
-    // Convert comma-separated string to array
-    const techArray = value.split(',').map(tech => tech.trim());
-    setCurrentProject({ ...currentProject, technologies: techArray });
   };
 
   if (isLoading) return <div>Loading portfolio projects...</div>;
@@ -243,7 +249,7 @@ const AdminPortfolioProjects = () => {
                 </TableCell>
                 <TableCell className="font-medium">{project.title}</TableCell>
                 <TableCell>
-                  {project.technologies ? project.technologies.join(', ') : ''}
+                  {project.technologies ? technologiesToString(project.technologies) : ''}
                 </TableCell>
                 <TableCell className="text-right">
                   <Button variant="ghost" size="sm" onClick={() => handleEditProject(project)}>
@@ -296,9 +302,12 @@ const AdminPortfolioProjects = () => {
                 <Input
                   id="technologies"
                   value={Array.isArray(currentProject?.technologies) 
-                    ? currentProject?.technologies.join(', ') 
+                    ? technologiesToString(currentProject?.technologies)
                     : ''}
-                  onChange={(e) => handleTechnologiesChange(e.target.value)}
+                  onChange={(e) => setCurrentProject({ 
+                    ...currentProject, 
+                    technologies: stringToTechnologies(e.target.value)
+                  })}
                   placeholder="React, TypeScript, Tailwind"
                 />
               </div>
