@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -19,7 +20,7 @@ interface Project {
 const Portfolio = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-  const { isAdmin } = useAuth();
+  const { isAdmin, user } = useAuth();
 
   useEffect(() => {
     fetchProjects();
@@ -37,15 +38,20 @@ const Portfolio = () => {
         throw error;
       }
       
-      // If there are no projects in the database, seed the database with the default projects
-      // regardless of admin status
-      if (data?.length === 0) {
-        console.log('No projects found, seeding default projects');
+      // If there are no projects in the database and we're authenticated, seed the database
+      if (data?.length === 0 && user) {
+        console.log('No projects found and user is authenticated, seeding default projects');
         await seedProjects();
         return; // fetchProjects will be called again after seeding
+      } else if (data?.length === 0) {
+        // No projects and not authenticated
+        console.log('No projects found and user is not authenticated');
+        setProjects([]); // Set empty projects
+      } else {
+        // We have projects, set them
+        console.log(`Found ${data?.length} projects`);
+        setProjects(data || []);
       }
-      
-      setProjects(data || []);
     } catch (error: any) {
       toast.error(error.message || 'Error loading projects');
       console.error('Error fetching projects:', error);
@@ -56,6 +62,12 @@ const Portfolio = () => {
 
   const seedProjects = async () => {
     try {
+      if (!user) {
+        console.log('Cannot seed projects: User is not authenticated');
+        toast.error('You need to be logged in to add default projects');
+        return;
+      }
+
       const defaultProjects = [
         {
           title: "Sentiment Analyzer",
@@ -138,14 +150,16 @@ const Portfolio = () => {
             </div>
           ) : projects.length === 0 ? (
             <div className="my-8 text-center">
-              <p className="mb-4">No projects found in your portfolio.</p>
-              {isAdmin && (
+              <p className="mb-4">No projects found in this portfolio.</p>
+              {user ? (
                 <Button 
                   onClick={seedProjects}
                   className="bg-macri-primary hover:bg-macri-primary/80"
                 >
                   Add Default Projects
                 </Button>
+              ) : (
+                <p className="text-gray-500">Sign in as an admin to add projects</p>
               )}
             </div>
           ) : (
