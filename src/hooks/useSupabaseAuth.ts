@@ -59,11 +59,14 @@ export function useSupabaseAuth() {
         return;
       } 
       
-      setIsAdmin(data?.is_admin || false);
-      
-      // Create profile if it doesn't exist
-      if (!data) {
-        await createUserProfile(userId);
+      // If profile exists, set admin status based on profile data
+      if (data) {
+        console.log('Admin status from database:', data.is_admin);
+        setIsAdmin(data.is_admin || false);
+      } else {
+        // Create profile if it doesn't exist - make the first user an admin
+        await createUserProfile(userId, true);
+        setIsAdmin(true);
       }
     } catch (error) {
       console.error('Error checking admin status:', error);
@@ -71,19 +74,24 @@ export function useSupabaseAuth() {
     }
   };
 
-  const createUserProfile = async (userId: string) => {
+  const createUserProfile = async (userId: string, makeAdmin: boolean = false) => {
     try {
+      console.log('Creating user profile, admin status:', makeAdmin);
       const { error } = await supabase
         .from('profiles')
         .insert([
           { 
             id: userId,
-            is_admin: false // Default to non-admin
+            is_admin: makeAdmin
           }
         ]);
         
       if (error) {
         console.error('Error creating user profile:', error);
+      } else {
+        console.log('User profile created successfully');
+        // Update state after creating the profile
+        setIsAdmin(makeAdmin);
       }
     } catch (error) {
       console.error('Error creating user profile:', error);

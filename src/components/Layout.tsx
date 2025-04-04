@@ -1,7 +1,8 @@
+
 import React, { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { scrollToElement } from '../utils/scrollUtils';
-import { Menu, X, LogOut } from 'lucide-react';
+import { Menu, X, LogOut, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from "sonner";
 import { useAuth } from '@/contexts/AuthContext';
@@ -104,13 +105,25 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
                 <p className="text-center mb-2">
                   Logged in as: <br />
                   <span className="font-semibold">{user.email}</span>
-                  {isAdmin && <span className="ml-1 text-amber-300">(Admin)</span>}
+                  {isAdmin && (
+                    <div className="mt-2">
+                      <Button 
+                        variant="secondary" 
+                        size="sm" 
+                        onClick={() => navigate('/admin')}
+                        className="bg-amber-600 hover:bg-amber-700 text-white"
+                      >
+                        <Settings className="h-4 w-4 mr-2" />
+                        Admin Dashboard
+                      </Button>
+                    </div>
+                  )}
                 </p>
                 <Button 
                   variant="outline" 
                   size="sm" 
                   onClick={handleLogout}
-                  className="border-white text-white hover:bg-white/20 transition-colors"
+                  className="border-white text-white hover:bg-white/20 transition-colors mt-2"
                 >
                   <LogOut className="h-4 w-4 mr-2" />
                   Logout

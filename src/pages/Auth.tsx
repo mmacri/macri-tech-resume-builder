@@ -7,7 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import AuthCard from '@/components/auth/AuthCard';
 
 const Auth = () => {
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -47,10 +47,18 @@ const Auth = () => {
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      console.log('User is already logged in, redirecting to home');
-      navigate('/');
+      console.log('User is logged in, checking admin status:', isAdmin);
+      
+      // Redirect admin users to admin dashboard
+      if (isAdmin) {
+        console.log('Admin user detected, redirecting to admin dashboard');
+        navigate('/admin');
+      } else {
+        console.log('Regular user detected, redirecting to home');
+        navigate('/');
+      }
     }
-  }, [user, navigate]);
+  }, [user, isAdmin, navigate]);
 
   return (
     <div className="w-full px-6 py-12 md:px-12 flex items-center justify-center min-h-[80vh]">
