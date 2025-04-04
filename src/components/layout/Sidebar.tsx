@@ -6,6 +6,8 @@ import { SocialIcons } from './SocialIcons';
 import { ProfileSection } from './ProfileSection';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { LayoutDashboard } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface SidebarProps {
   isNavOpen: boolean;
@@ -37,6 +39,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
     await signOut();
     navigate('/');
   };
+  
+  const goToAdmin = () => {
+    navigate('/admin');
+    if (window.innerWidth < 992) {
+      toggleNav();
+    }
+  };
 
   return (
     <nav 
@@ -59,6 +68,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
             handleLogout={handleLogout}
           />
         </div>
+        
+        {isAdmin && user && (
+          <div className={`${isNavOpen ? 'block' : 'hidden'} lg:block mb-4`}>
+            <Button 
+              onClick={goToAdmin}
+              className="w-full bg-amber-600 hover:bg-amber-700 text-white flex items-center justify-center gap-2"
+            >
+              <LayoutDashboard className="h-4 w-4" />
+              Admin Dashboard
+            </Button>
+          </div>
+        )}
         
         <div className={`${isNavOpen ? 'block' : 'hidden'} lg:block`}>
           <NavigationItems 

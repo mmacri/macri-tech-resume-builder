@@ -47,6 +47,7 @@ export function useSupabaseAuth() {
 
   const checkIfAdmin = async (userId: string) => {
     try {
+      console.log('Checking admin status for user ID:', userId);
       const { data, error } = await supabase
         .from('profiles')
         .select('is_admin')
@@ -66,6 +67,7 @@ export function useSupabaseAuth() {
       } else {
         // Create profile if it doesn't exist - make the first user an admin
         await createUserProfile(userId, true);
+        console.log('Created new profile for first user with admin status: true');
         setIsAdmin(true);
       }
     } catch (error) {
