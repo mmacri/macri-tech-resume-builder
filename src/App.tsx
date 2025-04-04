@@ -1,8 +1,7 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import React, { useEffect } from "react";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
@@ -23,10 +22,37 @@ interface NavItem {
   external?: boolean;
 }
 
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user, isLoading } = useAuth();
+  
+  if (isLoading) return <div className="p-8 flex justify-center">Loading...</div>;
+  
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+  
+  return <>{children}</>;
+};
+
+const AdminRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user, isAdmin, isLoading } = useAuth();
+  
+  if (isLoading) return <div className="p-8 flex justify-center">Loading...</div>;
+  
+  if (!user) {
+    return <Navigate to="/auth?redirectTo=/admin" replace />;
+  }
+  
+  if (!isAdmin) {
+    return <Navigate to="/" replace />;
+  }
+  
+  return <>{children}</>;
+};
+
 const AppRoutes = () => {
   const { user, isAdmin, signOut } = useAuth();
   
-  // Navigation items for the sidebar
   const getHomeNavItems = (): NavItem[] => {
     const baseItems: NavItem[] = [
       { label: "About", href: "#about" },
@@ -133,14 +159,19 @@ const AppRoutes = () => {
         </Layout>
       } />
       <Route path="/auth" element={<Auth />} />
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/register" element={<Auth />} />
+      <Route path="/reset" element={<Auth />} />
+      <Route path="/admin" element={
+        <AdminRoute>
+          <Admin />
+        </AdminRoute>
+      } />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
 
 const App = () => {
-  // Add FontAwesome script to document
   useEffect(() => {
     const script = document.createElement('script');
     script.src = "https://use.fontawesome.com/releases/v6.3.0/js/all.js";

@@ -7,10 +7,16 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 const loginSchema = z.object({
-  email: z.string().email({ message: 'Please enter a valid email address' }),
-  password: z.string().min(6, { message: 'Password must be at least 6 characters' }),
+  email: z.string()
+    .min(1, { message: 'Email is required' })
+    .email({ message: 'Please enter a valid email address' }),
+  password: z.string()
+    .min(1, { message: 'Password is required' })
+    .min(6, { message: 'Password must be at least 6 characters' }),
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
@@ -19,10 +25,12 @@ interface LoginFormProps {
   setAuthError: (error: string | null) => void;
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
+  setActiveTab: (tab: string) => void;
 }
 
-const LoginForm = ({ setAuthError, isLoading, setIsLoading }: LoginFormProps) => {
+const LoginForm = ({ setAuthError, isLoading, setIsLoading, setActiveTab }: LoginFormProps) => {
   const { signIn } = useAuth();
+  const navigate = useNavigate();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -37,8 +45,12 @@ const LoginForm = ({ setAuthError, isLoading, setIsLoading }: LoginFormProps) =>
     setAuthError(null);
     try {
       console.log('Logging in with:', values.email);
-      await signIn(values.email, values.password);
-      // The redirect will happen automatically via the useEffect in the Auth component
+      const response = await signIn(values.email, values.password);
+      
+      if (response.data.user) {
+        toast.success('Successfully logged in');
+        navigate('/');
+      }
     } catch (error: any) {
       console.error('Login error:', error);
       if (error.message) {
@@ -61,7 +73,7 @@ const LoginForm = ({ setAuthError, isLoading, setIsLoading }: LoginFormProps) =>
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="email@example.com" {...field} />
+                <Input placeholder="email@example.com" {...field} autoComplete="email" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -74,12 +86,22 @@ const LoginForm = ({ setAuthError, isLoading, setIsLoading }: LoginFormProps) =>
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} />
+                <Input type="password" placeholder="••••••••" {...field} autoComplete="current-password" />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+        <div className="text-right">
+          <Button 
+            variant="link" 
+            type="button" 
+            className="p-0 h-auto text-sm" 
+            onClick={() => setActiveTab('reset')}
+          >
+            Forgot password?
+          </Button>
+        </div>
         <Button type="submit" className="w-full" disabled={isLoading}>
           {isLoading ? 'Logging in...' : 'Login'}
         </Button>

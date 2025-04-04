@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import AuthCard from '@/components/auth/AuthCard';
@@ -9,10 +9,19 @@ import AuthCard from '@/components/auth/AuthCard';
 const Auth = () => {
   const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<string>(searchParams.get('reset') ? 'reset' : 'login');
+  
+  // Determine the active tab based on URL path or query param
+  const getInitialTab = () => {
+    if (location.pathname === '/register') return 'signup';
+    if (location.pathname === '/reset') return 'reset';
+    return searchParams.get('reset') ? 'reset' : 'login';
+  };
+  
+  const [activeTab, setActiveTab] = useState<string>(getInitialTab());
   
   // Check for hash params that might contain recovery token
   useEffect(() => {
@@ -44,32 +53,34 @@ const Auth = () => {
     checkForRecoveryToken();
   }, [navigate]);
 
+  // Update document title based on active tab
+  useEffect(() => {
+    document.title = `${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} | My App`;
+  }, [activeTab]);
+
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
       console.log('User is logged in, checking admin status:', isAdmin);
       
-      // Redirect admin users to admin dashboard
-      if (isAdmin) {
-        console.log('Admin user detected, redirecting to admin dashboard');
-        navigate('/admin');
-      } else {
-        console.log('Regular user detected, redirecting to home');
-        navigate('/');
-      }
+      // Get the redirect path from the URL or default to home
+      const redirectTo = searchParams.get('redirectTo') || (isAdmin ? '/admin' : '/');
+      navigate(redirectTo);
     }
-  }, [user, isAdmin, navigate]);
+  }, [user, isAdmin, navigate, searchParams]);
 
   return (
-    <div className="w-full px-6 py-12 md:px-12 flex items-center justify-center min-h-[80vh]">
-      <AuthCard 
-        authError={authError}
-        setAuthError={setAuthError}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-      />
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 p-4">
+      <div className="w-full max-w-md">
+        <AuthCard 
+          authError={authError}
+          setAuthError={setAuthError}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+      </div>
     </div>
   );
 };

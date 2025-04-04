@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AuthErrorDisplay from './AuthErrorDisplay';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import ResetPasswordForm from './ResetPasswordForm';
-import AuthFooter from './AuthFooter';
+import { Link } from 'react-router-dom';
 
 interface AuthCardProps {
   authError: string | null;
@@ -26,10 +26,10 @@ const AuthCard = ({
   setActiveTab 
 }: AuthCardProps) => {
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full max-w-md shadow-lg">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Authentication</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-2xl font-bold text-center">Welcome Back</CardTitle>
+        <CardDescription className="text-center">
           Sign in to your account or create a new one
         </CardDescription>
       </CardHeader>
@@ -52,7 +52,8 @@ const AuthCard = ({
             <LoginForm 
               setAuthError={setAuthError} 
               isLoading={isLoading} 
-              setIsLoading={setIsLoading} 
+              setIsLoading={setIsLoading}
+              setActiveTab={setActiveTab}
             />
           </TabsContent>
           
@@ -69,12 +70,15 @@ const AuthCard = ({
             <ResetPasswordForm 
               setAuthError={setAuthError} 
               isLoading={isLoading} 
-              setIsLoading={setIsLoading} 
+              setIsLoading={setIsLoading}
+              setActiveTab={setActiveTab} 
             />
           </TabsContent>
         </Tabs>
       </CardContent>
-      <AuthFooter />
+      <CardFooter className="flex justify-center text-sm text-muted-foreground">
+        &copy; {new Date().getFullYear()} - Secure Authentication
+      </CardFooter>
     </Card>
   );
 };
