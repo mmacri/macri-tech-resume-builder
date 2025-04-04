@@ -1,35 +1,32 @@
 
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useAuth } from '@/contexts/AuthContext';
 import AdminBlogPosts from '@/components/admin/AdminBlogPosts';
 import AdminPortfolioProjects from '@/components/admin/AdminPortfolioProjects';
 import AdminUsers from '@/components/admin/AdminUsers';
+import AdminLayout from '@/components/admin/AdminLayout';
 
 const Admin = () => {
-  const { user, isAdmin } = useAuth();
-  const navigate = useNavigate();
+  const location = useLocation();
+  const hash = location.hash.replace('#', '') || 'blog';
 
-  // Redirect if not admin
-  useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-    } else if (!isAdmin) {
-      navigate('/');
-    }
-  }, [user, isAdmin, navigate]);
-
-  if (!user || !isAdmin) {
-    return null; // Prevent any flash of content before redirect
-  }
+  // Update the URL hash when tab changes
+  const handleTabChange = (value: string) => {
+    window.location.hash = value;
+  };
 
   return (
-    <div className="container mx-auto px-4 py-10">
+    <AdminLayout>
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
       
-      <Tabs defaultValue="blog" className="w-full">
+      <Tabs 
+        defaultValue={hash} 
+        className="w-full" 
+        onValueChange={handleTabChange}
+        value={hash}
+      >
         <TabsList className="mb-6">
           <TabsTrigger value="blog">Blog Posts</TabsTrigger>
           <TabsTrigger value="portfolio">Portfolio Projects</TabsTrigger>
@@ -72,7 +69,7 @@ const Admin = () => {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
+    </AdminLayout>
   );
 };
 
