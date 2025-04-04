@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { LogOut } from 'lucide-react';
+import { LogOut, LayoutDashboard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -19,6 +19,10 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
   handleLogout
 }) => {
   const navigate = useNavigate();
+  
+  const goToAdmin = () => {
+    navigate('/admin');
+  };
   
   return (
     <>
@@ -42,6 +46,19 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
                 </span>
               )}
             </p>
+            
+            {isAdmin && (
+              <Button 
+                variant="default" 
+                size="sm" 
+                onClick={goToAdmin}
+                className="bg-amber-600 hover:bg-amber-700 text-white w-full flex items-center justify-center gap-2 mb-2 mt-2"
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                Admin Dashboard
+              </Button>
+            )}
+            
             <Button 
               variant="outline" 
               size="sm" 

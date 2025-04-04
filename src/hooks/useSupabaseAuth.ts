@@ -38,8 +38,9 @@ export function useSupabaseAuth() {
       // Check if user is admin
       if (currentSession?.user) {
         checkIfAdmin(currentSession.user.id);
+      } else {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     });
 
     return () => subscription.unsubscribe();
@@ -57,6 +58,7 @@ export function useSupabaseAuth() {
       if (error) {
         console.error('Error checking admin status:', error);
         setIsAdmin(false);
+        setIsLoading(false);
         return;
       } 
       
@@ -66,6 +68,7 @@ export function useSupabaseAuth() {
         setIsAdmin(data.is_admin || false);
       } else {
         // Create profile if it doesn't exist - make the first user an admin
+        console.log('No profile found, creating new profile');
         await createUserProfile(userId, true);
         console.log('Created new profile for first user with admin status: true');
         setIsAdmin(true);
@@ -73,6 +76,8 @@ export function useSupabaseAuth() {
     } catch (error) {
       console.error('Error checking admin status:', error);
       setIsAdmin(false);
+    } finally {
+      setIsLoading(false);
     }
   };
 

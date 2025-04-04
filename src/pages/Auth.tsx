@@ -63,8 +63,9 @@ const Auth = () => {
     if (user) {
       console.log('User is logged in, checking admin status:', isAdmin);
       
-      // Get the redirect path from the URL or default to home
+      // Get the redirect path from the URL or default to home/admin
       const redirectTo = searchParams.get('redirectTo') || (isAdmin ? '/admin' : '/');
+      console.log('Redirecting user to:', redirectTo);
       navigate(redirectTo);
     }
   }, [user, isAdmin, navigate, searchParams]);
