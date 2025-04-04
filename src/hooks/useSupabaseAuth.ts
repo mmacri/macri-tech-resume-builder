@@ -25,6 +25,7 @@ export function useSupabaseAuth() {
           }, 0);
         } else {
           setIsAdmin(false);
+          setIsLoading(false);
         }
       }
     );

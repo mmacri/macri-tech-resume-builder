@@ -3,7 +3,7 @@ import React, { ReactNode, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { scrollToElement } from '../utils/scrollUtils';
 import { Button } from '@/components/ui/button';
-import { LogOut, Settings } from 'lucide-react';
+import { LogOut, Settings, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Sidebar } from './layout/Sidebar';
 
@@ -56,12 +56,19 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
     navigate('/');
   };
 
-  const filteredNavItems = navItems.filter(item => {
-    if (user && item.href === '/auth') {
-      return false;
+  // Add admin dashboard to navItems if user is admin
+  const updatedNavItems = [...navItems];
+  if (isAdmin && user) {
+    // Check if Admin Dashboard is already in the nav items
+    const adminDashboardExists = navItems.some(item => item.href === '/admin');
+    if (!adminDashboardExists) {
+      // Add Admin Dashboard after the first item
+      updatedNavItems.splice(1, 0, {
+        label: "Admin Dashboard",
+        href: "/admin"
+      });
     }
-    return true;
-  });
+  }
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
@@ -69,7 +76,7 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name 
         isNavOpen={isNavOpen}
         toggleNav={toggleNav}
         handleNavLinkClick={handleNavLinkClick}
-        navItems={filteredNavItems}
+        navItems={updatedNavItems}
         profileImage={profileImage}
         name={name}
       />
