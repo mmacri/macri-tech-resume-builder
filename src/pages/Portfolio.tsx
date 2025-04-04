@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -38,17 +37,12 @@ const Portfolio = () => {
         throw error;
       }
       
-      // If there are no projects in the database and the user is admin
-      // let's seed the database with the default projects
+      // If there are no projects in the database, seed the database with the default projects
+      // regardless of admin status
       if (data?.length === 0) {
-        console.log('No projects found, checking if user is admin to seed data');
-        if (isAdmin) {
-          console.log('Admin user detected, seeding default projects');
-          await seedProjects();
-          return; // fetchProjects will be called again after seeding
-        } else {
-          console.log('Not an admin user, showing empty state');
-        }
+        console.log('No projects found, seeding default projects');
+        await seedProjects();
+        return; // fetchProjects will be called again after seeding
       }
       
       setProjects(data || []);
