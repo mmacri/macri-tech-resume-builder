@@ -41,13 +41,15 @@ const AdminBlogPosts = () => {
   // Create or update blog post
   const mutation = useMutation({
     mutationFn: async (post: Partial<BlogPost>) => {
-      const { user_id, ...postData } = post;
-      
       if (post.id) {
         // Update
         const { data, error } = await supabase
           .from('blog_posts')
-          .update(postData)
+          .update({
+            title: post.title,
+            content: post.content,
+            updated_at: new Date().toISOString()
+          })
           .eq('id', post.id)
           .select()
           .single();
@@ -58,7 +60,11 @@ const AdminBlogPosts = () => {
         // Create
         const { data, error } = await supabase
           .from('blog_posts')
-          .insert({ ...postData, user_id: (await supabase.auth.getUser()).data.user?.id })
+          .insert({
+            title: post.title || '',
+            content: post.content || '',
+            user_id: (await supabase.auth.getUser()).data.user?.id || ''
+          })
           .select()
           .single();
         

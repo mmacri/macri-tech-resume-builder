@@ -50,16 +50,18 @@ const AdminPortfolioProjects = () => {
         techArray = (project.technologies as string).split(',').map(tech => tech.trim());
       }
       
-      const projectData = {
-        ...project,
-        technologies: techArray
-      };
-      
       if (project.id) {
         // Update
         const { data, error } = await supabase
           .from('portfolio_projects')
-          .update(projectData)
+          .update({
+            title: project.title || '',
+            description: project.description || '',
+            technologies: techArray as string[],
+            link: project.link,
+            image_url: project.image_url,
+            updated_at: new Date().toISOString()
+          })
           .eq('id', project.id)
           .select()
           .single();
@@ -74,7 +76,14 @@ const AdminPortfolioProjects = () => {
           
         const { data, error } = await supabase
           .from('portfolio_projects')
-          .insert({ ...projectData, display_order: highestOrder + 1 })
+          .insert({
+            title: project.title || '',
+            description: project.description || '',
+            technologies: techArray as string[],
+            link: project.link,
+            image_url: project.image_url,
+            display_order: highestOrder + 1
+          })
           .select()
           .single();
         
@@ -150,7 +159,7 @@ const AdminPortfolioProjects = () => {
     setCurrentProject({ 
       title: '', 
       description: '', 
-      technologies: [],
+      technologies: [] as string[],
       link: '',
       image_url: ''
     });
@@ -162,7 +171,7 @@ const AdminPortfolioProjects = () => {
     const techString = project.technologies ? project.technologies.join(', ') : '';
     setCurrentProject({
       ...project,
-      technologies: techString
+      technologies: project.technologies || []
     });
     setIsDialogOpen(true);
   };
@@ -180,6 +189,12 @@ const AdminPortfolioProjects = () => {
     } else {
       toast.error('Title and description are required');
     }
+  };
+
+  const handleTechnologiesChange = (value: string) => {
+    // Convert comma-separated string to array
+    const techArray = value.split(',').map(tech => tech.trim());
+    setCurrentProject({ ...currentProject, technologies: techArray });
   };
 
   if (isLoading) return <div>Loading portfolio projects...</div>;
@@ -280,10 +295,10 @@ const AdminPortfolioProjects = () => {
                 <label htmlFor="technologies">Technologies (comma-separated)</label>
                 <Input
                   id="technologies"
-                  value={typeof currentProject?.technologies === 'string' 
-                    ? currentProject.technologies 
-                    : currentProject?.technologies?.join(', ') || ''}
-                  onChange={(e) => setCurrentProject({ ...currentProject, technologies: e.target.value })}
+                  value={Array.isArray(currentProject?.technologies) 
+                    ? currentProject?.technologies.join(', ') 
+                    : ''}
+                  onChange={(e) => handleTechnologiesChange(e.target.value)}
                   placeholder="React, TypeScript, Tailwind"
                 />
               </div>
