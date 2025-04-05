@@ -1,144 +1,142 @@
-
+import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { ExperienceItem } from './useExperienceItems';
 
-export const useExperienceMutations = (sectionId: string | undefined, items: ExperienceItem[] | null) => {
+export interface UpdateOptions {
+  updateIndex?: boolean;
+  updateResume?: boolean;
+}
+
+export const useExperienceMutations = () => {
   const queryClient = useQueryClient();
 
-  // Create or update experience item
-  const mutation = useMutation({
-    mutationFn: async (item: Partial<ExperienceItem>) => {
-      console.log('Creating/updating experience item:', item);
-      
-      if (!item.title) {
-        throw new Error('Title is required');
-      }
-      
-      if (!sectionId) {
-        throw new Error('Experience section not found');
-      }
-      
-      const itemData = {
+  const addItem = async (item: any, options: UpdateOptions = { updateIndex: false, updateResume: true }) => {
+    const { updateIndex = false, updateResume = true } = options;
+    
+    // Logic to add item, with updateIndex and updateResume flags
+    console.log(`Adding item with options: updateIndex=${updateIndex}, updateResume=${updateResume}`);
+    
+    const { data, error } = await supabase
+      .from('resume_items')
+      .insert({
         title: item.title,
-        organization: item.organization || null,
-        location: item.location || null,
-        start_date: item.start_date || null,
-        end_date: item.end_date || null,
-        description: item.description || null,
-        section_id: sectionId
-      };
-      
-      if (item.id) {
-        // Update
-        const { data, error } = await supabase
-          .from('resume_items')
-          .update({
-            ...itemData,
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', item.id)
-          .select()
-          .single();
-        
-        if (error) throw error;
-        return data;
-      } else {
-        // Create - find the highest display_order and add 1
-        const highestOrder = items && items.length > 0 
-          ? Math.max(...items.map(i => i.display_order))
-          : 0;
-          
-        const { data, error } = await supabase
-          .from('resume_items')
-          .insert({
-            ...itemData,
-            display_order: highestOrder + 1
-          })
-          .select()
-          .single();
-        
-        if (error) throw error;
-        return data;
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['experienceItems'] });
-      queryClient.invalidateQueries({ queryKey: ['resumeSectionsStatus'] });
-    },
-    onError: (error) => {
-      console.error('Error in experience mutation:', error);
-      toast.error(`Error: ${error.message}`);
-    }
-  });
-
-  // Delete experience item
-  const deleteMutation = useMutation({
-    mutationFn: async (id: string) => {
-      const { error } = await supabase
-        .from('resume_items')
-        .delete()
-        .eq('id', id);
-      
-      if (error) throw error;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['experienceItems'] });
-      queryClient.invalidateQueries({ queryKey: ['resumeSectionsStatus'] });
-      toast.success('Experience deleted successfully');
-    },
-    onError: (error) => {
-      toast.error(`Error: ${error.message}`);
-    }
-  });
-
-  // Change order
-  const changeOrderMutation = useMutation({
-    mutationFn: async ({ id, newOrder }: { id: string, newOrder: number }) => {
-      const { error } = await supabase
-        .from('resume_items')
-        .update({ display_order: newOrder })
-        .eq('id', id);
-      
-      if (error) throw error;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['experienceItems'] });
-    },
-    onError: (error) => {
-      toast.error(`Error: ${error.message}`);
-    }
-  });
-
-  const handleMoveUp = (item: ExperienceItem, index: number) => {
-    if (index === 0 || !items) return; // Already at the top
+        organization: item.company,
+        location: item.location,
+        start_date: item.start_date,
+        end_date: item.end_date,
+        description: item.description,
+        duties: item.duties,
+        section_id: item.section_id,
+        display_order: item.display_order
+      })
+      .select()
+      .single();
     
-    const prevItem = items[index - 1];
-    changeOrderMutation.mutate({ id: item.id, newOrder: prevItem.display_order });
-    changeOrderMutation.mutate({ id: prevItem.id, newOrder: item.display_order });
+    if (error) {
+      console.error('Error adding experience item:', error);
+      throw error;
+    }
+    
+    return data;
   };
 
-  const handleMoveDown = (item: ExperienceItem, index: number) => {
-    if (!items || index === items.length - 1) return; // Already at the bottom
+  const updateItem = async (item: any, options: UpdateOptions = { updateIndex: false, updateResume: true }) => {
+    const { updateIndex = false, updateResume = true } = options;
     
-    const nextItem = items[index + 1];
-    changeOrderMutation.mutate({ id: item.id, newOrder: nextItem.display_order });
-    changeOrderMutation.mutate({ id: nextItem.id, newOrder: item.display_order });
+    // Logic to update item, with updateIndex and updateResume flags
+    console.log(`Updating item with options: updateIndex=${updateIndex}, updateResume=${updateResume}`);
+    
+    const { data, error } = await supabase
+      .from('resume_items')
+      .update({
+        title: item.title,
+        organization: item.company,
+        location: item.location,
+        start_date: item.start_date,
+        end_date: item.end_date,
+        description: item.description,
+        duties: item.duties,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', item.id)
+      .select()
+      .single();
+    
+    if (error) {
+      console.error('Error updating experience item:', error);
+      throw error;
+    }
+    
+    return data;
   };
 
-  const handleDeleteItem = (id: string) => {
-    if (window.confirm('Are you sure you want to delete this experience?')) {
-      deleteMutation.mutate(id);
+  const deleteItem = async (id: string, options: UpdateOptions = { updateIndex: false, updateResume: true }) => {
+    const { updateIndex = false, updateResume = true } = options;
+    
+    // Logic to delete item, with updateIndex and updateResume flags
+    console.log(`Deleting item with options: updateIndex=${updateIndex}, updateResume=${updateResume}`);
+    
+    const { error } = await supabase
+      .from('resume_items')
+      .delete()
+      .eq('id', id);
+    
+    if (error) {
+      console.error('Error deleting experience item:', error);
+      throw error;
     }
+    
+    return true;
+  };
+
+  const reorderItems = async (id1: string, id2: string, options: UpdateOptions = { updateIndex: false, updateResume: true }) => {
+    const { updateIndex = false, updateResume = true } = options;
+    
+    // Logic to reorder items, with updateIndex and updateResume flags
+    console.log(`Reordering items with options: updateIndex=${updateIndex}, updateResume=${updateResume}`);
+    
+    // Get the current display orders
+    const { data: item1, error: error1 } = await supabase
+      .from('resume_items')
+      .select('display_order')
+      .eq('id', id1)
+      .single();
+    
+    const { data: item2, error: error2 } = await supabase
+      .from('resume_items')
+      .select('display_order')
+      .eq('id', id2)
+      .single();
+    
+    if (error1 || error2) {
+      console.error('Error fetching items for reordering:', error1 || error2);
+      throw error1 || error2;
+    }
+    
+    // Swap the display orders
+    const { error: updateError1 } = await supabase
+      .from('resume_items')
+      .update({ display_order: item2.display_order })
+      .eq('id', id1);
+    
+    const { error: updateError2 } = await supabase
+      .from('resume_items')
+      .update({ display_order: item1.display_order })
+      .eq('id', id2);
+    
+    if (updateError1 || updateError2) {
+      console.error('Error updating display orders:', updateError1 || updateError2);
+      throw updateError1 || updateError2;
+    }
+    
+    return true;
   };
 
   return {
-    mutation,
-    deleteMutation,
-    changeOrderMutation,
-    handleDeleteItem,
-    handleMoveUp,
-    handleMoveDown
+    addItem,
+    updateItem,
+    deleteItem,
+    reorderItems
   };
 };

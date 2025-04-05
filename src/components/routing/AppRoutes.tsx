@@ -54,6 +54,7 @@ export const AppRoutes: React.FC = () => {
           navItems={getResumeNavItems()} 
           profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
           name="Mike Macri"
+          highlightResume={true}
         >
           <Resume />
         </Layout>
