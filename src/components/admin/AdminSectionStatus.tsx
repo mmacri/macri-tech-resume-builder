@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { Button } from '@/components/ui/button';
+import { useInitializeResumeData } from '@/hooks/useInitializeResumeData';
 
 interface SectionStatusProps {
   onAllSectionsPopulated?: () => void;
@@ -11,9 +13,10 @@ interface SectionStatusProps {
 
 const AdminSectionStatus: React.FC<SectionStatusProps> = ({ onAllSectionsPopulated }) => {
   const [allPopulated, setAllPopulated] = useState(false);
+  const { initializeData, isInitializing, isSuccess } = useInitializeResumeData();
 
   // Check if all resume sections have data
-  const { data: sectionCounts, isLoading: isLoadingSections } = useQuery({
+  const { data: sectionCounts, isLoading: isLoadingSections, refetch: refetchSections } = useQuery({
     queryKey: ['resumeSectionCounts'],
     queryFn: async () => {
       const sections = ['about', 'experience', 'education', 'skills', 'interests', 'awards'];
@@ -46,7 +49,7 @@ const AdminSectionStatus: React.FC<SectionStatusProps> = ({ onAllSectionsPopulat
   });
 
   // Check for portfolio projects
-  const { data: projectCount, isLoading: isLoadingProjects } = useQuery({
+  const { data: projectCount, isLoading: isLoadingProjects, refetch: refetchProjects } = useQuery({
     queryKey: ['portfolioProjectCount'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -60,7 +63,7 @@ const AdminSectionStatus: React.FC<SectionStatusProps> = ({ onAllSectionsPopulat
   });
 
   // Check for users
-  const { data: userCount, isLoading: isLoadingUsers } = useQuery({
+  const { data: userCount, isLoading: isLoadingUsers, refetch: refetchUsers } = useQuery({
     queryKey: ['adminUserCount'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -90,6 +93,19 @@ const AdminSectionStatus: React.FC<SectionStatusProps> = ({ onAllSectionsPopulat
     }
   }, [sectionCounts, projectCount, userCount, isLoadingSections, isLoadingProjects, isLoadingUsers, onAllSectionsPopulated]);
 
+  // Refetch data when initialization is done
+  useEffect(() => {
+    if (isSuccess) {
+      refetchSections();
+      refetchProjects();
+      refetchUsers();
+    }
+  }, [isSuccess, refetchSections, refetchProjects, refetchUsers]);
+
+  const handleInitializeData = () => {
+    initializeData();
+  };
+
   if (isLoadingSections || isLoadingProjects || isLoadingUsers) {
     return (
       <Alert className="mb-6 bg-gray-100">
@@ -115,9 +131,26 @@ const AdminSectionStatus: React.FC<SectionStatusProps> = ({ onAllSectionsPopulat
       ) : (
         <Alert className="mb-6 bg-amber-50">
           <AlertCircle className="h-4 w-4 text-amber-600 mr-2" />
-          <AlertTitle className="text-amber-600">Still Loading Data</AlertTitle>
-          <AlertDescription>
-            Some sections may still be loading data. Browse through the different sections to ensure all data is properly populated.
+          <AlertTitle className="text-amber-600">Missing Data</AlertTitle>
+          <AlertDescription className="flex flex-col gap-4">
+            <p>
+              Some sections are missing data. Click the button below to initialize all sections with Michael Macri's resume data.
+            </p>
+            <Button 
+              onClick={handleInitializeData} 
+              variant="outline" 
+              className="w-fit"
+              disabled={isInitializing}
+            >
+              {isInitializing ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                  Initializing Data...
+                </>
+              ) : (
+                "Initialize Resume Data"
+              )}
+            </Button>
           </AlertDescription>
         </Alert>
       )}

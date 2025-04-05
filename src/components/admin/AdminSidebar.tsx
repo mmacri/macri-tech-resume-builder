@@ -86,6 +86,7 @@ export const AdminSidebar = () => {
                 <SidebarMenuButton 
                   onClick={() => handleNavClick("/")}
                   tooltip="Back to Home"
+                  className="text-green-600 hover:text-green-700 hover:bg-green-50"
                 >
                   <Home className="h-5 w-5" />
                   <span>Back to Home</span>

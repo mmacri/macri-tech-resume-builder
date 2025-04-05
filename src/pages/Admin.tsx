@@ -7,10 +7,12 @@ import AdminPortfolioProjects from '@/components/admin/AdminPortfolioProjects';
 import AdminUsers from '@/components/admin/AdminUsers';
 import AdminResume from '@/components/admin/AdminResume';
 import AdminSectionStatus from '@/components/admin/AdminSectionStatus';
+import { useInitializeResumeData } from '@/hooks/useInitializeResumeData';
 
 const Admin = () => {
   const location = useLocation();
   const hash = location.hash.replace('#', '') || 'blog';
+  const { initializeData, isInitializing } = useInitializeResumeData();
   
   useEffect(() => {
     if (!location.hash) {
@@ -18,6 +20,10 @@ const Admin = () => {
       window.location.hash = 'blog';
     }
   }, [location.hash]);
+
+  const handleAllSectionsPopulated = () => {
+    console.log('All sections are populated with data');
+  };
 
   const renderComponent = () => {
     switch (hash) {
@@ -37,7 +43,7 @@ const Admin = () => {
   return (
     <AdminLayout>
       <div className="p-4">
-        <AdminSectionStatus />
+        <AdminSectionStatus onAllSectionsPopulated={handleAllSectionsPopulated} />
         {renderComponent()}
       </div>
     </AdminLayout>
