@@ -14,17 +14,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
   const navigate = useNavigate();
   
   // Get about data from items
-  const aboutItem = items.find(item => item.title === 'about_info');
-  let aboutData = null;
+  const aboutItem = items.length > 0 ? items[0] : null;
   
-  if (aboutItem?.description) {
-    try {
-      aboutData = JSON.parse(aboutItem.description);
-    } catch (e) {
-      console.error("Error parsing about data:", e);
-    }
-  }
-
+  // Parse the JSON description if it exists
+  const aboutData = aboutItem?.description ? JSON.parse(aboutItem.description || '{}') : null;
+  
   // Default values if aboutData not found
   const fullName = aboutData?.full_name || 'Michael Macri';
   const headline = aboutData?.headline || '';
@@ -42,6 +36,10 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
     'GTM Strategy: Defined and executed business plans driving 644% revenue growth in FY21 H1, 466% in FY21 H2 and a quarterly pipeline increase of 250%.',
     'Partner Growth: Secured top-tier partnerships with GSIs, boosting revenue and outperforming competitors.',
     'AI/ML Initiatives: Acted as SME for enterprise AI/ML policy creation, ensuring ethical compliance and effective data governance.'
+  ];
+  const references = aboutData?.references || [
+    "I have worked with Mike for the past 5 years during my time as an Enterprise Sales Exec at VMware. From Day 1 Mike has been a tremendous business partner (not only to me but most importantly, to my customers). Mike leads by example in holding himself and his team accountable resulting in the highest levels of customer satisfaction and building long-term, trusted, customer relationships. Working with Mike has been a pleasure; his attention to detail, work ethic, and unyielding commitment to delivering customer business goals &amp; outcomes has been invaluable.",
+    "I find Mike to be a manager that is a true mentor, coach, and leader. Mike not only guides but listens. When I found myself in a quandary his 'Next Step' has always got me further in my endeavors, from customer maturity to conversations with Directors and above we always moved the needle."
   ];
   
   // Initialize tooltips
@@ -156,16 +154,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
         {/* References Section */}
         <div className="mb-8">
           <h3 className="text-2xl font-bold mb-4">References</h3>
-          <blockquote className="border-l-4 border-macri-primary pl-4 italic my-4 text-gray-600">
-            <p className="mb-0 text-sm">
-              "I have worked with Mike for the past 5 years during my time as an Enterprise Sales Exec at VMware. From Day 1 Mike has been a tremendous business partner (not only to me but most importantly, to my customers). Mike leads by example in holding himself and his team accountable resulting in the highest levels of customer satisfaction and building long-term, trusted, customer relationships. Working with Mike has been a pleasure; his attention to detail, work ethic, and unyielding commitment to delivering customer business goals &amp; outcomes has been invaluable."
-            </p>
-          </blockquote>
-          <blockquote className="border-l-4 border-macri-primary pl-4 italic my-4 text-gray-600">
-            <p className="mb-0 text-sm">
-              "I find Mike to be a manager that is a true mentor, coach, and leader. Mike not only guides but listens. When I found myself in a quandary his 'Next Step' has always got me further in my endeavors, from customer maturity to conversations with Directors and above we always moved the needle."
-            </p>
-          </blockquote>
+          {references.map((reference, index) => (
+            <blockquote key={index} className="border-l-4 border-macri-primary pl-4 italic my-4 text-gray-600">
+              <p className="mb-0 text-sm">{reference}</p>
+            </blockquote>
+          ))}
           <a 
             href="https://linkedin.com/in/mikemacri/details/recommendations/" 
             target="_blank" 
