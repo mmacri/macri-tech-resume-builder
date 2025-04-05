@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { scrollToElement } from '@/utils/scrollUtils';
 import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
 
 interface NavigationItemProps {
   item: {
