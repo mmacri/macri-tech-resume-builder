@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdminAbout from './resume/AdminAbout';
 import AdminExperience from './resume/AdminExperience';
 import AdminEducation from './resume/AdminEducation';
@@ -9,16 +9,14 @@ import AdminInterests from './resume/AdminInterests';
 import AdminAwards from './resume/AdminAwards';
 
 const AdminResume = () => {
-  const [activeTab, setActiveTab] = useState('about');
-  
+  const [activeTab, setActiveTab] = useState("about");
+
   return (
     <div className="p-4">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Resume Management</h1>
-      </div>
-      
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="grid grid-cols-3 md:grid-cols-6 gap-2">
+      <h1 className="text-2xl font-bold mb-6">Resume Management</h1>
+
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="mb-8">
           <TabsTrigger value="about">About</TabsTrigger>
           <TabsTrigger value="experience">Experience</TabsTrigger>
           <TabsTrigger value="education">Education</TabsTrigger>
@@ -27,27 +25,27 @@ const AdminResume = () => {
           <TabsTrigger value="awards">Awards</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="about" className="space-y-4">
+        <TabsContent value="about">
           <AdminAbout />
         </TabsContent>
         
-        <TabsContent value="experience" className="space-y-4">
+        <TabsContent value="experience">
           <AdminExperience />
         </TabsContent>
         
-        <TabsContent value="education" className="space-y-4">
+        <TabsContent value="education">
           <AdminEducation />
         </TabsContent>
         
-        <TabsContent value="skills" className="space-y-4">
+        <TabsContent value="skills">
           <AdminSkills />
         </TabsContent>
         
-        <TabsContent value="interests" className="space-y-4">
+        <TabsContent value="interests">
           <AdminInterests />
         </TabsContent>
         
-        <TabsContent value="awards" className="space-y-4">
+        <TabsContent value="awards">
           <AdminAwards />
         </TabsContent>
       </Tabs>

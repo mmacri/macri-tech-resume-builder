@@ -1,10 +1,11 @@
 
 import React from 'react';
-import { UserProfile } from '@/types/user';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { Button } from '@/components/ui/button';
 import { DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { UserProfile } from '@/types/user';
+import { Label } from '@/components/ui/label';
 
 interface EditUserDialogProps {
   currentUser: Partial<UserProfile> | null;
@@ -19,50 +20,41 @@ const EditUserDialog: React.FC<EditUserDialogProps> = ({
   setCurrentUser,
   handleSubmit,
   isPending,
-  onClose
+  onClose,
 }) => {
+  if (!currentUser) return null;
+
   return (
-    <DialogContent className="sm:max-w-[500px]">
+    <DialogContent className="sm:max-w-[425px]">
       <DialogHeader>
         <DialogTitle>Edit User</DialogTitle>
       </DialogHeader>
-      <form onSubmit={handleSubmit}>
-        <div className="grid gap-4 py-4">
-          <div className="grid gap-2">
-            <label htmlFor="email">Email</label>
-            <Input
-              id="email"
-              value={currentUser?.email || ''}
-              disabled
-              readOnly
-            />
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="username">Username</label>
-            <Input
-              id="username"
-              value={currentUser?.username || ''}
-              onChange={(e) => setCurrentUser({ ...currentUser, username: e.target.value })}
-              placeholder="Username"
-            />
-          </div>
-          <div className="grid gap-2">
-            <label htmlFor="full_name">Full Name</label>
-            <Input
-              id="full_name"
-              value={currentUser?.full_name || ''}
-              onChange={(e) => setCurrentUser({ ...currentUser, full_name: e.target.value })}
-              placeholder="Full Name"
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <Switch
-              id="is_admin"
-              checked={currentUser?.is_admin || false}
-              onCheckedChange={(checked) => setCurrentUser({ ...currentUser, is_admin: checked })}
-            />
-            <label htmlFor="is_admin">Admin privileges</label>
-          </div>
+      <form onSubmit={handleSubmit} className="space-y-4 py-2">
+        <div className="grid gap-2">
+          <Label htmlFor="fullName">Full Name</Label>
+          <Input
+            id="fullName"
+            value={currentUser.full_name || ''}
+            onChange={(e) => setCurrentUser({ ...currentUser, full_name: e.target.value })}
+            placeholder="Enter full name"
+          />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="username">Username</Label>
+          <Input
+            id="username"
+            value={currentUser.username || ''}
+            onChange={(e) => setCurrentUser({ ...currentUser, username: e.target.value })}
+            placeholder="Enter username"
+          />
+        </div>
+        <div className="flex items-center space-x-2">
+          <Switch
+            id="isAdmin"
+            checked={!!currentUser.is_admin}
+            onCheckedChange={(checked) => setCurrentUser({ ...currentUser, is_admin: checked })}
+          />
+          <Label htmlFor="isAdmin">Administrator</Label>
         </div>
         <DialogFooter>
           <Button type="button" variant="outline" onClick={onClose}>
