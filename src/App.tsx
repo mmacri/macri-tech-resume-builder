@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -29,7 +30,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   if (isLoading) return <div className="p-8 flex justify-center">Loading...</div>;
   
   if (!user) {
-    return <Navigate to="/auth" replace />;
+    return <Navigate to="/auth?redirectTo=/admin-dashboard" replace />;
   }
   
   return <>{children}</>;
@@ -41,7 +42,7 @@ const AdminRoute = ({ children }: { children: React.ReactNode }) => {
   if (isLoading) return <div className="p-8 flex justify-center">Loading...</div>;
   
   if (!user) {
-    return <Navigate to="/auth?redirectTo=/admin" replace />;
+    return <Navigate to="/auth?redirectTo=/admin-dashboard" replace />;
   }
   
   if (!isAdmin) {
