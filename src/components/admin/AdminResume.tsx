@@ -2,9 +2,14 @@
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdminExperience from './resume/AdminExperience';
+import AdminEducation from './resume/AdminEducation';
+import AdminSkills from './resume/AdminSkills';
+import AdminInterests from './resume/AdminInterests';
+import AdminAwards from './resume/AdminAwards';
+import AdminAbout from './resume/AdminAbout';
 
 const AdminResume = () => {
-  const [activeTab, setActiveTab] = useState('experience');
+  const [activeTab, setActiveTab] = useState('about');
 
   return (
     <div className="p-6">
@@ -12,6 +17,7 @@ const AdminResume = () => {
       
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="mb-6">
+          <TabsTrigger value="about">About</TabsTrigger>
           <TabsTrigger value="experience">Experience</TabsTrigger>
           <TabsTrigger value="education">Education</TabsTrigger>
           <TabsTrigger value="skills">Skills</TabsTrigger>
@@ -19,32 +25,28 @@ const AdminResume = () => {
           <TabsTrigger value="awards">Awards</TabsTrigger>
         </TabsList>
         
+        <TabsContent value="about">
+          <AdminAbout />
+        </TabsContent>
+        
         <TabsContent value="experience">
           <AdminExperience />
         </TabsContent>
         
         <TabsContent value="education">
-          <div className="p-4 text-center text-gray-500">
-            Education section management will be implemented soon.
-          </div>
+          <AdminEducation />
         </TabsContent>
         
         <TabsContent value="skills">
-          <div className="p-4 text-center text-gray-500">
-            Skills section management will be implemented soon.
-          </div>
+          <AdminSkills />
         </TabsContent>
         
         <TabsContent value="interests">
-          <div className="p-4 text-center text-gray-500">
-            Interests section management will be implemented soon.
-          </div>
+          <AdminInterests />
         </TabsContent>
         
         <TabsContent value="awards">
-          <div className="p-4 text-center text-gray-500">
-            Awards section management will be implemented soon.
-          </div>
+          <AdminAwards />
         </TabsContent>
       </Tabs>
     </div>

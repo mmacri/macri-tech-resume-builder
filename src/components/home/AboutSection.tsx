@@ -5,9 +5,44 @@ import { Button } from '@/components/ui/button';
 import { LayoutDashboard } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
-const AboutSection: React.FC = () => {
+interface AboutSectionProps {
+  items: any[];
+}
+
+const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
   const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
+  
+  // Get about data from items
+  const aboutItem = items.find(item => item.title === 'about_info');
+  let aboutData = null;
+  
+  if (aboutItem?.description) {
+    try {
+      aboutData = JSON.parse(aboutItem.description);
+    } catch (e) {
+      console.error("Error parsing about data:", e);
+    }
+  }
+
+  // Default values if aboutData not found
+  const fullName = aboutData?.full_name || 'Michael Macri';
+  const headline = aboutData?.headline || '';
+  const introText = aboutData?.intro_text || 'A value-driven leader with 25 years of experience recognized for customer success programs, partner management, and solution advisory, specializing in enterprise technology adoption, renewal, and upsell.';
+  const locations = aboutData?.locations || ['Edmonds, WA', 'San Diego, CA', 'San Francisco, CA', 'Chicago, IL', 'South Bend, IN', 'Denver, CO', 'Remote'];
+  const skillsItems = aboutData?.skills_items || [
+    'Operational Efficiency: Implementing practical solutions that cut training time and prevent compliance issues.',
+    'Team Leadership: Building and aligning high-performing teams for clear, measurable results.',
+    'Process Improvement: Streamlining workflows to reduce redundancy and enhance transparency.',
+    'Product Adoption: Developing self-service tools and playbooks that drive usage and build customer trust.'
+  ];
+  const successItems = aboutData?.success_items || [
+    'Policy & Compliance: Created PolicyHub for on-demand access to 400+ policies, reducing training time and compliance risk.',
+    'Customer Success: Built playbooks and dashboards that increased product adoption by 21% and raised NPS by 30 points.',
+    'GTM Strategy: Defined and executed business plans driving 644% revenue growth in FY21 H1, 466% in FY21 H2 and a quarterly pipeline increase of 250%.',
+    'Partner Growth: Secured top-tier partnerships with GSIs, boosting revenue and outperforming competitors.',
+    'AI/ML Initiatives: Acted as SME for enterprise AI/ML policy creation, ensuring ethical compliance and effective data governance.'
+  ];
   
   // Initialize tooltips
   useEffect(() => {
@@ -29,19 +64,15 @@ const AboutSection: React.FC = () => {
     <section className="resume-section" id="about">
       <div className="resume-section-content px-4 md:px-8">
         <h1 className="text-5xl md:text-6xl font-bold mb-0">
-          Michael
-          <span className="text-primary"> Macri</span>
+          {fullName.split(' ')[0]}
+          <span className="text-primary"> {fullName.split(' ').slice(1).join(' ')}</span>
         </h1>
         <div className="subheading mb-5">
           <b>Located:</b>
           <div className="flex flex-wrap gap-1 mt-2">
-            <span className="badge bg-primary">Edmonds, WA</span>
-            <span className="badge bg-primary">San Diego, CA</span>
-            <span className="badge bg-primary">San Francisco, CA</span>
-            <span className="badge bg-primary">Chicago, IL</span>
-            <span className="badge bg-primary">South Bend, IN</span>
-            <span className="badge bg-primary">Denver, CO</span>
-            <span className="badge bg-primary">Remote</span>
+            {locations.map((location, index) => (
+              <span key={index} className="badge bg-primary">{location}</span>
+            ))}
           </div>
           <div className="flex gap-2 mt-2">
             <a className="btn inline-block" 
@@ -65,7 +96,7 @@ const AboutSection: React.FC = () => {
         {/* About Header */}
         <h3 className="mb-4 border-b-2 border-macri-primary inline-block">About</h3>
         <p className="lead mb-4 text-lg">
-          <b>A value-driven leader</b> with <u>25 years of experience</u> recognized for <b>customer success programs</b>, <b>partner management</b>, and <b>solution advisory</b>, specializing in <b>enterprise technology adoption</b>, <b>renewal</b>, and <b>upsell</b>. Known for <u>driving transformative initiatives</u> in <u>emerging technologies</u> and <u>hybrid cloud solutions</u>, resulting in <b>multi-million-dollar outcomes</b> by aligning <i>initiatives</i> with <b>executive business objectives</b>.
+          {introText}
         </p>
 
         <hr className="border-t border-gray-200 my-4" />
@@ -76,22 +107,22 @@ const AboutSection: React.FC = () => {
           <div className="border-l-4 border-macri-primary bg-gray-50 rounded-lg p-5 shadow-sm">
             <p className="text-sm uppercase font-bold text-macri-primary mb-3">Skilled in:</p>
             <ul className="space-y-3">
-              <li className="flex gap-3">
-                <i className="fas fa-rocket text-macri-primary mt-1"></i>
-                <span><strong>Operational Efficiency:</strong> Implementing practical solutions that cut training time and prevent compliance issues.</span>
-              </li>
-              <li className="flex gap-3">
-                <i className="fas fa-users text-macri-success mt-1"></i>
-                <span><strong>Team Leadership:</strong> Building and aligning high-performing teams for clear, measurable results.</span>
-              </li>
-              <li className="flex gap-3">
-                <i className="fas fa-sync-alt text-macri-info mt-1"></i>
-                <span><strong>Process Improvement:</strong> Streamlining workflows to reduce redundancy and enhance transparency.</span>
-              </li>
-              <li className="flex gap-3">
-                <i className="fas fa-user-check text-macri-warning mt-1"></i>
-                <span><strong>Product Adoption:</strong> Developing self-service tools and playbooks that drive usage and build customer trust.</span>
-              </li>
+              {skillsItems.map((item, index) => {
+                const [title, description] = item.split(': ');
+                const iconClass = [
+                  'fas fa-rocket text-macri-primary',
+                  'fas fa-users text-macri-success',
+                  'fas fa-sync-alt text-macri-info',
+                  'fas fa-user-check text-macri-warning'
+                ][index % 4]; // Cycle through the icon classes
+                
+                return (
+                  <li key={index} className="flex gap-3">
+                    <i className={`${iconClass} mt-1`}></i>
+                    <span><strong>{title}:</strong> {description}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           
@@ -99,44 +130,25 @@ const AboutSection: React.FC = () => {
           <div className="border-l-4 border-macri-primary bg-gray-50 rounded-lg p-5 shadow-sm">
             <p className="text-sm uppercase font-bold text-macri-primary mb-3">Demonstrated success in:</p>
             <ul className="space-y-3">
-              <li className="flex gap-3">
-                <i className="fas fa-lightbulb text-macri-warning mt-1"></i>
-                <span>
-                  <strong>Policy &amp; Compliance:</strong> Created PolicyHub for on-demand access to <span className="relative group">
-                    <b data-tooltip="Centralized over 400 compliance policies">400+ policies</b>
-                  </span>, reducing training time and compliance risk.
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <i className="fas fa-chart-line text-macri-success mt-1"></i>
-                <span>
-                  <strong>Customer Success:</strong> Built playbooks and dashboards that increased product adoption by <span className="relative group">
-                    <b data-tooltip="Increased adoption by 21%">21%</b>
-                  </span> and raised NPS by <span className="relative group">
-                    <b data-tooltip="NPS improved by 30 points">30 points</b>
-                  </span>.
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <i className="fas fa-cubes text-macri-info mt-1"></i>
-                <span>
-                  <strong>GTM Strategy:</strong> Defined and executed business plans driving <span className="relative group">
-                    <b data-tooltip="Revenue increased by 644% in FY21 H1">644% revenue growth in FY21 H1</b>
-                  </span>, <span className="relative group">
-                    <b data-tooltip="Revenue increased by 466% in FY21 H2">466% in FY21 H2</b>
-                  </span> and a quarterly pipeline increase of <span className="relative group">
-                    <b data-tooltip="Quarterly pipeline expanded by 250%">250%</b>
-                  </span>.
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <i className="fas fa-handshake text-macri-primary mt-1"></i>
-                <span><strong>Partner Growth:</strong> Secured top-tier partnerships with GSIs, boosting revenue and outperforming competitors.</span>
-              </li>
-              <li className="flex gap-3">
-                <i className="fas fa-lightbulb text-macri-warning mt-1"></i>
-                <span><strong>AI/ML Initiatives:</strong> Acted as SME for enterprise AI/ML policy creation, ensuring ethical compliance and effective data governance.</span>
-              </li>
+              {successItems.map((item, index) => {
+                const [title, description] = item.split(': ');
+                const iconClass = [
+                  'fas fa-lightbulb text-macri-warning',
+                  'fas fa-chart-line text-macri-success',
+                  'fas fa-cubes text-macri-info',
+                  'fas fa-handshake text-macri-primary',
+                  'fas fa-lightbulb text-macri-warning'
+                ][index % 5]; // Cycle through the icon classes
+                
+                return (
+                  <li key={index} className="flex gap-3">
+                    <i className={`${iconClass} mt-1`}></i>
+                    <span>
+                      <strong>{title}:</strong> {description}
+                    </span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
