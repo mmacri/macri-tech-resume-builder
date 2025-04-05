@@ -52,6 +52,8 @@ export function useSupabaseAuth() {
   const checkIfAdmin = async (userId: string) => {
     try {
       console.log('Checking admin status for user ID:', userId);
+      
+      // Direct DB query without relying on complex policies
       const { data, error } = await supabase
         .from('profiles')
         .select('is_admin')
@@ -60,7 +62,18 @@ export function useSupabaseAuth() {
         
       if (error) {
         console.error('Error checking admin status:', error);
-        setIsAdmin(false);
+        // Fallback to direct checking for specific admin emails
+        const { data: userData } = await supabase.auth.getUser();
+        
+        if (userData?.user) {
+          const email = userData.user.email?.toLowerCase();
+          // Hardcoded admin emails as fallback
+          const isAdminEmail = email === 'mike@mikemacri.com' || email === 'mike@gmail.com';
+          console.log(`Fallback admin check for ${email}: ${isAdminEmail}`);
+          setIsAdmin(isAdminEmail);
+        } else {
+          setIsAdmin(false);
+        }
       } else if (data) {
         console.log('Admin status from database:', data.is_admin);
         setIsAdmin(data.is_admin || false);

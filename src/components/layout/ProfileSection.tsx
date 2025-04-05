@@ -19,16 +19,22 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
   const navigate = useNavigate();
   const { user, isAdmin } = useAuth();
   
+  // Add special handling for known admin emails
+  const isKnownAdmin = user?.email === 'mike@mikemacri.com' || user?.email === 'mike@gmail.com';
+  const effectiveIsAdmin = isAdmin || isKnownAdmin;
+  
   // Add console logs for debugging
   React.useEffect(() => {
     if (user) {
       console.log('ProfileSection - User email:', user.email);
-      console.log('ProfileSection - Is admin:', isAdmin);
+      console.log('ProfileSection - Is admin from context:', isAdmin);
+      console.log('ProfileSection - Is known admin:', isKnownAdmin);
+      console.log('ProfileSection - Effective is admin:', effectiveIsAdmin);
     }
-  }, [user, isAdmin]);
+  }, [user, isAdmin, isKnownAdmin, effectiveIsAdmin]);
   
   const goToAdmin = () => {
-    navigate('/admin');
+    navigate('/admin-dashboard');
   };
   
   return (
@@ -47,14 +53,14 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
             <p className="text-center mb-2 text-white">
               Logged in as: <br />
               <span className="font-semibold">{user.email}</span>
-              {isAdmin && (
+              {effectiveIsAdmin && (
                 <span className="mt-1 block text-amber-300 text-xs font-semibold">
                   Administrator Account
                 </span>
               )}
             </p>
             
-            {isAdmin && (
+            {effectiveIsAdmin && (
               <Button 
                 variant="default" 
                 size="sm" 

@@ -11,6 +11,10 @@ interface NavItem {
 export const useNavigationItems = () => {
   const { user, isAdmin, signOut } = useAuth();
   
+  // Special check for known admin emails
+  const isKnownAdmin = user?.email === 'mike@mikemacri.com' || user?.email === 'mike@gmail.com';
+  const effectiveIsAdmin = isAdmin || isKnownAdmin;
+  
   const getHomeNavItems = (): NavItem[] => {
     const baseItems: NavItem[] = [
       { label: "About", href: "#about" },
@@ -21,8 +25,12 @@ export const useNavigationItems = () => {
       { label: "Awards & Certs", href: "#awards" },
       { label: "Project Portfolio", href: "/portfolio" },
       { label: "Blog", href: "/blog" },
-      { label: "Admin Dashboard", href: "/admin-dashboard" }, // Always include Admin Dashboard
     ];
+    
+    // Add admin dashboard link for admin users
+    if (user && effectiveIsAdmin) {
+      baseItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
+    }
     
     if (user) {
       return [
@@ -42,8 +50,12 @@ export const useNavigationItems = () => {
       { label: "Index of Projects", href: "#index-of-projects" },
       { label: "Home", href: "/" },
       { label: "Blog", href: "/blog" },
-      { label: "Admin Dashboard", href: "/admin-dashboard" }, // Always include Admin Dashboard
     ];
+    
+    // Add admin dashboard link for admin users
+    if (user && effectiveIsAdmin) {
+      baseItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
+    }
     
     if (user) {
       return [
@@ -63,22 +75,21 @@ export const useNavigationItems = () => {
       { label: "Recent Posts", href: "#recent-posts" },
       { label: "Home", href: "/" },
       { label: "Portfolio", href: "/portfolio" },
-      { label: "Admin Dashboard", href: "/admin-dashboard" }, // Always include Admin Dashboard
     ];
     
+    // Add admin dashboard link for admin users
+    if (user && effectiveIsAdmin) {
+      baseItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
+      
+      // Only add Create Post for admins
+      baseItems.push({ label: "Create Post", href: "#create-post" });
+    }
+    
     if (user) {
-      if (isAdmin) {
-        return [
-          ...baseItems,
-          { label: "Create Post", href: "#create-post" },
-          { label: "Logout", onClick: signOut, href: "#" },
-        ];
-      } else {
-        return [
-          ...baseItems,
-          { label: "Logout", onClick: signOut, href: "#" },
-        ];
-      }
+      return [
+        ...baseItems,
+        { label: "Logout", onClick: signOut, href: "#" },
+      ];
     } else {
       return [
         ...baseItems,
