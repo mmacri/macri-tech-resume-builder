@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdminAbout from './resume/AdminAbout';
 import AdminExperience from './resume/AdminExperience';
@@ -10,6 +10,15 @@ import AdminAwards from './resume/AdminAwards';
 
 const AdminResume = () => {
   const [activeTab, setActiveTab] = useState("about");
+  
+  // Read activeTab from localStorage if it was set (for direct navigation to a tab)
+  useEffect(() => {
+    const savedTab = localStorage.getItem('activeResumeTab');
+    if (savedTab) {
+      setActiveTab(savedTab);
+      localStorage.removeItem('activeResumeTab'); // Clear after use
+    }
+  }, []);
 
   return (
     <div className="p-4">

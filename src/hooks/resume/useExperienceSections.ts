@@ -1,9 +1,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
 
-export interface ExperienceSection {
+export interface ResumeSection {
   id: string;
   section_name: string;
   display_order: number;
@@ -12,9 +11,9 @@ export interface ExperienceSection {
 }
 
 export const useExperienceSections = () => {
-  // Fetch experience section ID
-  const { data: sections, isLoading: isSectionsLoading } = useQuery({
-    queryKey: ['experienceSections'],
+  // Get experience section ID
+  const { data: sections, isLoading, error } = useQuery({
+    queryKey: ['experienceSection'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('resume_sections')
@@ -23,8 +22,8 @@ export const useExperienceSections = () => {
       
       if (error) throw error;
       
-      // If no experience section exists, create one
       if (!data || data.length === 0) {
+        // Create experience section if it doesn't exist
         const { data: newSection, error: createError } = await supabase
           .from('resume_sections')
           .insert({ section_name: 'experience', display_order: 2 })
@@ -41,6 +40,7 @@ export const useExperienceSections = () => {
 
   return {
     sections,
-    isSectionsLoading
+    isLoading,
+    error
   };
 };

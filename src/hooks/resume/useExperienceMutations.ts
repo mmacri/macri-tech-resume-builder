@@ -10,6 +10,8 @@ export const useExperienceMutations = (sectionId: string | undefined, items: Exp
   // Create or update experience item
   const mutation = useMutation({
     mutationFn: async (item: Partial<ExperienceItem>) => {
+      console.log('Creating/updating experience item:', item);
+      
       if (!item.title) {
         throw new Error('Title is required');
       }
@@ -63,8 +65,10 @@ export const useExperienceMutations = (sectionId: string | undefined, items: Exp
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['experienceItems'] });
+      queryClient.invalidateQueries({ queryKey: ['resumeSectionsStatus'] });
     },
     onError: (error) => {
+      console.error('Error in experience mutation:', error);
       toast.error(`Error: ${error.message}`);
     }
   });
@@ -81,6 +85,7 @@ export const useExperienceMutations = (sectionId: string | undefined, items: Exp
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['experienceItems'] });
+      queryClient.invalidateQueries({ queryKey: ['resumeSectionsStatus'] });
       toast.success('Experience deleted successfully');
     },
     onError: (error) => {
@@ -130,6 +135,8 @@ export const useExperienceMutations = (sectionId: string | undefined, items: Exp
 
   return {
     mutation,
+    deleteMutation,
+    changeOrderMutation,
     handleDeleteItem,
     handleMoveUp,
     handleMoveDown

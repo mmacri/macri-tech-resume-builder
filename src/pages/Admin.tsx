@@ -8,6 +8,8 @@ import AdminUsers from '@/components/admin/AdminUsers';
 import AdminResume from '@/components/admin/AdminResume';
 import AdminSectionStatus from '@/components/admin/AdminSectionStatus';
 import { useInitializeResumeData } from '@/hooks/useInitializeResumeData';
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 const Admin = () => {
   const location = useLocation();
@@ -23,6 +25,17 @@ const Admin = () => {
 
   const handleAllSectionsPopulated = () => {
     console.log('All sections are populated with data');
+    toast.success('All resume sections are populated with data!');
+  };
+
+  const handleInitializeData = () => {
+    initializeData();
+  };
+
+  const handleForceInitializeData = () => {
+    if (window.confirm('This will reset all resume data with fresh sample data. Are you sure?')) {
+      initializeData({ force: true });
+    }
   };
 
   const renderComponent = () => {
@@ -43,7 +56,25 @@ const Admin = () => {
   return (
     <AdminLayout>
       <div className="p-4">
-        <AdminSectionStatus onAllSectionsPopulated={handleAllSectionsPopulated} />
+        <div className="mb-6">
+          <AdminSectionStatus onAllSectionsPopulated={handleAllSectionsPopulated} />
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Button 
+              onClick={handleInitializeData} 
+              disabled={isInitializing} 
+              variant="default"
+            >
+              {isInitializing ? 'Initializing...' : 'Initialize Resume Data'}
+            </Button>
+            <Button 
+              onClick={handleForceInitializeData}
+              disabled={isInitializing}
+              variant="destructive"
+            >
+              Reset Resume Data
+            </Button>
+          </div>
+        </div>
         {renderComponent()}
       </div>
     </AdminLayout>
