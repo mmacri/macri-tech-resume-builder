@@ -13,7 +13,7 @@ type AuthContextType = {
   signUp: (email: string, password: string) => Promise<AuthResponse>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
-  setAdminStatus?: (userId: string, adminStatus: boolean) => Promise<boolean>;
+  setAdminStatus: (userId: string, adminStatus: boolean) => Promise<boolean>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

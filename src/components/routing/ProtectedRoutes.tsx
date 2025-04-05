@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
@@ -14,11 +14,24 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   requiresAdmin = false 
 }) => {
   const { user, isAdmin, isLoading } = useAuth();
+  const location = useLocation();
   
-  if (isLoading) return <div className="p-8 flex justify-center">Loading...</div>;
+  // Add logging for debugging
+  useEffect(() => {
+    if (requiresAdmin) {
+      console.log('ProtectedRoute - Admin required:', requiresAdmin);
+      console.log('ProtectedRoute - User authenticated:', !!user);
+      console.log('ProtectedRoute - User admin status:', isAdmin);
+    }
+  }, [user, isAdmin, requiresAdmin]);
+  
+  if (isLoading) {
+    return <div className="p-8 flex justify-center">Loading...</div>;
+  }
   
   if (!user) {
-    return <Navigate to="/auth?redirectTo=/admin-dashboard" replace />;
+    const currentPath = location.pathname;
+    return <Navigate to={`/auth?redirectTo=${currentPath}`} replace />;
   }
   
   if (requiresAdmin && !isAdmin) {
