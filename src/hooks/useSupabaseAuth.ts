@@ -66,7 +66,7 @@ export function useSupabaseAuth() {
         setIsAdmin(data.is_admin || false);
       } else {
         console.log('No profile found, creating new profile');
-        await createUserProfile(userId);
+        await createUserProfile(userId, false); // Changed default to false
       }
     } catch (error) {
       console.error('Error checking admin status:', error);
@@ -76,7 +76,7 @@ export function useSupabaseAuth() {
     }
   };
 
-  const createUserProfile = async (userId: string, makeAdmin: boolean = true) => {
+  const createUserProfile = async (userId: string, makeAdmin: boolean = false) => { // Changed default to false
     try {
       console.log('Creating user profile, admin status:', makeAdmin);
       const { error } = await supabase
