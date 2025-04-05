@@ -6,7 +6,6 @@ import { Plus } from 'lucide-react';
 import { usePortfolioProjectsAdmin } from '@/hooks/usePortfolioProjectsAdmin';
 import ProjectsTable from './ProjectsTable';
 import ProjectDialog from './ProjectDialog';
-import { toast } from 'sonner';
 
 const AdminPortfolioProjects = () => {
   const {
