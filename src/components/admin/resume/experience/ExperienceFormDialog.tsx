@@ -4,21 +4,7 @@ import { DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/compon
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
-
-interface ExperienceItem {
-  id: string;
-  title: string;
-  organization: string | null;
-  location: string | null;
-  start_date: string | null;
-  end_date: string | null;
-  description: string | null;
-  display_order: number;
-  section_id: string;
-  created_at: string;
-  updated_at: string;
-}
+import { ExperienceItem } from '@/hooks/resume/useExperienceItems';
 
 interface ExperienceFormDialogProps {
   currentItem: Partial<ExperienceItem> | null;

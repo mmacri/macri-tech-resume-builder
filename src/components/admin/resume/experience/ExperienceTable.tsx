@@ -3,20 +3,7 @@ import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Pencil, Trash, ArrowUp, ArrowDown } from 'lucide-react';
-
-interface ExperienceItem {
-  id: string;
-  title: string;
-  organization: string | null;
-  location: string | null;
-  start_date: string | null;
-  end_date: string | null;
-  description: string | null;
-  display_order: number;
-  section_id: string;
-  created_at: string;
-  updated_at: string;
-}
+import { ExperienceItem } from '@/hooks/resume/useExperienceItems';
 
 interface ExperienceTableProps {
   items: ExperienceItem[] | null;
