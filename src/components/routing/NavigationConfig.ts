@@ -25,6 +25,7 @@ export const useNavigationItems = () => {
       { label: "Awards & Certs", href: "#awards" },
       { label: "Project Portfolio", href: "/portfolio" },
       { label: "Blog", href: "/blog" },
+      { label: "Resume", href: "/resume" },
     ];
     
     // Add admin dashboard link for admin users
@@ -50,6 +51,7 @@ export const useNavigationItems = () => {
       { label: "Index of Projects", href: "#index-of-projects" },
       { label: "Home", href: "/" },
       { label: "Blog", href: "/blog" },
+      { label: "Resume", href: "/resume" },
     ];
     
     // Add admin dashboard link for admin users
@@ -75,6 +77,7 @@ export const useNavigationItems = () => {
       { label: "Recent Posts", href: "#recent-posts" },
       { label: "Home", href: "/" },
       { label: "Portfolio", href: "/portfolio" },
+      { label: "Resume", href: "/resume" },
     ];
     
     // Add admin dashboard link for admin users
@@ -98,9 +101,42 @@ export const useNavigationItems = () => {
     }
   };
 
+  // Add a new function for Resume page navigation items
+  const getResumeNavItems = (): NavItem[] => {
+    const baseItems: NavItem[] = [
+      { label: "About", href: "#about" },
+      { label: "Experience", href: "#experience" },
+      { label: "Education", href: "#education" },
+      { label: "Skills", href: "#skills" },
+      { label: "Interests", href: "#interests" },
+      { label: "Awards", href: "#awards" },
+      { label: "Home", href: "/" },
+      { label: "Portfolio", href: "/portfolio" },
+      { label: "Blog", href: "/blog" },
+    ];
+    
+    // Add admin dashboard link for admin users
+    if (user && effectiveIsAdmin) {
+      baseItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
+    }
+    
+    if (user) {
+      return [
+        ...baseItems,
+        { label: "Logout", onClick: signOut, href: "#" },
+      ];
+    } else {
+      return [
+        ...baseItems,
+        { label: "Login", href: "/auth" },
+      ];
+    }
+  };
+
   return {
     getHomeNavItems,
     getPortfolioNavItems,
-    getBlogNavItems
+    getBlogNavItems,
+    getResumeNavItems
   };
 };

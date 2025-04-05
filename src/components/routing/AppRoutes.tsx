@@ -9,6 +9,7 @@ import { AdminRoute, ProtectedRoute } from './ProtectedRoutes';
 import Home from '@/pages/Home';
 import Portfolio from '@/pages/Portfolio';
 import Blog from '@/pages/Blog';
+import Resume from '@/pages/Resume';
 import Auth from '@/pages/Auth';
 import Admin from '@/pages/Admin';
 import AdminDashboard from '@/pages/AdminDashboard';
@@ -17,7 +18,7 @@ import Layout from '@/components/Layout';
 
 export const AppRoutes: React.FC = () => {
   const { user } = useAuth();
-  const { getHomeNavItems, getPortfolioNavItems, getBlogNavItems } = useNavigationItems();
+  const { getHomeNavItems, getPortfolioNavItems, getBlogNavItems, getResumeNavItems } = useNavigationItems();
   
   return (
     <Routes>
@@ -46,6 +47,15 @@ export const AppRoutes: React.FC = () => {
           name="Mike Macri"
         >
           <Blog />
+        </Layout>
+      } />
+      <Route path="/resume" element={
+        <Layout 
+          navItems={getResumeNavItems()} 
+          profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+          name="Mike Macri"
+        >
+          <Resume />
         </Layout>
       } />
       <Route path="/auth" element={<Auth />} />

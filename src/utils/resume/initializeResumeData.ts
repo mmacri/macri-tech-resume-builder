@@ -32,7 +32,7 @@ export const initializeResumeData = async (): Promise<{ success: boolean }> => {
       console.log(`Section ${section.section_name} has ${itemCount} items`);
       
       if (itemCount === 0) {
-        // Pass sectionId and sectionName as separate arguments
+        // Pass sectionId as a single argument
         await populateSectionItems(section.id, section.section_name);
       }
     }
