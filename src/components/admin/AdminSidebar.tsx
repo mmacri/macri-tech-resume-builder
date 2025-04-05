@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, FilePenLine, FolderKanban, Users } from 'lucide-react';
+import { LayoutDashboard, FilePenLine, FolderKanban, Users, FileText } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -42,6 +42,13 @@ export const AdminSidebar = () => {
       icon: FolderKanban,
       isActive: path === "/admin" && hash === "portfolio",
       route: "/admin#portfolio"
+    },
+    {
+      title: "Resume Management",
+      value: "resume",
+      icon: FileText,
+      isActive: path === "/admin" && hash === "resume",
+      route: "/admin#resume"
     },
     {
       title: "User Management",

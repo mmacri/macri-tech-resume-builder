@@ -20,15 +20,21 @@ export const usePortfolioProjectsAdmin = () => {
   };
 
   // Fetch portfolio projects
-  const { data: projects, isLoading } = useQuery({
+  const { data: projects, isLoading, refetch: refreshProjects } = useQuery({
     queryKey: ['adminPortfolioProjects'],
     queryFn: async () => {
+      console.log('Fetching portfolio projects...');
       const { data, error } = await supabase
         .from('portfolio_projects')
         .select('*')
         .order('display_order', { ascending: true });
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching portfolio projects:', error);
+        throw error;
+      }
+      
+      console.log('Found projects:', data);
       return data as PortfolioProject[];
     }
   });
@@ -200,6 +206,7 @@ export const usePortfolioProjectsAdmin = () => {
     handleDeleteProject,
     handleSubmit,
     handleMoveUp,
-    handleMoveDown
+    handleMoveDown,
+    refreshProjects
   };
 };

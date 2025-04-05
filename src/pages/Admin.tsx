@@ -1,74 +1,41 @@
 
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import AdminLayout from '@/components/admin/AdminLayout';
 import AdminBlogPosts from '@/components/admin/AdminBlogPosts';
 import AdminPortfolioProjects from '@/components/admin/AdminPortfolioProjects';
 import AdminUsers from '@/components/admin/AdminUsers';
-import AdminLayout from '@/components/admin/AdminLayout';
+import AdminResume from '@/components/admin/AdminResume';
 
 const Admin = () => {
   const location = useLocation();
   const hash = location.hash.replace('#', '') || 'blog';
+  
+  useEffect(() => {
+    if (!location.hash) {
+      // Default to blog section if no hash is present
+      window.location.hash = 'blog';
+    }
+  }, [location.hash]);
 
-  // Update the URL hash when tab changes
-  const handleTabChange = (value: string) => {
-    window.location.hash = value;
+  const renderComponent = () => {
+    switch (hash) {
+      case 'blog':
+        return <AdminBlogPosts />;
+      case 'portfolio':
+        return <AdminPortfolioProjects />;
+      case 'users':
+        return <AdminUsers />;
+      case 'resume':
+        return <AdminResume />;
+      default:
+        return <AdminBlogPosts />;
+    }
   };
 
   return (
     <AdminLayout>
-      <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
-      
-      <Tabs 
-        defaultValue={hash} 
-        className="w-full" 
-        onValueChange={handleTabChange}
-        value={hash}
-      >
-        <TabsList className="mb-6">
-          <TabsTrigger value="blog">Blog Posts</TabsTrigger>
-          <TabsTrigger value="portfolio">Portfolio Projects</TabsTrigger>
-          <TabsTrigger value="users">User Management</TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="blog">
-          <Card>
-            <CardHeader>
-              <CardTitle>Blog Posts Management</CardTitle>
-              <CardDescription>Create, edit, or delete blog posts</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <AdminBlogPosts />
-            </CardContent>
-          </Card>
-        </TabsContent>
-        
-        <TabsContent value="portfolio">
-          <Card>
-            <CardHeader>
-              <CardTitle>Portfolio Projects Management</CardTitle>
-              <CardDescription>Manage your portfolio projects</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <AdminPortfolioProjects />
-            </CardContent>
-          </Card>
-        </TabsContent>
-        
-        <TabsContent value="users">
-          <Card>
-            <CardHeader>
-              <CardTitle>User Management</CardTitle>
-              <CardDescription>Manage user roles and accounts</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <AdminUsers />
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+      {renderComponent()}
     </AdminLayout>
   );
 };

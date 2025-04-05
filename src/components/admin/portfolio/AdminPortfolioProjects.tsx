@@ -6,6 +6,7 @@ import { Plus } from 'lucide-react';
 import { usePortfolioProjectsAdmin } from '@/hooks/usePortfolioProjectsAdmin';
 import ProjectsTable from './ProjectsTable';
 import ProjectDialog from './ProjectDialog';
+import { toast } from 'sonner';
 
 const AdminPortfolioProjects = () => {
   const {
@@ -22,8 +23,14 @@ const AdminPortfolioProjects = () => {
     handleDeleteProject,
     handleSubmit,
     handleMoveUp,
-    handleMoveDown
+    handleMoveDown,
+    refreshProjects
   } = usePortfolioProjectsAdmin();
+
+  // Force refresh projects on component mount
+  React.useEffect(() => {
+    refreshProjects();
+  }, [refreshProjects]);
 
   return (
     <div>

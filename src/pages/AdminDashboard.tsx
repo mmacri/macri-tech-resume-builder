@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { Pencil, FolderKanban, Users } from 'lucide-react';
+import { Pencil, FolderKanban, Users, FileText } from 'lucide-react';
 import AdminLayout from '@/components/admin/AdminLayout';
 
 const AdminDashboard = () => {
@@ -55,27 +55,48 @@ const AdminDashboard = () => {
             </CardContent>
           </Card>
 
-          {/* User Management Card */}
+          {/* Resume Management Card */}
           <Card className="hover:shadow-md transition-shadow">
             <CardHeader className="pb-3">
               <CardTitle className="text-xl flex items-center gap-2">
-                <Users className="h-5 w-5 text-primary" />
-                User Management
+                <FileText className="h-5 w-5 text-primary" />
+                Resume Management
               </CardTitle>
               <CardDescription>
-                Manage user accounts and permissions
+                Edit experience and other resume sections
               </CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm mb-4">
-                Control who has access to your site. Add new administrators or manage existing user accounts.
+                Update your resume sections including experience, education, skills, and more.
               </p>
-              <Link to="/admin#users">
-                <Button className="w-full">Manage Users</Button>
+              <Link to="/admin#resume">
+                <Button className="w-full">Manage Resume</Button>
               </Link>
             </CardContent>
           </Card>
         </div>
+
+        {/* User Management Card */}
+        <Card className="hover:shadow-md transition-shadow mb-8">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-xl flex items-center gap-2">
+              <Users className="h-5 w-5 text-primary" />
+              User Management
+            </CardTitle>
+            <CardDescription>
+              Manage user accounts and permissions
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm mb-4">
+              Control who has access to your site. Add new administrators or manage existing user accounts.
+            </p>
+            <Link to="/admin#users">
+              <Button className="w-full">Manage Users</Button>
+            </Link>
+          </CardContent>
+        </Card>
 
         <Card>
           <CardHeader>
@@ -86,6 +107,7 @@ const AdminDashboard = () => {
             <ul className="list-disc pl-5 space-y-2">
               <li>Use the <strong>Blog Management</strong> section to keep your content fresh and engaging.</li>
               <li>Update your <strong>Portfolio Projects</strong> regularly to showcase your latest work.</li>
+              <li>Keep your <strong>Resume</strong> sections updated with your latest experience and achievements.</li>
               <li>Monitor <strong>User Management</strong> to control who has administrative access to your site.</li>
               <li>Remember to log out when you're finished making changes, especially on shared devices.</li>
             </ul>
