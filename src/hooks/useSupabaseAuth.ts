@@ -83,7 +83,7 @@ export function useSupabaseAuth() {
             .from('profiles')
             .insert({ 
               id: userId,
-              full_name: 'Michael Macri',
+              full_name: email ? email.split('@')[0] : 'Admin User',
               username: email,
               is_admin: true
             });

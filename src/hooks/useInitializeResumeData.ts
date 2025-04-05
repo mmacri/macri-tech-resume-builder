@@ -17,25 +17,42 @@ export const useInitializeResumeData = () => {
           .limit(1);
         
         // Instead of checking profiles.length, we'll directly create the profile if needed
+        let profileId;
+        
         if (!profiles || profiles.length === 0) {
           console.log('Creating default admin profile');
-          // Use a UUID we generate here rather than relying on a special role
-          const { data: authUser } = await supabase.auth.getUser();
-          const profileId = authUser?.user?.id || '00000000-0000-0000-0000-000000000000';
+          // Use authenticated user or fallback to a sample UUID
+          const { data: authData } = await supabase.auth.getUser();
+          profileId = authData?.user?.id || '00000000-0000-0000-0000-000000000000';
           
-          const { error: profileError } = await supabase
+          // Check if this profile already exists
+          const { data: existingProfile } = await supabase
             .from('profiles')
-            .insert({
-              id: profileId,
-              full_name: 'Michael Macri',
-              username: 'admin',
-              is_admin: true
-            });
+            .select('id')
+            .eq('id', profileId)
+            .maybeSingle();
             
-          if (profileError) {
-            console.error('Error creating profile:', profileError);
-            throw profileError;
+          if (!existingProfile) {
+            const { error: profileError } = await supabase
+              .from('profiles')
+              .insert({
+                id: profileId,
+                full_name: 'Michael Macri',
+                username: authData?.user?.email || 'admin@example.com',
+                is_admin: true
+              });
+              
+            if (profileError) {
+              console.error('Error creating profile:', profileError);
+              throw profileError;
+            }
+          } else {
+            console.log('Profile already exists:', existingProfile.id);
+            profileId = existingProfile.id;
           }
+        } else {
+          profileId = profiles[0].id;
+          console.log('Using existing profile:', profileId);
         }
 
         // Initialize resume sections if they don't exist
