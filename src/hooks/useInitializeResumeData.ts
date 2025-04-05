@@ -9,82 +9,103 @@ export const useInitializeResumeData = () => {
     mutationFn: async () => {
       console.log('Initializing real resume data...');
       
-      // Check if we have a profile
-      const { data: profiles } = await supabase
-        .from('profiles')
-        .select('*')
-        .limit(1);
-      
-      if (!profiles || profiles.length === 0) {
-        // Create a default admin profile
-        console.log('Creating default admin profile');
-        await supabase
+      try {
+        // Check if we have a profile
+        const { data: profiles } = await supabase
           .from('profiles')
-          .insert({
-            id: '00000000-0000-0000-0000-000000000000', // Placeholder ID
-            full_name: 'Michael Macri',
-            username: 'admin',
-            is_admin: true
-          });
-      }
-
-      // Initialize resume sections if they don't exist
-      const sections = [
-        { section_name: 'about', display_order: 1 },
-        { section_name: 'experience', display_order: 2 },
-        { section_name: 'education', display_order: 3 },
-        { section_name: 'skills', display_order: 4 },
-        { section_name: 'interests', display_order: 5 },
-        { section_name: 'awards', display_order: 6 }
-      ];
-
-      for (const section of sections) {
-        const { data: existingSection } = await supabase
-          .from('resume_sections')
           .select('*')
-          .eq('section_name', section.section_name)
-          .single();
-
-        if (!existingSection) {
-          console.log(`Creating ${section.section_name} section`);
-          const { data: newSection, error } = await supabase
-            .from('resume_sections')
-            .insert(section)
-            .select()
-            .single();
+          .limit(1);
+        
+        // Instead of checking profiles.length, we'll directly create the profile if needed
+        if (!profiles || profiles.length === 0) {
+          console.log('Creating default admin profile');
+          // Use a UUID we generate here rather than relying on a special role
+          const { data: authUser } = await supabase.auth.getUser();
+          const profileId = authUser?.user?.id || '00000000-0000-0000-0000-000000000000';
           
-          if (error) {
-            console.error(`Error creating ${section.section_name} section:`, error);
-            throw error;
-          }
-          
-          // Initialize section items based on real data
-          await populateSectionItems(newSection.id, section.section_name);
-        } else {
-          // Check if section already has items
-          const { count } = await supabase
-            .from('resume_items')
-            .select('count')
-            .eq('section_id', existingSection.id)
-            .single() || { count: 0 };
-          
-          if (count === 0) {
-            await populateSectionItems(existingSection.id, section.section_name);
+          const { error: profileError } = await supabase
+            .from('profiles')
+            .insert({
+              id: profileId,
+              full_name: 'Michael Macri',
+              username: 'admin',
+              is_admin: true
+            });
+            
+          if (profileError) {
+            console.error('Error creating profile:', profileError);
+            throw profileError;
           }
         }
-      }
 
-      // Initialize portfolio projects if they don't exist
-      const { count: projectCount } = await supabase
-        .from('portfolio_projects')
-        .select('count')
-        .single() || { count: 0 };
-      
-      if (projectCount === 0) {
-        await createPortfolioProjects();
-      }
+        // Initialize resume sections if they don't exist
+        const sections = [
+          { section_name: 'about', display_order: 1 },
+          { section_name: 'experience', display_order: 2 },
+          { section_name: 'education', display_order: 3 },
+          { section_name: 'skills', display_order: 4 },
+          { section_name: 'interests', display_order: 5 },
+          { section_name: 'awards', display_order: 6 }
+        ];
 
-      return { success: true };
+        for (const section of sections) {
+          const { data: existingSection } = await supabase
+            .from('resume_sections')
+            .select('*')
+            .eq('section_name', section.section_name)
+            .single();
+
+          if (!existingSection) {
+            console.log(`Creating ${section.section_name} section`);
+            const { data: newSection, error } = await supabase
+              .from('resume_sections')
+              .insert(section)
+              .select()
+              .single();
+            
+            if (error) {
+              console.error(`Error creating ${section.section_name} section:`, error);
+              throw error;
+            }
+            
+            // Initialize section items based on real data
+            await populateSectionItems(newSection.id, section.section_name);
+          } else {
+            // Check if section already has items
+            const { count, error } = await supabase
+              .from('resume_items')
+              .select('count')
+              .eq('section_id', existingSection.id)
+              .single() || { count: 0, error: null };
+            
+            if (error && error.code !== 'PGRST116') {
+              console.log('Error checking item count:', error);
+            }
+            
+            const itemCount = count || 0;
+            console.log(`Section ${section.section_name} has ${itemCount} items`);
+            
+            if (itemCount === 0) {
+              await populateSectionItems(existingSection.id, section.section_name);
+            }
+          }
+        }
+
+        // Initialize portfolio projects if they don't exist
+        const { count: projectCount } = await supabase
+          .from('portfolio_projects')
+          .select('count')
+          .single() || { count: 0 };
+        
+        if (projectCount === 0) {
+          await createPortfolioProjects();
+        }
+
+        return { success: true };
+      } catch (error) {
+        console.error('Error in initializeDataMutation:', error);
+        throw error;
+      }
     },
     onSuccess: () => {
       toast.success('Resume data initialized successfully');
@@ -97,25 +118,30 @@ export const useInitializeResumeData = () => {
 
   // Helper function to populate section items with real data
   const populateSectionItems = async (sectionId: string, sectionName: string) => {
-    switch (sectionName) {
-      case 'about':
-        await createAboutData(sectionId);
-        break;
-      case 'experience':
-        await createExperienceData(sectionId);
-        break;
-      case 'education':
-        await createEducationData(sectionId);
-        break;
-      case 'skills':
-        await createSkillsData(sectionId);
-        break;
-      case 'interests':
-        await createInterestsData(sectionId);
-        break;
-      case 'awards':
-        await createAwardsData(sectionId);
-        break;
+    try {
+      switch (sectionName) {
+        case 'about':
+          await createAboutData(sectionId);
+          break;
+        case 'experience':
+          await createExperienceData(sectionId);
+          break;
+        case 'education':
+          await createEducationData(sectionId);
+          break;
+        case 'skills':
+          await createSkillsData(sectionId);
+          break;
+        case 'interests':
+          await createInterestsData(sectionId);
+          break;
+        case 'awards':
+          await createAwardsData(sectionId);
+          break;
+      }
+    } catch (error) {
+      console.error(`Error populating ${sectionName} section:`, error);
+      throw error;
     }
   };
 
@@ -156,7 +182,7 @@ export const useInitializeResumeData = () => {
     }
   };
 
-  // Experience section data
+  // Experience section data - Using the real data from the HTML
   const createExperienceData = async (sectionId: string) => {
     const experiences = [
       {

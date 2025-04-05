@@ -19,29 +19,43 @@ const AdminSectionStatus: React.FC<SectionStatusProps> = ({ onAllSectionsPopulat
   const { data: sectionCounts, isLoading: isLoadingSections, refetch: refetchSections } = useQuery({
     queryKey: ['resumeSectionCounts'],
     queryFn: async () => {
+      console.log('Checking resume sections for data...');
       const sections = ['about', 'experience', 'education', 'skills', 'interests', 'awards'];
       const counts = {};
       
-      for (const section of sections) {
-        // Get section ID first
-        const { data: sectionData } = await supabase
-          .from('resume_sections')
-          .select('id')
-          .eq('section_name', section)
-          .single();
-          
-        if (sectionData) {
-          // Count items in this section
-          const { data: countData, error } = await supabase
-            .from('resume_items')
-            .select('count')
-            .eq('section_id', sectionData.id)
-            .single();
+      try {
+        for (const section of sections) {
+          // Get section ID first
+          const { data: sectionData, error: sectionError } = await supabase
+            .from('resume_sections')
+            .select('id')
+            .eq('section_name', section)
+            .maybeSingle();
             
-          counts[section] = countData?.count || 0;
-        } else {
-          counts[section] = 0;
+          if (sectionError) {
+            console.error(`Error fetching section ${section}:`, sectionError);
+          }
+            
+          if (sectionData) {
+            // Count items in this section
+            const { data: itemsData, error: itemsError } = await supabase
+              .from('resume_items')
+              .select('id')
+              .eq('section_id', sectionData.id);
+              
+            if (itemsError) {
+              console.error(`Error counting items for section ${section}:`, itemsError);
+            }
+            
+            counts[section] = itemsData?.length || 0;
+            console.log(`${section} section has ${counts[section]} items`);
+          } else {
+            counts[section] = 0;
+            console.log(`${section} section not found`);
+          }
         }
+      } catch (error) {
+        console.error('Error in resumeSectionCounts query:', error);
       }
       
       return counts;
@@ -52,13 +66,23 @@ const AdminSectionStatus: React.FC<SectionStatusProps> = ({ onAllSectionsPopulat
   const { data: projectCount, isLoading: isLoadingProjects, refetch: refetchProjects } = useQuery({
     queryKey: ['portfolioProjectCount'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('portfolio_projects')
-        .select('count')
-        .single();
+      try {
+        console.log('Checking portfolio projects...');
+        const { data, error } = await supabase
+          .from('portfolio_projects')
+          .select('id');
+          
+        if (error) {
+          console.error('Error fetching portfolio projects:', error);
+          return 0;
+        }
         
-      if (error) throw error;
-      return data?.count || 0;
+        console.log(`Found ${data?.length || 0} portfolio projects`);
+        return data?.length || 0;
+      } catch (error) {
+        console.error('Error in portfolioProjectCount query:', error);
+        return 0;
+      }
     }
   });
 
@@ -66,25 +90,42 @@ const AdminSectionStatus: React.FC<SectionStatusProps> = ({ onAllSectionsPopulat
   const { data: userCount, isLoading: isLoadingUsers, refetch: refetchUsers } = useQuery({
     queryKey: ['adminUserCount'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('count')
-        .single();
+      try {
+        console.log('Checking user profiles...');
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('id');
+          
+        if (error) {
+          console.error('Error fetching profiles:', error);
+          return 0;
+        }
         
-      if (error) throw error;
-      return data?.count || 0;
+        console.log(`Found ${data?.length || 0} user profiles`);
+        return data?.length || 0;
+      } catch (error) {
+        console.error('Error in adminUserCount query:', error);
+        return 0;
+      }
     }
   });
 
   // Once data is loaded, check if all sections have data
   useEffect(() => {
     if (!isLoadingSections && !isLoadingProjects && !isLoadingUsers && sectionCounts) {
+      console.log('Checking if all data is populated:', {
+        sectionCounts,
+        projectCount,
+        userCount
+      });
+      
       // Check if all sections have at least one item
       const allSectionsHaveData = 
-        Object.values(sectionCounts).every(count => (count as number) > 0) && 
+        sectionCounts && Object.values(sectionCounts).every(count => (count as number) > 0) && 
         (projectCount || 0) > 0 &&
         (userCount || 0) > 0;
-        
+      
+      console.log('All sections populated:', allSectionsHaveData);
       setAllPopulated(allSectionsHaveData);
       
       if (allSectionsHaveData && onAllSectionsPopulated) {
@@ -103,6 +144,7 @@ const AdminSectionStatus: React.FC<SectionStatusProps> = ({ onAllSectionsPopulat
   }, [isSuccess, refetchSections, refetchProjects, refetchUsers]);
 
   const handleInitializeData = () => {
+    console.log('Initializing data...');
     initializeData();
   };
 

@@ -53,27 +53,56 @@ export function useSupabaseAuth() {
     try {
       console.log('Checking admin status for user ID:', userId);
       
+      // First, check if the user's email matches any of our known admin emails
+      const { data: userData } = await supabase.auth.getUser();
+      const email = userData?.user?.email?.toLowerCase();
+      const isKnownAdmin = email === 'mike@mikemacri.com' || email === 'mike@gmail.com';
+      
+      if (isKnownAdmin) {
+        console.log('User has a known admin email address, setting as admin');
+        setIsAdmin(true);
+        
+        // Update the profile to be an admin
+        const { data: existingProfile } = await supabase
+          .from('profiles')
+          .select('id, is_admin')
+          .eq('id', userId)
+          .maybeSingle();
+          
+        if (existingProfile) {
+          if (!existingProfile.is_admin) {
+            await supabase
+              .from('profiles')
+              .update({ is_admin: true })
+              .eq('id', userId);
+          }
+        } else {
+          // Create profile
+          console.log('Creating admin profile for known admin email');
+          await supabase
+            .from('profiles')
+            .insert({ 
+              id: userId,
+              full_name: 'Michael Macri',
+              username: email,
+              is_admin: true
+            });
+        }
+        
+        setIsLoading(false);
+        return;
+      }
+      
       // Direct DB query without relying on complex policies
       const { data, error } = await supabase
         .from('profiles')
         .select('is_admin')
         .eq('id', userId)
-        .single();
+        .maybeSingle();
         
       if (error) {
         console.error('Error checking admin status:', error);
-        // Fallback to direct checking for specific admin emails
-        const { data: userData } = await supabase.auth.getUser();
-        
-        if (userData?.user) {
-          const email = userData.user.email?.toLowerCase();
-          // Hardcoded admin emails as fallback
-          const isAdminEmail = email === 'mike@mikemacri.com' || email === 'mike@gmail.com';
-          console.log(`Fallback admin check for ${email}: ${isAdminEmail}`);
-          setIsAdmin(isAdminEmail);
-        } else {
-          setIsAdmin(false);
-        }
+        setIsAdmin(false);
       } else if (data) {
         console.log('Admin status from database:', data.is_admin);
         setIsAdmin(data.is_admin || false);
