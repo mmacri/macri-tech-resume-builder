@@ -6,14 +6,21 @@ interface InterestsSectionProps {
 }
 
 const InterestsSection: React.FC<InterestsSectionProps> = ({ items = [] }) => {
-  // If no items, use default content
-  const paragraphs = items.length > 0 
-    ? items.map(item => item.description)
-    : [
-        "Outside of my professional work, I stay current with advancements in AI, automation, and cloud computing—exploring practical applications that solve complex problems.",
-        "I also enjoy traveling between my homes in Washington, California, and Illinois, with outdoor activities like hiking and fishing to recharge.",
-        "Indoors, I pursue photography, AI-powered content projects, and innovative investing in crypto and global stock markets."
-      ];
+  let paragraphs: string[] = [];
+  
+  if (items && items.length > 0) {
+    // Convert each item to a paragraph string
+    paragraphs = items.map(item => item.description || '').filter(Boolean);
+  }
+  
+  // If no items or no valid paragraphs, use default content
+  if (paragraphs.length === 0) {
+    paragraphs = [
+      "Outside of my professional work, I stay current with advancements in AI, automation, and cloud computing—exploring practical applications that solve complex problems.",
+      "I also enjoy traveling between my homes in Washington, California, and Illinois, with outdoor activities like hiking and fishing to recharge.",
+      "Indoors, I pursue photography, AI-powered content projects, and innovative investing in crypto and global stock markets."
+    ];
+  }
 
   return (
     <section className="resume-section" id="interests">

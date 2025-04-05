@@ -14,12 +14,16 @@ export function useUserManagement() {
   const { data: users, isLoading } = useQuery({
     queryKey: ['adminUsers'],
     queryFn: async () => {
+      console.log('Fetching users...');
       const { data: profiles, error } = await supabase
         .from('profiles')
         .select('*')
         .order('created_at', { ascending: false });
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching profiles:', error);
+        throw error;
+      }
       
       // Fetch emails for profiles
       const usersWithEmails = await Promise.all(
@@ -65,7 +69,7 @@ export function useUserManagement() {
       setIsDialogOpen(false);
       setCurrentUser(null);
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       toast.error(`Error: ${error.message}`);
     }
   });

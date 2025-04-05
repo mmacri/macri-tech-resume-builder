@@ -6,16 +6,18 @@ interface AwardsSectionProps {
 }
 
 const AwardsSection: React.FC<AwardsSectionProps> = ({ items = [] }) => {
-  // If no items, use default awards data
-  const awards = items.length > 0 ? items.map(item => item.title) : [
-    "AI Security and Governance Certification - Securiti (2024)",
-    "VMware Certified Professional",
-    "GSI Americas Regions Technical Alliance Manager of the Quarter - FY21Q4",
-    "GSI Americas Regions Technical Alliance Manager of the Quarter - FY21Q3",
-    "GSI Partners - Rockstar of the Half Award - FY21H2",
-    "Partner Solutions Engineer of the Quarter - FY19Q4",
-    "VMware Americas VP Award of Service Excellence"
-  ];
+  // If items provided, map to title, otherwise use default awards data
+  const awards = items.length > 0 
+    ? items.map(item => item.title)
+    : [
+      "AI Security and Governance Certification - Securiti (2024)",
+      "VMware Certified Professional",
+      "GSI Americas Regions Technical Alliance Manager of the Quarter - FY21Q4",
+      "GSI Americas Regions Technical Alliance Manager of the Quarter - FY21Q3",
+      "GSI Partners - Rockstar of the Half Award - FY21H2",
+      "Partner Solutions Engineer of the Quarter - FY19Q4", 
+      "VMware Americas VP Award of Service Excellence"
+    ];
 
   return (
     <section className="resume-section" id="awards">

@@ -14,13 +14,18 @@ const Home = () => {
   const { data: resumeSections, isLoading } = useQuery({
     queryKey: ['resumeSections'],
     queryFn: async () => {
+      console.log('Fetching resume sections data');
+      
       // Get all sections
       const { data: sections, error: sectionsError } = await supabase
         .from('resume_sections')
         .select('*')
         .order('display_order', { ascending: true });
       
-      if (sectionsError) throw sectionsError;
+      if (sectionsError) {
+        console.error('Error fetching sections:', sectionsError);
+        throw sectionsError;
+      }
       
       // For each section, get its items
       const sectionsWithItems = await Promise.all(sections.map(async (section) => {
@@ -30,7 +35,10 @@ const Home = () => {
           .eq('section_id', section.id)
           .order('display_order', { ascending: true });
         
-        if (itemsError) throw itemsError;
+        if (itemsError) {
+          console.error(`Error fetching items for section ${section.section_name}:`, itemsError);
+          throw itemsError;
+        }
         
         return {
           ...section,

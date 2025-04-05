@@ -14,8 +14,6 @@ interface InterestItem {
   description: string;
   display_order: number;
   section_id: string;
-  created_at: string;
-  updated_at: string;
 }
 
 const AdminInterests = () => {
@@ -73,7 +71,7 @@ const AdminInterests = () => {
   const mutation = useMutation({
     mutationFn: async (item: Partial<InterestItem>) => {
       if (!item.description) {
-        throw new Error('Description is required');
+        throw new Error('Interest description is required');
       }
       
       if (!sections || !sections[0]) {
@@ -81,9 +79,9 @@ const AdminInterests = () => {
       }
       
       const itemData = {
-        title: "Interest Paragraph",
         description: item.description,
-        section_id: sections[0].id
+        section_id: sections[0].id,
+        title: 'Interest Paragraph'
       };
       
       if (item.id) {
@@ -125,7 +123,7 @@ const AdminInterests = () => {
       setIsDialogOpen(false);
       setCurrentItem(null);
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       toast.error(`Error: ${error.message}`);
     }
   });
@@ -144,7 +142,7 @@ const AdminInterests = () => {
       queryClient.invalidateQueries({ queryKey: ['interestsItems'] });
       toast.success('Interest deleted successfully');
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       toast.error(`Error: ${error.message}`);
     }
   });
@@ -162,7 +160,7 @@ const AdminInterests = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['interestsItems'] });
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       toast.error(`Error: ${error.message}`);
     }
   });
@@ -199,7 +197,7 @@ const AdminInterests = () => {
   };
 
   const handleDeleteItem = (id: string) => {
-    if (window.confirm('Are you sure you want to delete this interest paragraph?')) {
+    if (window.confirm('Are you sure you want to delete this interest?')) {
       deleteMutation.mutate(id);
     }
   };
@@ -209,7 +207,7 @@ const AdminInterests = () => {
     if (currentItem && currentItem.description) {
       mutation.mutate(currentItem as any);
     } else {
-      toast.error('Description is required');
+      toast.error('Interest description is required');
     }
   };
 
@@ -218,7 +216,7 @@ const AdminInterests = () => {
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Interests Management</h2>
         <Button onClick={handleNewItem} size="sm">
-          <Plus className="mr-2 h-4 w-4" /> New Interest Paragraph
+          <Plus className="mr-2 h-4 w-4" /> New Interest
         </Button>
       </div>
 
@@ -257,8 +255,8 @@ const AdminInterests = () => {
                       </Button>
                     </div>
                   </TableCell>
-                  <TableCell className="font-medium">
-                    {item.description ? item.description.substring(0, 100) + (item.description.length > 100 ? '...' : '') : '-'}
+                  <TableCell className="max-w-xl">
+                    <div className="truncate">{item.description}</div>
                   </TableCell>
                   <TableCell className="text-right">
                     <Button variant="ghost" size="sm" onClick={() => handleEditItem(item)}>
@@ -287,13 +285,13 @@ const AdminInterests = () => {
           <form onSubmit={handleSubmit}>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="description">Interest Description</label>
                 <Textarea
                   id="description"
                   value={currentItem?.description || ''}
                   onChange={(e) => setCurrentItem({ ...currentItem, description: e.target.value })}
-                  placeholder="Describe your interest"
-                  rows={5}
+                  placeholder="Enter interest description"
+                  rows={4}
                   required
                 />
               </div>
