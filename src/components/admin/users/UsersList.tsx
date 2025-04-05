@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { EditUserDialog } from './EditUserDialog';
+import EditUserDialog from './EditUserDialog';
 import { useAuth } from '@/contexts/AuthContext';
 
 export const UsersList = () => {
@@ -108,13 +108,17 @@ export const UsersList = () => {
         </TableBody>
       </Table>
 
-      <EditUserDialog
-        isOpen={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
-        user={currentUser}
-        onChange={setCurrentUser}
-        onSubmit={handleSubmit}
-      />
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <EditUserDialog
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+          handleSubmit={handleSubmit}
+          isPending={false}
+          onClose={() => setIsDialogOpen(false)}
+        />
+      </Dialog>
     </>
   );
 };
+
+export default UsersList;
