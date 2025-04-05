@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { scrollToElement } from '@/utils/scrollUtils';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface NavigationItemProps {
   item: {
@@ -19,6 +20,36 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
   handleNavLinkClick, 
   isActive 
 }) => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  // Special handling for Admin Dashboard link
+  if (item.label === "Admin Dashboard") {
+    const handleAdminDashboardClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (!user) {
+        // If not logged in, redirect to auth with return URL
+        navigate("/auth?redirectTo=/admin-dashboard");
+      } else {
+        // If logged in, go directly to admin dashboard
+        navigate("/admin-dashboard");
+      }
+      handleNavLinkClick(item.href || '');
+    };
+
+    return (
+      <li className="nav-item">
+        <a 
+          href="#"
+          className={`nav-link block py-2 hover:opacity-80 transition-opacity ${isActive ? 'font-bold' : ''}`}
+          onClick={handleAdminDashboardClick}
+        >
+          {item.label}
+        </a>
+      </li>
+    );
+  }
+
   if (item.external) {
     return (
       <li className="nav-item">

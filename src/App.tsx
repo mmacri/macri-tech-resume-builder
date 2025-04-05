@@ -65,12 +65,12 @@ const AppRoutes = () => {
       { label: "Awards & Certs", href: "#awards" },
       { label: "Project Portfolio", href: "/portfolio" },
       { label: "Blog", href: "/blog" },
+      { label: "Admin Dashboard", href: "/admin-dashboard" }, // Added for all users
     ];
     
     if (user) {
       return [
         ...baseItems,
-        ...(isAdmin ? [{ label: "Admin Dashboard", href: "/admin-dashboard" }] : []),
         { label: "Logout", onClick: signOut, href: "#" },
       ];
     } else {
@@ -86,12 +86,12 @@ const AppRoutes = () => {
       { label: "Index of Projects", href: "#index-of-projects" },
       { label: "Home", href: "/" },
       { label: "Blog", href: "/blog" },
+      { label: "Admin Dashboard", href: "/admin-dashboard" }, // Added for all users
     ];
     
     if (user) {
       return [
         ...baseItems,
-        ...(isAdmin ? [{ label: "Admin Dashboard", href: "/admin-dashboard" }] : []),
         { label: "Logout", onClick: signOut, href: "#" },
       ];
     } else {
@@ -107,6 +107,7 @@ const AppRoutes = () => {
       { label: "Recent Posts", href: "#recent-posts" },
       { label: "Home", href: "/" },
       { label: "Portfolio", href: "/portfolio" },
+      { label: "Admin Dashboard", href: "/admin-dashboard" }, // Added for all users
     ];
     
     if (user) {
@@ -114,7 +115,6 @@ const AppRoutes = () => {
         return [
           ...baseItems,
           { label: "Create Post", href: "#create-post" },
-          { label: "Admin Dashboard", href: "/admin-dashboard" },
           { label: "Logout", onClick: signOut, href: "#" },
         ];
       } else {
