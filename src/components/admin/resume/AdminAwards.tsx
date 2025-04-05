@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -23,7 +22,6 @@ const AdminAwards = () => {
   const [currentItem, setCurrentItem] = useState<Partial<AwardItem> | null>(null);
   const queryClient = useQueryClient();
 
-  // Fetch awards section ID
   const { data: sections } = useQuery({
     queryKey: ['awardsSection'],
     queryFn: async () => {
@@ -49,12 +47,60 @@ const AdminAwards = () => {
     }
   });
 
-  // Fetch awards items
   const { data: items, isLoading: isItemsLoading } = useQuery({
     queryKey: ['awardsItems', sections ? sections[0]?.id : null],
     queryFn: async () => {
       if (!sections || !sections[0]) {
         return [];
+      }
+      
+      const { data: existingItems, error: checkError } = await supabase
+        .from('resume_items')
+        .select('count')
+        .eq('section_id', sections[0].id)
+        .single();
+        
+      if (checkError && checkError.code !== 'PGRST116') {
+        console.error('Error checking awards items:', checkError);
+        throw checkError;
+      }
+      
+      if (!existingItems || existingItems.count === 0) {
+        console.log('No award items found, creating sample data...');
+        
+        const sampleAwards = [
+          {
+            title: 'Google Certified Professional Cloud Architect',
+            section_id: sections[0].id,
+            display_order: 1
+          },
+          {
+            title: 'AWS Certified Solutions Architect',
+            section_id: sections[0].id,
+            display_order: 2
+          },
+          {
+            title: 'Microsoft Certified: Azure Developer Associate',
+            section_id: sections[0].id,
+            display_order: 3
+          },
+          {
+            title: 'Innovation Award - Tech Conference 2023',
+            section_id: sections[0].id,
+            display_order: 4
+          }
+        ];
+        
+        for (const award of sampleAwards) {
+          const { error: insertError } = await supabase
+            .from('resume_items')
+            .insert(award);
+          
+          if (insertError) {
+            console.error('Error creating sample award:', insertError);
+            toast.error(`Error creating sample award: ${insertError.message}`);
+          }
+        }
       }
       
       const { data, error } = await supabase
@@ -69,7 +115,6 @@ const AdminAwards = () => {
     enabled: !!sections && sections.length > 0
   });
 
-  // Create or update award item
   const mutation = useMutation({
     mutationFn: async (item: Partial<AwardItem>) => {
       if (!item.title) {
@@ -86,7 +131,6 @@ const AdminAwards = () => {
       };
       
       if (item.id) {
-        // Update
         const { data, error } = await supabase
           .from('resume_items')
           .update({
@@ -100,7 +144,6 @@ const AdminAwards = () => {
         if (error) throw error;
         return data;
       } else {
-        // Create - find the highest display_order and add 1
         const highestOrder = items && items.length > 0 
           ? Math.max(...items.map(i => i.display_order))
           : 0;
@@ -129,7 +172,6 @@ const AdminAwards = () => {
     }
   });
 
-  // Delete award item
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase
@@ -148,7 +190,6 @@ const AdminAwards = () => {
     }
   });
 
-  // Change order
   const changeOrderMutation = useMutation({
     mutationFn: async ({ id, newOrder }: { id: string, newOrder: number }) => {
       const { error } = await supabase
@@ -167,7 +208,7 @@ const AdminAwards = () => {
   });
 
   const handleMoveUp = (item: any, index: number) => {
-    if (index === 0 || !items) return; // Already at the top
+    if (index === 0 || !items) return;
     
     const prevItem = items[index - 1];
     changeOrderMutation.mutate({ id: item.id, newOrder: prevItem.display_order });
@@ -175,7 +216,7 @@ const AdminAwards = () => {
   };
 
   const handleMoveDown = (item: any, index: number) => {
-    if (!items || index === items.length - 1) return; // Already at the bottom
+    if (!items || index === items.length - 1) return;
     
     const nextItem = items[index + 1];
     changeOrderMutation.mutate({ id: item.id, newOrder: nextItem.display_order });

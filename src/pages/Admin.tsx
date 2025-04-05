@@ -6,6 +6,7 @@ import AdminBlogPosts from '@/components/admin/AdminBlogPosts';
 import AdminPortfolioProjects from '@/components/admin/AdminPortfolioProjects';
 import AdminUsers from '@/components/admin/AdminUsers';
 import AdminResume from '@/components/admin/AdminResume';
+import AdminSectionStatus from '@/components/admin/AdminSectionStatus';
 
 const Admin = () => {
   const location = useLocation();
@@ -35,7 +36,10 @@ const Admin = () => {
 
   return (
     <AdminLayout>
-      {renderComponent()}
+      <div className="p-4">
+        <AdminSectionStatus />
+        {renderComponent()}
+      </div>
     </AdminLayout>
   );
 };

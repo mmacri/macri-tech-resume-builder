@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -25,10 +24,9 @@ interface EducationItem {
 
 const AdminEducation = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [currentItem, setCurrentItem] = useState<Partial<EducationItem> | null>(null);
+  const [currentItem, setCurrentItem] = useState<any | null>(null);
   const queryClient = useQueryClient();
 
-  // Fetch education section ID
   const { data: sections } = useQuery({
     queryKey: ['educationSection'],
     queryFn: async () => {
@@ -54,12 +52,60 @@ const AdminEducation = () => {
     }
   });
 
-  // Fetch education items
   const { data: items, isLoading: isItemsLoading } = useQuery({
     queryKey: ['educationItems', sections ? sections[0]?.id : null],
     queryFn: async () => {
       if (!sections || !sections[0]) {
         return [];
+      }
+      
+      const { data: existingItems, error: checkError } = await supabase
+        .from('resume_items')
+        .select('count')
+        .eq('section_id', sections[0].id)
+        .single();
+        
+      if (checkError && checkError.code !== 'PGRST116') {
+        console.error('Error checking education items:', checkError);
+        throw checkError;
+      }
+      
+      if (!existingItems || existingItems.count === 0) {
+        console.log('No education items found, creating sample data...');
+        
+        const sampleEducation = [
+          {
+            title: 'Master of Computer Science',
+            organization: 'Stanford University',
+            location: 'Stanford, CA',
+            start_date: '2014-09-01',
+            end_date: '2016-06-30',
+            description: 'Focus on Artificial Intelligence and Machine Learning',
+            section_id: sections[0].id,
+            display_order: 1
+          },
+          {
+            title: 'Bachelor of Science in Computer Engineering',
+            organization: 'MIT',
+            location: 'Cambridge, MA',
+            start_date: '2010-09-01',
+            end_date: '2014-06-30',
+            description: 'Graduated with honors, 3.85 GPA',
+            section_id: sections[0].id,
+            display_order: 2
+          }
+        ];
+        
+        for (const education of sampleEducation) {
+          const { error: insertError } = await supabase
+            .from('resume_items')
+            .insert(education);
+          
+          if (insertError) {
+            console.error('Error creating sample education:', insertError);
+            toast.error(`Error creating sample education: ${insertError.message}`);
+          }
+        }
       }
       
       const { data, error } = await supabase
@@ -74,7 +120,6 @@ const AdminEducation = () => {
     enabled: !!sections && sections.length > 0
   });
 
-  // Create or update education item
   const mutation = useMutation({
     mutationFn: async (item: Partial<EducationItem>) => {
       if (!item.school) {
@@ -95,7 +140,6 @@ const AdminEducation = () => {
       };
       
       if (item.id) {
-        // Update
         const { data, error } = await supabase
           .from('resume_items')
           .update({
@@ -109,7 +153,6 @@ const AdminEducation = () => {
         if (error) throw error;
         return data;
       } else {
-        // Create - find the highest display_order and add 1
         const highestOrder = items && items.length > 0 
           ? Math.max(...items.map(i => i.display_order))
           : 0;
@@ -138,7 +181,6 @@ const AdminEducation = () => {
     }
   });
 
-  // Delete education item
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase
@@ -157,7 +199,6 @@ const AdminEducation = () => {
     }
   });
 
-  // Change order
   const changeOrderMutation = useMutation({
     mutationFn: async ({ id, newOrder }: { id: string, newOrder: number }) => {
       const { error } = await supabase
@@ -176,7 +217,7 @@ const AdminEducation = () => {
   });
 
   const handleMoveUp = (item: any, index: number) => {
-    if (index === 0 || !items) return; // Already at the top
+    if (index === 0 || !items) return;
     
     const prevItem = items[index - 1];
     changeOrderMutation.mutate({ id: item.id, newOrder: prevItem.display_order });
@@ -184,7 +225,7 @@ const AdminEducation = () => {
   };
 
   const handleMoveDown = (item: any, index: number) => {
-    if (!items || index === items.length - 1) return; // Already at the bottom
+    if (!items || index === items.length - 1) return;
     
     const nextItem = items[index + 1];
     changeOrderMutation.mutate({ id: item.id, newOrder: nextItem.display_order });

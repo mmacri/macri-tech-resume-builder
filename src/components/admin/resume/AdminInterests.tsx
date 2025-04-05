@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -55,6 +54,50 @@ const AdminInterests = () => {
         return [];
       }
       
+      // Check if there are any interests items
+      const { data: existingItems, error: checkError } = await supabase
+        .from('resume_items')
+        .select('count')
+        .eq('section_id', sections[0].id)
+        .single();
+        
+      if (checkError && checkError.code !== 'PGRST116') {  // PGRST116 is "No rows returned" error
+        console.error('Error checking interests items:', checkError);
+        throw checkError;
+      }
+      
+      // If no items exist, create sample interest items
+      if (!existingItems || existingItems.count === 0) {
+        console.log('No interest items found, creating sample data...');
+        
+        const sampleInterests = [
+          {
+            title: 'Interest Paragraph',
+            description: 'Outside of work, I enjoy hiking and exploring the outdoors. Photography has become a recent passion of mine, allowing me to capture the natural beauty I encounter during my adventures.',
+            section_id: sections[0].id,
+            display_order: 1
+          },
+          {
+            title: 'Interest Paragraph',
+            description: 'I\'m also an avid reader of science fiction and technology books. When I\'m not coding or hiking, you can find me playing chess or experimenting with new cooking recipes.',
+            section_id: sections[0].id,
+            display_order: 2
+          }
+        ];
+        
+        for (const interest of sampleInterests) {
+          const { error: insertError } = await supabase
+            .from('resume_items')
+            .insert(interest);
+          
+          if (insertError) {
+            console.error('Error creating sample interest:', insertError);
+            toast.error(`Error creating sample interest: ${insertError.message}`);
+          }
+        }
+      }
+      
+      // Fetch all interests items
       const { data, error } = await supabase
         .from('resume_items')
         .select('*')

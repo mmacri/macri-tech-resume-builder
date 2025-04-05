@@ -55,13 +55,43 @@ const AdminAbout = () => {
         return null;
       }
       
+      // Check if there's any about data
       const { data, error } = await supabase
         .from('resume_items')
         .select('*')
         .eq('section_id', sections[0].id)
         .maybeSingle();
       
-      if (error) throw error;
+      // If no about data, create default
+      if (!data && !error) {
+        console.log('No about data found, creating sample data...');
+        
+        const sampleAbout = {
+          title: 'John Doe',
+          description: 'I am an experienced full-stack developer with a passion for creating clean, efficient, and user-friendly applications. With expertise in React, Node.js, and modern web technologies, I deliver robust solutions that meet business needs while providing excellent user experiences.',
+          section_id: sections[0].id,
+          display_order: 1
+        };
+        
+        const { data: newData, error: insertError } = await supabase
+          .from('resume_items')
+          .insert(sampleAbout)
+          .select()
+          .single();
+          
+        if (insertError) {
+          console.error('Error creating sample about section:', insertError);
+          toast.error(`Error creating sample about section: ${insertError.message}`);
+        } else {
+          setName(newData.title);
+          setContent(newData.description);
+          return newData;
+        }
+      }
+      
+      if (error && error.code !== 'PGRST116') {  // PGRST116 is "No rows returned" error
+        throw error;
+      }
       
       // Set the state values once data is loaded
       if (data) {

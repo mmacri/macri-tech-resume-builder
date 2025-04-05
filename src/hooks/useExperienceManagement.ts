@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -66,6 +65,68 @@ export const useExperienceManagement = () => {
         return [];
       }
       
+      // Check if there are any experience items
+      const { data: existingItems, error: checkError } = await supabase
+        .from('resume_items')
+        .select('count')
+        .eq('section_id', sections[0].id)
+        .single();
+        
+      if (checkError && checkError.code !== 'PGRST116') {  // PGRST116 is "No rows returned" error
+        console.error('Error checking experience items:', checkError);
+        throw checkError;
+      }
+      
+      // If no items exist, create sample experience items
+      if (!existingItems || existingItems.count === 0) {
+        console.log('No experience items found, creating sample data...');
+        
+        const sampleExperiences = [
+          {
+            title: 'Senior Web Developer',
+            organization: 'Tech Solutions Inc.',
+            location: 'San Francisco, CA',
+            start_date: '2020-01-01',
+            end_date: 'Present',
+            description: 'Led development of enterprise web applications using React and Node.js. Managed a team of 5 developers and implemented CI/CD pipelines.',
+            section_id: sections[0].id,
+            display_order: 1
+          },
+          {
+            title: 'Frontend Developer',
+            organization: 'Creative Digital Agency',
+            location: 'Boston, MA',
+            start_date: '2018-03-01',
+            end_date: '2019-12-31',
+            description: 'Developed responsive web interfaces for various clients using modern JavaScript frameworks and CSS preprocessors.',
+            section_id: sections[0].id,
+            display_order: 2
+          },
+          {
+            title: 'Junior Developer',
+            organization: 'Startup Innovations',
+            location: 'Austin, TX',
+            start_date: '2016-06-01',
+            end_date: '2018-02-28',
+            description: 'Assisted in developing web applications and implemented UI designs using HTML, CSS, and JavaScript.',
+            section_id: sections[0].id,
+            display_order: 3
+          }
+        ];
+        
+        for (const experience of sampleExperiences) {
+          const { error: insertError } = await supabase
+            .from('resume_items')
+            .insert(experience);
+          
+          if (insertError) {
+            console.error('Error creating sample experience:', insertError);
+            toast.error(`Error creating sample experience: ${insertError.message}`);
+          }
+        }
+      }
+      
+      // Fetch all experience items
       const { data, error } = await supabase
         .from('resume_items')
         .select('*')

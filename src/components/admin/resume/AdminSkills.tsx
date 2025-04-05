@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -67,6 +66,65 @@ const AdminSkills = () => {
         return [];
       }
       
+      const { data: existingItems, error: checkError } = await supabase
+        .from('resume_items')
+        .select('count')
+        .eq('section_id', sections[0].id)
+        .single();
+        
+      if (checkError && checkError.code !== 'PGRST116') {
+        console.error('Error checking skills items:', checkError);
+        throw checkError;
+      }
+      
+      if (!existingItems || existingItems.count === 0) {
+        console.log('No skills items found, creating sample data...');
+        
+        const sampleSkills = [
+          {
+            title: 'React',
+            organization: 'Programming Languages & Tools',
+            section_id: sections[0].id,
+            display_order: 1
+          },
+          {
+            title: 'TypeScript',
+            organization: 'Programming Languages & Tools',
+            section_id: sections[0].id,
+            display_order: 2
+          },
+          {
+            title: 'Node.js',
+            organization: 'Programming Languages & Tools',
+            section_id: sections[0].id,
+            display_order: 3
+          },
+          {
+            title: 'Agile Development',
+            organization: 'Methodologies and Focus',
+            section_id: sections[0].id,
+            display_order: 4
+          },
+          {
+            title: 'Tailwind CSS',
+            organization: 'Frameworks',
+            section_id: sections[0].id,
+            display_order: 5
+          }
+        ];
+        
+        for (const skill of sampleSkills) {
+          const { error: insertError } = await supabase
+            .from('resume_items')
+            .insert(skill);
+          
+          if (insertError) {
+            console.error('Error creating sample skill:', insertError);
+            toast.error(`Error creating sample skill: ${insertError.message}`);
+          }
+        }
+      }
+      
       const { data, error } = await supabase
         .from('resume_items')
         .select('*')
@@ -97,7 +155,6 @@ const AdminSkills = () => {
       };
       
       if (item.id) {
-        // Update
         const { data, error } = await supabase
           .from('resume_items')
           .update({
@@ -111,7 +168,6 @@ const AdminSkills = () => {
         if (error) throw error;
         return data;
       } else {
-        // Create - find the highest display_order and add 1
         const highestOrder = items && items.length > 0 
           ? Math.max(...items.map(i => i.display_order))
           : 0;
@@ -178,7 +234,7 @@ const AdminSkills = () => {
   });
 
   const handleMoveUp = (item: any, index: number) => {
-    if (index === 0 || !items) return; // Already at the top
+    if (index === 0 || !items) return;
     
     const prevItem = items[index - 1];
     changeOrderMutation.mutate({ id: item.id, newOrder: prevItem.display_order });
@@ -186,7 +242,7 @@ const AdminSkills = () => {
   };
 
   const handleMoveDown = (item: any, index: number) => {
-    if (!items || index === items.length - 1) return; // Already at the bottom
+    if (!items || index === items.length - 1) return;
     
     const nextItem = items[index + 1];
     changeOrderMutation.mutate({ id: item.id, newOrder: nextItem.display_order });

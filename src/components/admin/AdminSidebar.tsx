@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, FilePenLine, FolderKanban, Users, FileText } from 'lucide-react';
+import { LayoutDashboard, FilePenLine, FolderKanban, Users, FileText, Home } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -82,6 +82,15 @@ export const AdminSidebar = () => {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  onClick={() => handleNavClick("/")}
+                  tooltip="Back to Home"
+                >
+                  <Home className="h-5 w-5" />
+                  <span>Back to Home</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
