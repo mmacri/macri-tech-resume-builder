@@ -1,0 +1,118 @@
+
+import React from 'react';
+import { DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
+
+interface ExperienceItem {
+  id: string;
+  title: string;
+  organization: string | null;
+  location: string | null;
+  start_date: string | null;
+  end_date: string | null;
+  description: string | null;
+  display_order: number;
+  section_id: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface ExperienceFormDialogProps {
+  currentItem: Partial<ExperienceItem> | null;
+  setCurrentItem: React.Dispatch<React.SetStateAction<Partial<ExperienceItem> | null>>;
+  handleSubmit: (e: React.FormEvent) => void;
+  isPending: boolean;
+  onClose: () => void;
+}
+
+const ExperienceFormDialog: React.FC<ExperienceFormDialogProps> = ({
+  currentItem,
+  setCurrentItem,
+  handleSubmit,
+  isPending,
+  onClose
+}) => {
+  return (
+    <DialogContent className="sm:max-w-[600px]">
+      <DialogHeader>
+        <DialogTitle>{currentItem?.id ? 'Edit Experience' : 'Add New Experience'}</DialogTitle>
+      </DialogHeader>
+      <form onSubmit={handleSubmit}>
+        <div className="grid gap-4 py-4">
+          <div className="grid gap-2">
+            <label htmlFor="title">Title</label>
+            <Input
+              id="title"
+              value={currentItem?.title || ''}
+              onChange={(e) => setCurrentItem({ ...currentItem, title: e.target.value })}
+              placeholder="Job Title"
+              required
+            />
+          </div>
+          <div className="grid gap-2">
+            <label htmlFor="organization">Organization</label>
+            <Input
+              id="organization"
+              value={currentItem?.organization || ''}
+              onChange={(e) => setCurrentItem({ ...currentItem, organization: e.target.value })}
+              placeholder="Company Name"
+            />
+          </div>
+          <div className="grid gap-2">
+            <label htmlFor="location">Location</label>
+            <Input
+              id="location"
+              value={currentItem?.location || ''}
+              onChange={(e) => setCurrentItem({ ...currentItem, location: e.target.value })}
+              placeholder="City, State"
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-2">
+              <label htmlFor="start_date">Start Date</label>
+              <Input
+                id="start_date"
+                type="date"
+                value={currentItem?.start_date || ''}
+                onChange={(e) => setCurrentItem({ ...currentItem, start_date: e.target.value })}
+              />
+            </div>
+            <div className="grid gap-2">
+              <label htmlFor="end_date">End Date</label>
+              <Input
+                id="end_date"
+                type="date"
+                value={currentItem?.end_date || ''}
+                onChange={(e) => setCurrentItem({ ...currentItem, end_date: e.target.value })}
+                placeholder="Leave blank for 'Present'"
+              />
+            </div>
+          </div>
+          <div className="grid gap-2">
+            <label htmlFor="description">Description</label>
+            <Textarea
+              id="description"
+              value={currentItem?.description || ''}
+              onChange={(e) => setCurrentItem({ ...currentItem, description: e.target.value })}
+              placeholder="Job description and accomplishments"
+              rows={5}
+            />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button type="button" variant="outline" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? 'Saving...' : 'Save Experience'}
+          </Button>
+        </DialogFooter>
+      </form>
+    </DialogContent>
+  );
+};
+
+export default ExperienceFormDialog;
