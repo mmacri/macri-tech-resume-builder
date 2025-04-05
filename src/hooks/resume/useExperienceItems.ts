@@ -19,12 +19,12 @@ export interface ExperienceItem {
 
 export const useExperienceItems = (sectionId: string | undefined) => {
   // Fetch experience items
-  const { data: items, isLoading: isItemsLoading, error, refetch } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['experienceItems', sectionId],
     queryFn: async () => {
       if (!sectionId) {
         console.log('No section ID provided to useExperienceItems');
-        return null;
+        return [];
       }
       
       console.log('Fetching experience items for section:', sectionId);
@@ -49,8 +49,8 @@ export const useExperienceItems = (sectionId: string | undefined) => {
   });
 
   return {
-    items,
-    isItemsLoading,
+    items: data || [], // Return items directly and ensure it's never undefined
+    isItemsLoading: isLoading,
     error,
     refetch
   };

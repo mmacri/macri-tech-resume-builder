@@ -12,7 +12,7 @@ export interface ResumeSection {
 
 export const useExperienceSections = () => {
   // Get experience section ID
-  const { data: sections, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['experienceSection'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -39,7 +39,7 @@ export const useExperienceSections = () => {
   });
 
   return {
-    sections,
+    sections: data, // Return sections directly 
     isLoading,
     error
   };

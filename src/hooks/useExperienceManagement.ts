@@ -13,8 +13,10 @@ export const useExperienceManagement = () => {
   const queryClient = useQueryClient();
   const { updateResume, updateIndex } = useAdminUpdate();
 
-  const { data: sections } = useExperienceSections();
-  const { data: items, isLoading: isItemsLoading } = useExperienceItems(sections);
+  // Fix: Access sections directly instead of from data property
+  const { sections, isLoading: isSectionsLoading } = useExperienceSections();
+  // Fix: Access items directly instead of from data property, and use isItemsLoading directly
+  const { items, isItemsLoading } = useExperienceItems(sections?.[0]?.id);
   const { addItem, updateItem, deleteItem, reorderItems } = useExperienceMutations();
 
   // If neither is selected, default to updating Resume
