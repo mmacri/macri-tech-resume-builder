@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -14,6 +13,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { toast } from "sonner";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +46,7 @@ const AdminRoute = ({ children }: { children: React.ReactNode }) => {
   }
   
   if (!isAdmin) {
+    toast.error("You don't have permission to access the admin area");
     return <Navigate to="/" replace />;
   }
   
@@ -65,7 +66,7 @@ const AppRoutes = () => {
       { label: "Awards & Certs", href: "#awards" },
       { label: "Project Portfolio", href: "/portfolio" },
       { label: "Blog", href: "/blog" },
-      { label: "Admin Dashboard", href: "/admin-dashboard" }, // Added for all users
+      { label: "Admin Dashboard", href: "/admin-dashboard" }, // Always include Admin Dashboard
     ];
     
     if (user) {
@@ -86,7 +87,7 @@ const AppRoutes = () => {
       { label: "Index of Projects", href: "#index-of-projects" },
       { label: "Home", href: "/" },
       { label: "Blog", href: "/blog" },
-      { label: "Admin Dashboard", href: "/admin-dashboard" }, // Added for all users
+      { label: "Admin Dashboard", href: "/admin-dashboard" }, // Always include Admin Dashboard
     ];
     
     if (user) {
@@ -107,7 +108,7 @@ const AppRoutes = () => {
       { label: "Recent Posts", href: "#recent-posts" },
       { label: "Home", href: "/" },
       { label: "Portfolio", href: "/portfolio" },
-      { label: "Admin Dashboard", href: "/admin-dashboard" }, // Added for all users
+      { label: "Admin Dashboard", href: "/admin-dashboard" }, // Always include Admin Dashboard
     ];
     
     if (user) {

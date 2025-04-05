@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { scrollToElement } from '@/utils/scrollUtils';
@@ -21,7 +20,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
   isActive 
 }) => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
 
   // Special handling for Admin Dashboard link
   if (item.label === "Admin Dashboard") {
@@ -30,8 +29,11 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
       if (!user) {
         // If not logged in, redirect to auth with return URL
         navigate("/auth?redirectTo=/admin-dashboard");
+      } else if (!isAdmin) {
+        // If logged in but not admin, show message and stay on current page
+        toast.error("Only administrators can access this area");
       } else {
-        // If logged in, go directly to admin dashboard
+        // If logged in and admin, go directly to admin dashboard
         navigate("/admin-dashboard");
       }
       handleNavLinkClick(item.href || '');
