@@ -1,10 +1,10 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Home from './Home';
 import { setupScrollSpy } from '../utils/scrollUtils';
 
 const Index = () => {
-  useEffect(() => {
+  React.useEffect(() => {
     // Set up scroll spying to highlight active nav items
     setupScrollSpy();
   }, []);

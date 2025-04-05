@@ -7,7 +7,7 @@ import AdminEducation from './resume/AdminEducation';
 import AdminSkills from './resume/AdminSkills';
 import AdminInterests from './resume/AdminInterests';
 import AdminAwards from './resume/AdminAwards';
-import { AdminUpdateProvider } from '@/contexts/AdminUpdateContext';
+import { AdminUpdateProvider, useAdminUpdate } from '@/contexts/AdminUpdateContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';

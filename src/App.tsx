@@ -3,15 +3,17 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
-import React, { useEffect } from "react";
+import React from "react";
 import { AuthProvider } from "./contexts/AuthContext";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import AppRoutes from "./components/routing/AppRoutes";
+import { AdminUpdateProvider } from "./contexts/AdminUpdateContext";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  useEffect(() => {
+  // Moving the script loading logic into the main component function
+  React.useEffect(() => {
     const script = document.createElement('script');
     script.src = "https://use.fontawesome.com/releases/v6.3.0/js/all.js";
     script.crossOrigin = "anonymous";
@@ -28,11 +30,13 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <AuthProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
+          <AdminUpdateProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <AppRoutes />
+            </BrowserRouter>
+          </AdminUpdateProvider>
         </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>

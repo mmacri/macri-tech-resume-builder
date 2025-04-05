@@ -12,9 +12,10 @@ interface LayoutProps {
   navItems: { label: string; href?: string; external?: boolean; onClick?: () => Promise<void> }[];
   profileImage: string;
   name: string;
+  highlightResume?: boolean;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name }) => {
+const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name, highlightResume }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
