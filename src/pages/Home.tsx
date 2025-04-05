@@ -1,8 +1,13 @@
-
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
+import { Button } from '@/components/ui/button';
+import { LayoutDashboard } from 'lucide-react';
 
 const Home = () => {
+  const { user, isAdmin } = useAuth();
+  const navigate = useNavigate();
+  
   // Initialize tooltips
   useEffect(() => {
     const tooltipTriggerList = document.querySelectorAll('[data-tooltip]');
@@ -14,6 +19,10 @@ const Home = () => {
       element.appendChild(tooltip);
     });
   }, []);
+
+  const handleAdminDashboardClick = () => {
+    navigate('/admin-dashboard');
+  };
 
   return (
     <>
@@ -35,11 +44,23 @@ const Home = () => {
               <span className="badge bg-primary">Denver, CO</span>
               <span className="badge bg-primary">Remote</span>
             </div>
-            <a className="btn mt-2 inline-block" 
-              style={{ backgroundColor: '#fff', color: '#d35400', border: '2px solid #d35400' }} 
-              href="mailto:MikeMacri@gmail.com">
-                Contact Me
-            </a>
+            <div className="flex gap-2 mt-2">
+              <a className="btn inline-block" 
+                style={{ backgroundColor: '#fff', color: '#d35400', border: '2px solid #d35400' }} 
+                href="mailto:MikeMacri@gmail.com">
+                  Contact Me
+              </a>
+              
+              {isAdmin && user && (
+                <Button 
+                  onClick={handleAdminDashboardClick}
+                  className="bg-amber-600 hover:bg-amber-700 text-white border-2 border-amber-600 hover:border-amber-700 flex items-center gap-1"
+                >
+                  <LayoutDashboard className="h-4 w-4" />
+                  Admin Dashboard
+                </Button>
+              )}
+            </div>
           </div>
 
           {/* About Header */}

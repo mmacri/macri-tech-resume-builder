@@ -9,6 +9,7 @@ import Portfolio from "./pages/Portfolio";
 import Blog from "./pages/Blog";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -68,7 +69,7 @@ const AppRoutes = () => {
     if (user) {
       return [
         ...baseItems,
-        ...(isAdmin ? [{ label: "Admin Dashboard", href: "/admin" }] : []),
+        ...(isAdmin ? [{ label: "Admin Dashboard", href: "/admin-dashboard" }] : []),
         { label: "Logout", onClick: signOut, href: "#" },
       ];
     } else {
@@ -89,7 +90,7 @@ const AppRoutes = () => {
     if (user) {
       return [
         ...baseItems,
-        ...(isAdmin ? [{ label: "Admin Dashboard", href: "/admin" }] : []),
+        ...(isAdmin ? [{ label: "Admin Dashboard", href: "/admin-dashboard" }] : []),
         { label: "Logout", onClick: signOut, href: "#" },
       ];
     } else {
@@ -112,7 +113,7 @@ const AppRoutes = () => {
         return [
           ...baseItems,
           { label: "Create Post", href: "#create-post" },
-          { label: "Admin Dashboard", href: "/admin" },
+          { label: "Admin Dashboard", href: "/admin-dashboard" },
           { label: "Logout", onClick: signOut, href: "#" },
         ];
       } else {
@@ -161,6 +162,11 @@ const AppRoutes = () => {
       <Route path="/auth" element={<Auth />} />
       <Route path="/register" element={<Auth />} />
       <Route path="/reset" element={<Auth />} />
+      <Route path="/admin-dashboard" element={
+        <AdminRoute>
+          <AdminDashboard />
+        </AdminRoute>
+      } />
       <Route path="/admin" element={
         <AdminRoute>
           <Admin />

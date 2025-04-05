@@ -5,6 +5,7 @@ import { LayoutDashboard, FilePenLine, FolderKanban, Users } from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -17,6 +18,7 @@ export const AdminSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
+  const hash = location.hash.replace('#', '');
 
   // Admin navigation items
   const adminNavItems = [
@@ -24,34 +26,34 @@ export const AdminSidebar = () => {
       title: "Dashboard",
       value: "dashboard",
       icon: LayoutDashboard,
-      isActive: path === "/admin",
+      isActive: path === "/admin-dashboard",
+      route: "/admin-dashboard"
     },
     {
       title: "Blog Posts",
       value: "blog",
       icon: FilePenLine,
-      isActive: path === "/admin" && location.hash === "#blog",
+      isActive: path === "/admin" && hash === "blog",
+      route: "/admin#blog"
     },
     {
       title: "Portfolio Projects",
       value: "portfolio",
       icon: FolderKanban,
-      isActive: path === "/admin" && location.hash === "#portfolio",
+      isActive: path === "/admin" && hash === "portfolio",
+      route: "/admin#portfolio"
     },
     {
       title: "User Management",
       value: "users",
       icon: Users,
-      isActive: path === "/admin" && location.hash === "#users",
+      isActive: path === "/admin" && hash === "users",
+      route: "/admin#users"
     }
   ];
 
-  const handleNavClick = (value: string) => {
-    if (value === "dashboard") {
-      navigate("/admin");
-    } else {
-      navigate(`/admin#${value}`);
-    }
+  const handleNavClick = (route: string) => {
+    navigate(route);
   };
 
   return (
@@ -64,7 +66,7 @@ export const AdminSidebar = () => {
               {adminNavItems.map((item) => (
                 <SidebarMenuItem key={item.value}>
                   <SidebarMenuButton 
-                    onClick={() => handleNavClick(item.value)}
+                    onClick={() => handleNavClick(item.route)}
                     isActive={item.isActive}
                     tooltip={item.title}
                   >
