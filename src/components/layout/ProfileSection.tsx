@@ -19,6 +19,14 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
   const navigate = useNavigate();
   const { user, isAdmin } = useAuth();
   
+  // Add console logs for debugging
+  React.useEffect(() => {
+    if (user) {
+      console.log('ProfileSection - User email:', user.email);
+      console.log('ProfileSection - Is admin:', isAdmin);
+    }
+  }, [user, isAdmin]);
+  
   const goToAdmin = () => {
     navigate('/admin');
   };

@@ -66,7 +66,7 @@ export function useSupabaseAuth() {
         setIsAdmin(data.is_admin || false);
       } else {
         console.log('No profile found, creating new profile');
-        await createUserProfile(userId, false); // Changed default to false
+        await createUserProfile(userId, false);
       }
     } catch (error) {
       console.error('Error checking admin status:', error);
@@ -76,7 +76,7 @@ export function useSupabaseAuth() {
     }
   };
 
-  const createUserProfile = async (userId: string, makeAdmin: boolean = false) => { // Changed default to false
+  const createUserProfile = async (userId: string, makeAdmin: boolean = false) => {
     try {
       console.log('Creating user profile, admin status:', makeAdmin);
       const { error } = await supabase
@@ -100,11 +100,36 @@ export function useSupabaseAuth() {
     }
   };
 
+  // Add a function to set admin status for a user
+  const setAdminStatus = async (userId: string, adminStatus: boolean) => {
+    try {
+      console.log('Setting admin status for user ID:', userId, 'to:', adminStatus);
+      const { error } = await supabase
+        .from('profiles')
+        .update({ is_admin: adminStatus })
+        .eq('id', userId);
+        
+      if (error) {
+        console.error('Error updating admin status:', error);
+        return false;
+      } else {
+        console.log('Admin status updated successfully');
+        if (user && user.id === userId) {
+          setIsAdmin(adminStatus);
+        }
+        return true;
+      }
+    } catch (error) {
+      console.error('Error updating admin status:', error);
+      return false;
+    }
+  };
+
   return {
     session,
     user,
     isAdmin,
     isLoading,
-    setIsAdmin
+    setAdminStatus
   };
 }

@@ -13,12 +13,13 @@ type AuthContextType = {
   signUp: (email: string, password: string) => Promise<AuthResponse>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
+  setAdminStatus?: (userId: string, adminStatus: boolean) => Promise<boolean>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const { session, user, isAdmin, isLoading } = useSupabaseAuth();
+  const { session, user, isAdmin, isLoading, setAdminStatus } = useSupabaseAuth();
   const { signIn, signUp, signOut, resetPassword } = useAuthMethods();
 
   const value = {
@@ -30,6 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     signUp,
     signOut,
     resetPassword,
+    setAdminStatus,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
