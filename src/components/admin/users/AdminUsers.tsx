@@ -25,12 +25,7 @@ const AdminUsers = () => {
         <h2 className="text-xl font-semibold">User Management</h2>
       </div>
 
-      <UsersList 
-        users={users}
-        isLoading={isLoading}
-        onEditUser={handleEditUser}
-        onToggleAdmin={toggleAdmin}
-      />
+      <UsersList />
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <EditUserDialog
