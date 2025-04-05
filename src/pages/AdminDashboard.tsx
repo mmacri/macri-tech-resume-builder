@@ -19,7 +19,7 @@ const AdminDashboard = () => {
   };
 
   const handleInitializeData = () => {
-    initializeData();
+    initializeData({});
   };
 
   const handleForceInitializeData = () => {

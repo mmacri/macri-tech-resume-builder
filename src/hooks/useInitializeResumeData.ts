@@ -97,14 +97,28 @@ export const useInitializeResumeData = () => {
       } else {
         console.log('Resume sections already exist, checking for sample data...');
         // Ensure sample data exists for each section
-        for (const section of existingSections) {
-          const { data: items, error } = await supabase
+        // First, fetch sections with their IDs
+        const { data: sectionsWithIds, error: fetchError } = await supabase
+          .from('resume_sections')
+          .select('*');
+          
+        if (fetchError) {
+          throw fetchError;
+        }
+        
+        // Then check each section for data
+        for (const section of sectionsWithIds) {
+          const { count, error } = await supabase
             .from('resume_items')
-            .select('count')
-            .eq('section_id', section.id)
-            .single();
+            .select('*', { count: 'exact', head: true })
+            .eq('section_id', section.id);
             
-          if (error || !items || items.count === 0) {
+          if (error) {
+            console.error(`Error checking items for section ${section.section_name}:`, error);
+            continue;
+          }
+          
+          if (count === 0) {
             // Initialize sample data for this section
             switch(section.section_name) {
               case 'about':
