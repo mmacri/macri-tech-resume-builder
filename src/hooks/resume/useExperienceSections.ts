@@ -15,14 +15,20 @@ export const useExperienceSections = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['experienceSection'],
     queryFn: async () => {
+      console.log('Fetching experience section');
+      
       const { data, error } = await supabase
         .from('resume_sections')
         .select('*')
         .eq('section_name', 'experience');
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching experience section:', error);
+        throw error;
+      }
       
       if (!data || data.length === 0) {
+        console.log('No experience section found, creating one');
         // Create experience section if it doesn't exist
         const { data: newSection, error: createError } = await supabase
           .from('resume_sections')
@@ -30,16 +36,21 @@ export const useExperienceSections = () => {
           .select()
           .single();
         
-        if (createError) throw createError;
+        if (createError) {
+          console.error('Error creating experience section:', createError);
+          throw createError;
+        }
         return [newSection];
       }
       
+      console.log('Found experience section:', data);
       return data;
-    }
+    },
+    staleTime: 5000 // 5 seconds before considering data stale
   });
 
   return {
-    sections: data, // Return sections directly 
+    sections: data || [], // Ensure we never return undefined
     isLoading,
     error
   };

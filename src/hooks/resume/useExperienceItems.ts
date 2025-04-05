@@ -29,6 +29,21 @@ export const useExperienceItems = (sectionId: string | undefined) => {
       
       console.log('Fetching experience items for section:', sectionId);
       
+      // Check if there are any experience items
+      const { count, error: countError } = await supabase
+        .from('resume_items')
+        .select('*', { count: 'exact', head: true })
+        .eq('section_id', sectionId);
+        
+      if (countError) {
+        console.error('Error checking experience items count:', countError);
+        throw countError;
+      }
+      
+      console.log(`Found ${count} experience items`);
+      
+      // If no items exist and we need to initialize, we could call an initialization function here
+      
       // Fetch all experience items
       const { data, error } = await supabase
         .from('resume_items')
@@ -42,10 +57,10 @@ export const useExperienceItems = (sectionId: string | undefined) => {
       }
       
       console.log('Found experience items:', data?.length || 0);
-      return data;
+      return data || [];
     },
     enabled: !!sectionId,
-    staleTime: 10000 // 10 seconds
+    staleTime: 5000 // 5 seconds before considering data stale
   });
 
   return {
