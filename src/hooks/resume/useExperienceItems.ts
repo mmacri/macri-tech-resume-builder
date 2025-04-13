@@ -23,13 +23,32 @@ export const useExperienceItems = (sectionId: string | undefined) => {
     queryKey: ['experienceItems', sectionId],
     queryFn: async () => {
       if (!sectionId) {
-        console.log('No section ID provided to useExperienceItems');
-        return [];
+        console.log('No section ID provided to useExperienceItems, attempting to find experience section...');
+        
+        // Try to find the experience section ID
+        const { data: sections, error: sectionsError } = await supabase
+          .from('resume_sections')
+          .select('id')
+          .eq('section_name', 'experience')
+          .maybeSingle();
+          
+        if (sectionsError) {
+          console.error('Error looking up experience section:', sectionsError);
+          throw new Error(`Could not find experience section: ${sectionsError.message}`);
+        }
+        
+        if (!sections) {
+          console.log('Experience section not found in database. Please initialize resume data first.');
+          return [];
+        }
+        
+        sectionId = sections.id;
+        console.log('Found experience section ID:', sectionId);
       }
       
       console.log('Fetching experience items for section:', sectionId);
       
-      // First check if the section exists
+      // Check if the section exists
       const { data: sectionData, error: sectionError } = await supabase
         .from('resume_sections')
         .select('section_name')
@@ -77,12 +96,12 @@ export const useExperienceItems = (sectionId: string | undefined) => {
       if (data && data.length > 0) {
         console.log('First experience item:', data[0]);
       } else {
-        console.log('No experience items found for this section');
+        console.log('No experience items found for this section, may need to initialize data');
       }
       
       return data || [];
     },
-    enabled: !!sectionId,
+    enabled: true, // Enable the query even without sectionId, we'll try to find it
     staleTime: 5000 // 5 seconds before considering data stale
   });
 

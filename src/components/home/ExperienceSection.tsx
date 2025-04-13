@@ -1,12 +1,18 @@
 
 import React from 'react';
 import { format, parse } from 'date-fns';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface ExperienceSectionProps {
   items: any[];
 }
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => {
+  const navigate = useNavigate();
+  const { isAdmin } = useAuth();
+  
   // Function to format date
   const formatDate = (dateString: string | null) => {
     if (!dateString) return 'Present';
@@ -39,8 +45,19 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
         <div className="resume-section-content px-4 md:px-8">
           <h2 className="text-4xl font-bold mb-8">Experience</h2>
           <div className="p-6 border rounded-lg bg-gray-50">
-            <p className="text-gray-600">No experience data available. If you're an admin, please initialize resume data from the admin dashboard.</p>
-            <p className="text-gray-500 mt-2 text-sm">Check database connection or try resetting the resume data.</p>
+            <p className="text-gray-600">No experience data available.</p>
+            {isAdmin && (
+              <>
+                <p className="text-gray-500 mt-2">It looks like the resume data needs to be initialized.</p>
+                <Button 
+                  className="mt-4" 
+                  variant="outline" 
+                  onClick={() => navigate('/admin-dashboard')}
+                >
+                  Go to Admin Dashboard
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </section>

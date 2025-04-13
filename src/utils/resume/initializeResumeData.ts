@@ -70,6 +70,10 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
     try {
       sections = await initializeResumeSections();
       console.log('Initialized sections:', sections);
+      
+      if (!sections || sections.length === 0) {
+        throw new Error('Failed to create resume sections');
+      }
     } catch (sectionsError) {
       console.error('Error initializing resume sections:', sectionsError);
       return { success: false, message: `Error initializing sections: ${sectionsError instanceof Error ? sectionsError.message : 'Unknown error'}` };
@@ -95,7 +99,8 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
         if (itemCount === 0 || options.force) {
           console.log(`Populating items for section ${section.section_name} (${section.id})`);
           // Pass both sectionId and sectionName as arguments
-          await populateSectionItems(section.id, section.section_name);
+          const result = await populateSectionItems(section.id, section.section_name);
+          console.log(`Populated ${section.section_name} with result:`, result);
         }
       }
     } catch (itemsError) {
