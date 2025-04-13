@@ -21,19 +21,24 @@ export const useInitializeResumeData = () => {
       
       if (result.success) {
         toast.success(result.message || 'Resume data initialized successfully!');
+        return result;
       } else {
         console.error('Failed to initialize resume data:', result.message);
         toast.error(result.message || 'Failed to initialize resume data');
-        throw new Error(result.message || 'Unknown error');
+        
+        // Even though there was an error, return the result for downstream handling
+        return result;
       }
-      
-      // Return the result so it can be used downstream if needed
-      return result;
     } catch (error) {
       console.error('Error initializing resume data:', error);
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       toast.error(`Failed to initialize resume data: ${errorMessage}`);
-      throw error; // Re-throw to propagate to mutation error handler
+      
+      // Return a formatted error object for better handling downstream
+      return {
+        success: false,
+        message: errorMessage
+      };
     } finally {
       setIsInitializing(false);
     }
@@ -41,15 +46,19 @@ export const useInitializeResumeData = () => {
   
   const mutation = useMutation({
     mutationFn: initializeData,
-    onError: (error) => {
-      console.error('Mutation error:', error);
-      // Additional error handling if needed
+    onSettled: (data, error) => {
+      // Additional global handling for both success and error cases if needed
+      console.log('Resume data initialization completed with result:', data);
+      if (error) {
+        console.error('Mutation error during init:', error);
+      }
     }
   });
   
   return {
     initializeData: mutation.mutate,
     isInitializing: isInitializing || mutation.isPending,
-    error: mutation.error
+    error: mutation.error,
+    result: mutation.data
   };
 };

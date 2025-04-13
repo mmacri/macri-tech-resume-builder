@@ -51,6 +51,8 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
           console.error('Error deleting resume sections:', deleteSectionsError);
           return { success: false, message: `Error deleting sections: ${deleteSectionsError.message}` };
         }
+        
+        console.log('Successfully deleted existing data');
       } catch (deleteError) {
         console.error('Error in deletion process:', deleteError);
         return { success: false, message: `Error in deletion process: ${deleteError instanceof Error ? deleteError.message : 'Unknown error'}` };
@@ -59,7 +61,9 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
     
     try {
       // Initialize profile if it doesn't exist
+      console.log('Initializing profile...');
       await initializeProfile();
+      console.log('Profile initialized successfully');
     } catch (profileError) {
       console.error('Error initializing profile:', profileError);
       return { success: false, message: `Error initializing profile: ${profileError instanceof Error ? profileError.message : 'Unknown error'}` };
@@ -68,6 +72,7 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
     // Initialize resume sections if they don't exist
     let sections;
     try {
+      console.log('Initializing resume sections...');
       sections = await initializeResumeSections();
       console.log('Initialized sections:', sections);
       
@@ -81,6 +86,7 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
 
     // Populate section items if they don't exist
     try {
+      console.log('Starting to populate section items...');
       for (const section of sections) {
         // Check if section already has items
         const { count, error } = await supabase
@@ -99,10 +105,16 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
         if (itemCount === 0 || options.force) {
           console.log(`Populating items for section ${section.section_name} (${section.id})`);
           // Pass both sectionId and sectionName as arguments
-          const result = await populateSectionItems(section.id, section.section_name);
-          console.log(`Populated ${section.section_name} with result:`, result);
+          try {
+            await populateSectionItems(section.id, section.section_name);
+            console.log(`Successfully populated ${section.section_name} items`);
+          } catch (populateError) {
+            console.error(`Error populating items for section ${section.section_name}:`, populateError);
+            // Continue with other sections even if one fails
+          }
         }
       }
+      console.log('Finished populating all section items');
     } catch (itemsError) {
       console.error('Error populating section items:', itemsError);
       return { success: false, message: `Error populating items: ${itemsError instanceof Error ? itemsError.message : 'Unknown error'}` };
@@ -110,6 +122,7 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
 
     // Initialize portfolio projects if they don't exist
     try {
+      console.log('Checking portfolio projects...');
       const { count: projectCount, error: projectError } = await supabase
         .from('portfolio_projects')
         .select('*', { count: 'exact', head: true });
@@ -124,6 +137,7 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
       if (projectCount === 0 || options.force) {
         console.log('No portfolio projects found or force option is true, creating them');
         await createPortfolioProjects();
+        console.log('Portfolio projects created successfully');
       }
     } catch (projectsError) {
       console.error('Error initializing portfolio projects:', projectsError);

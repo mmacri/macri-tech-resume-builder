@@ -4,6 +4,8 @@ import { format, parse } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { AlertCircle } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface ExperienceSectionProps {
   items: any[];
@@ -45,18 +47,26 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
         <div className="resume-section-content px-4 md:px-8">
           <h2 className="text-4xl font-bold mb-8">Experience</h2>
           <div className="p-6 border rounded-lg bg-gray-50">
-            <p className="text-gray-600">No experience data available.</p>
+            {isAdmin ? (
+              <Alert variant="warning" className="mb-4">
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>Resume Data Not Found</AlertTitle>
+                <AlertDescription>
+                  No experience data is available. Please initialize your resume data from the Admin Dashboard.
+                </AlertDescription>
+              </Alert>
+            ) : (
+              <p className="text-gray-600">Experience information coming soon...</p>
+            )}
+            
             {isAdmin && (
-              <>
-                <p className="text-gray-500 mt-2">It looks like the resume data needs to be initialized.</p>
-                <Button 
-                  className="mt-4" 
-                  variant="outline" 
-                  onClick={() => navigate('/admin-dashboard')}
-                >
-                  Go to Admin Dashboard
-                </Button>
-              </>
+              <Button 
+                className="mt-4" 
+                variant="outline" 
+                onClick={() => navigate('/admin-dashboard')}
+              >
+                Go to Admin Dashboard
+              </Button>
             )}
           </div>
         </div>

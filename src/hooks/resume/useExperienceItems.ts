@@ -28,7 +28,7 @@ export const useExperienceItems = (sectionId: string | undefined) => {
         // Try to find the experience section ID
         const { data: sections, error: sectionsError } = await supabase
           .from('resume_sections')
-          .select('id')
+          .select('id, section_name')
           .eq('section_name', 'experience')
           .maybeSingle();
           
@@ -39,11 +39,24 @@ export const useExperienceItems = (sectionId: string | undefined) => {
         
         if (!sections) {
           console.log('Experience section not found in database. Please initialize resume data first.');
+          
+          // Check if ANY sections exist to help troubleshoot
+          const { data: allSections, error: allSectionsError } = await supabase
+            .from('resume_sections')
+            .select('section_name, id')
+            .order('display_order', { ascending: true });
+            
+          if (allSectionsError) {
+            console.error('Error checking for any sections:', allSectionsError);
+          } else {
+            console.log('Available sections:', allSections);
+          }
+          
           return [];
         }
         
         sectionId = sections.id;
-        console.log('Found experience section ID:', sectionId);
+        console.log(`Found experience section ID: ${sectionId} (${sections.section_name})`);
       }
       
       console.log('Fetching experience items for section:', sectionId);
@@ -102,7 +115,9 @@ export const useExperienceItems = (sectionId: string | undefined) => {
       return data || [];
     },
     enabled: true, // Enable the query even without sectionId, we'll try to find it
-    staleTime: 5000 // 5 seconds before considering data stale
+    staleTime: 5000, // 5 seconds before considering data stale
+    retry: 1,
+    retryDelay: 1000,
   });
 
   return {
