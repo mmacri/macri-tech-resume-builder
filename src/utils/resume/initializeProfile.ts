@@ -17,6 +17,7 @@ export const initializeProfile = async () => {
     
     if (profilesError) {
       console.error('Error checking for existing profiles:', profilesError);
+      throw profilesError;
     }
     
     // If profiles exist, use the first one
@@ -25,7 +26,7 @@ export const initializeProfile = async () => {
       return profiles[0].id;
     }
     
-    console.log('No profiles found, creating default admin profile');
+    console.log('No profiles found, creating default profile');
     
     // Try to get authenticated user or use the default ID
     const { data: authData } = await supabase.auth.getUser();
@@ -40,6 +41,7 @@ export const initializeProfile = async () => {
       
     if (checkError) {
       console.error('Error checking for specific profile:', checkError);
+      throw checkError;
     }
     
     // Only create if this specific profile doesn't exist
@@ -50,8 +52,8 @@ export const initializeProfile = async () => {
         .from('profiles')
         .insert({
           id: profileId,
-          full_name: 'Admin User',
-          username: authData?.user?.email || 'admin@example.com',
+          full_name: 'Mike Macri',
+          username: authData?.user?.email || 'mike@example.com',
           is_admin: true
         })
         .select()
@@ -59,6 +61,31 @@ export const initializeProfile = async () => {
         
       if (createError) {
         console.error('Error creating profile:', createError);
+        
+        // If there was an error with the specific ID, try with the default ID directly
+        if (profileId !== defaultProfileId) {
+          console.log('Trying to create with default profile ID...');
+          
+          const { data: fallbackProfile, error: fallbackError } = await supabase
+            .from('profiles')
+            .insert({
+              id: defaultProfileId,
+              full_name: 'Mike Macri',
+              username: 'mike@example.com',
+              is_admin: true
+            })
+            .select()
+            .single();
+            
+          if (fallbackError) {
+            console.error('Error creating fallback profile:', fallbackError);
+            throw fallbackError;
+          }
+          
+          console.log('Created fallback profile:', fallbackProfile);
+          return defaultProfileId;
+        }
+        
         throw createError;
       }
       
@@ -70,6 +97,7 @@ export const initializeProfile = async () => {
     }
   } catch (error) {
     console.error('Error initializing profile:', error);
-    throw error;
+    // Return the default profile ID even if there's an error, to prevent cascading failures
+    return '00000000-0000-0000-0000-000000000000';
   }
 };

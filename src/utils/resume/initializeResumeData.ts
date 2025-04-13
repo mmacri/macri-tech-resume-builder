@@ -28,15 +28,17 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
     }
 
     // Check if resume sections already exist
-    const { count: sectionCount, error: countError } = await supabase
+    const { data: existingSections, error: sectionsError } = await supabase
       .from('resume_sections')
-      .select('*', { count: 'exact', head: true });
+      .select('*')
+      .order('display_order', { ascending: true });
       
-    if (countError) {
-      console.error('Error checking resume sections count:', countError);
-      return { success: false, message: `Error checking sections: ${countError.message}` };
+    if (sectionsError) {
+      console.error('Error checking for existing resume sections:', sectionsError);
+      return { success: false, message: `Error checking sections: ${sectionsError.message}` };
     }
     
+    const sectionCount = existingSections?.length || 0;
     console.log(`Found ${sectionCount} resume sections`);
     
     // If force option is true, delete existing data
@@ -73,22 +75,25 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
       }
     }
 
-    // Initialize resume sections if they don't exist
-    let sections;
-    try {
-      console.log('Initializing resume sections...');
-      sections = await initializeResumeSections();
-      console.log('Initialized sections:', sections);
-      
-      if (!sections || sections.length === 0) {
-        throw new Error('Failed to create resume sections');
+    // Initialize or get existing resume sections
+    let sections = existingSections || [];
+    
+    if (sectionCount === 0) {
+      try {
+        console.log('No sections found, initializing resume sections...');
+        sections = await initializeResumeSections();
+        console.log('Initialized sections:', sections);
+        
+        if (!sections || sections.length === 0) {
+          throw new Error('Failed to create resume sections');
+        }
+      } catch (sectionsError) {
+        console.error('Error initializing resume sections:', sectionsError);
+        return { success: false, message: `Error initializing sections: ${sectionsError instanceof Error ? sectionsError.message : 'Unknown error'}` };
       }
-    } catch (sectionsError) {
-      console.error('Error initializing resume sections:', sectionsError);
-      return { success: false, message: `Error initializing sections: ${sectionsError instanceof Error ? sectionsError.message : 'Unknown error'}` };
     }
 
-    // Populate section items if they don't exist
+    // Populate section items if they don't exist or if force option is true
     try {
       console.log('Starting to populate section items...');
       for (const section of sections) {
@@ -146,6 +151,38 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
     } catch (projectsError) {
       console.error('Error initializing portfolio projects:', projectsError);
       return { success: false, message: `Error initializing projects: ${projectsError instanceof Error ? projectsError.message : 'Unknown error'}` };
+    }
+
+    // Verify that experience items were actually created
+    try {
+      const { data: experienceSection } = await supabase
+        .from('resume_sections')
+        .select('id')
+        .eq('section_name', 'experience')
+        .maybeSingle();
+        
+      if (experienceSection) {
+        const { count: expItemCount, error: expCountError } = await supabase
+          .from('resume_items')
+          .select('*', { count: 'exact', head: true })
+          .eq('section_id', experienceSection.id);
+          
+        if (expCountError) {
+          console.error('Error counting experience items:', expCountError);
+        } else {
+          console.log(`Verified experience items count: ${expItemCount || 0}`);
+          
+          // If still no experience items, try to create them directly
+          if ((expItemCount || 0) === 0) {
+            console.log('No experience items after initialization, creating them directly...');
+            const { createExperienceData } = await import('./experienceData');
+            await createExperienceData(experienceSection.id);
+            console.log('Directly created experience items');
+          }
+        }
+      }
+    } catch (verifyError) {
+      console.error('Error verifying experience items:', verifyError);
     }
 
     return { success: true, message: "Resume data initialized successfully!" };

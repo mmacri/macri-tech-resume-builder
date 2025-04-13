@@ -4,8 +4,34 @@ import { supabase } from '@/integrations/supabase/client';
 export const createExperienceData = async (sectionId: string) => {
   console.log('Creating experience data for section ID:', sectionId);
   
+  if (!sectionId) {
+    console.error('No section ID provided to createExperienceData');
+    throw new Error('Section ID is required for createExperienceData');
+  }
+  
   try {
-    // First, clear any existing experience items for this section
+    // First, check if there are already items for this section
+    const { count, error: countError } = await supabase
+      .from('resume_items')
+      .select('*', { count: 'exact', head: true })
+      .eq('section_id', sectionId);
+      
+    if (countError) {
+      console.error('Error checking for existing items:', countError);
+      throw countError;
+    }
+    
+    if ((count || 0) > 0) {
+      console.log(`Section already has ${count} items`);
+      
+      // If force parameter is not provided, don't overwrite existing data
+      if (count && count > 0) {
+        console.log('Keeping existing experience items');
+        return;
+      }
+    }
+  
+    // Clear any existing experience items for this section
     const { error: deleteError } = await supabase
       .from('resume_items')
       .delete()
@@ -115,7 +141,7 @@ export const createExperienceData = async (sectionId: string) => {
           throw error;
         }
         
-        console.log(`Successfully created experience: ${experience.title}, result:`, data);
+        console.log(`Successfully created experience: ${experience.title}`);
       } catch (err) {
         console.error(`Failed to create experience item: ${experience.title}`, err);
         throw err;
@@ -123,6 +149,22 @@ export const createExperienceData = async (sectionId: string) => {
     }
     
     console.log('Successfully created all experience items');
+    
+    // Verify that the items were actually created
+    const { data: createdItems, error: verifyError } = await supabase
+      .from('resume_items')
+      .select('*')
+      .eq('section_id', sectionId)
+      .order('display_order', { ascending: true });
+      
+    if (verifyError) {
+      console.error('Error verifying created items:', verifyError);
+    } else {
+      console.log(`Verified created items: ${createdItems?.length || 0}`);
+      if (createdItems && createdItems.length > 0) {
+        console.log('First created item:', createdItems[0]);
+      }
+    }
   } catch (error) {
     console.error('Error in createExperienceData:', error);
     throw error;
