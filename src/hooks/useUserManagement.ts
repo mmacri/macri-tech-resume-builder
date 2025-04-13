@@ -114,14 +114,14 @@ export function useUserManagement() {
     mutationFn: async (userData: Partial<UserProfile>) => {
       console.log('Adding new user profile:', userData);
       
-      // Generate a UUID for the user if not provided
+      // Ensure that the ID field is present and a valid UUID
       if (!userData.id) {
         userData.id = crypto.randomUUID();
       }
       
       const { data, error } = await supabase
         .from('profiles')
-        .insert(userData)
+        .insert(userData as { id: string }) // Type assertion to satisfy the requirement
         .select()
         .single();
       
