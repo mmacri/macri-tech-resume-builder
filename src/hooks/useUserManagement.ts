@@ -8,13 +8,14 @@ import { UserProfile } from '@/types/user';
 export function useUserManagement() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<Partial<UserProfile> | null>(null);
+  const [showAddUserDialog, setShowAddUserDialog] = useState(false);
   const queryClient = useQueryClient();
 
   // Fetch users with profiles - improved error handling
   const { data: users, isLoading, error, refetch } = useQuery({
     queryKey: ['adminUsers'],
     queryFn: async () => {
-      console.log('Fetching actual users from profiles table...');
+      console.log('Fetching users from profiles table...');
       try {
         const { data: profiles, error } = await supabase
           .from('profiles')
@@ -29,6 +30,33 @@ export function useUserManagement() {
         
         if (!profiles || profiles.length === 0) {
           console.log('No profiles found in the database');
+          
+          // Check if the current user exists in the profiles table
+          const { data: authData } = await supabase.auth.getUser();
+          if (authData?.user) {
+            // If current user is authenticated but not in profiles, create profile
+            console.log('Creating profile for current authenticated user:', authData.user.email);
+            const { data: newProfile, error: insertError } = await supabase
+              .from('profiles')
+              .insert({
+                id: authData.user.id,
+                full_name: authData.user.email?.split('@')[0] || 'User',
+                username: authData.user.email,
+                is_admin: true // Make first user an admin
+              })
+              .select()
+              .single();
+              
+            if (insertError) {
+              console.error('Error creating profile for current user:', insertError);
+              toast.error(`Failed to create user profile: ${insertError.message}`);
+            } else {
+              toast.success('Created user profile for current user');
+              // Return the newly created profile as an array
+              return [newProfile] as UserProfile[];
+            }
+          }
+          
           return [];
         }
         
@@ -78,6 +106,40 @@ export function useUserManagement() {
     onError: (error: Error) => {
       console.error('Mutation error:', error);
       toast.error(`Error updating user: ${error.message}`);
+    }
+  });
+
+  // Add user function
+  const addUserMutation = useMutation({
+    mutationFn: async (userData: Partial<UserProfile>) => {
+      console.log('Adding new user profile:', userData);
+      
+      // Generate a UUID for the user if not provided
+      if (!userData.id) {
+        userData.id = crypto.randomUUID();
+      }
+      
+      const { data, error } = await supabase
+        .from('profiles')
+        .insert(userData)
+        .select()
+        .single();
+      
+      if (error) {
+        console.error('Error adding user:', error);
+        throw error;
+      }
+      
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['adminUsers'] });
+      toast.success('User added successfully');
+      setShowAddUserDialog(false);
+    },
+    onError: (error: Error) => {
+      console.error('Add user mutation error:', error);
+      toast.error(`Error adding user: ${error.message}`);
     }
   });
 
@@ -135,6 +197,10 @@ export function useUserManagement() {
     }
   };
 
+  const addUser = (userData: Partial<UserProfile>) => {
+    addUserMutation.mutate(userData);
+  };
+
   return {
     users,
     isLoading,
@@ -148,6 +214,9 @@ export function useUserManagement() {
     handleEditUser,
     handleSubmit,
     toggleAdmin,
-    deleteUser
+    deleteUser,
+    addUser,
+    showAddUserDialog,
+    setShowAddUserDialog
   };
 }

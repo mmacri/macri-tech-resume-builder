@@ -4,6 +4,7 @@ import { Dialog } from '@/components/ui/dialog';
 import { useUserManagement } from '@/hooks/useUserManagement';
 import UsersList from './UsersList';
 import EditUserDialog from './EditUserDialog';
+import AddUserDialog from './AddUserDialog';
 import { Button } from "@/components/ui/button";
 import { UserPlus, RefreshCw } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -22,10 +23,11 @@ const AdminUsers = () => {
     setIsDialogOpen,
     handleEditUser,
     handleSubmit,
-    toggleAdmin
+    toggleAdmin,
+    showAddUserDialog,
+    setShowAddUserDialog,
+    addUser
   } = useUserManagement();
-  
-  const [showAddUserDialog, setShowAddUserDialog] = useState(false);
 
   return (
     <div className="p-4">
@@ -37,7 +39,6 @@ const AdminUsers = () => {
           </Button>
           <Button 
             size="sm" 
-            variant="outline" 
             onClick={() => setShowAddUserDialog(true)}
           >
             <UserPlus className="mr-2 h-4 w-4" /> Add User
@@ -65,7 +66,12 @@ const AdminUsers = () => {
         />
       </Dialog>
 
-      {/* We could implement a UserAddDialog component here if needed */}
+      <Dialog open={showAddUserDialog} onOpenChange={setShowAddUserDialog}>
+        <AddUserDialog
+          onSubmit={addUser}
+          onClose={() => setShowAddUserDialog(false)}
+        />
+      </Dialog>
     </div>
   );
 };
