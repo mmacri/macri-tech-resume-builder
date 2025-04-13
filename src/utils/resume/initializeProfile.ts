@@ -1,5 +1,6 @@
 
 import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 export const initializeProfile = async () => {
   try {
@@ -17,7 +18,10 @@ export const initializeProfile = async () => {
     
     if (profilesError) {
       console.error('Error checking for existing profiles:', profilesError);
-      throw profilesError;
+      toast.error(`Database error: ${profilesError.message}`);
+      
+      // Return default ID to prevent cascading failures
+      return defaultProfileId;
     }
     
     // If profiles exist, use the first one
@@ -41,62 +45,79 @@ export const initializeProfile = async () => {
       
     if (checkError) {
       console.error('Error checking for specific profile:', checkError);
-      throw checkError;
+      toast.error(`Database error: ${checkError.message}`);
+      
+      // Return default ID to prevent cascading failures
+      return defaultProfileId;
     }
     
     // Only create if this specific profile doesn't exist
     if (!existingProfile) {
       console.log('Creating profile with ID:', profileId);
       
-      const { data: newProfile, error: createError } = await supabase
-        .from('profiles')
-        .insert({
-          id: profileId,
-          full_name: 'Mike Macri',
-          username: authData?.user?.email || 'mike@example.com',
-          is_admin: true
-        })
-        .select()
-        .single();
+      // Try to create the profile with the user's ID first
+      try {
+        const { data: newProfile, error: createError } = await supabase
+          .from('profiles')
+          .insert({
+            id: profileId,
+            full_name: 'Mike Macri',
+            username: authData?.user?.email || 'mike@example.com',
+            is_admin: true
+          })
+          .select()
+          .single();
+          
+        if (createError) {
+          throw createError;
+        }
         
-      if (createError) {
+        console.log('Successfully created profile:', newProfile);
+        toast.success('Profile created successfully');
+        return profileId;
+      } catch (createError: any) {
         console.error('Error creating profile:', createError);
+        toast.error(`Failed to create profile: ${createError.message}`);
         
         // If there was an error with the specific ID, try with the default ID directly
         if (profileId !== defaultProfileId) {
           console.log('Trying to create with default profile ID...');
           
-          const { data: fallbackProfile, error: fallbackError } = await supabase
-            .from('profiles')
-            .insert({
-              id: defaultProfileId,
-              full_name: 'Mike Macri',
-              username: 'mike@example.com',
-              is_admin: true
-            })
-            .select()
-            .single();
+          try {
+            const { data: fallbackProfile, error: fallbackError } = await supabase
+              .from('profiles')
+              .insert({
+                id: defaultProfileId,
+                full_name: 'Mike Macri',
+                username: 'mike@example.com',
+                is_admin: true
+              })
+              .select()
+              .single();
+              
+            if (fallbackError) {
+              throw fallbackError;
+            }
             
-          if (fallbackError) {
+            console.log('Created fallback profile:', fallbackProfile);
+            toast.success('Created fallback profile');
+            return defaultProfileId;
+          } catch (fallbackError: any) {
             console.error('Error creating fallback profile:', fallbackError);
-            throw fallbackError;
+            toast.error(`Failed to create fallback profile: ${fallbackError.message}`);
+            return defaultProfileId;
           }
-          
-          console.log('Created fallback profile:', fallbackProfile);
-          return defaultProfileId;
         }
         
-        throw createError;
+        return defaultProfileId;
       }
-      
-      console.log('Successfully created profile:', newProfile);
-      return profileId;
     } else {
       console.log('Profile already exists with ID:', profileId);
       return profileId;
     }
   } catch (error) {
     console.error('Error initializing profile:', error);
+    toast.error(`Error initializing profile: ${error instanceof Error ? error.message : 'Unknown error'}`);
     // Return the default profile ID even if there's an error, to prevent cascading failures
     return '00000000-0000-0000-0000-000000000000';
   }

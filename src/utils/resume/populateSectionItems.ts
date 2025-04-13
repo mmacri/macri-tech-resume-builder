@@ -6,10 +6,12 @@ import { createEducationData } from './educationData';
 import { createSkillsData } from './skillsData';
 import { createInterestsData } from './interestsData';
 import { createAwardsData } from './awardsData';
+import { toast } from 'sonner';
 
 export const populateSectionItems = async (sectionId: string, sectionName: string) => {
   if (!sectionId || !sectionName) {
     console.error('Missing section ID or name');
+    toast.error('Missing section ID or name for populateSectionItems');
     throw new Error('Missing section ID or name for populateSectionItems');
   }
 
@@ -24,6 +26,7 @@ export const populateSectionItems = async (sectionId: string, sectionName: strin
       
     if (countError) {
       console.error(`Error checking items for section ${sectionName}:`, countError);
+      toast.error(`Database error while checking items: ${countError.message}`);
       throw countError;
     }
     
@@ -47,6 +50,7 @@ export const populateSectionItems = async (sectionId: string, sectionName: strin
         
         if (aboutError) {
           console.error('Error populating about section:', aboutError);
+          toast.error(`Database error while creating about data: ${aboutError.message}`);
           throw aboutError;
         }
         break;
@@ -54,7 +58,14 @@ export const populateSectionItems = async (sectionId: string, sectionName: strin
       case 'experience':
         // Use the createExperienceData function
         console.log('Creating experience data');
-        await createExperienceData(sectionId);
+        try {
+          await createExperienceData(sectionId);
+          toast.success('Experience data created successfully');
+        } catch (expError) {
+          console.error('Error in createExperienceData:', expError);
+          toast.error(`Failed to create experience data: ${expError instanceof Error ? expError.message : 'Unknown error'}`);
+          throw expError;
+        }
         break;
 
       case 'education':
@@ -83,11 +94,14 @@ export const populateSectionItems = async (sectionId: string, sectionName: strin
 
       default:
         console.error(`Unknown section type: ${sectionName}`);
+        toast.error(`Unknown section type: ${sectionName}`);
     }
     
     console.log(`Successfully populated items for section ${sectionName}`);
+    toast.success(`Successfully populated ${sectionName} section`);
   } catch (error) {
     console.error(`Error populating section ${sectionName}:`, error);
+    toast.error(`Failed to populate ${sectionName} section: ${error instanceof Error ? error.message : 'Unknown error'}`);
     throw error;
   }
 };
