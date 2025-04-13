@@ -40,9 +40,7 @@ export const useExperienceItems = (sectionId: string | undefined) => {
         throw countError;
       }
       
-      console.log(`Found ${count} experience items`);
-      
-      // If no items exist and we need to initialize, we could call an initialization function here
+      console.log(`Found ${count} experience items for section ID: ${sectionId}`);
       
       // Fetch all experience items
       const { data, error } = await supabase
@@ -57,6 +55,7 @@ export const useExperienceItems = (sectionId: string | undefined) => {
       }
       
       console.log('Found experience items:', data?.length || 0);
+      console.log('Experience data:', data);
       return data || [];
     },
     enabled: !!sectionId,

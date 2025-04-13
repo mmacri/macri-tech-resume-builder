@@ -15,6 +15,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
       const date = parse(dateString, 'yyyy-MM-dd', new Date());
       return format(date, 'MMM yyyy');
     } catch (e) {
+      console.error('Error formatting date:', e, dateString);
       return dateString;
     }
   };
@@ -23,6 +24,9 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
   const formatDateRange = (startDate: string | null, endDate: string | null) => {
     return `${formatDate(startDate)} - ${formatDate(endDate)}`;
   };
+
+  // Log the items to debug
+  console.log('Experience items received:', items);
 
   // Use the provided items, or a default placeholder if none
   const experienceItems = items.length > 0 ? items : [

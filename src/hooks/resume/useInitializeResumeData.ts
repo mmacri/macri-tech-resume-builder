@@ -13,10 +13,11 @@ export const useInitializeResumeData = () => {
   const [isInitializing, setIsInitializing] = useState(false);
   
   const initializeData = async (options: InitializeDataOptions = {}) => {
+    console.log('Initializing resume data with options:', options);
     setIsInitializing(true);
     
     try {
-      // Use the centralized initialization function
+      // Use the centralized initialization function and pass the options
       const result = await initializeResumeData(options);
       
       if (result.success) {

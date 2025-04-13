@@ -2,6 +2,19 @@
 import { supabase } from '@/integrations/supabase/client';
 
 export const createExperienceData = async (sectionId: string) => {
+  console.log('Creating experience data for section ID:', sectionId);
+  
+  // First, clear any existing experience items for this section
+  const { error: deleteError } = await supabase
+    .from('resume_items')
+    .delete()
+    .eq('section_id', sectionId);
+    
+  if (deleteError) {
+    console.error('Error deleting existing experience items:', deleteError);
+    throw deleteError;
+  }
+  
   const experiences = [
     {
       title: "Sr Manager, InfoSec Solution & Automation Engineering",
@@ -84,15 +97,21 @@ export const createExperienceData = async (sectionId: string) => {
       display_order: 8
     }
   ];
-
+  
+  console.log(`Attempting to create ${experiences.length} experience items`);
+  
+  // Insert each experience one by one to make debugging easier
   for (const experience of experiences) {
+    console.log(`Creating experience: ${experience.title}`);
     const { error } = await supabase
       .from('resume_items')
       .insert(experience);
       
     if (error) {
-      console.error('Error creating experience data:', error);
+      console.error(`Error creating experience data for ${experience.title}:`, error);
       throw error;
     }
   }
+  
+  console.log('Successfully created all experience items');
 };

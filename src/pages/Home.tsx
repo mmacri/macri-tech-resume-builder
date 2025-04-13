@@ -28,8 +28,12 @@ const Home = () => {
         throw sectionsError;
       }
       
+      console.log('Fetched sections:', sections);
+      
       // For each section, get its items
       const sectionsWithItems = await Promise.all(sections.map(async (section) => {
+        console.log(`Fetching items for section ${section.section_name}`);
+        
         const { data: items, error: itemsError } = await supabase
           .from('resume_items')
           .select('*')
@@ -40,6 +44,8 @@ const Home = () => {
           console.error(`Error fetching items for section ${section.section_name}:`, itemsError);
           throw itemsError;
         }
+        
+        console.log(`Found ${items?.length || 0} items for section ${section.section_name}`);
         
         return {
           ...section,
@@ -54,7 +60,9 @@ const Home = () => {
   const getSectionItems = (sectionName: string) => {
     if (isLoading || !resumeSections) return [];
     const section = resumeSections.find(s => s.section_name === sectionName);
-    return section ? section.items : [];
+    const items = section ? section.items : [];
+    console.log(`Getting items for ${sectionName}:`, items);
+    return items;
   };
 
   if (isLoading) {
