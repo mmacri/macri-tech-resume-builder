@@ -40,7 +40,28 @@ export const useExperienceItems = (sectionId: string | undefined) => {
         if (!sections) {
           console.log('Experience section not found in database. Please initialize resume data first.');
           
-          // Check if ANY sections exist to help troubleshoot
+          // Create the experience section if it doesn't exist
+          try {
+            console.log('Attempting to create experience section...');
+            const { data: newSection, error: createError } = await supabase
+              .from('resume_sections')
+              .insert({ section_name: 'experience', display_order: 2 })
+              .select()
+              .single();
+              
+            if (createError) {
+              console.error('Error creating experience section:', createError);
+              // Fall back to checking for any sections
+            } else if (newSection) {
+              console.log('Created new experience section:', newSection);
+              sectionId = newSection.id;
+              return []; // Return empty array for initial load
+            }
+          } catch (createSectionError) {
+            console.error('Error in section creation:', createSectionError);
+          }
+          
+          // Still check if ANY sections exist to help troubleshoot
           const { data: allSections, error: allSectionsError } = await supabase
             .from('resume_sections')
             .select('section_name, id')
@@ -86,7 +107,7 @@ export const useExperienceItems = (sectionId: string | undefined) => {
     },
     enabled: true, // Enable the query even without sectionId, we'll try to find it
     staleTime: 5000, // 5 seconds before considering data stale
-    retry: 1,
+    retry: 2, // Increase retries
     retryDelay: 1000,
   });
 

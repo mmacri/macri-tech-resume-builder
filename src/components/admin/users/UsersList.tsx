@@ -21,23 +21,42 @@ const UsersList = () => {
         try {
           console.log('No users found, attempting to create a sample admin user');
           
-          // Create a sample admin profile without auth - use standard profile insert
-          const { data: profile, error: profileError } = await supabase
+          // Create a sample admin profile directly in the profiles table
+          const sampleUserUuid = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'; // Sample UUID
+          
+          // First check if this profile already exists to avoid duplicate errors
+          const { data: existingProfile, error: checkError } = await supabase
             .from('profiles')
-            .insert({
-              id: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', // Sample UUID
-              username: 'admin@example.com',
-              full_name: 'Admin User',
-              is_admin: true
-            })
-            .select()
-            .single();
+            .select('id')
+            .eq('id', sampleUserUuid)
+            .maybeSingle();
             
-          if (profileError) {
-            console.error('Error creating sample admin profile:', profileError);
-            toast.error(`Error creating sample user: ${profileError.message}`);
+          if (checkError) {
+            console.error('Error checking for existing profile:', checkError);
+          }
+          
+          // Only insert if it doesn't exist
+          if (!existingProfile) {
+            const { data: profile, error: profileError } = await supabase
+              .from('profiles')
+              .insert({
+                id: sampleUserUuid,
+                username: 'admin@example.com',
+                full_name: 'Admin User',
+                is_admin: true
+              })
+              .select()
+              .single();
+              
+            if (profileError) {
+              console.error('Error creating sample admin profile:', profileError);
+              toast.error(`Error creating sample user: ${profileError.message}`);
+            } else {
+              console.log('Successfully created sample admin profile:', profile);
+              toast.success('Created sample admin user for demonstration');
+            }
           } else {
-            toast.success('Created sample admin user for demonstration');
+            console.log('Sample admin profile already exists, skipping creation');
           }
         } catch (error) {
           console.error('Error in checkAndCreateSampleUser:', error);

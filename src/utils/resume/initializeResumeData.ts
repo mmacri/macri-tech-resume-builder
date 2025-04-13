@@ -13,6 +13,20 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
   console.log('Initializing real resume data with options:', options);
   
   try {
+    // Initial variable to track profile creation success
+    let profileId;
+    
+    try {
+      // Initialize profile if it doesn't exist
+      console.log('Initializing profile...');
+      profileId = await initializeProfile();
+      console.log('Profile initialized successfully:', profileId);
+    } catch (profileError) {
+      console.error('Error initializing profile:', profileError);
+      // Continue even if profile creation fails - we'll try to work with existing data
+      console.log('Continuing with resume initialization despite profile error');
+    }
+
     // Check if resume sections already exist
     const { count: sectionCount, error: countError } = await supabase
       .from('resume_sections')
@@ -57,16 +71,6 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
         console.error('Error in deletion process:', deleteError);
         return { success: false, message: `Error in deletion process: ${deleteError instanceof Error ? deleteError.message : 'Unknown error'}` };
       }
-    }
-    
-    try {
-      // Initialize profile if it doesn't exist
-      console.log('Initializing profile...');
-      await initializeProfile();
-      console.log('Profile initialized successfully');
-    } catch (profileError) {
-      console.error('Error initializing profile:', profileError);
-      return { success: false, message: `Error initializing profile: ${profileError instanceof Error ? profileError.message : 'Unknown error'}` };
     }
 
     // Initialize resume sections if they don't exist
