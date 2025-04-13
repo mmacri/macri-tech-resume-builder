@@ -49,7 +49,8 @@ export const useExperienceItems = (sectionId: string | undefined) => {
           if (allSectionsError) {
             console.error('Error checking for any sections:', allSectionsError);
           } else {
-            console.log('Available sections:', allSections);
+            console.log('Available sections:', allSections?.length || 0);
+            console.log('Sections data:', allSections);
           }
           
           return [];
@@ -61,39 +62,8 @@ export const useExperienceItems = (sectionId: string | undefined) => {
       
       console.log('Fetching experience items for section:', sectionId);
       
-      // Check if the section exists
-      const { data: sectionData, error: sectionError } = await supabase
-        .from('resume_sections')
-        .select('section_name')
-        .eq('id', sectionId)
-        .maybeSingle();
-        
-      if (sectionError) {
-        console.error('Error verifying section exists:', sectionError);
-        throw sectionError;
-      }
-      
-      if (!sectionData) {
-        console.error(`Section with ID ${sectionId} not found`);
-        throw new Error(`Section with ID ${sectionId} not found`);
-      }
-      
-      console.log(`Verified section exists: ${sectionData.section_name} (${sectionId})`);
-      
-      // Check if there are any experience items
-      const { count, error: countError } = await supabase
-        .from('resume_items')
-        .select('*', { count: 'exact', head: true })
-        .eq('section_id', sectionId);
-        
-      if (countError) {
-        console.error('Error checking experience items count:', countError);
-        throw countError;
-      }
-      
-      console.log(`Found ${count} experience items for section ID: ${sectionId}`);
-      
-      // Fetch all experience items
+      // Fetch all experience items without checking section existence first
+      // This simplifies the logic and reduces potential error points
       const { data, error } = await supabase
         .from('resume_items')
         .select('*')
@@ -105,11 +75,11 @@ export const useExperienceItems = (sectionId: string | undefined) => {
         throw error;
       }
       
-      console.log('Found experience items:', data?.length || 0);
+      console.log('Experience items found:', data?.length || 0);
       if (data && data.length > 0) {
         console.log('First experience item:', data[0]);
       } else {
-        console.log('No experience items found for this section, may need to initialize data');
+        console.log('No experience items found for section ID:', sectionId);
       }
       
       return data || [];

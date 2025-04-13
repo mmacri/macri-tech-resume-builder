@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useUserManagement } from '@/hooks/useUserManagement';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -20,14 +21,14 @@ const UsersList = () => {
         try {
           console.log('No users found, attempting to create a sample admin user');
           
-          // Create a sample admin profile without auth
+          // Create a sample admin profile without auth - use standard profile insert
           const { data: profile, error: profileError } = await supabase
             .from('profiles')
             .insert({
               id: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', // Sample UUID
               username: 'admin@example.com',
               full_name: 'Admin User',
-              is_admin: true // This is the correct way to set admin status, not with a role
+              is_admin: true
             })
             .select()
             .single();

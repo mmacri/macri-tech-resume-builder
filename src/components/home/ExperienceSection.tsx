@@ -37,6 +37,8 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
   console.log('Experience items received in ExperienceSection component:', items);
   if (items.length > 0) {
     console.log('First experience item details:', items[0]);
+  } else {
+    console.log('No experience items found. This could mean the database is not initialized or the experience section is missing.');
   }
 
   // If no items are provided, show a placeholder message
@@ -60,13 +62,17 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
             )}
             
             {isAdmin && (
-              <Button 
-                className="mt-4" 
-                variant="outline" 
-                onClick={() => navigate('/admin-dashboard')}
-              >
-                Go to Admin Dashboard
-              </Button>
+              <div className="mt-4 space-y-2">
+                <Button 
+                  variant="outline" 
+                  onClick={() => navigate('/admin-dashboard')}
+                >
+                  Go to Admin Dashboard
+                </Button>
+                <p className="text-sm text-gray-500 mt-2">
+                  Tip: Click "Reset Resume Data" in the Admin Dashboard to initialize all sections with sample data.
+                </p>
+              </div>
             )}
           </div>
         </div>
