@@ -53,14 +53,16 @@ export const populateSectionItems = async (sectionId: string, sectionName: strin
           toast.error(`Database error while creating about data: ${aboutError.message}`);
           throw aboutError;
         }
+        toast.success('About section created successfully');
         break;
 
       case 'experience':
         // Use the createExperienceData function
         console.log('Creating experience data');
         try {
-          await createExperienceData(sectionId);
+          const result = await createExperienceData(sectionId);
           toast.success('Experience data created successfully');
+          console.log('Experience data creation result:', result);
         } catch (expError) {
           console.error('Error in createExperienceData:', expError);
           toast.error(`Failed to create experience data: ${expError instanceof Error ? expError.message : 'Unknown error'}`);
@@ -72,24 +74,28 @@ export const populateSectionItems = async (sectionId: string, sectionName: strin
         // Use the createEducationData function
         console.log('Creating education data');
         await createEducationData(sectionId);
+        toast.success('Education data created successfully');
         break;
 
       case 'skills':
         // Use the createSkillsData function
         console.log('Creating skills data');
         await createSkillsData(sectionId);
+        toast.success('Skills data created successfully');
         break;
 
       case 'interests':
         // Use the createInterestsData function
         console.log('Creating interests data');
         await createInterestsData(sectionId);
+        toast.success('Interests data created successfully');
         break;
 
       case 'awards':
         // Use the createAwardsData function
         console.log('Creating awards data');
         await createAwardsData(sectionId);
+        toast.success('Awards data created successfully');
         break;
 
       default:

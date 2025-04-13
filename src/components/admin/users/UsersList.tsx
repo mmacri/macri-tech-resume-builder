@@ -1,80 +1,68 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useUserManagement } from '@/hooks/useUserManagement';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from '@/components/ui/button';
-import { Pencil, UserCog } from 'lucide-react';
+import { Pencil, UserCog, Trash2, RefreshCw, AlertTriangle } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { UserProfile } from '@/types/user';
-import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const UsersList = () => {
-  const { users, isLoading, handleEditUser, toggleAdmin } = useUserManagement();
-  const [isCreatingSampleUser, setIsCreatingSampleUser] = useState(false);
+  const { 
+    users, 
+    isLoading, 
+    error,
+    refetch,
+    handleEditUser, 
+    toggleAdmin,
+    deleteUser
+  } = useUserManagement();
 
-  // Check if we need to create a sample user
-  useEffect(() => {
-    const checkAndCreateSampleUser = async () => {
-      if (!isLoading && (!users || users.length === 0) && !isCreatingSampleUser) {
-        setIsCreatingSampleUser(true);
-        try {
-          console.log('No users found, attempting to create a sample admin user');
-          
-          // Create a sample admin profile directly in the profiles table
-          const sampleUserUuid = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'; // Sample UUID
-          
-          // First check if this profile already exists to avoid duplicate errors
-          const { data: existingProfile, error: checkError } = await supabase
-            .from('profiles')
-            .select('id')
-            .eq('id', sampleUserUuid)
-            .maybeSingle();
-            
-          if (checkError) {
-            console.error('Error checking for existing profile:', checkError);
-          }
-          
-          // Only insert if it doesn't exist
-          if (!existingProfile) {
-            const { data: profile, error: profileError } = await supabase
-              .from('profiles')
-              .insert({
-                id: sampleUserUuid,
-                username: 'admin@example.com',
-                full_name: 'Admin User',
-                is_admin: true
-              })
-              .select()
-              .single();
-              
-            if (profileError) {
-              console.error('Error creating sample admin profile:', profileError);
-              toast.error(`Error creating sample user: ${profileError.message}`);
-            } else {
-              console.log('Successfully created sample admin profile:', profile);
-              toast.success('Created sample admin user for demonstration');
-            }
-          } else {
-            console.log('Sample admin profile already exists, skipping creation');
-          }
-        } catch (error) {
-          console.error('Error in checkAndCreateSampleUser:', error);
-        } finally {
-          setIsCreatingSampleUser(false);
-        }
-      }
-    };
-    
-    checkAndCreateSampleUser();
-  }, [isLoading, users, isCreatingSampleUser]);
+  const handleRefresh = () => {
+    refetch();
+  };
 
-  if (isLoading || isCreatingSampleUser) {
-    return <div className="py-4">Loading users...</div>;
+  if (isLoading) {
+    return <div className="py-4 text-center">Loading users...</div>;
+  }
+
+  if (error) {
+    return (
+      <Alert variant="destructive" className="mb-4">
+        <AlertTriangle className="h-4 w-4" />
+        <AlertTitle>Error loading users</AlertTitle>
+        <AlertDescription>
+          {error instanceof Error ? error.message : 'Failed to fetch users from the database'}
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="mt-2" 
+            onClick={handleRefresh}
+          >
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Try Again
+          </Button>
+        </AlertDescription>
+      </Alert>
+    );
   }
 
   return (
     <div>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold">User Accounts</h2>
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={handleRefresh}
+          className="flex items-center gap-1"
+        >
+          <RefreshCw className="h-4 w-4" />
+          Refresh
+        </Button>
+      </div>
+      
       <Table>
         <TableHeader>
           <TableRow>
@@ -98,18 +86,34 @@ const UsersList = () => {
                     onCheckedChange={() => toggleAdmin(user)}
                   />
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-right space-x-1">
                   <Button variant="ghost" size="sm" onClick={() => handleEditUser(user)}>
                     <Pencil className="h-4 w-4 mr-2" />
                     Edit
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => deleteUser(user.id)} className="text-red-500 hover:text-red-700 hover:bg-red-50">
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Delete
                   </Button>
                 </TableCell>
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={5} className="text-center py-4">
-                No users found
+              <TableCell colSpan={5} className="text-center py-8">
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <UserCog className="h-8 w-8 text-gray-400" />
+                  <p className="text-gray-500">No users found in the database</p>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={handleRefresh}
+                    className="mt-2"
+                  >
+                    <RefreshCw className="h-4 w-4 mr-2" />
+                    Refresh List
+                  </Button>
+                </div>
               </TableCell>
             </TableRow>
           )}
