@@ -17,7 +17,7 @@ export const useInitializeResumeData = () => {
     
     try {
       // Use the centralized initialization function
-      const result = await initializeResumeData();
+      const result = await initializeResumeData(options);
       
       if (result.success) {
         toast.success('Resume data initialized successfully!');

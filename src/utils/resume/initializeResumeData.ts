@@ -4,11 +4,12 @@ import { initializeProfile } from './initializeProfile';
 import { initializeResumeSections } from './initializeResumeSections';
 import { populateSectionItems } from './populateSectionItems';
 import { createPortfolioProjects } from './initializePortfolioProjects';
+import { InitializeDataOptions } from '@/hooks/resume/useInitializeResumeData';
 
 /**
  * Initialize resume data with real content that matches the website
  */
-export const initializeResumeData = async (): Promise<{ success: boolean }> => {
+export const initializeResumeData = async (options: InitializeDataOptions = {}): Promise<{ success: boolean }> => {
   console.log('Initializing real resume data...');
   
   try {
@@ -23,6 +24,33 @@ export const initializeResumeData = async (): Promise<{ success: boolean }> => {
     }
     
     console.log(`Found ${sectionCount} resume sections`);
+    
+    // If force option is true, delete existing data
+    if (options.force && sectionCount > 0) {
+      console.log('Force option is true, deleting existing data...');
+      
+      // Delete all resume items first (due to foreign key constraints)
+      const { error: deleteItemsError } = await supabase
+        .from('resume_items')
+        .delete()
+        .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all items
+        
+      if (deleteItemsError) {
+        console.error('Error deleting resume items:', deleteItemsError);
+        throw deleteItemsError;
+      }
+      
+      // Then delete all resume sections
+      const { error: deleteSectionsError } = await supabase
+        .from('resume_sections')
+        .delete()
+        .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all sections
+        
+      if (deleteSectionsError) {
+        console.error('Error deleting resume sections:', deleteSectionsError);
+        throw deleteSectionsError;
+      }
+    }
     
     // Initialize profile if it doesn't exist
     await initializeProfile();
@@ -45,7 +73,7 @@ export const initializeResumeData = async (): Promise<{ success: boolean }> => {
       const itemCount = count || 0;
       console.log(`Section ${section.section_name} has ${itemCount} items`);
       
-      if (itemCount === 0) {
+      if (itemCount === 0 || options.force) {
         console.log(`Populating items for section ${section.section_name}`);
         // Pass both sectionId and sectionName as arguments
         await populateSectionItems(section.id, section.section_name);
@@ -64,8 +92,8 @@ export const initializeResumeData = async (): Promise<{ success: boolean }> => {
     
     console.log(`Found ${projectCount} portfolio projects`);
     
-    if (projectCount === 0) {
-      console.log('No portfolio projects found, creating them');
+    if (projectCount === 0 || options.force) {
+      console.log('No portfolio projects found or force option is true, creating them');
       await createPortfolioProjects();
     }
 

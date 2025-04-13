@@ -7,19 +7,6 @@ interface ExperienceSectionProps {
 }
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => {
-  // If no items, use default experience items
-  const experienceItems = items.length > 0 ? items : [
-    {
-      title: "Sr Manager, InfoSec Solution & Automation Engineering",
-      organization: "ServiceNow.com: Legal, Ethics & Compliance Program",
-      location: null,
-      start_date: "2021-12-01",
-      end_date: null,
-      description: "Created PolicyHub – a self-service portal centralizing 400+ policies – to enable fast, secure access to critical compliance documentation and reduce training dependency.\nEnhanced product features in GRC, Policy & Compliance, Strategic Portfolio Manager, and risk management by aligning cross-functional processes.\nCollaborated with executives to resolve production vulnerabilities, mitigating $900M in annual revenue risk.\nStreamlined workflows and implemented common controls to reduce redundant operations and boost data transparency."
-    },
-    // Add more default items if needed
-  ];
-
   // Function to format date
   const formatDate = (dateString: string | null) => {
     if (!dateString) return 'Present';
@@ -36,6 +23,18 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
   const formatDateRange = (startDate: string | null, endDate: string | null) => {
     return `${formatDate(startDate)} - ${formatDate(endDate)}`;
   };
+
+  // Use the provided items, or a default placeholder if none
+  const experienceItems = items.length > 0 ? items : [
+    {
+      title: "Sr Manager, InfoSec Solution & Automation Engineering",
+      organization: "ServiceNow.com: Legal, Ethics & Compliance Program",
+      location: null,
+      start_date: "2021-12-01",
+      end_date: null,
+      description: "Created PolicyHub – a self-service portal centralizing 400+ policies – to enable fast, secure access to critical compliance documentation and reduce training dependency.\nEnhanced product features in GRC, Policy & Compliance, Strategic Portfolio Manager, and risk management by aligning cross-functional processes.\nCollaborated with executives to resolve production vulnerabilities, mitigating $900M in annual revenue risk.\nStreamlined workflows and implemented common controls to reduce redundant operations and boost data transparency."
+    }
+  ];
 
   return (
     <section className="resume-section" id="experience">
