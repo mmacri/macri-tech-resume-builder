@@ -55,7 +55,7 @@ export const useExperienceItems = (sectionId: string | undefined) => {
       }
       
       console.log('Found experience items:', data?.length || 0);
-      console.log('Experience data:', data);
+      console.log('Experience data details:', data);
       return data || [];
     },
     enabled: !!sectionId,

@@ -10,6 +10,7 @@ import { useInitializeResumeData } from '@/hooks/resume/useInitializeResumeData'
 import { supabase } from '@/integrations/supabase/client';
 import LoadingStatus from '@/components/admin/status/LoadingStatus';
 import CompletedStatus from '@/components/admin/status/CompletedStatus';
+import { checkResumeSections, checkExperienceItems } from '@/utils/resume/checkResumeData';
 
 const AdminDashboard = () => {
   const [allSectionsReady, setAllSectionsReady] = useState(false);
@@ -22,6 +23,16 @@ const AdminDashboard = () => {
     const checkContent = async () => {
       try {
         setIsChecking(true);
+        
+        // Use our diagnostic function to check resume sections
+        const sectionsResult = await checkResumeSections();
+        console.log('Resume sections check result:', sectionsResult);
+        
+        if (sectionsResult.success && sectionsResult.sections.length > 0) {
+          // Check experience items
+          const experienceResult = await checkExperienceItems();
+          console.log('Experience items check result:', experienceResult);
+        }
         
         // Check resume sections
         const { count: sectionCount, error: sectionError } = await supabase
@@ -67,17 +78,57 @@ const AdminDashboard = () => {
   };
 
   const handleInitializeData = () => {
+    console.log('Initializing data with default options');
     initializeData({});
   };
 
   const handleForceInitializeData = () => {
     if (window.confirm('This will reset all resume data with fresh sample data. Are you sure?')) {
+      console.log('Initializing data with force option');
       initializeData({ force: true });
     }
   };
 
   const navigateToResumePage = () => {
     navigate('/admin#resume');
+  };
+
+  const checkDatabaseStatus = async () => {
+    try {
+      setIsChecking(true);
+      toast.info('Checking database status...');
+      
+      const sectionsResult = await checkResumeSections();
+      if (sectionsResult.success) {
+        if (sectionsResult.sections.length === 0) {
+          toast.warning('No resume sections found. Please initialize data.');
+        } else {
+          toast.success(`Found ${sectionsResult.sections.length} resume sections.`);
+          
+          // Check for items
+          if (sectionsResult.hasItems) {
+            toast.success('Resume sections have content items.');
+          } else {
+            toast.warning('Resume sections exist but have no content items.');
+          }
+          
+          // Check experience specifically
+          const experienceResult = await checkExperienceItems();
+          if (experienceResult.success && experienceResult.items.length > 0) {
+            toast.success(`Found ${experienceResult.items.length} experience items.`);
+          } else {
+            toast.warning('No experience items found.');
+          }
+        }
+      } else {
+        toast.error('Failed to check resume sections.');
+      }
+    } catch (error) {
+      console.error('Error checking database status:', error);
+      toast.error('Failed to check database status');
+    } finally {
+      setIsChecking(false);
+    }
   };
 
   return (
@@ -94,30 +145,35 @@ const AdminDashboard = () => {
             <AdminSectionStatus onAllSectionsPopulated={handleAllSectionsPopulated} />
           )}
           
-          {!allSectionsReady && (
-            <div className="mt-4 flex flex-wrap gap-2">
-              <Button 
-                onClick={handleInitializeData} 
-                disabled={isInitializing} 
-                variant="default"
-              >
-                {isInitializing ? 'Initializing...' : 'Initialize Resume Data'}
-              </Button>
-              <Button 
-                onClick={handleForceInitializeData}
-                disabled={isInitializing}
-                variant="destructive"
-              >
-                Reset Resume Data
-              </Button>
-              <Button 
-                onClick={navigateToResumePage}
-                variant="outline"
-              >
-                Manage Resume
-              </Button>
-            </div>
-          )}
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Button 
+              onClick={handleInitializeData} 
+              disabled={isInitializing} 
+              variant="default"
+            >
+              {isInitializing ? 'Initializing...' : 'Initialize Resume Data'}
+            </Button>
+            <Button 
+              onClick={handleForceInitializeData}
+              disabled={isInitializing}
+              variant="destructive"
+            >
+              Reset Resume Data
+            </Button>
+            <Button 
+              onClick={navigateToResumePage}
+              variant="outline"
+            >
+              Manage Resume
+            </Button>
+            <Button 
+              onClick={checkDatabaseStatus}
+              variant="secondary"
+              disabled={isChecking}
+            >
+              Check Database Status
+            </Button>
+          </div>
         </div>
         
         <CardGrid />

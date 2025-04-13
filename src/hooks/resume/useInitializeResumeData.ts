@@ -23,9 +23,13 @@ export const useInitializeResumeData = () => {
       if (result.success) {
         toast.success('Resume data initialized successfully!');
       }
+      
+      // Return the result so it can be used downstream if needed
+      return result;
     } catch (error) {
       console.error('Error initializing resume data:', error);
       toast.error(`Failed to initialize resume data: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw error; // Re-throw to propagate to mutation error handler
     } finally {
       setIsInitializing(false);
     }

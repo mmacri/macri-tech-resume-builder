@@ -26,27 +26,28 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
   };
 
   // Log the items to debug
-  console.log('Experience items received:', items);
+  console.log('Experience items received in ExperienceSection component:', items);
 
-  // Use the provided items, or a default placeholder if none
-  const experienceItems = items.length > 0 ? items : [
-    {
-      title: "Sr Manager, InfoSec Solution & Automation Engineering",
-      organization: "ServiceNow.com: Legal, Ethics & Compliance Program",
-      location: null,
-      start_date: "2021-12-01",
-      end_date: null,
-      description: "Created PolicyHub – a self-service portal centralizing 400+ policies – to enable fast, secure access to critical compliance documentation and reduce training dependency.\nEnhanced product features in GRC, Policy & Compliance, Strategic Portfolio Manager, and risk management by aligning cross-functional processes.\nCollaborated with executives to resolve production vulnerabilities, mitigating $900M in annual revenue risk.\nStreamlined workflows and implemented common controls to reduce redundant operations and boost data transparency."
-    }
-  ];
+  // If no items are provided, show a placeholder message
+  if (!items || items.length === 0) {
+    console.warn('No experience items found to display');
+    return (
+      <section className="resume-section" id="experience">
+        <div className="resume-section-content px-4 md:px-8">
+          <h2 className="text-4xl font-bold mb-8">Experience</h2>
+          <p className="text-gray-600">No experience data available. Please initialize resume data from the admin dashboard.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="resume-section" id="experience">
       <div className="resume-section-content px-4 md:px-8">
         <h2 className="text-4xl font-bold mb-8">Experience</h2>
 
-        {experienceItems.map((item, index) => (
-          <div key={index} className="card mb-6">
+        {items.map((item, index) => (
+          <div key={item.id || index} className="card mb-6">
             <div className="card-body">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
                 <h3 className="text-xl font-semibold text-gray-800">{item.title}</h3>
