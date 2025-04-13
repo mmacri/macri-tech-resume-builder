@@ -11,11 +11,14 @@ import { supabase } from '@/integrations/supabase/client';
 import LoadingStatus from '@/components/admin/status/LoadingStatus';
 import CompletedStatus from '@/components/admin/status/CompletedStatus';
 import { checkResumeSections, checkExperienceItems } from '@/utils/resume/checkResumeData';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle } from 'lucide-react';
 
 const AdminDashboard = () => {
   const [allSectionsReady, setAllSectionsReady] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
-  const { initializeData, isInitializing } = useInitializeResumeData();
+  const [lastError, setLastError] = useState<string | null>(null);
+  const { initializeData, isInitializing, error } = useInitializeResumeData();
   const navigate = useNavigate();
   
   // Check if content exists in the database
@@ -64,6 +67,7 @@ const AdminDashboard = () => {
       } catch (error) {
         console.error('Error checking content:', error);
         toast.error('Failed to check content status');
+        setLastError(error instanceof Error ? error.message : 'Unknown error checking content');
       } finally {
         setIsChecking(false);
       }
@@ -72,6 +76,16 @@ const AdminDashboard = () => {
     checkContent();
   }, [isInitializing]);
   
+  // Clear the error when initialization status changes
+  useEffect(() => {
+    if (!isInitializing) {
+      // Check if there was an error
+      if (error) {
+        setLastError(error instanceof Error ? error.message : 'Unknown initialization error');
+      }
+    }
+  }, [isInitializing, error]);
+  
   const handleAllSectionsPopulated = () => {
     setAllSectionsReady(true);
     toast.success('All content sections are now populated with data!');
@@ -79,12 +93,14 @@ const AdminDashboard = () => {
 
   const handleInitializeData = () => {
     console.log('Initializing data with default options');
+    setLastError(null);
     initializeData({});
   };
 
   const handleForceInitializeData = () => {
     if (window.confirm('This will reset all resume data with fresh sample data. Are you sure?')) {
       console.log('Initializing data with force option');
+      setLastError(null);
       initializeData({ force: true });
     }
   };
@@ -96,6 +112,7 @@ const AdminDashboard = () => {
   const checkDatabaseStatus = async () => {
     try {
       setIsChecking(true);
+      setLastError(null);
       toast.info('Checking database status...');
       
       const sectionsResult = await checkResumeSections();
@@ -122,10 +139,14 @@ const AdminDashboard = () => {
         }
       } else {
         toast.error('Failed to check resume sections.');
+        setLastError(sectionsResult.error ? 
+          (sectionsResult.error instanceof Error ? sectionsResult.error.message : 'Unknown error') : 
+          'Unknown error checking resume sections');
       }
     } catch (error) {
       console.error('Error checking database status:', error);
       toast.error('Failed to check database status');
+      setLastError(error instanceof Error ? error.message : 'Unknown error checking database status');
     } finally {
       setIsChecking(false);
     }
@@ -135,6 +156,14 @@ const AdminDashboard = () => {
     <AdminLayout>
       <div className="p-6">
         <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+        
+        {lastError && (
+          <Alert variant="destructive" className="mb-4">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{lastError}</AlertDescription>
+          </Alert>
+        )}
         
         <div className="mb-6">
           {isChecking ? (

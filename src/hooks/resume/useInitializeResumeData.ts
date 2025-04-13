@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { initializeResumeData } from '@/utils/resume/initializeResumeData';
 
@@ -21,7 +20,10 @@ export const useInitializeResumeData = () => {
       const result = await initializeResumeData(options);
       
       if (result.success) {
-        toast.success('Resume data initialized successfully!');
+        toast.success(result.message || 'Resume data initialized successfully!');
+      } else {
+        toast.error(result.message || 'Failed to initialize resume data');
+        throw new Error(result.message || 'Unknown error');
       }
       
       // Return the result so it can be used downstream if needed
@@ -36,11 +38,15 @@ export const useInitializeResumeData = () => {
   };
   
   const mutation = useMutation({
-    mutationFn: initializeData
+    mutationFn: initializeData,
+    onError: (error) => {
+      console.error('Mutation error:', error);
+    }
   });
   
   return {
     initializeData: mutation.mutate,
-    isInitializing: isInitializing || mutation.isPending
+    isInitializing: isInitializing || mutation.isPending,
+    error: mutation.error
   };
 };

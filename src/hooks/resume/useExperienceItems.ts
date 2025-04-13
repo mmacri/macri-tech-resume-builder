@@ -29,6 +29,25 @@ export const useExperienceItems = (sectionId: string | undefined) => {
       
       console.log('Fetching experience items for section:', sectionId);
       
+      // First check if the section exists
+      const { data: sectionData, error: sectionError } = await supabase
+        .from('resume_sections')
+        .select('section_name')
+        .eq('id', sectionId)
+        .maybeSingle();
+        
+      if (sectionError) {
+        console.error('Error verifying section exists:', sectionError);
+        throw sectionError;
+      }
+      
+      if (!sectionData) {
+        console.error(`Section with ID ${sectionId} not found`);
+        throw new Error(`Section with ID ${sectionId} not found`);
+      }
+      
+      console.log(`Verified section exists: ${sectionData.section_name} (${sectionId})`);
+      
       // Check if there are any experience items
       const { count, error: countError } = await supabase
         .from('resume_items')
@@ -55,7 +74,12 @@ export const useExperienceItems = (sectionId: string | undefined) => {
       }
       
       console.log('Found experience items:', data?.length || 0);
-      console.log('Experience data details:', data);
+      if (data && data.length > 0) {
+        console.log('First experience item:', data[0]);
+      } else {
+        console.log('No experience items found for this section');
+      }
+      
       return data || [];
     },
     enabled: !!sectionId,

@@ -27,6 +27,9 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
 
   // Log the items to debug
   console.log('Experience items received in ExperienceSection component:', items);
+  if (items.length > 0) {
+    console.log('First experience item details:', items[0]);
+  }
 
   // If no items are provided, show a placeholder message
   if (!items || items.length === 0) {
@@ -35,7 +38,10 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
       <section className="resume-section" id="experience">
         <div className="resume-section-content px-4 md:px-8">
           <h2 className="text-4xl font-bold mb-8">Experience</h2>
-          <p className="text-gray-600">No experience data available. Please initialize resume data from the admin dashboard.</p>
+          <div className="p-6 border rounded-lg bg-gray-50">
+            <p className="text-gray-600">No experience data available. If you're an admin, please initialize resume data from the admin dashboard.</p>
+            <p className="text-gray-500 mt-2 text-sm">Check database connection or try resetting the resume data.</p>
+          </div>
         </div>
       </section>
     );

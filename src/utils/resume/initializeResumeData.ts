@@ -9,8 +9,8 @@ import { InitializeDataOptions } from '@/hooks/resume/useInitializeResumeData';
 /**
  * Initialize resume data with real content that matches the website
  */
-export const initializeResumeData = async (options: InitializeDataOptions = {}): Promise<{ success: boolean }> => {
-  console.log('Initializing real resume data...');
+export const initializeResumeData = async (options: InitializeDataOptions = {}): Promise<{ success: boolean, message?: string }> => {
+  console.log('Initializing real resume data with options:', options);
   
   try {
     // Check if resume sections already exist
@@ -20,7 +20,7 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
       
     if (countError) {
       console.error('Error checking resume sections count:', countError);
-      throw countError;
+      return { success: false, message: `Error checking sections: ${countError.message}` };
     }
     
     console.log(`Found ${sectionCount} resume sections`);
@@ -29,77 +29,108 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
     if (options.force && sectionCount > 0) {
       console.log('Force option is true, deleting existing data...');
       
-      // Delete all resume items first (due to foreign key constraints)
-      const { error: deleteItemsError } = await supabase
-        .from('resume_items')
-        .delete()
-        .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all items
+      try {
+        // Delete all resume items first (due to foreign key constraints)
+        const { error: deleteItemsError } = await supabase
+          .from('resume_items')
+          .delete()
+          .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all items
+          
+        if (deleteItemsError) {
+          console.error('Error deleting resume items:', deleteItemsError);
+          return { success: false, message: `Error deleting items: ${deleteItemsError.message}` };
+        }
         
-      if (deleteItemsError) {
-        console.error('Error deleting resume items:', deleteItemsError);
-        throw deleteItemsError;
-      }
-      
-      // Then delete all resume sections
-      const { error: deleteSectionsError } = await supabase
-        .from('resume_sections')
-        .delete()
-        .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all sections
-        
-      if (deleteSectionsError) {
-        console.error('Error deleting resume sections:', deleteSectionsError);
-        throw deleteSectionsError;
+        // Then delete all resume sections
+        const { error: deleteSectionsError } = await supabase
+          .from('resume_sections')
+          .delete()
+          .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all sections
+          
+        if (deleteSectionsError) {
+          console.error('Error deleting resume sections:', deleteSectionsError);
+          return { success: false, message: `Error deleting sections: ${deleteSectionsError.message}` };
+        }
+      } catch (deleteError) {
+        console.error('Error in deletion process:', deleteError);
+        return { success: false, message: `Error in deletion process: ${deleteError instanceof Error ? deleteError.message : 'Unknown error'}` };
       }
     }
     
-    // Initialize profile if it doesn't exist
-    await initializeProfile();
+    try {
+      // Initialize profile if it doesn't exist
+      await initializeProfile();
+    } catch (profileError) {
+      console.error('Error initializing profile:', profileError);
+      return { success: false, message: `Error initializing profile: ${profileError instanceof Error ? profileError.message : 'Unknown error'}` };
+    }
 
     // Initialize resume sections if they don't exist
-    const sections = await initializeResumeSections();
+    let sections;
+    try {
+      sections = await initializeResumeSections();
+      console.log('Initialized sections:', sections);
+    } catch (sectionsError) {
+      console.error('Error initializing resume sections:', sectionsError);
+      return { success: false, message: `Error initializing sections: ${sectionsError instanceof Error ? sectionsError.message : 'Unknown error'}` };
+    }
 
     // Populate section items if they don't exist
-    for (const section of sections) {
-      // Check if section already has items
-      const { count, error } = await supabase
-        .from('resume_items')
-        .select('*', { count: 'exact', head: true })
-        .eq('section_id', section.id);
-      
-      if (error && error.code !== 'PGRST116') {
-        console.log('Error checking item count:', error);
+    try {
+      for (const section of sections) {
+        // Check if section already has items
+        const { count, error } = await supabase
+          .from('resume_items')
+          .select('*', { count: 'exact', head: true })
+          .eq('section_id', section.id);
+        
+        if (error) {
+          console.error(`Error checking item count for section ${section.section_name}:`, error);
+          continue;
+        }
+        
+        const itemCount = count || 0;
+        console.log(`Section ${section.section_name} has ${itemCount} items`);
+        
+        if (itemCount === 0 || options.force) {
+          console.log(`Populating items for section ${section.section_name} (${section.id})`);
+          // Pass both sectionId and sectionName as arguments
+          await populateSectionItems(section.id, section.section_name);
+        }
       }
-      
-      const itemCount = count || 0;
-      console.log(`Section ${section.section_name} has ${itemCount} items`);
-      
-      if (itemCount === 0 || options.force) {
-        console.log(`Populating items for section ${section.section_name}`);
-        // Pass both sectionId and sectionName as arguments
-        await populateSectionItems(section.id, section.section_name);
-      }
+    } catch (itemsError) {
+      console.error('Error populating section items:', itemsError);
+      return { success: false, message: `Error populating items: ${itemsError instanceof Error ? itemsError.message : 'Unknown error'}` };
     }
 
     // Initialize portfolio projects if they don't exist
-    const { count: projectCount, error: projectError } = await supabase
-      .from('portfolio_projects')
-      .select('*', { count: 'exact', head: true });
+    try {
+      const { count: projectCount, error: projectError } = await supabase
+        .from('portfolio_projects')
+        .select('*', { count: 'exact', head: true });
+        
+      if (projectError) {
+        console.error('Error checking portfolio projects count:', projectError);
+        return { success: false, message: `Error checking projects: ${projectError.message}` };
+      }
       
-    if (projectError) {
-      console.error('Error checking portfolio projects count:', projectError);
-      throw projectError;
-    }
-    
-    console.log(`Found ${projectCount} portfolio projects`);
-    
-    if (projectCount === 0 || options.force) {
-      console.log('No portfolio projects found or force option is true, creating them');
-      await createPortfolioProjects();
+      console.log(`Found ${projectCount} portfolio projects`);
+      
+      if (projectCount === 0 || options.force) {
+        console.log('No portfolio projects found or force option is true, creating them');
+        await createPortfolioProjects();
+      }
+    } catch (projectsError) {
+      console.error('Error initializing portfolio projects:', projectsError);
+      return { success: false, message: `Error initializing projects: ${projectsError instanceof Error ? projectsError.message : 'Unknown error'}` };
     }
 
-    return { success: true };
+    return { success: true, message: "Resume data initialized successfully!" };
   } catch (error) {
     console.error('Error in initializeResumeData:', error);
-    throw error;
+    return { 
+      success: false, 
+      message: `Initialization failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+    };
   }
 };
