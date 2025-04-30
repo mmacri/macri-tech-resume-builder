@@ -2,6 +2,8 @@
 import React from 'react';
 import DownloadResumeButton from './DownloadResumeButton';
 import { parseAboutData } from '@/utils/resume/extractResumeSectionsForPDF';
+import { initialAboutData } from '@/utils/resume/aboutData';
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 
 interface AboutSectionProps {
   items: any[];
@@ -14,25 +16,14 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
   // Parse the description if it exists (it should be a JSON string with all the about data)
   const aboutData = aboutItem ? parseAboutData(aboutItem.description) : null;
   
-  // Fallback data if database data is not available
-  const defaultData = {
-    full_name: 'Mike Macri',
-    headline: 'Information Security & Business Development Professional',
-    intro_text: 'Dedicated technology executive who combines technical expertise with business acumen to drive partner alliances, optimize global operations, and deliver comprehensive solutions to complex challenges.',
-    locations: ['Edmonds, WA', 'San Diego, CA', 'Remote'],
-    skills_items: [],
-    success_items: [],
-    references: []
-  };
-
   // Use parsed data or fall back to defaults
-  const name = aboutData?.full_name || defaultData.full_name;
-  const headline = aboutData?.headline || defaultData.headline;
-  const introText = aboutData?.intro_text || defaultData.intro_text;
-  const locations = aboutData?.locations || defaultData.locations;
-  const skillsItems = aboutData?.skills_items || defaultData.skills_items;
-  const successItems = aboutData?.success_items || defaultData.success_items;
-  const references = aboutData?.references || defaultData.references;
+  const name = aboutData?.full_name || initialAboutData.full_name;
+  const headline = aboutData?.headline || initialAboutData.headline;
+  const introText = aboutData?.intro_text || initialAboutData.intro_text;
+  const locations = aboutData?.locations || initialAboutData.locations;
+  const skillsItems = aboutData?.skills_items || initialAboutData.skills_items;
+  const successItems = aboutData?.success_items || initialAboutData.success_items;
+  const references = aboutData?.references || initialAboutData.references;
 
   return (
     <section className="resume-section" id="about">
@@ -52,29 +43,38 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
           {introText}
         </p>
         
-        {/* Skilled At Section */}
-        {skillsItems.length > 0 && (
-          <div className="mb-5">
-            <h3 className="text-xl font-semibold mb-3">Skilled At</h3>
-            <ul className="list-disc pl-5 text-sm space-y-2">
-              {skillsItems.map((item, index) => (
-                <li key={`skill-${index}`}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Proven Experience Section */}
-        {successItems.length > 0 && (
-          <div className="mb-5">
-            <h3 className="text-xl font-semibold mb-3">Proven Experience</h3>
-            <ul className="list-disc pl-5 text-sm space-y-2">
-              {successItems.map((item, index) => (
-                <li key={`success-${index}`}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        )}
+        {/* Skills and Success Items Table */}
+        <div className="mb-5">
+          <Table>
+            <TableBody>
+              <TableRow>
+                {/* Skills Column */}
+                {skillsItems.length > 0 && (
+                  <TableCell className="align-top w-1/2">
+                    <h3 className="text-xl font-semibold mb-3">Skilled At</h3>
+                    <ul className="list-disc pl-5 text-sm space-y-2">
+                      {skillsItems.map((item, index) => (
+                        <li key={`skill-${index}`}>{item}</li>
+                      ))}
+                    </ul>
+                  </TableCell>
+                )}
+                
+                {/* Success Items Column */}
+                {successItems.length > 0 && (
+                  <TableCell className="align-top w-1/2">
+                    <h3 className="text-xl font-semibold mb-3">Proven Experience</h3>
+                    <ul className="list-disc pl-5 text-sm space-y-2">
+                      {successItems.map((item, index) => (
+                        <li key={`success-${index}`}>{item}</li>
+                      ))}
+                    </ul>
+                  </TableCell>
+                )}
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
 
         {/* References Section */}
         {references.length > 0 && (

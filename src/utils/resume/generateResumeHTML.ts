@@ -35,9 +35,11 @@ export const parseContactInfo = (description: string) => {
     // Try to parse as JSON first
     const contactData = JSON.parse(description) as AboutInfo;
     if (typeof contactData === 'object') {
-      if (contactData.email) contactHTML += `Email: ${contactData.email} | `;
-      if (contactData.phone) contactHTML += `Phone: ${contactData.phone} | `;
-      if (contactData.locations && contactData.locations.length > 0) contactHTML += `${contactData.locations.join(', ')}`;
+      if (contactData.email) contactHTML += `Email: ${contactData.email}`;
+      // Removed phone number display
+      if (contactData.locations && contactData.locations.length > 0) {
+        contactHTML += contactHTML ? ` | ${contactData.locations.join(', ')}` : contactData.locations.join(', ');
+      }
       return contactHTML;
     }
   } catch (e) {
@@ -76,6 +78,7 @@ export const generateResumeHTML = (aboutData: any, experiences: any[], education
   // Extract skills and success items with fallbacks
   const skillItems = aboutInfo?.skills_items || initialAboutData.skills_items;
   const successItems = aboutInfo?.success_items || initialAboutData.success_items;
+  const references = aboutInfo?.references || initialAboutData.references;
   
   return `
     <!DOCTYPE html>
@@ -152,6 +155,15 @@ export const generateResumeHTML = (aboutData: any, experiences: any[], education
         .skills-section ul, .success-section ul {
           padding-left: 20px;
         }
+        .references-section {
+          margin-top: 15px;
+        }
+        .reference-item {
+          font-style: italic;
+          margin-bottom: 10px;
+          padding-left: 20px;
+          border-left: 2px solid #ccc;
+        }
         @media print {
           body {
             padding: 0;
@@ -171,28 +183,45 @@ export const generateResumeHTML = (aboutData: any, experiences: any[], education
       
       <div class="contact-info">
         ${aboutData?.description ? parseContactInfo(aboutData.description) : 
-          `Email: ${initialAboutData.email} | Phone: ${initialAboutData.phone} | ${initialAboutData.locations.join(', ')}`}
+          `Email: ${initialAboutData.email} | ${initialAboutData.locations.join(', ')}`}
       </div>
       
       <div class="section">
         <p>${aboutInfo?.intro_text || initialAboutData.intro_text}</p>
       </div>
       
-      ${skillItems && skillItems.length > 0 ? `
-      <div class="section skills-section">
-        <h2>Professional Skills</h2>
-        <ul>
-          ${skillItems.map((skill: string) => `<li>${skill}</li>`).join('')}
-        </ul>
+      <div class="section">
+        <table width="100%" cellpadding="5">
+          <tr valign="top">
+            ${skillItems && skillItems.length > 0 ? `
+            <td width="50%">
+              <h3>Professional Skills</h3>
+              <ul>
+                ${skillItems.map((skill: string) => `<li>${skill}</li>`).join('')}
+              </ul>
+            </td>
+            ` : ''}
+            
+            ${successItems && successItems.length > 0 ? `
+            <td width="50%">
+              <h3>Demonstrated Success</h3>
+              <ul>
+                ${successItems.map((success: string) => `<li>${success}</li>`).join('')}
+              </ul>
+            </td>
+            ` : ''}
+          </tr>
+        </table>
       </div>
-      ` : ''}
       
-      ${successItems && successItems.length > 0 ? `
-      <div class="section success-section">
-        <h2>Demonstrated Success</h2>
-        <ul>
-          ${successItems.map((success: string) => `<li>${success}</li>`).join('')}
-        </ul>
+      ${references && references.length > 0 ? `
+      <div class="section references-section">
+        <h2>References</h2>
+        ${references.map((reference: string) => `
+          <div class="reference-item">
+            "${reference}"
+          </div>
+        `).join('')}
       </div>
       ` : ''}
       
