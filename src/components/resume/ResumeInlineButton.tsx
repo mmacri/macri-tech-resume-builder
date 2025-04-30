@@ -18,13 +18,12 @@ const ResumeInlineButton: React.FC<ResumeInlineButtonProps> = ({
     <Button 
       onClick={onClick} 
       disabled={isGenerating || isLoading}
-      variant="outline"
+      variant="default"
       size="default"
-      className="flex items-center gap-1 border-2 border-d35400 hover:bg-d35400/10"
-      style={{ borderColor: '#d35400', color: '#d35400' }}
+      className="bg-macri-primary hover:bg-macri-primary/90 text-white flex items-center gap-1 shadow-md transition-all duration-300 hover:shadow-lg"
     >
       {isGenerating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-      {isGenerating ? 'Generating...' : 'Resume'}
+      {isGenerating ? 'Generating...' : 'Download Resume'}
     </Button>
   );
 };

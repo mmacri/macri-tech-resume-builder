@@ -1,7 +1,8 @@
+
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard } from 'lucide-react';
+import { LayoutDashboard, Mail } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import DownloadResume from '@/components/resume/DownloadResume';
 
@@ -73,11 +74,16 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
             ))}
           </div>
           <div className="flex gap-2 mt-2">
-            <a className="btn inline-block" 
-              style={{ backgroundColor: '#fff', color: '#d35400', border: '2px solid #d35400' }} 
-              href="mailto:MikeMacri@gmail.com">
+            <Button 
+              asChild
+              variant="outline"
+              className="bg-white text-macri-primary border-2 border-macri-primary hover:bg-macri-primary/10 hover:text-macri-primary flex items-center gap-2"
+            >
+              <a href="mailto:MikeMacri@gmail.com">
+                <Mail className="h-4 w-4" />
                 Contact Me
-            </a>
+              </a>
+            </Button>
             
             <DownloadResume inlineButton={true} />
             

@@ -19,12 +19,12 @@ const ResumeFullButton: React.FC<ResumeFullButtonProps> = ({
       <Button 
         onClick={onClick} 
         disabled={isGenerating || isLoading}
-        variant="outline"
+        variant="default"
         size="lg"
-        className="flex items-center gap-2"
+        className="bg-macri-primary hover:bg-macri-primary/90 text-white flex items-center gap-2 shadow-md transition-all duration-300 hover:shadow-lg px-6 py-6"
       >
-        {isGenerating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-5 w-5" />}
-        {isGenerating ? 'Generating...' : 'Download Resume'}
+        {isGenerating ? <Loader2 className="h-5 w-5 animate-spin" /> : <Download className="h-6 w-6" />}
+        {isGenerating ? 'Generating Resume...' : 'Download Resume'}
       </Button>
     </div>
   );
