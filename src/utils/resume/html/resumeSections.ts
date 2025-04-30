@@ -83,7 +83,7 @@ export const generateAboutSkillsSection = (skillItems: string[], successItems: s
         <tr valign="top">
           ${skillItems && skillItems.length > 0 ? `
           <td width="50%">
-            <h3>Professional Skills</h3>
+            <h3><i class="fas fa-check-circle"></i> Professional Skills</h3>
             <ul>
               ${skillItems.map((skill: string) => `<li>${skill}</li>`).join('')}
             </ul>
@@ -92,7 +92,7 @@ export const generateAboutSkillsSection = (skillItems: string[], successItems: s
           
           ${successItems && successItems.length > 0 ? `
           <td width="50%">
-            <h3>Demonstrated Success</h3>
+            <h3><i class="fas fa-trophy"></i> Demonstrated Success</h3>
             <ul>
               ${successItems.map((success: string) => `<li>${success}</li>`).join('')}
             </ul>

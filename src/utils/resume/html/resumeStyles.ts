@@ -80,6 +80,10 @@ export const generateResumeStyles = (): string => {
       padding-left: 20px;
       border-left: 2px solid #ccc;
     }
+    .fas {
+      color: #d35400;
+      margin-right: 5px;
+    }
     @media print {
       body {
         padding: 0;

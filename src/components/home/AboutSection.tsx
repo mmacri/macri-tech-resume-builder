@@ -4,6 +4,7 @@ import DownloadResumeButton from './DownloadResumeButton';
 import { parseAboutData } from '@/utils/resume/extractResumeSectionsForPDF';
 import { initialAboutData } from '@/utils/resume/aboutData';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+import { Trophy, CheckCircle } from 'lucide-react';
 
 interface AboutSectionProps {
   items: any[];
@@ -51,10 +52,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
                 {/* Skills Column */}
                 {skillsItems.length > 0 && (
                   <TableCell className="align-top w-1/2">
-                    <h3 className="text-xl font-semibold mb-3">Skilled At</h3>
+                    <div className="flex items-center gap-2 text-xl font-semibold mb-3 text-macri-primary">
+                      <CheckCircle className="h-5 w-5" />
+                      <h3>Skilled At</h3>
+                    </div>
                     <ul className="list-disc pl-5 text-sm space-y-2">
                       {skillsItems.map((item, index) => (
-                        <li key={`skill-${index}`}>{item}</li>
+                        <li key={`skill-${index}`} className="text-gray-700 hover:text-macri-primary transition-colors">{item}</li>
                       ))}
                     </ul>
                   </TableCell>
@@ -63,10 +67,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
                 {/* Success Items Column */}
                 {successItems.length > 0 && (
                   <TableCell className="align-top w-1/2">
-                    <h3 className="text-xl font-semibold mb-3">Proven Experience</h3>
+                    <div className="flex items-center gap-2 text-xl font-semibold mb-3 text-macri-primary">
+                      <Trophy className="h-5 w-5" />
+                      <h3>Proven Experience</h3>
+                    </div>
                     <ul className="list-disc pl-5 text-sm space-y-2">
                       {successItems.map((item, index) => (
-                        <li key={`success-${index}`}>{item}</li>
+                        <li key={`success-${index}`} className="text-gray-700 hover:text-macri-primary transition-colors">{item}</li>
                       ))}
                     </ul>
                   </TableCell>
