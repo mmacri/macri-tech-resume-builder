@@ -5,7 +5,7 @@ import ResumeErrorState from '@/components/resume/ResumeErrorState';
 import ResumeLoadingState from '@/components/resume/ResumeLoadingState';
 import ResumeDataLoader from '@/components/resume/ResumeDataLoader';
 import { Button } from '@/components/ui/button';
-import { Database, CircleAlert, RefreshCw } from 'lucide-react';
+import { Database, CircleAlert, RefreshCw, AlertCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { fixDatabaseIssues } from '@/utils/resume/fixDatabaseIssues';
