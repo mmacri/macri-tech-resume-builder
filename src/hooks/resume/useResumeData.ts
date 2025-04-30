@@ -59,10 +59,11 @@ export const useResumeData = () => {
           }
         }));
         
+        console.log('Resume sections with items:', sectionsWithItems);
+        
         return sectionsWithItems;
       } catch (error) {
         console.error('Error in download resume data query:', error);
-        // Instead of returning empty array, let it throw so we can catch in the UI
         throw error;
       }
     },
