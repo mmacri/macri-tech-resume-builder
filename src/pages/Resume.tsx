@@ -18,54 +18,61 @@ const Resume = () => {
   const { isAdmin } = useAuth();
   const navigate = useNavigate();
   
-  // Use the same data fetching logic as the Home component
+  // Use the same data fetching logic as the Home component, but with fallback data
   const { data: resumeSections, isLoading, error, refetch } = useQuery({
     queryKey: ['resumeSections'],
     queryFn: async () => {
       console.log('Fetching resume sections data for Resume page');
       
-      // Get all sections
-      const { data: sections, error: sectionsError } = await supabase
-        .from('resume_sections')
-        .select('*')
-        .order('display_order', { ascending: true });
-      
-      if (sectionsError) {
-        console.error('Error fetching sections:', sectionsError);
-        throw sectionsError;
-      }
-      
-      if (!sections || sections.length === 0) {
-        console.warn('No resume sections found in database');
-        throw new Error('No resume sections found. Please initialize resume data.');
-      }
-      
-      console.log('Fetched sections for Resume page:', sections);
-      
-      // For each section, get its items
-      const sectionsWithItems = await Promise.all(sections.map(async (section) => {
-        console.log(`Fetching items for section ${section.section_name} in Resume page`);
-        
-        const { data: items, error: itemsError } = await supabase
-          .from('resume_items')
+      try {
+        // Get all sections
+        const { data: sections, error: sectionsError } = await supabase
+          .from('resume_sections')
           .select('*')
-          .eq('section_id', section.id)
           .order('display_order', { ascending: true });
         
-        if (itemsError) {
-          console.error(`Error fetching items for section ${section.section_name}:`, itemsError);
-          throw itemsError;
+        if (sectionsError) {
+          console.error('Error fetching sections:', sectionsError);
+          throw sectionsError;
         }
         
-        console.log(`Found ${items?.length || 0} items for section ${section.section_name} in Resume page`);
+        // Use empty array instead of throwing error for empty sections
+        if (!sections || sections.length === 0) {
+          console.warn('No resume sections found in database, using fallback data');
+          return [];
+        }
         
-        return {
-          ...section,
-          items: items || []
-        };
-      }));
-      
-      return sectionsWithItems;
+        console.log('Fetched sections for Resume page:', sections);
+        
+        // For each section, get its items
+        const sectionsWithItems = await Promise.all(sections.map(async (section) => {
+          console.log(`Fetching items for section ${section.section_name} in Resume page`);
+          
+          const { data: items, error: itemsError } = await supabase
+            .from('resume_items')
+            .select('*')
+            .eq('section_id', section.id)
+            .order('display_order', { ascending: true });
+          
+          if (itemsError) {
+            console.error(`Error fetching items for section ${section.section_name}:`, itemsError);
+            throw itemsError;
+          }
+          
+          console.log(`Found ${items?.length || 0} items for section ${section.section_name} in Resume page`);
+          
+          return {
+            ...section,
+            items: items || []
+          };
+        }));
+        
+        return sectionsWithItems;
+      } catch (error) {
+        console.error('Error in resume sections query:', error);
+        // Return empty array to use fallback data
+        return [];
+      }
     }
   });
 
@@ -94,6 +101,7 @@ const Resume = () => {
     );
   }
 
+  // Only show error UI for explicit errors, not just empty data
   if (error) {
     return (
       <div className="container mx-auto p-8 text-center">
@@ -123,6 +131,7 @@ const Resume = () => {
     );
   }
 
+  // Always render sections - they will use fallback data if needed
   return (
     <>
       <AboutSection items={getSectionItems('about')} />

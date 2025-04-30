@@ -26,7 +26,7 @@ export const checkResumeSections = async () => {
       sections.map(async (section) => {
         const { data: items, error: itemsError } = await supabase
           .from('resume_items')
-          .select('*')
+          .select('id')
           .eq('section_id', section.id);
           
         if (itemsError) {

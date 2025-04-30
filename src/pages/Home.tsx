@@ -19,7 +19,7 @@ const Home = () => {
   const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
   
-  // Fetch all resume sections data to pass to components
+  // Fetch all resume sections data to pass to components, but use fallback data if database is empty
   const { data: resumeSections, isLoading, error, refetch } = useQuery({
     queryKey: ['resumeSections'],
     queryFn: async () => {
@@ -37,10 +37,11 @@ const Home = () => {
           throw sectionsError;
         }
         
+        // Instead of throwing an error for empty sections, return an empty array
+        // This allows the page to render with fallback data in the components
         if (!sections || sections.length === 0) {
-          console.warn('No resume sections found in database');
-          // Instead of returning empty array, throw error to trigger error state
-          throw new Error('No resume sections found. Please initialize resume data.');
+          console.warn('No resume sections found in database, using fallback data');
+          return [];
         }
         
         console.log('Fetched sections for Home:', sections.length);
@@ -72,7 +73,8 @@ const Home = () => {
         return sectionsWithItems;
       } catch (error) {
         console.error('Error fetching resume sections:', error);
-        throw error;
+        // Return empty array instead of throwing to allow fallback data in components
+        return [];
       }
     },
     staleTime: 30 * 60 * 1000, // 30 minutes
@@ -85,10 +87,9 @@ const Home = () => {
       if (error) {
         console.error('Error loading resume data:', error);
       } else if (!resumeSections || resumeSections.length === 0) {
-        console.warn('No resume sections loaded in Home');
+        console.warn('No resume sections loaded in Home, using fallback data');
       } else {
         console.log(`Loaded ${resumeSections.length} resume sections in Home`);
-        console.log('Resume sections:', resumeSections);
       }
     }
   }, [isLoading, error, resumeSections]);
@@ -123,6 +124,7 @@ const Home = () => {
     );
   }
 
+  // Show error UI only if we have an explicit error, not just empty data
   if (error) {
     return (
       <div className="container mx-auto p-8 text-center">
@@ -152,6 +154,7 @@ const Home = () => {
     );
   }
 
+  // Always render the sections, they will use fallback data if resumeSections is empty
   return (
     <>
       <AboutSection items={getSectionItems('about')} />

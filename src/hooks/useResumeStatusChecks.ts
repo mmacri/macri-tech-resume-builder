@@ -24,41 +24,56 @@ export const useResumeStatusChecks = () => {
       
       try {
         for (const section of sections) {
-          // Get section ID first
-          const { data: sectionData, error: sectionError } = await supabase
-            .from('resume_sections')
-            .select('id')
-            .ilike('section_name', section)
-            .maybeSingle();
-            
-          if (sectionError) {
-            console.error(`Error fetching section ${section}:`, sectionError);
-          }
-            
-          if (sectionData) {
-            // Count items in this section
-            const { data: itemsData, error: itemsError } = await supabase
-              .from('resume_items')
+          try {
+            // Get section ID first
+            const { data: sectionData, error: sectionError } = await supabase
+              .from('resume_sections')
               .select('id')
-              .eq('section_id', sectionData.id);
+              .ilike('section_name', section)
+              .maybeSingle();
               
-            if (itemsError) {
-              console.error(`Error counting items for section ${section}:`, itemsError);
+            if (sectionError) {
+              console.error(`Error fetching section ${section}:`, sectionError);
+              counts[section] = 0;
+              continue;
             }
-            
-            counts[section] = itemsData?.length || 0;
-            console.log(`${section} section has ${counts[section]} items`);
-          } else {
+              
+            if (sectionData) {
+              // Count items in this section
+              const { data: itemsData, error: itemsError } = await supabase
+                .from('resume_items')
+                .select('id')
+                .eq('section_id', sectionData.id);
+                
+              if (itemsError) {
+                console.error(`Error counting items for section ${section}:`, itemsError);
+                counts[section] = 0;
+                continue;
+              }
+              
+              counts[section] = itemsData?.length || 0;
+              console.log(`${section} section has ${counts[section]} items`);
+            } else {
+              counts[section] = 0;
+              console.log(`${section} section not found`);
+            }
+          } catch (err) {
+            console.error(`Error processing ${section} section:`, err);
             counts[section] = 0;
-            console.log(`${section} section not found`);
           }
         }
       } catch (error) {
         console.error('Error in resumeSectionCounts query:', error);
+        // Initialize with zeros rather than throwing
+        sections.forEach(section => {
+          if (!counts[section]) counts[section] = 0;
+        });
       }
       
       return counts;
-    }
+    },
+    retry: 2,
+    retryDelay: 1000
   });
 
   // Check for portfolio projects
