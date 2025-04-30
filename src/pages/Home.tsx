@@ -9,8 +9,16 @@ import AwardsSection from '@/components/home/AwardsSection';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
+import { AlertTriangle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
 
 const Home = () => {
+  const { user, isAdmin } = useAuth();
+  const navigate = useNavigate();
+  
   // Fetch all resume sections data to pass to components
   const { data: resumeSections, isLoading, error, refetch } = useQuery({
     queryKey: ['resumeSections'],
@@ -31,7 +39,8 @@ const Home = () => {
         
         if (!sections || sections.length === 0) {
           console.warn('No resume sections found in database');
-          return [];
+          // Instead of returning empty array, throw error to trigger error state
+          throw new Error('No resume sections found. Please initialize resume data.');
         }
         
         console.log('Fetched sections for Home:', sections.length);
@@ -53,10 +62,6 @@ const Home = () => {
           
           const itemCount = items?.length || 0;
           console.log(`Found ${itemCount} items for section ${section.section_name}`);
-          
-          if (itemCount === 0) {
-            console.warn(`No items found for section ${section.section_name}`);
-          }
           
           return {
             ...section,
@@ -97,6 +102,14 @@ const Home = () => {
     return items;
   };
 
+  const handleInitializeData = () => {
+    if (isAdmin) {
+      navigate('/admin-dashboard');
+    } else {
+      toast.error('You need admin privileges to initialize resume data');
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="container mx-auto p-4">
@@ -113,11 +126,28 @@ const Home = () => {
   if (error) {
     return (
       <div className="container mx-auto p-8 text-center">
-        <h2 className="text-2xl font-bold text-red-600 mb-4">Error Loading Resume Data</h2>
-        <p className="mb-4">There was a problem loading the resume data. Please try again.</p>
-        <button onClick={() => refetch()} className="px-4 py-2 bg-blue-500 text-white rounded">
-          Try Again
-        </button>
+        <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+          <AlertTriangle className="h-12 w-12 text-amber-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-red-600 mb-4">Error Loading Resume Data</h2>
+          <p className="mb-6 text-gray-700">There was a problem loading the resume data. The database may be empty or there might be a connection issue.</p>
+          <div className="space-y-4">
+            <Button onClick={() => refetch()} variant="outline" className="w-full">
+              Try Again
+            </Button>
+            
+            {isAdmin && (
+              <Button onClick={handleInitializeData} className="w-full bg-amber-500 hover:bg-amber-600">
+                Go to Admin Dashboard
+              </Button>
+            )}
+            
+            {isAdmin && (
+              <p className="text-sm text-gray-500 mt-2">
+                Tip: Use the "Reset Resume Data" button in the Admin Dashboard to initialize all sections with sample data.
+              </p>
+            )}
+          </div>
+        </div>
       </div>
     );
   }
