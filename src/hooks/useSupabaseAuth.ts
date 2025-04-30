@@ -61,54 +61,48 @@ export function useSupabaseAuth() {
       if (isKnownAdmin) {
         console.log('User has a known admin email address, setting as admin');
         setIsAdmin(true);
-        
-        // Update the profile to be an admin
-        const { data: existingProfile } = await supabase
-          .from('profiles')
-          .select('id, is_admin')
-          .eq('id', userId)
-          .maybeSingle();
-          
-        if (existingProfile) {
-          if (!existingProfile.is_admin) {
-            await supabase
-              .from('profiles')
-              .update({ is_admin: true })
-              .eq('id', userId);
-          }
-        } else {
-          // Create profile
-          console.log('Creating admin profile for known admin email');
-          await supabase
-            .from('profiles')
-            .insert({ 
-              id: userId,
-              full_name: email ? email.split('@')[0] : 'Admin User',
-              username: email,
-              is_admin: true
-            });
-        }
-        
         setIsLoading(false);
         return;
       }
       
-      // Direct DB query without relying on complex policies
-      const { data, error } = await supabase
+      // Check if user has a profile
+      const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('is_admin')
         .eq('id', userId)
         .maybeSingle();
+      
+      if (profileError) {
+        console.error('Error checking profile:', profileError);
+        // Attempt to run the sync function if profile not found
+        await supabase.rpc('sync_missing_profiles');
         
-      if (error) {
-        console.error('Error checking admin status:', error);
-        setIsAdmin(false);
-      } else if (data) {
-        console.log('Admin status from database:', data.is_admin);
-        setIsAdmin(data.is_admin || false);
+        // Try one more time after sync
+        const { data: syncedProfile, error: syncError } = await supabase
+          .from('profiles')
+          .select('is_admin')
+          .eq('id', userId)
+          .maybeSingle();
+        
+        if (syncError) {
+          console.error('Error after sync:', syncError);
+          setIsAdmin(false);
+        } else if (syncedProfile) {
+          console.log('Admin status after sync:', syncedProfile.is_admin);
+          setIsAdmin(syncedProfile.is_admin || false);
+        } else {
+          console.log('No profile found after sync');
+          setIsAdmin(false);
+        }
+      } else if (profile) {
+        console.log('Admin status from database:', profile.is_admin);
+        setIsAdmin(profile.is_admin || false);
       } else {
-        console.log('No profile found, creating new profile');
-        await createUserProfile(userId, false);
+        console.log('No profile found, running sync');
+        await supabase.rpc('sync_missing_profiles');
+        
+        // Set default admin status based on email
+        setIsAdmin(isKnownAdmin);
       }
     } catch (error) {
       console.error('Error checking admin status:', error);
@@ -118,34 +112,36 @@ export function useSupabaseAuth() {
     }
   };
 
-  const createUserProfile = async (userId: string, makeAdmin: boolean = false) => {
-    try {
-      console.log('Creating user profile, admin status:', makeAdmin);
-      const { error } = await supabase
-        .from('profiles')
-        .insert([
-          { 
-            id: userId,
-            is_admin: makeAdmin
-          }
-        ]);
-        
-      if (error) {
-        console.error('Error creating user profile:', error);
-      } else {
-        console.log('User profile created successfully');
-        // Update state after creating the profile
-        setIsAdmin(makeAdmin);
-      }
-    } catch (error) {
-      console.error('Error creating user profile:', error);
-    }
-  };
-
   // Add a function to set admin status for a user
   const setAdminStatus = async (userId: string, adminStatus: boolean) => {
     try {
       console.log('Setting admin status for user ID:', userId, 'to:', adminStatus);
+      
+      // Safety check: prevent removing admin status from your own account
+      if (user && user.id === userId && !adminStatus) {
+        toast.error('You cannot remove admin status from your own account');
+        return false;
+      }
+      
+      // Check if this would remove the last admin
+      if (!adminStatus) {
+        const { data: adminUsers, error: checkError } = await supabase
+          .from('profiles')
+          .select('id')
+          .eq('is_admin', true);
+          
+        if (checkError) {
+          console.error('Error checking admin users:', checkError);
+          toast.error('Could not verify admin users');
+          return false;
+        }
+        
+        if (adminUsers.length === 1 && adminUsers[0].id === userId) {
+          toast.error('Cannot remove admin status from the last admin user');
+          return false;
+        }
+      }
+      
       const { error } = await supabase
         .from('profiles')
         .update({ is_admin: adminStatus })
@@ -153,16 +149,19 @@ export function useSupabaseAuth() {
         
       if (error) {
         console.error('Error updating admin status:', error);
+        toast.error(error.message || 'Error updating admin status');
         return false;
       } else {
         console.log('Admin status updated successfully');
         if (user && user.id === userId) {
           setIsAdmin(adminStatus);
         }
+        toast.success(`User admin status ${adminStatus ? 'granted' : 'removed'} successfully`);
         return true;
       }
     } catch (error) {
       console.error('Error updating admin status:', error);
+      toast.error('Error updating admin status');
       return false;
     }
   };

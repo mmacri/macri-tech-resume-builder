@@ -13,6 +13,27 @@ export function useUserQuery() {
     queryFn: async () => {
       console.log('Fetching users from profiles table...');
       try {
+        // First check if we need to sync existing profiles
+        const { data: authUser } = await supabase.auth.getUser();
+        const currentUserId = authUser?.user?.id;
+        
+        if (currentUserId) {
+          // Check if the current user has a profile
+          const { data: currentProfile } = await supabase
+            .from('profiles')
+            .select('id')
+            .eq('id', currentUserId)
+            .maybeSingle();
+            
+          // If not, we might need to run the sync function
+          if (!currentProfile) {
+            console.log('Current user has no profile. Running sync function...');
+            await supabase.rpc('sync_missing_profiles');
+            toast.success('User profiles synchronized');
+          }
+        }
+        
+        // Now fetch all profiles
         const { data: profiles, error } = await supabase
           .from('profiles')
           .select('*')
@@ -26,39 +47,12 @@ export function useUserQuery() {
         
         if (!profiles || profiles.length === 0) {
           console.log('No profiles found in the database');
-          
-          // Check if the current user exists in the profiles table
-          const { data: authData } = await supabase.auth.getUser();
-          if (authData?.user) {
-            // If current user is authenticated but not in profiles, create profile
-            console.log('Creating profile for current authenticated user:', authData.user.email);
-            const { data: newProfile, error: insertError } = await supabase
-              .from('profiles')
-              .insert({
-                id: authData.user.id,
-                full_name: authData.user.email?.split('@')[0] || 'User',
-                username: authData.user.email,
-                is_admin: authData.user.email === 'mike@mikemacri.com' // Make first user an admin if it's your email
-              })
-              .select()
-              .single();
-              
-            if (insertError) {
-              console.error('Error creating profile for current user:', insertError);
-              toast.error(`Failed to create user profile: ${insertError.message}`);
-            } else {
-              toast.success('Created user profile for current user');
-              // Return the newly created profile as an array
-              return [newProfile] as UserProfile[];
-            }
-          }
-          
           return [];
         }
         
         console.log(`Found ${profiles.length} users in the database`);
         
-        // Map the profiles to include email information
+        // Return the profiles with email info
         return profiles.map(profile => ({
           ...profile,
           email: profile.username || 'No email available',
@@ -66,7 +60,7 @@ export function useUserQuery() {
       } catch (err) {
         console.error('Unexpected error in useUserQuery:', err);
         toast.error(`Failed to fetch users: ${err instanceof Error ? err.message : 'Unknown error'}`);
-        return [];
+        throw err;
       }
     }
   });

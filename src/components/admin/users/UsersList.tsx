@@ -115,6 +115,7 @@ const UsersList = () => {
                       checked={!!user.is_admin}
                       onCheckedChange={() => toggleAdmin(user)}
                       disabled={isCurrentUser && user.is_admin} // Prevent removing admin from yourself
+                      aria-label={`Toggle admin status for ${user.full_name || user.username || 'user'}`}
                     />
                   </TableCell>
                   <TableCell className="text-right space-x-1">

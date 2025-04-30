@@ -22,11 +22,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
       console.log('ProtectedRoute - Admin required:', requiresAdmin);
       console.log('ProtectedRoute - User authenticated:', !!user);
       console.log('ProtectedRoute - User admin status:', isAdmin);
-      
-      // Special debug for admin routes
-      if (user && !isAdmin) {
-        console.log('Admin route requested but user is not admin. User email:', user.email);
-      }
     }
   }, [user, isAdmin, requiresAdmin]);
   
@@ -39,10 +34,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return <Navigate to={`/auth?redirectTo=${currentPath}`} replace />;
   }
   
-  // Add special handling for known admin emails
-  const isKnownAdmin = user.email === 'mike@mikemacri.com' || user.email === 'mike@gmail.com';
-  
-  if (requiresAdmin && !isAdmin && !isKnownAdmin) {
+  // Admin route check
+  if (requiresAdmin && !isAdmin) {
     toast.error("You don't have permission to access the admin area");
     return <Navigate to="/" replace />;
   }

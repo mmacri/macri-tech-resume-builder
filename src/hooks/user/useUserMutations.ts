@@ -3,12 +3,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { UserProfile } from '@/types/user';
+import { useAuth } from '@/contexts/AuthContext';
 
 /**
  * Hook for user mutations: update, add, delete
  */
 export function useUserMutations() {
   const queryClient = useQueryClient();
+  const { user: currentUser } = useAuth();
 
   // Update user profile
   const updateMutation = useMutation({
@@ -17,6 +19,12 @@ export function useUserMutations() {
       
       console.log('Updating user profile:', user);
       const { id, email, ...profileData } = user;
+      
+      // Safety check: prevent removing admin status from your own account
+      if (id === currentUser?.id && 
+          profileData.is_admin === false) {
+        throw new Error('You cannot remove admin status from your own account');
+      }
       
       const { data, error } = await supabase
         .from('profiles')
@@ -87,6 +95,11 @@ export function useUserMutations() {
   const deleteMutation = useMutation({
     mutationFn: async (userId: string) => {
       console.log('Deleting user profile with ID:', userId);
+      
+      // Safety check: prevent deleting your own account
+      if (userId === currentUser?.id) {
+        throw new Error('You cannot delete your own account');
+      }
       
       // First check if this is the last admin user
       const { data: adminUsers, error: checkError } = await supabase
