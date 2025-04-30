@@ -62,6 +62,17 @@ export function useSupabaseAuth() {
         console.log('User has a known admin email address, setting as admin');
         setIsAdmin(true);
         setIsLoading(false);
+        
+        // Also ensure their profile has admin status
+        const { error: updateError } = await supabase
+          .from('profiles')
+          .update({ is_admin: true })
+          .eq('id', userId);
+          
+        if (updateError) {
+          console.error('Error updating admin status in profile:', updateError);
+        }
+        
         return;
       }
       
@@ -92,7 +103,7 @@ export function useSupabaseAuth() {
           setIsAdmin(syncedProfile.is_admin || false);
         } else {
           console.log('No profile found after sync');
-          setIsAdmin(false);
+          setIsAdmin(isKnownAdmin); // Use email-based check as fallback
         }
       } else if (profile) {
         console.log('Admin status from database:', profile.is_admin);
