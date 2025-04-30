@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { toast } from 'sonner';
 import { useResumeData } from '@/hooks/resume/useResumeData';
 import { generateResumeHTML } from '@/utils/resume/generateResumeHTML';
+import { extractResumeSectionsForPDF } from '@/utils/resume/extractResumeSections';
 import ResumeInlineButton from './ResumeInlineButton';
 import ResumeFullButton from './ResumeFullButton';
 
@@ -23,22 +24,9 @@ const DownloadResume: React.FC<DownloadResumeProps> = ({ inlineButton = false })
     setIsGenerating(true);
     
     try {
-      // Find the about section for contact info
-      const aboutSection = resumeSections.find(section => section.section_name.toLowerCase() === 'about');
-      const aboutData = aboutSection?.items[0];
+      // Extract resume sections
+      const { aboutData, experiences, education, skills } = extractResumeSectionsForPDF(resumeSections);
       
-      // Get the experience section
-      const experienceSection = resumeSections.find(section => section.section_name.toLowerCase() === 'experience');
-      const experiences = experienceSection?.items || [];
-      
-      // Get the education section
-      const educationSection = resumeSections.find(section => section.section_name.toLowerCase() === 'education');
-      const education = educationSection?.items || [];
-      
-      // Get the skills section
-      const skillsSection = resumeSections.find(section => section.section_name.toLowerCase() === 'skills');
-      const skills = skillsSection?.items || [];
-
       // Generate HTML for the resume
       const htmlContent = generateResumeHTML(aboutData, experiences, education, skills);
       
