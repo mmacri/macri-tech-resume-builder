@@ -30,7 +30,7 @@ export const useExperienceItems = (sectionId: string | undefined) => {
           const { data: sections, error: sectionsError } = await supabase
             .from('resume_sections')
             .select('id, section_name')
-            .eq('section_name', 'experience')
+            .ilike('section_name', 'experience')
             .maybeSingle();
             
           if (sectionsError) {

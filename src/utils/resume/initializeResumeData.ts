@@ -155,6 +155,7 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
 
     // Verify that experience items were actually created
     try {
+      // Find the experience section by name
       const { data: experienceSection } = await supabase
         .from('resume_sections')
         .select('id')

@@ -83,6 +83,7 @@ const Home = () => {
         console.warn('No resume sections loaded in Home');
       } else {
         console.log(`Loaded ${resumeSections.length} resume sections in Home`);
+        console.log('Resume sections:', resumeSections);
       }
     }
   }, [isLoading, error, resumeSections]);
@@ -113,7 +114,7 @@ const Home = () => {
     return (
       <div className="container mx-auto p-8 text-center">
         <h2 className="text-2xl font-bold text-red-600 mb-4">Error Loading Resume Data</h2>
-        <p className="mb-4">There was a problem loading the resume data.</p>
+        <p className="mb-4">There was a problem loading the resume data. Please try again.</p>
         <button onClick={() => refetch()} className="px-4 py-2 bg-blue-500 text-white rounded">
           Try Again
         </button>
