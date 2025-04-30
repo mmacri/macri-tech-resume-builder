@@ -13,19 +13,29 @@ interface DownloadResumeProps {
 
 const DownloadResume: React.FC<DownloadResumeProps> = ({ inlineButton = false }) => {
   const [isGenerating, setIsGenerating] = useState(false);
-  const { data: resumeSections, isLoading } = useResumeData();
+  const { data: resumeSections, isLoading, error } = useResumeData();
+  
+  // Log any errors for debugging
+  if (error) {
+    console.error('Error loading resume data:', error);
+  }
   
   const generatePDF = async () => {
-    if (isLoading || !resumeSections || resumeSections.length === 0) {
-      toast.error('Resume data is not available. Please initialize your resume data first.');
-      return;
-    }
-    
+    // We proceed even if there's no database data - we'll use fallback data
     setIsGenerating(true);
+    console.log('Generating resume with data available:', !!resumeSections);
     
     try {
-      // Extract resume sections
+      // Extract resume sections - this will use fallback data if needed
       const { aboutData, experiences, education, skills } = extractResumeSectionsForPDF(resumeSections);
+      
+      // Log what data we're using
+      console.log('Resume data being used:', {
+        aboutDataAvailable: !!aboutData,
+        experiencesCount: experiences.length,
+        educationCount: education.length,
+        skillsCount: skills.length
+      });
       
       // Generate HTML for the resume
       const htmlContent = generateResumeHTML(aboutData, experiences, education, skills);
@@ -42,6 +52,7 @@ const DownloadResume: React.FC<DownloadResumeProps> = ({ inlineButton = false })
           setTimeout(() => {
             printWindow.print();
             setIsGenerating(false);
+            toast.success('Resume generated successfully. Print or save as PDF.');
           }, 500);
         };
       } else {

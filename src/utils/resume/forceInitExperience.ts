@@ -1,112 +1,109 @@
 
 import { supabase } from '@/integrations/supabase/client';
 import { createExperienceData } from './experienceData';
-import { toast } from 'sonner';
 
-/**
- * Force initialize experience data if it doesn't exist
- * @returns Promise with initialization status
- */
-export const forceInitExperience = async (): Promise<{ initialized: boolean; message?: string }> => {
+interface InitExperienceResult {
+  initialized: boolean;
+  message?: string;
+}
+
+export const forceInitExperience = async (): Promise<InitExperienceResult> => {
   try {
-    console.log('Attempting to force initialize experience data...');
+    console.log('Looking for experience section to force initialize items...');
     
-    // Check for experience section
-    const { data: experienceSection, error: sectionError } = await supabase
+    // Find the experience section by name
+    const { data: section, error: sectionError } = await supabase
       .from('resume_sections')
-      .select('id')
+      .select('id, section_name')
       .ilike('section_name', 'experience')
       .maybeSingle();
-      
+    
     if (sectionError) {
       console.error('Error finding experience section:', sectionError);
       return { 
         initialized: false,
-        message: `Database error: ${sectionError.message}`
+        message: `Error looking up experience section: ${sectionError.message}`
       };
     }
     
-    // If no experience section, create it
-    if (!experienceSection) {
-      console.log('No experience section found, creating one...');
+    if (!section) {
+      console.log('Experience section not found, creating one...');
       
+      // Create the experience section if it doesn't exist
       const { data: newSection, error: createError } = await supabase
         .from('resume_sections')
         .insert({ section_name: 'experience', display_order: 2 })
         .select()
         .single();
-        
+      
       if (createError) {
         console.error('Error creating experience section:', createError);
         return { 
           initialized: false,
-          message: `Failed to create experience section: ${createError.message}`
+          message: `Failed to create section: ${createError.message}`
         };
       }
       
-      console.log('Created new experience section:', newSection);
+      console.log('Created experience section:', newSection);
       
-      // Create experience items for the new section
+      // Now create experience items
       try {
         await createExperienceData(newSection.id);
         console.log('Successfully created experience data for new section');
-        return { 
-          initialized: true,
-          message: 'Successfully created experience section and data'
-        };
-      } catch (dataError) {
-        console.error('Error creating experience data:', dataError);
+        return { initialized: true };
+      } catch (error) {
+        console.error('Error creating experience data:', error);
         return { 
           initialized: false,
-          message: `Failed to create experience data: ${dataError instanceof Error ? dataError.message : 'Unknown error'}`
+          message: `Failed to create experience data: ${error instanceof Error ? error.message : String(error)}`
         };
       }
     }
     
-    // If section exists, check for items
-    const { count, error: countError } = await supabase
+    // Check if there are already experience items
+    console.log(`Found experience section: ${section.section_name} (${section.id}), checking for items...`);
+    
+    const { data: items, error: itemsError, count } = await supabase
       .from('resume_items')
-      .select('*', { count: 'exact', head: true })
-      .eq('section_id', experienceSection.id);
-      
-    if (countError) {
-      console.error('Error checking for experience items:', countError);
+      .select('*', { count: 'exact' })
+      .eq('section_id', section.id);
+    
+    if (itemsError) {
+      console.error('Error checking for experience items:', itemsError);
       return { 
         initialized: false,
-        message: `Database error: ${countError.message}`
+        message: `Error checking for items: ${itemsError.message}`
       };
     }
     
-    if ((count || 0) === 0) {
-      console.log('Experience section exists but has no items, creating data...');
-      
+    const itemCount = count || 0;
+    console.log(`Found ${itemCount} experience items`);
+    
+    // If no items, create them
+    if (itemCount === 0) {
+      console.log('No experience items found, creating them...');
       try {
-        await createExperienceData(experienceSection.id);
-        console.log('Successfully created experience data for existing section');
-        return { 
-          initialized: true,
-          message: 'Successfully added experience data to existing section'
-        };
-      } catch (dataError) {
-        console.error('Error creating experience data:', dataError);
+        await createExperienceData(section.id);
+        console.log('Successfully created experience data');
+        return { initialized: true };
+      } catch (error) {
+        console.error('Error creating experience data:', error);
         return { 
           initialized: false,
-          message: `Failed to create experience data: ${dataError instanceof Error ? dataError.message : 'Unknown error'}`
+          message: `Failed to create experience data: ${error instanceof Error ? error.message : String(error)}`
         };
       }
     }
     
-    console.log(`Experience section already has ${count} items, no initialization needed`);
-    return {
+    return { 
       initialized: false,
-      message: 'Experience data already exists'
+      message: `Experience items already exist (${itemCount} items found)` 
     };
-    
   } catch (error) {
-    console.error('Error in forceInitExperience:', error);
-    return {
+    console.error('Unexpected error in forceInitExperience:', error);
+    return { 
       initialized: false,
-      message: `Unexpected error: ${error instanceof Error ? error.message : 'Unknown error'}`
+      message: `Unexpected error: ${error instanceof Error ? error.message : String(error)}`
     };
   }
 };

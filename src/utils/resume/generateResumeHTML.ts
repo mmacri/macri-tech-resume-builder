@@ -28,6 +28,7 @@ export const parseContactInfo = (description: string) => {
     }
   } catch (e) {
     // If not JSON, use as plain text
+    console.log('Contact info is not in JSON format, using as plain text');
     return description;
   }
   
@@ -36,13 +37,20 @@ export const parseContactInfo = (description: string) => {
 
 // Generate HTML content for the resume
 export const generateResumeHTML = (aboutData: any, experiences: any[], education: any[], skills: any[]) => {
+  console.log('Generating resume HTML with data:', { 
+    aboutData: !!aboutData, 
+    experiencesCount: experiences.length,
+    educationCount: education.length,
+    skillsCount: skills.length
+  });
+  
   return `
     <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Resume</title>
+      <title>Mike Macri Resume</title>
       <style>
         body {
           font-family: Arial, sans-serif;
@@ -135,7 +143,7 @@ export const generateResumeHTML = (aboutData: any, experiences: any[], education
             <div class="company-name">${exp.organization || ''}</div>
             ${exp.description ? `
               <ul class="description">
-                ${exp.description.split('\n').map(point => `<li>${point}</li>`).join('')}
+                ${exp.description.split('\\n').map(point => `<li>${point}</li>`).join('')}
               </ul>
             ` : ''}
           </div>
