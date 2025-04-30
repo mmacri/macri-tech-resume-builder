@@ -31,6 +31,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
       if (!user) {
         // If not logged in, redirect to auth with return URL
         navigate("/auth?redirectTo=/admin-dashboard");
+        toast.info("Please login to access the admin dashboard");
       } else if (!isAdmin) {
         // If logged in but not admin, show message and stay on current page
         toast.error("Only administrators can access this area");
@@ -54,7 +55,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     );
   }
   
-  // Special handling for Login/Logout links
+  // Special handling for Login link
   if (item.label === "Login") {
     return (
       <li className="nav-item">
@@ -69,6 +70,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     );
   }
   
+  // Special handling for Logout link
   if (item.label === "Logout" && item.onClick) {
     return (
       <li className="nav-item">
@@ -173,8 +175,7 @@ export const NavigationItems: React.FC<NavigationItemsProps> = ({
   
   return (
     <ul className="space-y-2">
-      {/* Always shown navigation items */}
-      {navItems.filter(item => item.label !== "Login" && item.label !== "Logout").map((item, index) => (
+      {navItems.map((item, index) => (
         <NavigationItem 
           key={index} 
           item={item} 
@@ -182,25 +183,6 @@ export const NavigationItems: React.FC<NavigationItemsProps> = ({
           isActive={currentPath === item.href}
         />
       ))}
-      
-      {/* Login/Logout based on authentication status */}
-      {user ? (
-        // Show logout if user is logged in
-        navItems.find(item => item.label === "Logout") && (
-          <NavigationItem 
-            item={navItems.find(item => item.label === "Logout")!} 
-            handleNavLinkClick={handleNavLinkClick} 
-            isActive={false}
-          />
-        )
-      ) : (
-        // Show login if user is not logged in
-        <NavigationItem 
-          item={{ label: "Login", href: "/auth" }} 
-          handleNavLinkClick={handleNavLinkClick} 
-          isActive={currentPath === "/auth"}
-        />
-      )}
     </ul>
   );
 };

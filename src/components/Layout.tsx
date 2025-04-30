@@ -63,19 +63,44 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name,
     navigate('/');
   };
 
-  // Add admin dashboard to navItems if user is admin
+  // Create a complete copy of navItems to avoid modifying the original array
   const updatedNavItems = [...navItems];
+  
+  // Special handling for Admin Dashboard
   if (isAdmin && user) {
     // Check if Admin Dashboard is already in the nav items
-    const adminDashboardExists = navItems.some(item => item.href === '/admin');
-    if (!adminDashboardExists) {
-      // Add Admin Dashboard after the first item
+    const adminIndex = updatedNavItems.findIndex(item => item.label === "Admin Dashboard");
+    
+    // If not found, add it after the first item (typically "About")
+    if (adminIndex === -1) {
       updatedNavItems.splice(1, 0, {
         label: "Admin Dashboard",
-        href: "/admin"
+        href: "/admin-dashboard"
       });
     }
   }
+
+  // Add login/logout link if not already present
+  const loginLogoutIndex = updatedNavItems.findIndex(
+    item => item.label === "Login" || item.label === "Logout"
+  );
+  
+  if (loginLogoutIndex === -1) {
+    if (user) {
+      updatedNavItems.push({
+        label: "Logout",
+        onClick: signOut,
+        href: "#"
+      });
+    } else {
+      updatedNavItems.push({
+        label: "Login",
+        href: "/auth"
+      });
+    }
+  }
+  
+  console.log('Final navigation items:', updatedNavItems);
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">

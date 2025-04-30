@@ -65,7 +65,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           />
         </div>
         
-        <div className={`${isNavOpen ? 'block' : 'hidden'} lg:block`}>
+        <div className={`${isNavOpen ? 'block' : 'hidden'} lg:block overflow-y-auto max-h-[60vh]`}>
           <NavigationItems 
             navItems={navItems}
             handleNavLinkClick={handleNavLinkClick}
