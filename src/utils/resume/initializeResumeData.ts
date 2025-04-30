@@ -50,7 +50,7 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
         const { error: deleteItemsError } = await supabase
           .from('resume_items')
           .delete()
-          .not('id', 'is', null); // Fix: Changed from .is('id', 'not.null')
+          .not('id', 'is', null); // Use not() to delete all non-null ids
           
         if (deleteItemsError) {
           console.error('Error deleting resume items:', deleteItemsError);
@@ -61,7 +61,7 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
         const { error: deleteSectionsError } = await supabase
           .from('resume_sections')
           .delete()
-          .not('id', 'is', null); // Fix: Changed from .is('id', 'not.null')
+          .not('id', 'is', null); // Use not() to delete all non-null ids
           
         if (deleteSectionsError) {
           console.error('Error deleting resume sections:', deleteSectionsError);
@@ -98,17 +98,17 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
       console.log('Starting to populate section items...');
       for (const section of sections) {
         // Check if section already has items
-        const { count, error } = await supabase
+        const { data: items, error, count } = await supabase
           .from('resume_items')
-          .select('*', { count: 'exact', head: true })
+          .select('*', { count: 'exact' })
           .eq('section_id', section.id);
         
         if (error) {
-          console.error(`Error checking item count for section ${section.section_name}:`, error);
+          console.error(`Error checking items for section ${section.section_name}:`, error);
           continue;
         }
         
-        const itemCount = count || 0;
+        const itemCount = items ? items.length : 0;
         console.log(`Section ${section.section_name} has ${itemCount} items`);
         
         if (itemCount === 0 || options.force) {
@@ -132,15 +132,16 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
     // Initialize portfolio projects if they don't exist
     try {
       console.log('Checking portfolio projects...');
-      const { count: projectCount, error: projectError } = await supabase
+      const { data: projects, error: projectError } = await supabase
         .from('portfolio_projects')
-        .select('*', { count: 'exact', head: true });
+        .select('*');
         
       if (projectError) {
-        console.error('Error checking portfolio projects count:', projectError);
+        console.error('Error checking portfolio projects:', projectError);
         return { success: false, message: `Error checking projects: ${projectError.message}` };
       }
       
+      const projectCount = projects?.length || 0;
       console.log(`Found ${projectCount} portfolio projects`);
       
       if (projectCount === 0 || options.force) {
@@ -163,18 +164,19 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
         .maybeSingle();
         
       if (experienceSection) {
-        const { count: expItemCount, error: expCountError } = await supabase
+        const { data: expItems, error: expItemsError } = await supabase
           .from('resume_items')
-          .select('*', { count: 'exact', head: true })
+          .select('*')
           .eq('section_id', experienceSection.id);
           
-        if (expCountError) {
-          console.error('Error counting experience items:', expCountError);
+        if (expItemsError) {
+          console.error('Error counting experience items:', expItemsError);
         } else {
-          console.log(`Verified experience items count: ${expItemCount || 0}`);
+          const expItemCount = expItems?.length || 0;
+          console.log(`Verified experience items count: ${expItemCount}`);
           
           // If still no experience items, try to create them directly
-          if ((expItemCount || 0) === 0) {
+          if (expItemCount === 0) {
             console.log('No experience items after initialization, creating them directly...');
             const { createExperienceData } = await import('./experienceData');
             await createExperienceData(experienceSection.id);

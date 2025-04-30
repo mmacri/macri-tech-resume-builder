@@ -24,17 +24,17 @@ export const checkResumeSections = async () => {
     // Check items for each section
     const sectionsWithItemCounts = await Promise.all(
       sections.map(async (section) => {
-        const { count, error: countError } = await supabase
+        const { data: items, error: itemsError } = await supabase
           .from('resume_items')
-          .select('*', { count: 'exact', head: true })
+          .select('*')
           .eq('section_id', section.id);
           
-        if (countError) {
-          console.error(`Error counting items for section ${section.section_name}:`, countError);
+        if (itemsError) {
+          console.error(`Error counting items for section ${section.section_name}:`, itemsError);
           return { ...section, itemCount: 0 };
         }
         
-        return { ...section, itemCount: count || 0 };
+        return { ...section, itemCount: items?.length || 0 };
       })
     );
     

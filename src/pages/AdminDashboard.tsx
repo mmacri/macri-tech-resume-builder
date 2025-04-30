@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminLayout from '@/components/admin/AdminLayout';
@@ -30,9 +29,9 @@ const AdminDashboard = () => {
         setLastError(null);
         
         // First check the database connection directly
-        const { data: connTest, error: connError } = await supabase
+        const { data: sections, error: connError } = await supabase
           .from('resume_sections')
-          .select('count(*)', { count: 'exact', head: true });
+          .select('*');
           
         if (connError) {
           console.error('Database connection test failed:', connError);
@@ -64,41 +63,38 @@ const AdminDashboard = () => {
           return;
         }
         
-        // Check resume sections
-        const { count: sectionCount, error: sectionError } = await supabase
-          .from('resume_sections')
-          .select('*', { count: 'exact', head: true });
-          
-        if (sectionError) {
-          setLastError(`Error checking sections: ${sectionError.message}`);
-          throw sectionError;
-        }
+        // Check resume sections count
+        const sectionCount = sections?.length || 0;
         
         // Check portfolio projects
-        const { count: projectCount, error: projectError } = await supabase
+        const { data: projects, error: projectError } = await supabase
           .from('portfolio_projects')
-          .select('*', { count: 'exact', head: true });
+          .select('*');
           
         if (projectError) {
           setLastError(`Error checking projects: ${projectError.message}`);
           throw projectError;
         }
+
+        const projectCount = projects?.length || 0;
         
         // Check blog posts
-        const { count: blogCount, error: blogError } = await supabase
+        const { data: blogPosts, error: blogError } = await supabase
           .from('blog_posts')
-          .select('*', { count: 'exact', head: true });
+          .select('*');
           
         if (blogError) {
           setLastError(`Error checking blog posts: ${blogError.message}`);
           throw blogError;
         }
         
+        const blogCount = blogPosts?.length || 0;
+        
         // Set status based on whether content exists
         setAllSectionsReady(
-          (sectionCount || 0) > 0 && 
-          (projectCount || 0) > 0 &&
-          (blogCount || 0) > 0
+          sectionCount > 0 && 
+          projectCount > 0 &&
+          blogCount > 0
         );
         
         setDiagInfo(prev => ({
@@ -112,7 +108,7 @@ const AdminDashboard = () => {
           sectionCount,
           projectCount,
           blogCount,
-          allSectionsReady: (sectionCount || 0) > 0 && (projectCount || 0) > 0 && (blogCount || 0) > 0
+          allSectionsReady: sectionCount > 0 && projectCount > 0 && blogCount > 0
         });
       } catch (error) {
         console.error('Error checking content:', error);
@@ -168,9 +164,9 @@ const AdminDashboard = () => {
       toast.info('Checking database status...');
       
       // First check DB connection
-      const { data: connTest, error: connError } = await supabase
+      const { data: sections, error: connError } = await supabase
         .from('resume_sections')
-        .select('count(*)', { count: 'exact' });
+        .select('*');
         
       if (connError) {
         console.error('Database connection test failed:', connError);

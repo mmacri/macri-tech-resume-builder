@@ -28,7 +28,7 @@ export const useResumeStatusChecks = () => {
           const { data: sectionData, error: sectionError } = await supabase
             .from('resume_sections')
             .select('id')
-            .eq('section_name', section)
+            .ilike('section_name', section)
             .maybeSingle();
             
           if (sectionError) {
