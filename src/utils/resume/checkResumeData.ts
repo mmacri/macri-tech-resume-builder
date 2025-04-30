@@ -1,77 +1,115 @@
 
 import { supabase } from '@/integrations/supabase/client';
 
-export const checkResumeSections = async () => {
+export interface ResumeCheckResult {
+  success: boolean;
+  sections?: any[];
+  hasItems?: boolean;
+  error?: any;
+  message?: string;
+}
+
+export interface ExperienceCheckResult {
+  success: boolean;
+  items?: any[];
+  error?: any;
+  message?: string;
+}
+
+/**
+ * Checks if resume sections exist in the database
+ */
+export const checkResumeSections = async (): Promise<ResumeCheckResult> => {
   try {
-    // Check if resume sections exist
-    const { data: sections, error: sectionsError } = await supabase
+    console.log('Checking resume sections...');
+    const { data: sections, error } = await supabase
       .from('resume_sections')
       .select('*')
       .order('display_order', { ascending: true });
       
-    if (sectionsError) {
-      console.error('Error checking resume sections:', sectionsError);
-      return { success: false, error: sectionsError, sections: [] };
+    if (error) {
+      return { 
+        success: false, 
+        error,
+        message: `Error checking resume sections: ${error.message}`
+      };
     }
-    
-    console.log('Resume sections check result:', sections);
     
     if (!sections || sections.length === 0) {
-      console.warn('No resume sections found in the database');
-      return { success: false, error: null, sections: [] };
+      return { 
+        success: true, 
+        sections: [],
+        hasItems: false,
+        message: 'No resume sections found'
+      };
     }
     
-    // Check items for each section
-    const sectionsWithItemCounts = await Promise.all(
-      sections.map(async (section) => {
-        const { data: items, error: itemsError } = await supabase
-          .from('resume_items')
-          .select('id')
-          .eq('section_id', section.id);
-          
-        if (itemsError) {
-          console.error(`Error counting items for section ${section.section_name}:`, itemsError);
-          return { ...section, itemCount: 0 };
-        }
+    // Check if any section has items
+    let hasItems = false;
+    for (const section of sections) {
+      const { count, error: countError } = await supabase
+        .from('resume_items')
+        .select('*', { count: 'exact', head: true })
+        .eq('section_id', section.id);
         
-        return { ...section, itemCount: items?.length || 0 };
-      })
-    );
+      if (countError) {
+        console.error(`Error checking items for section ${section.section_name}:`, countError);
+        continue;
+      }
+      
+      if ((count || 0) > 0) {
+        hasItems = true;
+        break;
+      }
+    }
     
-    console.log('Sections with item counts:', sectionsWithItemCounts);
-    
-    return { 
-      success: true, 
-      error: null, 
-      sections: sectionsWithItemCounts,
-      hasItems: sectionsWithItemCounts.some(s => s.itemCount > 0)
+    return {
+      success: true,
+      sections,
+      hasItems,
+      message: `Found ${sections.length} sections, ${hasItems ? 'with' : 'without'} items`
     };
   } catch (error) {
     console.error('Error in checkResumeSections:', error);
-    return { success: false, error, sections: [] };
+    return {
+      success: false,
+      error,
+      message: `Error checking resume sections: ${error instanceof Error ? error.message : 'Unknown error'}`
+    };
   }
 };
 
-export const checkExperienceItems = async () => {
+/**
+ * Specifically checks for experience items in the database
+ */
+export const checkExperienceItems = async (): Promise<ExperienceCheckResult> => {
   try {
-    // First, get the experience section ID
+    console.log('Checking experience items...');
+    
+    // Find the experience section first
     const { data: experienceSection, error: sectionError } = await supabase
       .from('resume_sections')
-      .select('*')
+      .select('id')
       .ilike('section_name', 'experience')
       .maybeSingle();
       
     if (sectionError) {
-      console.error('Error fetching experience section:', sectionError);
-      return { success: false, error: sectionError, items: [] };
+      return {
+        success: false,
+        error: sectionError,
+        message: `Error finding experience section: ${sectionError.message}`
+      };
     }
     
     if (!experienceSection) {
-      console.warn('Experience section not found');
-      return { success: false, error: null, items: [] };
+      return {
+        success: true,
+        items: [],
+        message: 'No experience section found'
+      };
     }
     
-    // Now, get all experience items
+    // Now get the items in the experience section
     const { data: items, error: itemsError } = await supabase
       .from('resume_items')
       .select('*')
@@ -79,20 +117,24 @@ export const checkExperienceItems = async () => {
       .order('display_order', { ascending: true });
       
     if (itemsError) {
-      console.error('Error fetching experience items:', itemsError);
-      return { success: false, error: itemsError, items: [] };
+      return {
+        success: false,
+        error: itemsError,
+        message: `Error fetching experience items: ${itemsError.message}`
+      };
     }
     
-    console.log('Experience items check result:', items);
-    
-    return { 
-      success: true, 
-      error: null, 
+    return {
+      success: true,
       items: items || [],
-      sectionId: experienceSection.id
+      message: `Found ${items?.length || 0} experience items`
     };
   } catch (error) {
     console.error('Error in checkExperienceItems:', error);
-    return { success: false, error, items: [] };
+    return {
+      success: false,
+      error,
+      message: `Error checking experience items: ${error instanceof Error ? error.message : 'Unknown error'}`
+    };
   }
 };

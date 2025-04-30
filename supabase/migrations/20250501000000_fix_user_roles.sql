@@ -33,9 +33,19 @@ BEGIN
   
   -- Ensure there's at least one admin user
   IF NOT EXISTS (SELECT 1 FROM public.profiles WHERE is_admin = true) THEN
-    UPDATE public.profiles
-    SET is_admin = true
-    WHERE id = (SELECT id FROM public.profiles ORDER BY created_at ASC LIMIT 1);
+    -- Create a default profile with admin privileges if none exists
+    INSERT INTO public.profiles (
+      id,
+      username,
+      full_name,
+      is_admin
+    ) VALUES (
+      '00000000-0000-0000-0000-000000000000',
+      'admin@example.com',
+      'Default Admin',
+      true
+    )
+    ON CONFLICT (id) DO NOTHING;
   END IF;
 END;
 $$;
@@ -86,6 +96,30 @@ BEGIN
     CREATE TRIGGER on_auth_user_created
       AFTER INSERT ON auth.users
       FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
+  END IF;
+END
+$$;
+
+-- Run the sync_missing_profiles function to create any missing profiles
+SELECT sync_missing_profiles();
+
+-- Initialize resume sections if they don't exist
+DO $$
+BEGIN
+  -- Check if resume sections exist
+  IF NOT EXISTS (SELECT 1 FROM public.resume_sections LIMIT 1) THEN
+    -- Insert basic resume sections
+    INSERT INTO public.resume_sections (section_name, display_order)
+    VALUES 
+      ('about', 1),
+      ('experience', 2),
+      ('education', 3),
+      ('skills', 4),
+      ('interests', 5),
+      ('awards', 6)
+    ON CONFLICT DO NOTHING;
+
+    RAISE NOTICE 'Resume sections initialized';
   END IF;
 END
 $$;

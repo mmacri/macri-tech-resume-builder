@@ -56,7 +56,7 @@ export function useSupabaseAuth() {
       // First, check if the user's email matches any of our known admin emails
       const { data: userData } = await supabase.auth.getUser();
       const email = userData?.user?.email?.toLowerCase();
-      const isKnownAdmin = email === 'mike@mikemacri.com' || email === 'mike@gmail.com';
+      const isKnownAdmin = email === 'mike@mikemacri.com' || email === 'mikemacri@gmail.com';
       
       if (isKnownAdmin) {
         console.log('User has a known admin email address, setting as admin');
@@ -110,7 +110,11 @@ export function useSupabaseAuth() {
         setIsAdmin(profile.is_admin || false);
       } else {
         console.log('No profile found, running sync');
-        await supabase.rpc('sync_missing_profiles');
+        try {
+          await supabase.rpc('sync_missing_profiles');
+        } catch (syncError) {
+          console.error('Error running sync_missing_profiles:', syncError);
+        }
         
         // Set default admin status based on email
         setIsAdmin(isKnownAdmin);
