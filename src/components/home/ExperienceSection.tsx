@@ -43,8 +43,11 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
     return `${formatDate(startDate)} - ${formatDate(endDate)}`;
   };
 
-  // If items is not an array or is empty, show a message only in admin mode
-  if (!Array.isArray(items) || items.length === 0) {
+  // If items is null or undefined, use an empty array
+  const safeItems = Array.isArray(items) ? items : [];
+  
+  // If items is empty after making it safe, show a message
+  if (safeItems.length === 0) {
     return (
       <section className="resume-section" id="experience">
         <div className="resume-section-content px-4 md:px-8">
@@ -86,7 +89,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
       <div className="resume-section-content px-4 md:px-8">
         <h2 className="text-4xl font-bold mb-8">Experience</h2>
 
-        {items.map((item, index) => (
+        {safeItems.map((item, index) => (
           <div key={item.id || index} className="card mb-6">
             <div className="card-body">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">

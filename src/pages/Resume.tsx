@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { AlertTriangle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
 
 const Resume = () => {
   const { isAdmin } = useAuth();
@@ -39,6 +40,7 @@ const Resume = () => {
         // Use empty array instead of throwing error for empty sections
         if (!sections || sections.length === 0) {
           console.warn('No resume sections found in database, using fallback data');
+          toast.warning('No resume data found. Please initialize data from the Admin Dashboard.');
           return [];
         }
         
@@ -56,7 +58,10 @@ const Resume = () => {
           
           if (itemsError) {
             console.error(`Error fetching items for section ${section.section_name}:`, itemsError);
-            throw itemsError;
+            return {
+              ...section,
+              items: []
+            };
           }
           
           console.log(`Found ${items?.length || 0} items for section ${section.section_name} in Resume page`);
@@ -70,10 +75,12 @@ const Resume = () => {
         return sectionsWithItems;
       } catch (error) {
         console.error('Error in resume sections query:', error);
+        toast.error('Failed to load resume data. Please try again or initialize data from the Admin Dashboard.');
         // Return empty array to use fallback data
         return [];
       }
-    }
+    },
+    staleTime: 60000 // 1 minute cache
   });
 
   const getSectionItems = (sectionName: string) => {
