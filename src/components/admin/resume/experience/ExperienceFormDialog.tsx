@@ -48,10 +48,7 @@ const ExperienceFormDialog: React.FC<ExperienceFormDialogProps> = ({
             <Input
               id="organization"
               value={currentItem?.organization || ''}
-              onChange={(e) => setCurrentItem({ 
-                ...currentItem, 
-                organization: e.target.value
-              })}
+              onChange={(e) => setCurrentItem({ ...currentItem, organization: e.target.value })}
               placeholder="Company Name"
             />
           </div>
