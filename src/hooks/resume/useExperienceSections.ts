@@ -20,7 +20,7 @@ export const useExperienceSections = () => {
       const { data, error } = await supabase
         .from('resume_sections')
         .select('*')
-        .eq('section_name', 'experience');
+        .ilike('section_name', 'experience');
       
       if (error) {
         console.error('Error fetching experience section:', error);
