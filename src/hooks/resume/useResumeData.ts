@@ -69,9 +69,11 @@ export const useResumeData = () => {
     staleTime: 30000, // 30 seconds
     retry: 2,
     refetchOnWindowFocus: false,
-    onError: (error) => {
-      console.error('Resume data fetch error:', error);
-      toast.error('Failed to fetch resume data. Using fallback data instead.');
+    meta: {
+      errorHandler: (error: Error) => {
+        console.error('Resume data fetch error:', error);
+        toast.error('Failed to fetch resume data. Using fallback data instead.');
+      }
     }
   });
 };
