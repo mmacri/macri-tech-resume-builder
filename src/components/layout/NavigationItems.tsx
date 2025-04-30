@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { scrollToElement } from '@/utils/scrollUtils';
@@ -48,6 +49,38 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
           onClick={handleAdminDashboardClick}
         >
           {item.label}
+        </a>
+      </li>
+    );
+  }
+  
+  // Special handling for Login/Logout links
+  if (item.label === "Login") {
+    return (
+      <li className="nav-item">
+        <Link 
+          to="/auth" 
+          className={`nav-link block py-2 hover:opacity-80 transition-opacity ${isActive ? 'font-bold' : ''}`}
+          onClick={() => handleNavLinkClick('/auth')}
+        >
+          Login
+        </Link>
+      </li>
+    );
+  }
+  
+  if (item.label === "Logout" && item.onClick) {
+    return (
+      <li className="nav-item">
+        <a 
+          href="#"
+          className="nav-link block py-2 hover:opacity-80 transition-opacity"
+          onClick={(e) => {
+            e.preventDefault();
+            if (item.onClick) item.onClick();
+          }}
+        >
+          Logout
         </a>
       </li>
     );
@@ -132,9 +165,16 @@ export const NavigationItems: React.FC<NavigationItemsProps> = ({
   handleNavLinkClick, 
   currentPath 
 }) => {
+  const { user } = useAuth();
+  
+  // Debug the current navigation items
+  console.log("Navigation Items:", navItems);
+  console.log("User logged in:", !!user);
+  
   return (
     <ul className="space-y-2">
-      {navItems.map((item, index) => (
+      {/* Always shown navigation items */}
+      {navItems.filter(item => item.label !== "Login" && item.label !== "Logout").map((item, index) => (
         <NavigationItem 
           key={index} 
           item={item} 
@@ -142,6 +182,25 @@ export const NavigationItems: React.FC<NavigationItemsProps> = ({
           isActive={currentPath === item.href}
         />
       ))}
+      
+      {/* Login/Logout based on authentication status */}
+      {user ? (
+        // Show logout if user is logged in
+        navItems.find(item => item.label === "Logout") && (
+          <NavigationItem 
+            item={navItems.find(item => item.label === "Logout")!} 
+            handleNavLinkClick={handleNavLinkClick} 
+            isActive={false}
+          />
+        )
+      ) : (
+        // Show login if user is not logged in
+        <NavigationItem 
+          item={{ label: "Login", href: "/auth" }} 
+          handleNavLinkClick={handleNavLinkClick} 
+          isActive={currentPath === "/auth"}
+        />
+      )}
     </ul>
   );
 };

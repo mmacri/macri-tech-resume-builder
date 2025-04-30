@@ -33,6 +33,7 @@ export const useNavigationItems = () => {
       baseItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
     }
     
+    // Always add login/logout at the end
     if (user) {
       return [
         ...baseItems,
@@ -59,6 +60,7 @@ export const useNavigationItems = () => {
       baseItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
     }
     
+    // Always add login/logout at the end
     if (user) {
       return [
         ...baseItems,
@@ -88,6 +90,7 @@ export const useNavigationItems = () => {
       baseItems.push({ label: "Create Post", href: "#create-post" });
     }
     
+    // Always add login/logout at the end
     if (user) {
       return [
         ...baseItems,
@@ -120,6 +123,7 @@ export const useNavigationItems = () => {
       baseItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
     }
     
+    // Always add login/logout at the end
     if (user) {
       return [
         ...baseItems,

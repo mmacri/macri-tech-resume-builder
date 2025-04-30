@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationItems } from './NavigationItems';
 import { SidebarHeader } from './SidebarHeader';
 import { SocialIcons } from './SocialIcons';
@@ -31,7 +31,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { signOut } = useAuth();
+  const { user, signOut } = useAuth();
+
+  // Debug the state of the sidebar
+  useEffect(() => {
+    console.log('Sidebar rendered - Current user:', user?.email);
+    console.log('Navigation items:', navItems);
+  }, [user, navItems]);
 
   const handleLogout = async () => {
     await signOut();
