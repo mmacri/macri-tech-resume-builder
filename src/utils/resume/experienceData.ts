@@ -23,12 +23,7 @@ export const createExperienceData = async (sectionId: string) => {
     
     if ((count || 0) > 0) {
       console.log(`Section already has ${count} items`);
-      
-      // If force parameter is not provided, don't overwrite existing data
-      if (count && count > 0) {
-        console.log('Keeping existing experience items');
-        return;
-      }
+      return;
     }
   
     // Clear any existing experience items for this section

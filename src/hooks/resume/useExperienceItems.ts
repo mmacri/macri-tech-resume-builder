@@ -78,8 +78,6 @@ export const useExperienceItems = (sectionId: string | undefined) => {
     },
     enabled: true, // Enable the query even without sectionId, we'll try to find it
     staleTime: 5000, // 5 seconds before considering data stale
-    retry: 3, // Increase retries
-    retryDelay: 1000,
   });
 
   return {
