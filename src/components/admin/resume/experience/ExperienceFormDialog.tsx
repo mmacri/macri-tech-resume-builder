@@ -21,6 +21,11 @@ const ExperienceFormDialog: React.FC<ExperienceFormDialogProps> = ({
   isPending,
   onClose
 }) => {
+  const formatDate = (dateString: string | null | undefined): string => {
+    if (!dateString) return '';
+    return dateString;
+  };
+
   return (
     <DialogContent className="sm:max-w-[600px]">
       <DialogHeader>
@@ -43,7 +48,11 @@ const ExperienceFormDialog: React.FC<ExperienceFormDialogProps> = ({
             <Input
               id="organization"
               value={currentItem?.organization || ''}
-              onChange={(e) => setCurrentItem({ ...currentItem, organization: e.target.value })}
+              onChange={(e) => setCurrentItem({ 
+                ...currentItem, 
+                organization: e.target.value,
+                company: e.target.value 
+              })}
               placeholder="Company Name"
             />
           </div>
@@ -62,7 +71,7 @@ const ExperienceFormDialog: React.FC<ExperienceFormDialogProps> = ({
               <Input
                 id="start_date"
                 type="date"
-                value={currentItem?.start_date || ''}
+                value={formatDate(currentItem?.start_date)}
                 onChange={(e) => setCurrentItem({ ...currentItem, start_date: e.target.value })}
               />
             </div>
@@ -71,7 +80,7 @@ const ExperienceFormDialog: React.FC<ExperienceFormDialogProps> = ({
               <Input
                 id="end_date"
                 type="date"
-                value={currentItem?.end_date || ''}
+                value={formatDate(currentItem?.end_date)}
                 onChange={(e) => setCurrentItem({ ...currentItem, end_date: e.target.value })}
                 placeholder="Leave blank for 'Present'"
               />

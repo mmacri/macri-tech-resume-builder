@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useExperienceSections } from './resume/useExperienceSections';
-import { useExperienceItems } from './resume/useExperienceItems';
+import { useExperienceItems, ExperienceItem } from './resume/useExperienceItems';
 import { useExperienceMutations } from './resume/useExperienceMutations';
 import { useAdminUpdate } from '@/contexts/AdminUpdateContext';
 import { toast } from 'sonner';
@@ -13,10 +13,12 @@ export const useExperienceManagement = () => {
   const queryClient = useQueryClient();
   const { updateResume, updateIndex } = useAdminUpdate();
 
-  // Fix: Access sections directly instead of from data property
+  // Get the experience section ID
   const { sections, isLoading: isSectionsLoading } = useExperienceSections();
-  // Fix: Access items directly instead of from data property, and use isItemsLoading directly
-  const { items, isItemsLoading } = useExperienceItems(sections?.[0]?.id);
+  const sectionId = sections?.[0]?.id;
+  
+  // Get experience items
+  const { items, isItemsLoading } = useExperienceItems(sectionId);
   const { addItem, updateItem, deleteItem, reorderItems } = useExperienceMutations();
 
   // If neither is selected, default to updating Resume
@@ -24,6 +26,8 @@ export const useExperienceManagement = () => {
 
   const mutation = useMutation({
     mutationFn: async (formData: any) => {
+      console.log('Submitting form data:', formData);
+      
       if (formData.id) {
         // Update existing item
         return await updateItem(formData, { updateIndex, updateResume: effectiveUpdateResume });
@@ -53,7 +57,8 @@ export const useExperienceManagement = () => {
       setCurrentItem(null);
     },
     onError: (error) => {
-      toast.error(`Error: ${error.message}`);
+      console.error('Mutation error:', error);
+      toast.error(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   });
 
@@ -61,6 +66,7 @@ export const useExperienceManagement = () => {
     setCurrentItem({
       title: '',
       company: '',
+      organization: '',
       location: '',
       start_date: '',
       end_date: '',
@@ -70,16 +76,19 @@ export const useExperienceManagement = () => {
     setIsDialogOpen(true);
   };
 
-  const handleEditItem = (item: any) => {
+  const handleEditItem = (item: ExperienceItem) => {
+    console.log('Editing item:', item);
     setCurrentItem({
       id: item.id,
       title: item.title,
       company: item.organization,
+      organization: item.organization,
       location: item.location,
-      start_date: item.start_date,
-      end_date: item.end_date,
-      description: item.description,
-      duties: item.duties || []
+      start_date: item.start_date || '',
+      end_date: item.end_date || '',
+      description: item.description || '',
+      duties: item.duties || [],
+      section_id: item.section_id
     });
     setIsDialogOpen(true);
   };
@@ -97,7 +106,7 @@ export const useExperienceManagement = () => {
     }
   };
 
-  const handleMoveUp = async (item: any, index: number) => {
+  const handleMoveUp = async (item: ExperienceItem, index: number) => {
     if (index === 0 || !items) return;
     
     const prevItem = items[index - 1];
@@ -109,7 +118,7 @@ export const useExperienceManagement = () => {
     }
   };
 
-  const handleMoveDown = async (item: any, index: number) => {
+  const handleMoveDown = async (item: ExperienceItem, index: number) => {
     if (!items || index === items.length - 1) return;
     
     const nextItem = items[index + 1];
@@ -121,8 +130,10 @@ export const useExperienceManagement = () => {
     }
   };
 
-  const handleSubmit = (formData: any) => {
-    mutation.mutate(formData);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Submitting form with data:', currentItem);
+    mutation.mutate(currentItem);
   };
 
   return {

@@ -22,11 +22,11 @@ export const createExperienceData = async (sectionId: string) => {
     }
     
     if ((count || 0) > 0) {
-      console.log(`Section already has ${count} items`);
+      console.log(`Section already has ${count} items, skipping creation`);
       return;
     }
   
-    // Clear any existing experience items for this section
+    // Clear any existing experience items for this section as a safety measure
     const { error: deleteError } = await supabase
       .from('resume_items')
       .delete()
