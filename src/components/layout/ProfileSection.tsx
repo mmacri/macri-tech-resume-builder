@@ -19,7 +19,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
   const navigate = useNavigate();
   const { user, isAdmin } = useAuth();
   
-  // Add special handling for known admin emails
+  // Check for known admin emails as an additional safety measure
   const isKnownAdmin = user?.email === 'mike@mikemacri.com' || user?.email === 'mike@gmail.com';
   const effectiveIsAdmin = isAdmin || isKnownAdmin;
   

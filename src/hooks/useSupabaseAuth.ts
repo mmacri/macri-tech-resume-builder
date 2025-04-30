@@ -56,7 +56,7 @@ export function useSupabaseAuth() {
       // First, check if the user's email matches any of our known admin emails
       const { data: userData } = await supabase.auth.getUser();
       const email = userData?.user?.email?.toLowerCase();
-      const isKnownAdmin = email === 'mike@mikemacri.com' || email === 'mikemacri@gmail.com';
+      const isKnownAdmin = email === 'mike@mikemacri.com' || email === 'mike@gmail.com';
       
       if (isKnownAdmin) {
         console.log('User has a known admin email address, setting as admin');
