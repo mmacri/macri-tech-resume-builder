@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Dialog } from '@/components/ui/dialog';
 import { useUserManagement } from '@/hooks/useUserManagement';
 import UsersList from './UsersList';
@@ -26,7 +26,8 @@ const AdminUsers = () => {
     toggleAdmin,
     showAddUserDialog,
     setShowAddUserDialog,
-    addUser
+    addUser,
+    deleteUser
   } = useUserManagement();
 
   return (
@@ -48,9 +49,10 @@ const AdminUsers = () => {
 
       <Alert className="mb-6">
         <InfoIcon className="h-4 w-4" />
-        <AlertTitle>Database Integration</AlertTitle>
+        <AlertTitle>User Management</AlertTitle>
         <AlertDescription>
-          This section shows actual users from your database. You can manage user permissions and details here.
+          This section allows you to manage user accounts in your application. You can add, edit, 
+          and delete users, as well as toggle their administrator privileges.
         </AlertDescription>
       </Alert>
 

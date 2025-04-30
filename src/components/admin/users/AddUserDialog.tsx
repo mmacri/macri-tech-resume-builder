@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { UserProfile } from '@/types/user';
 import { Label } from '@/components/ui/label';
+import { toast } from 'sonner';
 
 interface AddUserDialogProps {
   onSubmit: (userData: Partial<UserProfile>) => void;
@@ -18,10 +19,25 @@ const AddUserDialog: React.FC<AddUserDialogProps> = ({ onSubmit, onClose }) => {
     username: '',
     is_admin: false
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(userData);
+    
+    // Basic validation
+    if (!userData.username) {
+      toast.error('Email/Username is required');
+      return;
+    }
+    
+    setIsSubmitting(true);
+    
+    try {
+      onSubmit(userData);
+    } catch (error) {
+      console.error('Error submitting user data:', error);
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -61,7 +77,9 @@ const AddUserDialog: React.FC<AddUserDialogProps> = ({ onSubmit, onClose }) => {
           <Button type="button" variant="outline" onClick={onClose}>
             Cancel
           </Button>
-          <Button type="submit">Add User</Button>
+          <Button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Adding...' : 'Add User'}
+          </Button>
         </DialogFooter>
       </form>
     </DialogContent>
