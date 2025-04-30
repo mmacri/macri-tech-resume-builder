@@ -1,6 +1,6 @@
 
 import React from 'react';
-import AboutForm from './about/AboutForm';
+import AboutWrapper from './about/AboutWrapper';
 
 /**
  * AdminAbout is the main component for the About section administration
@@ -9,7 +9,7 @@ import AboutForm from './about/AboutForm';
 const AdminAbout = () => {
   return (
     <div>
-      <AboutForm />
+      <AboutWrapper />
     </div>
   );
 };
