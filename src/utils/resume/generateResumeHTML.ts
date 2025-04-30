@@ -1,57 +1,19 @@
 
-import { format } from 'date-fns';
 import { initialAboutData } from './aboutData';
+import { parseContactInfo, formatDateString } from './html/resumeFormatters';
+import { generateResumeStyles } from './html/resumeStyles';
+import { 
+  generateExperiencesSection, 
+  generateEducationSection, 
+  generateSkillsSection,
+  generateAboutSkillsSection,
+  generateReferencesSection
+} from './html/resumeSections';
+import { AboutInfo } from './html/resumeTypes';
 
-// Define interface for the about data structure
-interface AboutInfo {
-  full_name?: string;
-  headline?: string;
-  intro_text?: string;
-  locations?: string[];
-  skills_items?: string[];
-  success_items?: string[];
-  references?: string[];
-  email?: string;
-  phone?: string;
-}
-
-// Format date string for the resume
-export const formatDateString = (dateString: string | null | undefined) => {
-  if (!dateString) return 'Present';
-  try {
-    const date = new Date(dateString);
-    return format(date, 'MMM yyyy');
-  } catch (e) {
-    return dateString;
-  }
-};
-
-// Helper function to parse contact info from the about description
-export const parseContactInfo = (description: string) => {
-  if (!description) return '';
-  
-  let contactHTML = '';
-  try {
-    // Try to parse as JSON first
-    const contactData = JSON.parse(description) as AboutInfo;
-    if (typeof contactData === 'object') {
-      if (contactData.email) contactHTML += `Email: ${contactData.email}`;
-      // Removed phone number display
-      if (contactData.locations && contactData.locations.length > 0) {
-        contactHTML += contactHTML ? ` | ${contactData.locations.join(', ')}` : contactData.locations.join(', ');
-      }
-      return contactHTML;
-    }
-  } catch (e) {
-    // If not JSON, use as plain text
-    console.log('Contact info is not in JSON format, using as plain text');
-    return description;
-  }
-  
-  return description;
-};
-
-// Generate HTML content for the resume
+/**
+ * Generate HTML content for the resume
+ */
 export const generateResumeHTML = (aboutData: any, experiences: any[], education: any[], skills: any[]) => {
   console.log('Generating resume HTML with data:', { 
     aboutData: !!aboutData, 
@@ -88,91 +50,7 @@ export const generateResumeHTML = (aboutData: any, experiences: any[], education
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Mike Macri Resume</title>
       <style>
-        body {
-          font-family: Arial, sans-serif;
-          line-height: 1.6;
-          color: #333;
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 20px;
-        }
-        h1 {
-          font-size: 24px;
-          margin-bottom: 5px;
-        }
-        h2 {
-          font-size: 18px;
-          border-bottom: 1px solid #ccc;
-          padding-bottom: 5px;
-          margin-top: 20px;
-        }
-        h3 {
-          font-size: 16px;
-          margin-bottom: 5px;
-        }
-        .header {
-          text-align: center;
-          margin-bottom: 20px;
-        }
-        .contact-info {
-          text-align: center;
-          margin-bottom: 20px;
-          font-size: 14px;
-        }
-        .section {
-          margin-bottom: 20px;
-        }
-        .experience-item, .education-item {
-          margin-bottom: 15px;
-        }
-        .job-title, .degree {
-          font-weight: bold;
-        }
-        .company-name, .school-name {
-          font-style: italic;
-        }
-        .date-range {
-          float: right;
-          font-size: 14px;
-        }
-        .description {
-          margin-top: 5px;
-          font-size: 14px;
-        }
-        .skills-list {
-          display: flex;
-          flex-wrap: wrap;
-          list-style: none;
-          padding: 0;
-        }
-        .skills-list li {
-          margin-right: 15px;
-          margin-bottom: 5px;
-        }
-        .skills-section, .success-section {
-          margin-top: 15px;
-        }
-        .skills-section ul, .success-section ul {
-          padding-left: 20px;
-        }
-        .references-section {
-          margin-top: 15px;
-        }
-        .reference-item {
-          font-style: italic;
-          margin-bottom: 10px;
-          padding-left: 20px;
-          border-left: 2px solid #ccc;
-        }
-        @media print {
-          body {
-            padding: 0;
-            max-width: 100%;
-          }
-          @page {
-            margin: 0.5in;
-          }
-        }
+        ${generateResumeStyles()}
       </style>
     </head>
     <body>
@@ -190,76 +68,19 @@ export const generateResumeHTML = (aboutData: any, experiences: any[], education
         <p>${aboutInfo?.intro_text || initialAboutData.intro_text}</p>
       </div>
       
-      <div class="section">
-        <table width="100%" cellpadding="5">
-          <tr valign="top">
-            ${skillItems && skillItems.length > 0 ? `
-            <td width="50%">
-              <h3>Professional Skills</h3>
-              <ul>
-                ${skillItems.map((skill: string) => `<li>${skill}</li>`).join('')}
-              </ul>
-            </td>
-            ` : ''}
-            
-            ${successItems && successItems.length > 0 ? `
-            <td width="50%">
-              <h3>Demonstrated Success</h3>
-              <ul>
-                ${successItems.map((success: string) => `<li>${success}</li>`).join('')}
-              </ul>
-            </td>
-            ` : ''}
-          </tr>
-        </table>
-      </div>
+      ${generateAboutSkillsSection(skillItems, successItems)}
       
-      ${references && references.length > 0 ? `
-      <div class="section references-section">
-        <h2>References</h2>
-        ${references.map((reference: string) => `
-          <div class="reference-item">
-            "${reference}"
-          </div>
-        `).join('')}
-      </div>
-      ` : ''}
+      ${generateReferencesSection(references)}
       
-      <div class="section">
-        <h2>Professional Experience</h2>
-        ${experiences.map(exp => `
-          <div class="experience-item">
-            <div class="date-range">${formatDateString(exp.start_date)} - ${formatDateString(exp.end_date)}</div>
-            <div class="job-title">${exp.title}</div>
-            <div class="company-name">${exp.organization || ''}</div>
-            ${exp.description ? `
-              <ul class="description">
-                ${exp.description.split('\\n').map(point => `<li>${point}</li>`).join('')}
-              </ul>
-            ` : ''}
-          </div>
-        `).join('')}
-      </div>
+      ${generateExperiencesSection(experiences)}
       
-      <div class="section">
-        <h2>Education</h2>
-        ${education.map(edu => `
-          <div class="education-item">
-            <div class="date-range">${formatDateString(edu.start_date)} - ${formatDateString(edu.end_date)}</div>
-            <div class="degree">${edu.title}</div>
-            <div class="school-name">${edu.organization || ''}</div>
-            ${edu.description ? `<div class="description">${edu.description}</div>` : ''}
-          </div>
-        `).join('')}
-      </div>
+      ${generateEducationSection(education)}
       
-      <div class="section">
-        <h2>Skills</h2>
-        <ul class="skills-list">
-          ${skills.map(skill => `<li>${skill.title}</li>`).join('')}
-        </ul>
-      </div>
+      ${generateSkillsSection(skills)}
     </body>
     </html>
   `;
 };
+
+// Re-export formatDateString and parseContactInfo for backward compatibility
+export { formatDateString, parseContactInfo } from './html/resumeFormatters';
