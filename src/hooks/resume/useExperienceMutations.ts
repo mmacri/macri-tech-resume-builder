@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -21,12 +22,11 @@ export const useExperienceMutations = () => {
       .from('resume_items')
       .insert({
         title: item.title,
-        organization: item.company,
+        organization: item.organization,
         location: item.location,
         start_date: item.start_date,
         end_date: item.end_date,
         description: item.description,
-        duties: item.duties,
         section_id: item.section_id,
         display_order: item.display_order
       })
@@ -51,12 +51,11 @@ export const useExperienceMutations = () => {
       .from('resume_items')
       .update({
         title: item.title,
-        organization: item.company,
+        organization: item.organization,
         location: item.location,
         start_date: item.start_date,
         end_date: item.end_date,
         description: item.description,
-        duties: item.duties,
         updated_at: new Date().toISOString()
       })
       .eq('id', item.id)

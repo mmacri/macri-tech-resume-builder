@@ -65,13 +65,11 @@ export const useExperienceManagement = () => {
   const handleNewItem = () => {
     setCurrentItem({
       title: '',
-      company: '',
       organization: '',
       location: '',
       start_date: '',
       end_date: '',
-      description: '',
-      duties: []
+      description: ''
     });
     setIsDialogOpen(true);
   };
@@ -81,13 +79,11 @@ export const useExperienceManagement = () => {
     setCurrentItem({
       id: item.id,
       title: item.title,
-      company: item.organization,
       organization: item.organization,
       location: item.location,
       start_date: item.start_date || '',
       end_date: item.end_date || '',
       description: item.description || '',
-      duties: item.duties || [],
       section_id: item.section_id
     });
     setIsDialogOpen(true);
