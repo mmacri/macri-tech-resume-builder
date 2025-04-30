@@ -5,6 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
 import { forceInitExperience } from '@/utils/resume/forceInitExperience';
+import { initializeResumeData } from '@/utils/resume/initializeResumeData';
 
 interface ResumeDataLoaderProps {
   onDataLoaded: (sections: any[]) => void;
@@ -24,6 +25,19 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
       console.log('Fetching resume sections data for Home page');
       
       try {
+        // Attempt to auto-initialize data if admin
+        if (isAdmin) {
+          try {
+            console.log('Attempting to auto-initialize resume data...');
+            const initResult = await initializeResumeData({});
+            if (initResult.success) {
+              console.log('Auto-initialized resume data successfully');
+            }
+          } catch (initError) {
+            console.error('Error auto-initializing data:', initError);
+          }
+        }
+
         // Get all sections
         const { data: sections, error: sectionsError } = await supabase
           .from('resume_sections')
@@ -79,8 +93,33 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
       }
     },
     staleTime: 30 * 60 * 1000, // 30 minutes
-    retry: 2
+    retry: 3
   });
+
+  // Initial data check and auto-initialization
+  useEffect(() => {
+    if (!isLoading && (!resumeSections || resumeSections.length === 0)) {
+      console.log('No resume sections found on initial load, attempting to force initialize...');
+      
+      // Initialize data automatically
+      if (isAdmin) {
+        initializeResumeData({ force: true })
+          .then(result => {
+            if (result.success) {
+              console.log('Successfully initialized resume data');
+              toast.success('Resume data initialized successfully');
+              setTimeout(() => refetch(), 1000); // Refetch after a short delay
+            } else {
+              console.error('Failed to initialize resume data:', result.message);
+              toast.error('Failed to initialize resume data. Please try again.');
+            }
+          })
+          .catch(err => {
+            console.error('Error during force initialization:', err);
+          });
+      }
+    }
+  }, [isLoading, resumeSections, isAdmin, refetch]);
 
   // Check if we need to force initialize experience data
   useEffect(() => {
@@ -96,6 +135,8 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
               if (result.initialized) {
                 toast.success('Experience data initialized successfully');
                 refetch();
+              } else if (result.message) {
+                console.log('Force init message:', result.message);
               }
             })
             .catch(err => {
