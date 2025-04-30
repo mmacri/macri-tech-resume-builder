@@ -23,7 +23,7 @@ export const parseContactInfo = (description: string) => {
     if (typeof contactData === 'object') {
       if (contactData.email) contactHTML += `Email: ${contactData.email} | `;
       if (contactData.phone) contactHTML += `Phone: ${contactData.phone} | `;
-      if (contactData.address) contactHTML += `${contactData.address}`;
+      if (contactData.locations && contactData.locations.length > 0) contactHTML += `${contactData.locations.join(', ')}`;
       return contactHTML;
     }
   } catch (e) {
@@ -43,6 +43,20 @@ export const generateResumeHTML = (aboutData: any, experiences: any[], education
     educationCount: education.length,
     skillsCount: skills.length
   });
+  
+  // Parse about data if it's a JSON string
+  let aboutInfo = {};
+  if (aboutData?.description) {
+    try {
+      aboutInfo = JSON.parse(aboutData.description);
+    } catch (e) {
+      console.error('Error parsing about data description:', e);
+    }
+  }
+  
+  // Extract skills and success items
+  const skillItems = aboutInfo?.skills_items || [];
+  const successItems = aboutInfo?.success_items || [];
   
   return `
     <!DOCTYPE html>
@@ -113,6 +127,12 @@ export const generateResumeHTML = (aboutData: any, experiences: any[], education
           margin-right: 15px;
           margin-bottom: 5px;
         }
+        .skills-section, .success-section {
+          margin-top: 15px;
+        }
+        .skills-section ul, .success-section ul {
+          padding-left: 20px;
+        }
         @media print {
           body {
             padding: 0;
@@ -126,13 +146,35 @@ export const generateResumeHTML = (aboutData: any, experiences: any[], education
     </head>
     <body>
       <div class="header">
-        <h1>${aboutData?.title || 'Mike Macri'}</h1>
-        ${aboutData?.subtitle ? `<p>${aboutData.subtitle}</p>` : ''}
+        <h1>${aboutInfo?.full_name || aboutData?.title || 'Mike Macri'}</h1>
+        ${aboutInfo?.headline ? `<p>${aboutInfo.headline}</p>` : aboutData?.subtitle ? `<p>${aboutData.subtitle}</p>` : ''}
       </div>
       
       <div class="contact-info">
         ${aboutData?.description ? parseContactInfo(aboutData.description) : ''}
       </div>
+      
+      <div class="section">
+        <p>${aboutInfo?.intro_text || ''}</p>
+      </div>
+      
+      ${skillItems.length > 0 ? `
+      <div class="section skills-section">
+        <h2>Professional Skills</h2>
+        <ul>
+          ${skillItems.map((skill: string) => `<li>${skill}</li>`).join('')}
+        </ul>
+      </div>
+      ` : ''}
+      
+      ${successItems.length > 0 ? `
+      <div class="section success-section">
+        <h2>Demonstrated Success</h2>
+        <ul>
+          ${successItems.map((success: string) => `<li>${success}</li>`).join('')}
+        </ul>
+      </div>
+      ` : ''}
       
       <div class="section">
         <h2>Professional Experience</h2>

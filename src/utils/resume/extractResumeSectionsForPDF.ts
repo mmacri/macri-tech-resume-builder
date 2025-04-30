@@ -22,6 +22,22 @@ export const extractResumeSection = (resumeSections: any[] | undefined, sectionN
 };
 
 /**
+ * Parse about data description from JSON string to object
+ * @param description - JSON string of about data
+ * @returns Parsed about data object or default structure
+ */
+export const parseAboutData = (description: string | null | undefined) => {
+  if (!description) return null;
+  
+  try {
+    return JSON.parse(description);
+  } catch (e) {
+    console.error('Error parsing about data:', e);
+    return null;
+  }
+};
+
+/**
  * Extract all necessary resume sections for PDF generation
  * @param resumeSections - All resume sections data
  * @returns Object containing extracted sections
@@ -33,9 +49,25 @@ export const extractResumeSectionsForPDF = (resumeSections: any[] | undefined) =
       title: "Mike Macri",
       subtitle: "Information Security & Business Development Professional",
       description: JSON.stringify({
+        full_name: "Mike Macri",
         email: "mike@mikemacri.com",
         phone: "(555) 123-4567",
-        address: "Seattle, WA"
+        address: "Seattle, WA",
+        headline: "Information Security & Business Development Professional",
+        intro_text: "Dedicated technology executive who combines technical expertise with business acumen to drive partner alliances, optimize global operations, and deliver comprehensive solutions to complex challenges.",
+        locations: ["Edmonds, WA", "San Diego, CA", "Remote"],
+        skills_items: [
+          "Operational Efficiency: Implementing practical solutions that cut training time and prevent compliance issues.",
+          "Team Leadership: Building and aligning high-performing teams for clear, measurable results."
+        ],
+        success_items: [
+          "Policy & Compliance: Created PolicyHub for on-demand access to 400+ policies, reducing training time and compliance risk.",
+          "Customer Success: Built playbooks and dashboards that increased product adoption by 21% and raised NPS by 30 points."
+        ],
+        references: [
+          "I have worked with Mike for the past 5 years during my time as an Enterprise Sales Exec at VMware. From Day 1 Mike has been a tremendous business partner.",
+          "I find Mike to be a manager that is a true mentor, coach, and leader. Mike not only guides but listens."
+        ]
       })
     },
     experiences: [

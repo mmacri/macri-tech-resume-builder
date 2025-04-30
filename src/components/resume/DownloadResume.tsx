@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { toast } from 'sonner';
 import { useResumeData } from '@/hooks/resume/useResumeData';
 import { generateResumeHTML } from '@/utils/resume/generateResumeHTML';
-import { extractResumeSectionsForPDF } from '@/utils/resume/extractResumeSections';
+import { extractResumeSectionsForPDF } from '@/utils/resume/extractResumeSectionsForPDF';
 import ResumeInlineButton from './ResumeInlineButton';
 import ResumeFullButton from './ResumeFullButton';
 
