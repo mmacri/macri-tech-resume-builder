@@ -1,9 +1,9 @@
-
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { LayoutDashboard } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import DownloadResume from '@/components/resume/DownloadResume';
 
 interface AboutSectionProps {
   items: any[];
@@ -78,6 +78,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
               href="mailto:MikeMacri@gmail.com">
                 Contact Me
             </a>
+            
+            <DownloadResume inlineButton={true} />
             
             {isAdmin && user && (
               <Button 

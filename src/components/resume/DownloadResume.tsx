@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, Loader2 } from 'lucide-react';
@@ -7,7 +6,11 @@ import { supabase } from '@/integrations/supabase/client';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 
-const DownloadResume = () => {
+interface DownloadResumeProps {
+  inlineButton?: boolean;
+}
+
+const DownloadResume: React.FC<DownloadResumeProps> = ({ inlineButton = false }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   
   // Fetch all resume data sections
@@ -279,6 +282,22 @@ const DownloadResume = () => {
     
     return description;
   };
+
+  if (inlineButton) {
+    return (
+      <Button 
+        onClick={generatePDF} 
+        disabled={isGenerating || isLoading}
+        variant="outline"
+        size="default"
+        className="flex items-center gap-1 border-2 border-d35400 hover:bg-d35400/10"
+        style={{ borderColor: '#d35400', color: '#d35400' }}
+      >
+        {isGenerating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+        {isGenerating ? 'Generating...' : 'Resume'}
+      </Button>
+    );
+  }
 
   return (
     <div className="flex justify-center mt-4 mb-8">

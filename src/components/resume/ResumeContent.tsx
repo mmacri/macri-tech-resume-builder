@@ -6,7 +6,6 @@ import EducationSection from '@/components/home/EducationSection';
 import SkillsSection from '@/components/home/SkillsSection';
 import InterestsSection from '@/components/home/InterestsSection';
 import AwardsSection from '@/components/home/AwardsSection';
-import DownloadResume from '@/components/resume/DownloadResume';
 
 interface ResumeContentProps {
   resumeSections: any[];
@@ -26,7 +25,6 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
 
   return (
     <>
-      <DownloadResume />
       <AboutSection items={getSectionItems('about')} />
       <hr className="m-0" />
       <ExperienceSection items={getSectionItems('experience')} />
