@@ -1,11 +1,12 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import AboutSection from '@/components/home/AboutSection';
 import ExperienceSection from '@/components/home/ExperienceSection';
 import EducationSection from '@/components/home/EducationSection';
 import SkillsSection from '@/components/home/SkillsSection';
 import InterestsSection from '@/components/home/InterestsSection';
 import AwardsSection from '@/components/home/AwardsSection';
+import DownloadResume from '@/components/resume/DownloadResume';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -14,6 +15,7 @@ import { AlertTriangle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
+import { forceInitExperience } from '@/utils/resume/forceInitExperience';
 
 const Resume = () => {
   const { isAdmin } = useAuth();
@@ -83,6 +85,30 @@ const Resume = () => {
     staleTime: 60000 // 1 minute cache
   });
 
+  // Check if we need to force initialize experience data
+  useEffect(() => {
+    if (!isLoading && resumeSections) {
+      const experienceSection = resumeSections.find(s => s.section_name === 'experience');
+      if (experienceSection && (!experienceSection.items || experienceSection.items.length === 0)) {
+        console.log('Experience section exists but has no items, attempting to force initialize...');
+        
+        // Only initialize if admin
+        if (isAdmin) {
+          forceInitExperience()
+            .then(result => {
+              if (result.initialized) {
+                toast.success('Experience data initialized successfully');
+                refetch();
+              }
+            })
+            .catch(err => {
+              console.error('Failed to initialize experience data:', err);
+            });
+        }
+      }
+    }
+  }, [isLoading, resumeSections, isAdmin, refetch]);
+
   const getSectionItems = (sectionName: string) => {
     if (isLoading || !resumeSections) return [];
     const section = resumeSections.find(s => s.section_name === sectionName);
@@ -141,6 +167,7 @@ const Resume = () => {
   // Always render sections - they will use fallback data if needed
   return (
     <>
+      <DownloadResume />
       <AboutSection items={getSectionItems('about')} />
       <hr className="m-0" />
       <ExperienceSection items={getSectionItems('experience')} />

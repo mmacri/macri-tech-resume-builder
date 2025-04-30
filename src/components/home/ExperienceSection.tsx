@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { toast } from 'sonner';
 
 interface ExperienceSectionProps {
   items: any[];
@@ -43,10 +44,10 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
     return `${formatDate(startDate)} - ${formatDate(endDate)}`;
   };
 
-  // If items is null or undefined, use an empty array
+  // Ensure items is always an array (handle null, undefined, or non-array values)
   const safeItems = Array.isArray(items) ? items : [];
   
-  // If items is empty after making it safe, show a message
+  // Check if there are any items to display after making sure it's a valid array
   if (safeItems.length === 0) {
     return (
       <section className="resume-section" id="experience">
@@ -69,7 +70,10 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
               <div className="mt-4 space-y-2">
                 <Button 
                   variant="outline" 
-                  onClick={() => navigate('/admin-dashboard')}
+                  onClick={() => {
+                    navigate('/admin-dashboard');
+                    toast.info("Please use the 'Reset Resume Data' button to initialize all sections");
+                  }}
                 >
                   Go to Admin Dashboard
                 </Button>

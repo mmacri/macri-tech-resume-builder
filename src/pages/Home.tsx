@@ -14,6 +14,7 @@ import { AlertTriangle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
+import { forceInitExperience } from '@/utils/resume/forceInitExperience';
 
 const Home = () => {
   const { user, isAdmin } = useAuth();
@@ -58,7 +59,10 @@ const Home = () => {
           
           if (itemsError) {
             console.error(`Error fetching items for section ${section.section_name}:`, itemsError);
-            throw itemsError;
+            return {
+              ...section,
+              items: []
+            };
           }
           
           const itemCount = items?.length || 0;
@@ -80,6 +84,30 @@ const Home = () => {
     staleTime: 30 * 60 * 1000, // 30 minutes
     retry: 2
   });
+
+  // Check if we need to force initialize experience data
+  useEffect(() => {
+    if (!isLoading && resumeSections) {
+      const experienceSection = resumeSections.find(s => s.section_name === 'experience');
+      if (experienceSection && (!experienceSection.items || experienceSection.items.length === 0)) {
+        console.log('Experience section exists but has no items, attempting to force initialize...');
+        
+        // Only initialize if admin
+        if (isAdmin) {
+          forceInitExperience()
+            .then(result => {
+              if (result.initialized) {
+                toast.success('Experience data initialized successfully');
+                refetch();
+              }
+            })
+            .catch(err => {
+              console.error('Failed to initialize experience data:', err);
+            });
+        }
+      }
+    }
+  }, [isLoading, resumeSections, isAdmin, refetch]);
 
   // Effect to log data load results
   useEffect(() => {
