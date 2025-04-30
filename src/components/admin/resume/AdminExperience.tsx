@@ -8,6 +8,7 @@ import ExperienceTable from './experience/ExperienceTable';
 import ExperienceFormDialog from './experience/ExperienceFormDialog';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { InfoIcon } from 'lucide-react';
+import { toast } from 'sonner';
 
 const AdminExperience = () => {
   const {
@@ -28,11 +29,14 @@ const AdminExperience = () => {
 
   // Check if there are items on initial load
   useEffect(() => {
-    if (!isItemsLoading && (!items || items.length === 0)) {
-      console.log("No experience items found in AdminExperience component");
-    } else if (!isItemsLoading && items && items.length > 0) {
-      console.log(`Found ${items.length} experience items in AdminExperience`);
-      console.log('First item:', items[0]);
+    if (!isItemsLoading) {
+      if (!items || items.length === 0) {
+        console.log("No experience items found in AdminExperience component");
+        toast.warning("No experience items found. You can add new items or initialize resume data.");
+      } else {
+        console.log(`Found ${items.length} experience items in AdminExperience`);
+        console.log('First item:', items[0]);
+      }
     }
   }, [items, isItemsLoading]);
 

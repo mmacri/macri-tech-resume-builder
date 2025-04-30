@@ -35,15 +35,14 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
 
   // Log the items to debug
   console.log('Experience items received in ExperienceSection component:', items);
-  if (items.length > 0) {
+  if (items && items.length > 0) {
     console.log('First experience item details:', items[0]);
   } else {
-    console.log('No experience items found. This could mean the database is not initialized or the experience section is missing.');
+    console.log('No experience items found. This may be an issue with data fetching or empty array passed to the component.');
   }
 
-  // If no items are provided, show a placeholder message
-  if (!items || items.length === 0) {
-    console.warn('No experience items found to display');
+  // If items is not an array or is empty, show a message only in admin mode
+  if (!Array.isArray(items) || items.length === 0) {
     return (
       <section className="resume-section" id="experience">
         <div className="resume-section-content px-4 md:px-8">
