@@ -1,5 +1,19 @@
 
 import { format } from 'date-fns';
+import { initialAboutData } from './aboutData';
+
+// Define interface for the about data structure
+interface AboutInfo {
+  full_name?: string;
+  headline?: string;
+  intro_text?: string;
+  locations?: string[];
+  skills_items?: string[];
+  success_items?: string[];
+  references?: string[];
+  email?: string;
+  phone?: string;
+}
 
 // Format date string for the resume
 export const formatDateString = (dateString: string | null | undefined) => {
@@ -19,7 +33,7 @@ export const parseContactInfo = (description: string) => {
   let contactHTML = '';
   try {
     // Try to parse as JSON first
-    const contactData = JSON.parse(description);
+    const contactData = JSON.parse(description) as AboutInfo;
     if (typeof contactData === 'object') {
       if (contactData.email) contactHTML += `Email: ${contactData.email} | `;
       if (contactData.phone) contactHTML += `Phone: ${contactData.phone} | `;
@@ -45,18 +59,23 @@ export const generateResumeHTML = (aboutData: any, experiences: any[], education
   });
   
   // Parse about data if it's a JSON string
-  let aboutInfo = {};
+  let aboutInfo: AboutInfo = {};
   if (aboutData?.description) {
     try {
-      aboutInfo = JSON.parse(aboutData.description);
+      aboutInfo = JSON.parse(aboutData.description) as AboutInfo;
     } catch (e) {
       console.error('Error parsing about data description:', e);
+      // Use initial data as fallback
+      aboutInfo = { ...initialAboutData };
     }
+  } else {
+    // Use initial data as fallback
+    aboutInfo = { ...initialAboutData };
   }
   
-  // Extract skills and success items
-  const skillItems = aboutInfo?.skills_items || [];
-  const successItems = aboutInfo?.success_items || [];
+  // Extract skills and success items with fallbacks
+  const skillItems = aboutInfo?.skills_items || initialAboutData.skills_items;
+  const successItems = aboutInfo?.success_items || initialAboutData.success_items;
   
   return `
     <!DOCTYPE html>
@@ -146,19 +165,20 @@ export const generateResumeHTML = (aboutData: any, experiences: any[], education
     </head>
     <body>
       <div class="header">
-        <h1>${aboutInfo?.full_name || aboutData?.title || 'Mike Macri'}</h1>
-        ${aboutInfo?.headline ? `<p>${aboutInfo.headline}</p>` : aboutData?.subtitle ? `<p>${aboutData.subtitle}</p>` : ''}
+        <h1>${aboutInfo?.full_name || aboutData?.title || initialAboutData.full_name}</h1>
+        ${aboutInfo?.headline ? `<p>${aboutInfo.headline}</p>` : aboutData?.subtitle ? `<p>${aboutData.subtitle}</p>` : `<p>${initialAboutData.headline}</p>`}
       </div>
       
       <div class="contact-info">
-        ${aboutData?.description ? parseContactInfo(aboutData.description) : ''}
+        ${aboutData?.description ? parseContactInfo(aboutData.description) : 
+          `Email: ${initialAboutData.email} | Phone: ${initialAboutData.phone} | ${initialAboutData.locations.join(', ')}`}
       </div>
       
       <div class="section">
-        <p>${aboutInfo?.intro_text || ''}</p>
+        <p>${aboutInfo?.intro_text || initialAboutData.intro_text}</p>
       </div>
       
-      ${skillItems.length > 0 ? `
+      ${skillItems && skillItems.length > 0 ? `
       <div class="section skills-section">
         <h2>Professional Skills</h2>
         <ul>
@@ -167,7 +187,7 @@ export const generateResumeHTML = (aboutData: any, experiences: any[], education
       </div>
       ` : ''}
       
-      ${successItems.length > 0 ? `
+      ${successItems && successItems.length > 0 ? `
       <div class="section success-section">
         <h2>Demonstrated Success</h2>
         <ul>
