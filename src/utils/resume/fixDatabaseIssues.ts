@@ -1,142 +1,65 @@
 
 import { supabase } from '@/integrations/supabase/client';
 import { initializeResumeData } from './initializeResumeData';
-import { createExperienceData } from './experienceData';
+import { forceInitExperience } from './forceInitExperience';
 import { toast } from 'sonner';
 
 /**
- * Utility to diagnose and fix common database issues
- */
-export const diagnoseDatabaseIssues = async (): Promise<{ 
-  success: boolean; 
-  issues: string[];
-  fixes: string[];
-}> => {
-  const issues: string[] = [];
-  const fixes: string[] = [];
-  
-  try {
-    console.log('Running database diagnostics...');
-    
-    // Check for resume sections
-    const { data: sections, error: sectionError } = await supabase
-      .from('resume_sections')
-      .select('*');
-      
-    if (sectionError) {
-      issues.push(`Database connection error: ${sectionError.message}`);
-      console.error('Database connection error:', sectionError);
-      return { success: false, issues, fixes };
-    }
-    
-    if (!sections || sections.length === 0) {
-      issues.push('Missing resume sections');
-      console.log('No resume sections found - will attempt to fix');
-      
-      try {
-        const result = await initializeResumeData({ force: true });
-        if (result.success) {
-          fixes.push('Created resume sections structure');
-          console.log('Successfully created resume sections');
-        } else {
-          issues.push(`Failed to create resume sections: ${result.message}`);
-          console.error('Failed to create resume sections:', result.message);
-        }
-      } catch (initError) {
-        issues.push(`Error initializing data: ${initError instanceof Error ? initError.message : 'Unknown error'}`);
-        console.error('Error initializing data:', initError);
-      }
-    } else {
-      console.log(`Found ${sections.length} resume sections`);
-      
-      // Check sections for missing items
-      for (const section of sections) {
-        const { count, error: countError } = await supabase
-          .from('resume_items')
-          .select('*', { count: 'exact', head: true })
-          .eq('section_id', section.id);
-          
-        if (countError) {
-          issues.push(`Error checking items for section ${section.section_name}: ${countError.message}`);
-          console.error(`Error checking items for section ${section.section_name}:`, countError);
-          continue;
-        }
-        
-        if ((count || 0) === 0) {
-          issues.push(`Section "${section.section_name}" has no items`);
-          console.log(`Section ${section.section_name} has no items - will attempt to fix`);
-          
-          if (section.section_name === 'experience') {
-            try {
-              await createExperienceData(section.id);
-              fixes.push(`Added items to "${section.section_name}" section`);
-              console.log(`Successfully added items to ${section.section_name} section`);
-            } catch (dataError) {
-              issues.push(`Failed to add items to "${section.section_name}" section: ${dataError instanceof Error ? dataError.message : 'Unknown error'}`);
-              console.error(`Failed to add items to ${section.section_name} section:`, dataError);
-            }
-          }
-        } else {
-          console.log(`Section ${section.section_name} has ${count} items`);
-        }
-      }
-    }
-    
-    return {
-      success: issues.length === 0 || fixes.length > 0,
-      issues,
-      fixes
-    };
-  } catch (error) {
-    console.error('Error diagnosing database issues:', error);
-    issues.push(`Unexpected error: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    return { success: false, issues, fixes };
-  }
-};
-
-/**
- * Fix common database issues
+ * Utility to diagnose and fix database issues
  */
 export const fixDatabaseIssues = async (): Promise<boolean> => {
   try {
-    const diagnosis = await diagnoseDatabaseIssues();
+    console.log('Checking for database issues...');
     
-    if (diagnosis.issues.length === 0) {
-      toast.success('No database issues detected');
-      return true;
+    // Test database connection first
+    const { data, error } = await supabase.from('resume_sections').select('count').limit(1);
+    
+    if (error) {
+      console.error('Database connection error:', error);
+      toast.error(`Database connection issue: ${error.message}`);
+      return false;
     }
     
-    // Display issues
-    for (const issue of diagnosis.issues) {
-      toast.error(`Issue: ${issue}`);
+    console.log('Database connection successful, attempting to initialize resume data...');
+    
+    // Force initialize resume data with all sections
+    const initResult = await initializeResumeData({ force: true });
+    
+    if (!initResult.success) {
+      console.error('Failed to initialize resume data:', initResult.message);
+      toast.error(`Initialization failed: ${initResult.message}`);
+      return false;
     }
     
-    // Report fixes
-    for (const fix of diagnosis.fixes) {
-      toast.success(`Fixed: ${fix}`);
+    // Ensure experience data is created
+    console.log('Forcing experience data initialization...');
+    const experienceResult = await forceInitExperience();
+    
+    if (!experienceResult.initialized) {
+      console.log('Experience initialization status:', experienceResult.message);
+    } else {
+      console.log('Experience data initialized successfully');
     }
     
-    // If fixes were applied, run another check to make sure everything is fixed
-    if (diagnosis.fixes.length > 0) {
-      console.log('Fixes applied, running second diagnostic check...');
+    // Double check that data exists now
+    const { data: sections, error: sectionsError } = await supabase
+      .from('resume_sections')
+      .select('*');
       
-      try {
-        // Force initialize all resume data
-        const initResult = await initializeResumeData({ force: true });
-        if (initResult.success) {
-          toast.success('Successfully initialized all resume data');
-          return true;
-        } else {
-          toast.error(`Failed to initialize data: ${initResult.message}`);
-          return false;
-        }
-      } catch (error) {
-        toast.error(`Error during fix: ${error instanceof Error ? error.message : 'Unknown error'}`);
-        return false;
-      }
+    if (sectionsError) {
+      console.error('Error checking sections after initialization:', sectionsError);
+      return false;
     }
     
-    return diagnosis.success;
+    if (!sections || sections.length === 0) {
+      console.error('No resume sections found after initialization');
+      toast.error('Database initialization failed - no sections created');
+      return false;
+    }
+    
+    console.log(`Found ${sections.length} resume sections after initialization`);
+    toast.success(`Database fixed successfully! Created ${sections.length} resume sections.`);
+    return true;
   } catch (error) {
     console.error('Error fixing database issues:', error);
     toast.error(`Unexpected error: ${error instanceof Error ? error.message : 'Unknown error'}`);

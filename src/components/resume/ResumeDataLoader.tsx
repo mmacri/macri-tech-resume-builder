@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -17,6 +17,7 @@ interface ResumeDataLoaderProps {
  */
 const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDataError }) => {
   const { isAdmin } = useAuth();
+  const [autoInitAttempted, setAutoInitAttempted] = useState(false);
   
   // Fetch resume sections data
   const { data: resumeSections, isLoading, error, refetch } = useQuery({
@@ -25,22 +26,6 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
       console.log('Fetching resume sections data for Resume page');
       
       try {
-        // Force initialize data if admin
-        if (isAdmin) {
-          try {
-            console.log('Attempting to auto-initialize resume data...');
-            const initResult = await initializeResumeData({ force: true });
-            if (initResult.success) {
-              console.log('Auto-initialized resume data successfully');
-              toast.success('Resume data initialized successfully!');
-            } else {
-              console.warn('Auto-initialization message:', initResult.message);
-            }
-          } catch (initError) {
-            console.error('Error auto-initializing data:', initError);
-          }
-        }
-        
         // Get all sections
         const { data: sections, error: sectionsError } = await supabase
           .from('resume_sections')
@@ -52,9 +37,9 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
           throw sectionsError;
         }
         
-        // Use empty array instead of throwing error for empty sections
+        // If no sections found, return empty array
         if (!sections || sections.length === 0) {
-          console.warn('No resume sections found in database, trying to initialize data');
+          console.warn('No resume sections found in database');
           return [];
         }
         
@@ -82,21 +67,63 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
           };
         }));
         
+        // Check if any sections actually have items
+        const hasItems = sectionsWithItems.some(section => 
+          section.items && section.items.length > 0
+        );
+        
+        if (!hasItems) {
+          console.warn('No resume items found in any section');
+        }
+        
         return sectionsWithItems;
       } catch (error) {
         console.error('Error in resume sections query:', error);
-        // Return empty array to use fallback data
-        return [];
+        throw error;
       }
     },
     staleTime: 60000, // 1 minute cache
-    retry: 3
+    retry: 3,
+    retryDelay: 1000
   });
 
+  // Auto-initialize data if admin and no data found
+  useEffect(() => {
+    if (isAdmin && 
+        !isLoading && 
+        (!resumeSections || resumeSections.length === 0) && 
+        !autoInitAttempted) {
+      
+      setAutoInitAttempted(true);
+      
+      console.log('No resume sections found. Attempting auto-initialization...');
+      
+      // Auto-initialize after a short delay to prevent race conditions
+      const timer = setTimeout(() => {
+        initializeResumeData({ force: true })
+          .then(result => {
+            if (result.success) {
+              console.log('Auto-initialization successful');
+              toast.success('Resume data initialized automatically');
+              refetch();
+            } else {
+              console.error('Auto-initialization failed:', result.message);
+            }
+          })
+          .catch(err => {
+            console.error('Error during auto-initialization:', err);
+          });
+      }, 1000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading, resumeSections, isAdmin, refetch, autoInitAttempted]);
+  
   // Effect to force initialize experience data if needed
   useEffect(() => {
-    if (!isLoading && resumeSections) {
+    if (!isLoading && resumeSections && resumeSections.length > 0) {
       const experienceSection = resumeSections.find(s => s.section_name === 'experience');
+      
       if (experienceSection && (!experienceSection.items || experienceSection.items.length === 0)) {
         console.log('Experience section exists but has no items, attempting to force initialize...');
         
@@ -123,7 +150,10 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
         console.error('Error loading resume data:', error);
         onDataError(error as Error);
       } else {
-        console.log(`Loaded ${resumeSections?.length || 0} resume sections in Resume page`);
+        const sectionCount = resumeSections?.length || 0;
+        console.log(`Loaded ${sectionCount} resume sections in Resume page`);
+        
+        // Pass the sections even if empty - this allows conditional UI rendering
         onDataLoaded(resumeSections || []);
       }
     }
