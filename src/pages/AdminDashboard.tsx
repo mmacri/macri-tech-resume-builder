@@ -18,6 +18,7 @@ const AdminDashboard = () => {
   const [allSectionsReady, setAllSectionsReady] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
   const [lastError, setLastError] = useState<string | null>(null);
+  const [diagInfo, setDiagInfo] = useState<any>(null);
   const { initializeData, isInitializing, error } = useInitializeResumeData();
   const navigate = useNavigate();
   
@@ -26,15 +27,41 @@ const AdminDashboard = () => {
     const checkContent = async () => {
       try {
         setIsChecking(true);
+        setLastError(null);
+        
+        // First check the database connection directly
+        const { data: connTest, error: connError } = await supabase
+          .from('resume_sections')
+          .select('count(*)', { count: 'exact', head: true });
+          
+        if (connError) {
+          console.error('Database connection test failed:', connError);
+          setLastError(`Database connection issue: ${connError.message}`);
+          setDiagInfo({ connError });
+          return;
+        }
         
         // Use our diagnostic function to check resume sections
         const sectionsResult = await checkResumeSections();
         console.log('Resume sections check result:', sectionsResult);
         
+        // Store diagnostic info
+        setDiagInfo({
+          sectionsResult,
+          timestamp: new Date().toISOString()
+        });
+        
         if (sectionsResult.success && sectionsResult.sections.length > 0) {
           // Check experience items
           const experienceResult = await checkExperienceItems();
           console.log('Experience items check result:', experienceResult);
+          setDiagInfo(prev => ({
+            ...prev,
+            experienceResult
+          }));
+        } else if (!sectionsResult.success) {
+          setLastError(`Resume sections check failed: ${sectionsResult.error}`);
+          return;
         }
         
         // Check resume sections
@@ -42,21 +69,30 @@ const AdminDashboard = () => {
           .from('resume_sections')
           .select('*', { count: 'exact', head: true });
           
-        if (sectionError) throw sectionError;
+        if (sectionError) {
+          setLastError(`Error checking sections: ${sectionError.message}`);
+          throw sectionError;
+        }
         
         // Check portfolio projects
         const { count: projectCount, error: projectError } = await supabase
           .from('portfolio_projects')
           .select('*', { count: 'exact', head: true });
           
-        if (projectError) throw projectError;
+        if (projectError) {
+          setLastError(`Error checking projects: ${projectError.message}`);
+          throw projectError;
+        }
         
         // Check blog posts
         const { count: blogCount, error: blogError } = await supabase
           .from('blog_posts')
           .select('*', { count: 'exact', head: true });
           
-        if (blogError) throw blogError;
+        if (blogError) {
+          setLastError(`Error checking blog posts: ${blogError.message}`);
+          throw blogError;
+        }
         
         // Set status based on whether content exists
         setAllSectionsReady(
@@ -64,6 +100,20 @@ const AdminDashboard = () => {
           (projectCount || 0) > 0 &&
           (blogCount || 0) > 0
         );
+        
+        setDiagInfo(prev => ({
+          ...prev,
+          sectionCount,
+          projectCount,
+          blogCount
+        }));
+        
+        console.log('Content check completed:', {
+          sectionCount,
+          projectCount,
+          blogCount,
+          allSectionsReady: (sectionCount || 0) > 0 && (projectCount || 0) > 0 && (blogCount || 0) > 0
+        });
       } catch (error) {
         console.error('Error checking content:', error);
         toast.error('Failed to check content status');
@@ -94,6 +144,7 @@ const AdminDashboard = () => {
   const handleInitializeData = () => {
     console.log('Initializing data with default options');
     setLastError(null);
+    toast.info('Starting resume data initialization...');
     initializeData({});
   };
 
@@ -101,6 +152,7 @@ const AdminDashboard = () => {
     if (window.confirm('This will reset all resume data with fresh sample data. Are you sure?')) {
       console.log('Initializing data with force option');
       setLastError(null);
+      toast.info('Starting forced resume data initialization...');
       initializeData({ force: true });
     }
   };
@@ -115,7 +167,23 @@ const AdminDashboard = () => {
       setLastError(null);
       toast.info('Checking database status...');
       
+      // First check DB connection
+      const { data: connTest, error: connError } = await supabase
+        .from('resume_sections')
+        .select('count(*)', { count: 'exact' });
+        
+      if (connError) {
+        console.error('Database connection test failed:', connError);
+        toast.error(`Database connection issue: ${connError.message}`);
+        setLastError(`Database connection issue: ${connError.message}`);
+        return;
+      }
+      
+      toast.success('Database connection successful.');
+      
       const sectionsResult = await checkResumeSections();
+      console.log('Sections check result:', sectionsResult);
+      
       if (sectionsResult.success) {
         if (sectionsResult.sections.length === 0) {
           toast.warning('No resume sections found. Please initialize data.');

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { format, parse } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +14,16 @@ interface ExperienceSectionProps {
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => {
   const navigate = useNavigate();
   const { isAdmin } = useAuth();
+  
+  // Log items for debugging
+  useEffect(() => {
+    console.log('Experience items received in ExperienceSection component:', items);
+    if (items && items.length > 0) {
+      console.log('First experience item details:', items[0]);
+    } else {
+      console.log('No experience items found in ExperienceSection component');
+    }
+  }, [items]);
   
   // Function to format date
   const formatDate = (dateString: string | null) => {
@@ -32,14 +42,6 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
   const formatDateRange = (startDate: string | null, endDate: string | null) => {
     return `${formatDate(startDate)} - ${formatDate(endDate)}`;
   };
-
-  // Log the items to debug
-  console.log('Experience items received in ExperienceSection component:', items);
-  if (items && items.length > 0) {
-    console.log('First experience item details:', items[0]);
-  } else {
-    console.log('No experience items found. This may be an issue with data fetching or empty array passed to the component.');
-  }
 
   // If items is not an array or is empty, show a message only in admin mode
   if (!Array.isArray(items) || items.length === 0) {

@@ -50,7 +50,7 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
         const { error: deleteItemsError } = await supabase
           .from('resume_items')
           .delete()
-          .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all items
+          .is('id', 'not.null'); // Delete all items
           
         if (deleteItemsError) {
           console.error('Error deleting resume items:', deleteItemsError);
@@ -61,7 +61,7 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
         const { error: deleteSectionsError } = await supabase
           .from('resume_sections')
           .delete()
-          .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all sections
+          .is('id', 'not.null'); // Delete all sections
           
         if (deleteSectionsError) {
           console.error('Error deleting resume sections:', deleteSectionsError);
