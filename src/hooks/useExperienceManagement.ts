@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useExperienceSections } from './resume/useExperienceSections';
 import { useExperienceItems, ExperienceItem } from './resume/useExperienceItems';
-import { useExperienceMutations } from './resume/useExperienceMutations';
+import { useExperienceMutations, UpdateOptions } from './resume/useExperienceMutations';
 import { useAdminUpdate } from '@/contexts/AdminUpdateContext';
 import { toast } from 'sonner';
 
