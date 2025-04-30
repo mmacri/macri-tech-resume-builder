@@ -159,7 +159,7 @@ export const initializeResumeData = async (options: InitializeDataOptions = {}):
       const { data: experienceSection } = await supabase
         .from('resume_sections')
         .select('id')
-        .eq('section_name', 'experience')
+        .ilike('section_name', 'experience')
         .maybeSingle();
         
       if (experienceSection) {

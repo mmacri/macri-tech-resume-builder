@@ -91,7 +91,7 @@ const Home = () => {
   const getSectionItems = (sectionName: string) => {
     if (isLoading || !resumeSections || resumeSections.length === 0) return [];
     
-    const section = resumeSections.find(s => s.section_name === sectionName);
+    const section = resumeSections.find(s => s.section_name.toLowerCase() === sectionName.toLowerCase());
     const items = section?.items || [];
     console.log(`Getting items for ${sectionName} in Home:`, items.length);
     return items;

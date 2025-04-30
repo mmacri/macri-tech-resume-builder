@@ -58,7 +58,7 @@ export const checkExperienceItems = async () => {
     const { data: experienceSection, error: sectionError } = await supabase
       .from('resume_sections')
       .select('*')
-      .eq('section_name', 'experience')
+      .ilike('section_name', 'experience')
       .maybeSingle();
       
     if (sectionError) {
