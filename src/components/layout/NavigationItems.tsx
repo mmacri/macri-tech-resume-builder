@@ -46,7 +46,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
       <li className="nav-item">
         <a 
           href="#"
-          className={`nav-link block py-2 hover:opacity-80 transition-opacity ${isActive ? 'font-bold' : ''}`}
+          className={`nav-link block py-1.5 hover:opacity-80 transition-opacity ${isActive ? 'font-bold' : ''}`}
           onClick={handleAdminDashboardClick}
         >
           {item.label}
@@ -61,7 +61,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
       <li className="nav-item">
         <Link 
           to="/auth" 
-          className={`nav-link block py-2 hover:opacity-80 transition-opacity ${isActive ? 'font-bold' : ''}`}
+          className={`nav-link block py-1.5 hover:opacity-80 transition-opacity ${isActive ? 'font-bold' : ''}`}
           onClick={() => handleNavLinkClick('/auth')}
         >
           Login
@@ -76,7 +76,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
       <li className="nav-item">
         <a 
           href="#"
-          className="nav-link block py-2 hover:opacity-80 transition-opacity"
+          className="nav-link block py-1.5 hover:opacity-80 transition-opacity"
           onClick={(e) => {
             e.preventDefault();
             if (item.onClick) item.onClick();
@@ -93,7 +93,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
       <li className="nav-item">
         <a 
           href={item.href} 
-          className="nav-link block py-2 hover:opacity-80 transition-opacity"
+          className="nav-link block py-1.5 hover:opacity-80 transition-opacity"
           onClick={() => handleNavLinkClick(item.href || '')}
           target="_blank"
           rel="noopener noreferrer"
@@ -109,7 +109,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
       <li className="nav-item">
         <a 
           href="#"
-          className="nav-link block py-2 hover:opacity-80 transition-opacity"
+          className="nav-link block py-1.5 hover:opacity-80 transition-opacity"
           onClick={(e) => {
             e.preventDefault();
             if (item.onClick) item.onClick();
@@ -126,7 +126,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
       <li className="nav-item">
         <a 
           href={item.href} 
-          className="nav-link block py-2 hover:opacity-80 transition-opacity"
+          className="nav-link block py-1.5 hover:opacity-80 transition-opacity"
           onClick={(e) => {
             e.preventDefault();
             handleNavLinkClick(item.href || '');
@@ -142,7 +142,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     <li className="nav-item">
       <Link 
         to={item.href || '/'} 
-        className={`nav-link block py-2 hover:opacity-80 transition-opacity ${isActive ? 'font-bold' : ''}`}
+        className={`nav-link block py-1.5 hover:opacity-80 transition-opacity ${isActive ? 'font-bold' : ''}`}
         onClick={() => handleNavLinkClick(item.href || '')}
       >
         {item.label}
@@ -169,20 +169,55 @@ export const NavigationItems: React.FC<NavigationItemsProps> = ({
 }) => {
   const { user } = useAuth();
   
+  // Group navigation items by category
+  const mainNavItems = navItems.filter(item => 
+    !['Login', 'Logout', 'Admin Dashboard'].includes(item.label));
+  const adminItems = navItems.filter(item => 
+    item.label === 'Admin Dashboard');
+  const authItems = navItems.filter(item => 
+    ['Login', 'Logout'].includes(item.label));
+  
   // Debug the current navigation items
   console.log("Navigation Items:", navItems);
   console.log("User logged in:", !!user);
   
   return (
-    <ul className="space-y-2">
-      {navItems.map((item, index) => (
-        <NavigationItem 
-          key={index} 
-          item={item} 
-          handleNavLinkClick={handleNavLinkClick} 
-          isActive={currentPath === item.href}
-        />
-      ))}
-    </ul>
+    <div className="flex flex-col justify-between h-full py-2">
+      {/* Main navigation links */}
+      <div className="space-y-0.5">
+        <ul>
+          {mainNavItems.map((item, index) => (
+            <NavigationItem 
+              key={index} 
+              item={item} 
+              handleNavLinkClick={handleNavLinkClick} 
+              isActive={currentPath === item.href}
+            />
+          ))}
+        </ul>
+      </div>
+      
+      {/* Admin and auth links at the bottom */}
+      <div className="mt-auto space-y-1 pt-2 border-t border-white/20">
+        <ul>
+          {adminItems.map((item, index) => (
+            <NavigationItem 
+              key={index} 
+              item={item} 
+              handleNavLinkClick={handleNavLinkClick} 
+              isActive={currentPath === item.href}
+            />
+          ))}
+          {authItems.map((item, index) => (
+            <NavigationItem 
+              key={index} 
+              item={item} 
+              handleNavLinkClick={handleNavLinkClick} 
+              isActive={currentPath === item.href}
+            />
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 };

@@ -1,4 +1,3 @@
-
 import { useAuth } from '@/contexts/AuthContext';
 
 interface NavItem {
@@ -28,23 +27,21 @@ export const useNavigationItems = () => {
       { label: "Resume", href: "/resume" },
     ];
     
-    // Add admin dashboard link for admin users
+    // Always add admin dashboard link for admin users at the end
+    const authItems: NavItem[] = [];
+    
     if (user && effectiveIsAdmin) {
-      baseItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
+      authItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
     }
     
     // Always add login/logout at the end
     if (user) {
-      return [
-        ...baseItems,
-        { label: "Logout", onClick: signOut, href: "#" },
-      ];
+      authItems.push({ label: "Logout", onClick: signOut, href: "#" });
     } else {
-      return [
-        ...baseItems,
-        { label: "Login", href: "/auth" },
-      ];
+      authItems.push({ label: "Login", href: "/auth" });
     }
+    
+    return [...baseItems, ...authItems];
   };
 
   const getPortfolioNavItems = (): NavItem[] => {
@@ -55,23 +52,21 @@ export const useNavigationItems = () => {
       { label: "Resume", href: "/resume" },
     ];
     
-    // Add admin dashboard link for admin users
+    // Always add admin dashboard link for admin users at the end
+    const authItems: NavItem[] = [];
+    
     if (user && effectiveIsAdmin) {
-      baseItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
+      authItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
     }
     
     // Always add login/logout at the end
     if (user) {
-      return [
-        ...baseItems,
-        { label: "Logout", onClick: signOut, href: "#" },
-      ];
+      authItems.push({ label: "Logout", onClick: signOut, href: "#" });
     } else {
-      return [
-        ...baseItems,
-        { label: "Login", href: "/auth" },
-      ];
+      authItems.push({ label: "Login", href: "/auth" });
     }
+    
+    return [...baseItems, ...authItems];
   };
 
   const getBlogNavItems = (): NavItem[] => {
@@ -82,26 +77,24 @@ export const useNavigationItems = () => {
       { label: "Resume", href: "/resume" },
     ];
     
-    // Add admin dashboard link for admin users
+    // Always add admin dashboard link for admin users at the end
+    const authItems: NavItem[] = [];
+    
     if (user && effectiveIsAdmin) {
-      baseItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
+      authItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
       
       // Only add Create Post for admins
-      baseItems.push({ label: "Create Post", href: "#create-post" });
+      authItems.push({ label: "Create Post", href: "#create-post" });
     }
     
     // Always add login/logout at the end
     if (user) {
-      return [
-        ...baseItems,
-        { label: "Logout", onClick: signOut, href: "#" },
-      ];
+      authItems.push({ label: "Logout", onClick: signOut, href: "#" });
     } else {
-      return [
-        ...baseItems,
-        { label: "Login", href: "/auth" },
-      ];
+      authItems.push({ label: "Login", href: "/auth" });
     }
+    
+    return [...baseItems, ...authItems];
   };
 
   // Add a new function for Resume page navigation items
@@ -118,23 +111,21 @@ export const useNavigationItems = () => {
       { label: "Blog", href: "/blog" },
     ];
     
-    // Add admin dashboard link for admin users
+    // Always add admin dashboard link for admin users at the end
+    const authItems: NavItem[] = [];
+    
     if (user && effectiveIsAdmin) {
-      baseItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
+      authItems.push({ label: "Admin Dashboard", href: "/admin-dashboard" });
     }
     
     // Always add login/logout at the end
     if (user) {
-      return [
-        ...baseItems,
-        { label: "Logout", onClick: signOut, href: "#" },
-      ];
+      authItems.push({ label: "Logout", onClick: signOut, href: "#" });
     } else {
-      return [
-        ...baseItems,
-        { label: "Login", href: "/auth" },
-      ];
+      authItems.push({ label: "Login", href: "/auth" });
     }
+    
+    return [...baseItems, ...authItems];
   };
 
   return {

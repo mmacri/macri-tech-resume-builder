@@ -65,7 +65,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           />
         </div>
         
-        <div className={`${isNavOpen ? 'block' : 'hidden'} lg:block overflow-y-auto max-h-[60vh]`}>
+        <div className={`${isNavOpen ? 'flex-1 block' : 'hidden'} lg:block lg:flex-1`}>
           <NavigationItems 
             navItems={navItems}
             handleNavLinkClick={handleNavLinkClick}
@@ -73,7 +73,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           />
         </div>
         
-        <div className={`mt-auto ${isNavOpen ? 'block' : 'hidden'} lg:block pt-6`}>
+        <div className={`${isNavOpen ? 'block' : 'hidden'} lg:block pt-4`}>
           <SocialIcons />
         </div>
       </div>
