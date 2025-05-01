@@ -58,7 +58,7 @@ const ExperienceFormDialog: React.FC<ExperienceFormDialogProps> = ({
               id="location"
               value={currentItem?.location || ''}
               onChange={(e) => setCurrentItem({ ...currentItem, location: e.target.value })}
-              placeholder="City, State"
+              placeholder="City, State or Remote"
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -88,9 +88,12 @@ const ExperienceFormDialog: React.FC<ExperienceFormDialogProps> = ({
               id="description"
               value={currentItem?.description || ''}
               onChange={(e) => setCurrentItem({ ...currentItem, description: e.target.value })}
-              placeholder="Job description and accomplishments"
-              rows={5}
+              placeholder="Job description and accomplishments (use line breaks between bullet points)"
+              rows={8}
             />
+            <p className="text-xs text-gray-500">
+              Enter each bullet point on a new line. They will be displayed as a list.
+            </p>
           </div>
         </div>
         <DialogFooter>

@@ -39,84 +39,64 @@ export const createExperienceData = async (sectionId: string) => {
     
     const experiences = [
       {
-        title: "Sr Manager, InfoSec Solution & Automation Engineering",
-        organization: "ServiceNow.com: Legal, Ethics & Compliance Program",
-        location: null,
+        title: "Sr. Manager, Solution Consulting – Legal Ethics & Compliance",
+        organization: "ServiceNow",
+        location: "Remote",
         start_date: "2021-12-01",
         end_date: null,
-        description: "Created PolicyHub – a self-service portal centralizing 400+ policies – to enable fast, secure access to critical compliance documentation and reduce training dependency.\nEnhanced product features in GRC, Policy & Compliance, Strategic Portfolio Manager, and risk management by aligning cross-functional processes.\nCollaborated with executives to resolve production vulnerabilities, mitigating $900M in annual revenue risk.\nStreamlined workflows and implemented common controls to reduce redundant operations and boost data transparency.",
+        description: "Led internal design and consultative solutioning for GRC, Policy, IRM, and SPM modules within ServiceNow's compliance function.\nCollaborated with stakeholders across Legal, Risk, Security, Product, and Engineering to build value allignment and ServiceNow workflows use.\nCreated and managed PolicyHub 1.0, simplifying access to enterprise policies and accelerating internal enablement across servicenow.\nIntegrated AI/ML governance into enterprise frameworks, serving as SME for the creation of ServiceNow's inaugural responsible AI risk policies & requirements.\nDrove senior executives initiatives that streamlined compliance design to secure budget, that protected against a $900M annual security/compliance risk.",
         section_id: sectionId,
         display_order: 1
       },
       {
-        title: "Partner Business Development & Technical Alliance Director – GSI's Americas",
-        organization: "VMware.com: Global System Integrators Program (GSI/MSP Sales)",
-        location: null,
+        title: "Partner Business & Technical Alliance Director -Americas",
+        organization: "VMware",
+        location: "San Francisco, CA",
         start_date: "2019-11-01",
         end_date: "2021-12-01",
-        description: "Managed VMware's largest alliances with strategic system integrators, driving multi-hundred-million-dollar growth.\nDefined and executed joint business plans that delivered 644% revenue growth in FY21 H1 and 466% in FY21 H2.\nExpanded the quarterly pipeline by 250% through partnerships with DXC, Capgemini, and others.\nAwarded Partner Business Manager MVP and Regional Technical Alliance Manager of the Quarter on multiple occasions.",
+        description: "Led GTM and presales efforts with GSI and SI partners such including DXC, Capgemini, and Accenture.\nDeveloped scalable embedded partner programs and re-platformed service offerings (e.g., DXC VMware Cloud on AWS), aligning go-to-market strategy with partner executive goals.\nDefined and executed joint business plans that led to repeated achievements above 450% of target.\nCollaborated across matrixed SC, ProServ, and specialist teams to support technical sales cycles for strategic system integrator offerings.",
         section_id: sectionId,
         display_order: 2
       },
       {
-        title: "Partner Staff Solutions Engineer",
-        organization: "VMware.com: Channel Partner Engineering",
-        location: null,
+        title: "Partner Staff Solutions Engineer Leader",
+        organization: "VMware",
+        location: "Chicago, IL",
         start_date: "2017-12-01",
         end_date: "2019-12-01",
-        description: "Partnered with CDW to drive $440M through multi-tiered routes-to-market.\nDelivered targeted SaaS and hybrid cloud campaigns that increased pipeline capture by 20%.\nLaunched new upsell and cross-sell programs that resulted in a 20% revenue increase from renewals.\nImplemented technical enablement programs that boosted solution adoption by 20%.",
+        description: "Identified market alignments with partners to deliver targeted SaaS and hybrid cloud campaigns that increased pipeline capture by 21% sell through growth.\nIdentified joint market opportunities and launched upsell and cross-sell programs resulting in a 20% revenue increase from renewals.\nCoached partner architects and SCs to deliver consultative sales motions, resulting in $440M sell-through revenue and 21% YoY growth.",
         section_id: sectionId,
         display_order: 3
       },
       {
-        title: "Sr Manager, Customer Success TAMs & Product Specialists – West Coast Regional Practice",
-        organization: "VMware.com - Pre & Post Sales Solutions",
-        location: null,
-        start_date: "2014-10-01",
+        title: "Sr Manager, Customer Success, TAMs & Product Specialists – West Coast Regional Practice",
+        organization: "VMware",
+        location: "Seattle, WA",
+        start_date: "2014-11-01",
         end_date: "2017-12-01",
-        description: "Developed and branded customer success teams that increased solution adoption by 44% and improved NPS by 30 points (20 points above goal).\nCreated customer success playbooks, account plans, and success metrics that were adopted nationally.\nBuilt Salesforce and Power BI dashboards to identify and track key customer success metrics.",
+        description: "Hired, mentored, and developed customer success teams to deliver a trusted brand increasing product adoption by 44% and improved NPS by 30 points (20 points above goal).\nDeveloped and delivered engagement frameworks that aligned technical outcomes with business value metrics, driving operational efficiency and consistent expansion.",
         section_id: sectionId,
         display_order: 4
       },
       {
-        title: "Staff Technical Account Manager – Team Lead",
-        organization: "VMware.com - Technical Account Solutions",
-        location: null,
+        title: "Staff Technical Account Manager",
+        organization: "VMware",
+        location: "Seattle, WA",
         start_date: "2011-12-01",
         end_date: "2014-11-01",
-        description: "Automated Costco's storefront deployment across 500+ locations, reducing setup time from 4 hours to 10 minutes and generating significant CAPEX/OPEX savings.\nEnabled Nike's adoption of VMware-integrated OpenStack solutions, enhancing operational efficiency and scalability.",
+        description: "Created engagement deliverables aligning customer metrics and enhancing operational efficiency, leading to services attach on all deals.\nCreative solutions that drove product adoption and roadmap expansions. (E.G 500 Costco storefronts in 10 minutes, eliminating on-site visits to free budget for value growth product purchases.",
         section_id: sectionId,
         display_order: 5
       },
       {
-        title: "Senior Systems Engineer – National Channel Partners Team",
+        title: "Technical Partner Lead – Channel Partner Strategy (North America)",
         organization: "VMware",
-        location: null,
-        start_date: "2011-05-01",
+        location: "Seattle, WA",
+        start_date: "2011-01-01",
         end_date: "2011-12-01",
-        description: "Managed channel partner engagement and enablement plans that increased VMware demand by $16.5M in realized revenue.",
+        description: "Served as the technical SME and lead for 3 of VMware's top 10 North American partners, enabling C-level alignment and driving partner adoption of VMware jointly created services.\nDesigned and implemented scalable self-service demo labs initiatives with cloud for partners (Zones, CDW, En Pointe, HP, PCMall) enabling partner-SC enablement and solution delivery.",
         section_id: sectionId,
         display_order: 6
-      },
-      {
-        title: "Group Manager / Lead Senior Consultant",
-        organization: "ISOutsource",
-        location: null,
-        start_date: "2007-01-01",
-        end_date: "2011-05-01",
-        description: "Improved project efficiency and profit margins by 14% using pod-based frameworks.",
-        section_id: sectionId,
-        display_order: 7
-      },
-      {
-        title: "Entrepreneur / Managing Partner",
-        organization: "Connecting Point",
-        location: null,
-        start_date: "2002-11-01",
-        end_date: "2006-12-01",
-        description: "Founded a professional services division that led to acquisition and rebranding as Connecting Point of Indiana.",
-        section_id: sectionId,
-        display_order: 8
       }
     ];
     

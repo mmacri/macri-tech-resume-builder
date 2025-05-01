@@ -16,7 +16,10 @@ export const generateExperiencesSection = (experiences: any[]): string => {
         <div class="experience-item">
           <div class="date-range">${formatDateString(exp.start_date)} - ${formatDateString(exp.end_date)}</div>
           <div class="job-title">${exp.title}</div>
-          <div class="company-name">${exp.organization || ''}</div>
+          <div class="company-name">
+            ${exp.organization || ''}
+            ${exp.location ? `<span class="location"> | ${exp.location}</span>` : ''}
+          </div>
           ${exp.description ? `
             <ul class="description">
               ${exp.description.split('\\n').map(point => `<li>${point}</li>`).join('')}
@@ -43,7 +46,10 @@ export const generateEducationSection = (education: any[]): string => {
         <div class="education-item">
           <div class="date-range">${formatDateString(edu.start_date)} - ${formatDateString(edu.end_date)}</div>
           <div class="degree">${edu.title}</div>
-          <div class="school-name">${edu.organization || ''}</div>
+          <div class="school-name">
+            ${edu.organization || ''}
+            ${edu.location ? `<span class="location"> | ${edu.location}</span>` : ''}
+          </div>
           ${edu.description ? `<div class="description">${edu.description}</div>` : ''}
         </div>
       `).join('')}

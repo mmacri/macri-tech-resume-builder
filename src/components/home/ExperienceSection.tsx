@@ -102,7 +102,12 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
                   {formatDateRange(item.start_date, item.end_date)}
                 </p>
               </div>
-              <h5 className="text-base font-normal text-gray-600 mb-3">{item.organization}</h5>
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-3">
+                <h5 className="text-base font-normal text-gray-600">{item.organization}</h5>
+                {item.location && (
+                  <p className="text-sm text-gray-500">{item.location}</p>
+                )}
+              </div>
               {item.description && (
                 <ul className="list-disc pl-5 text-sm space-y-2 text-gray-700">
                   {item.description.split('\n').map((point: string, i: number) => (
