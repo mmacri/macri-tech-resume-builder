@@ -79,6 +79,12 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
           const itemCount = items?.length || 0;
           console.log(`Found ${itemCount} items for section ${section.section_name}`);
           
+          // Log experience items for debugging
+          if (section.section_name === 'experience' && items && items.length > 0) {
+            console.log('Experience section items:', items.length);
+            console.log('First experience item:', items[0]);
+          }
+          
           return {
             ...section,
             items: items || []
@@ -165,6 +171,14 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
           console.warn('About section empty or not found, data may be incomplete');
         } else {
           console.log('About section data found:', aboutSection.items[0]);
+        }
+        
+        // Check if experience section has data
+        const experienceSection = resumeSections.find(s => s.section_name === 'experience');
+        if (experienceSection && experienceSection.items && experienceSection.items.length > 0) {
+          console.log(`Experience section has ${experienceSection.items.length} items`);
+        } else {
+          console.warn('Experience section has no data');
         }
         
         onDataLoaded(resumeSections);

@@ -22,7 +22,7 @@ export const generateExperiencesSection = (experiences: any[]): string => {
           </div>
           ${exp.description ? `
             <ul class="description">
-              ${exp.description.split('\\n').map(point => `<li>${point}</li>`).join('')}
+              ${exp.description.split('\n').map(point => `<li>${point.trim()}</li>`).join('')}
             </ul>
           ` : ''}
         </div>

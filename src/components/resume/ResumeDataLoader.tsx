@@ -61,11 +61,26 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
             };
           }
           
+          console.log(`Found ${items?.length || 0} items for section ${section.section_name}`);
+          
           return {
             ...section,
             items: items || []
           };
         }));
+        
+        // Log the experience section data specifically for debugging
+        const experienceSection = sectionsWithItems.find(s => s.section_name === 'experience');
+        if (experienceSection) {
+          console.log('Experience section found with', experienceSection.items?.length || 0, 'items');
+          if (experienceSection.items && experienceSection.items.length > 0) {
+            console.log('First experience item:', experienceSection.items[0]);
+          } else {
+            console.warn('No experience items found in experience section');
+          }
+        } else {
+          console.warn('No experience section found');
+        }
         
         // Check if any sections actually have items
         const hasItems = sectionsWithItems.some(section => 
@@ -108,10 +123,12 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
               refetch();
             } else {
               console.error('Auto-initialization failed:', result.message);
+              toast.error('Failed to initialize resume data automatically');
             }
           })
           .catch(err => {
             console.error('Error during auto-initialization:', err);
+            toast.error('Error initializing resume data');
           });
       }, 1000);
       
@@ -133,10 +150,13 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
               if (result.initialized) {
                 toast.success('Experience data initialized successfully');
                 refetch();
+              } else {
+                toast.info('Experience data initialization skipped - may already exist');
               }
             })
             .catch(err => {
               console.error('Failed to initialize experience data:', err);
+              toast.error('Failed to initialize experience data');
             });
         }
       }

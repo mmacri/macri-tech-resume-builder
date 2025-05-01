@@ -39,11 +39,6 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
     }
   };
 
-  // Function to format date range
-  const formatDateRange = (startDate: string | null, endDate: string | null) => {
-    return `${formatDate(startDate)} - ${formatDate(endDate)}`;
-  };
-
   // Ensure items is always an array (handle null, undefined, or non-array values)
   const safeItems = Array.isArray(items) ? items : [];
   
@@ -71,14 +66,15 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
                 <Button 
                   variant="outline" 
                   onClick={() => {
-                    navigate('/admin-dashboard');
-                    toast.info("Please use the 'Reset Resume Data' button to initialize all sections");
+                    localStorage.setItem('activeResumeTab', 'experience');
+                    navigate('/admin#resume');
+                    toast.info("Navigate to the Experience tab to add or manage experience items");
                   }}
                 >
-                  Go to Admin Dashboard
+                  Manage Experience Items
                 </Button>
                 <p className="text-sm text-gray-500 mt-2">
-                  Tip: Click "Reset Resume Data" in the Admin Dashboard to initialize all sections with sample data.
+                  Tip: Use the Experience tab in Resume Management to add or update your experience.
                 </p>
               </div>
             )}
@@ -94,12 +90,12 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
         <h2 className="text-4xl font-bold mb-8">Experience</h2>
 
         {safeItems.map((item, index) => (
-          <div key={item.id || index} className="card mb-6">
+          <div key={item.id || index} className="card mb-8">
             <div className="card-body">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
                 <h3 className="text-xl font-semibold text-gray-800">{item.title}</h3>
                 <p className="text-macri-primary text-sm">
-                  {formatDateRange(item.start_date, item.end_date)}
+                  {formatDate(item.start_date)} - {formatDate(item.end_date)}
                 </p>
               </div>
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-3">
@@ -111,13 +107,27 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
               {item.description && (
                 <ul className="list-disc pl-5 text-sm space-y-2 text-gray-700">
                   {item.description.split('\n').map((point: string, i: number) => (
-                    <li key={i}>{point}</li>
+                    <li key={i}>{point.trim()}</li>
                   ))}
                 </ul>
               )}
             </div>
           </div>
         ))}
+
+        {isAdmin && (
+          <div className="mt-4 text-center">
+            <Button 
+              variant="outline"
+              onClick={() => {
+                localStorage.setItem('activeResumeTab', 'experience');
+                navigate('/admin#resume');
+              }}
+            >
+              Manage Experience Items
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );

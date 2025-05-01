@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { ExperienceItem } from '@/hooks/resume/useExperienceItems';
+import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription } from '@/components/ui/form';
 
 interface ExperienceFormDialogProps {
   currentItem: Partial<ExperienceItem> | null;
@@ -27,7 +28,7 @@ const ExperienceFormDialog: React.FC<ExperienceFormDialogProps> = ({
   };
 
   return (
-    <DialogContent className="sm:max-w-[600px]">
+    <DialogContent className="sm:max-w-[700px]">
       <DialogHeader>
         <DialogTitle>{currentItem?.id ? 'Edit Experience' : 'Add New Experience'}</DialogTitle>
       </DialogHeader>
@@ -80,6 +81,7 @@ const ExperienceFormDialog: React.FC<ExperienceFormDialogProps> = ({
                 onChange={(e) => setCurrentItem({ ...currentItem, end_date: e.target.value })}
                 placeholder="Leave blank for 'Present'"
               />
+              <p className="text-xs text-gray-500">Leave blank for 'Present'</p>
             </div>
           </div>
           <div className="grid gap-2">
@@ -89,11 +91,18 @@ const ExperienceFormDialog: React.FC<ExperienceFormDialogProps> = ({
               value={currentItem?.description || ''}
               onChange={(e) => setCurrentItem({ ...currentItem, description: e.target.value })}
               placeholder="Job description and accomplishments (use line breaks between bullet points)"
-              rows={8}
+              rows={10}
+              className="font-mono text-sm"
             />
-            <p className="text-xs text-gray-500">
-              Enter each bullet point on a new line. They will be displayed as a list.
-            </p>
+            <div className="text-xs text-gray-500 space-y-1">
+              <p>Enter each bullet point on a new line. They will be displayed as a list.</p>
+              <p>Example:</p>
+              <pre className="bg-gray-100 p-2 rounded text-xs">
+                Led internal design and consultative solutioning for GRC modules.
+                Collaborated with stakeholders across multiple departments.
+                Created and managed PolicyHub 1.0, simplifying access to policies.
+              </pre>
+            </div>
           </div>
         </div>
         <DialogFooter>
