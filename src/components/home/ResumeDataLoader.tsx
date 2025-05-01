@@ -165,14 +165,6 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
       } else {
         console.log(`Loaded ${resumeSections.length} resume sections in Home`);
         
-        // Check if about section has data
-        const aboutSection = resumeSections.find(s => s.section_name === 'about');
-        if (!aboutSection || !aboutSection.items || aboutSection.items.length === 0) {
-          console.warn('About section empty or not found, data may be incomplete');
-        } else {
-          console.log('About section data found:', aboutSection.items[0]);
-        }
-        
         // Check if experience section has data
         const experienceSection = resumeSections.find(s => s.section_name === 'experience');
         if (experienceSection && experienceSection.items && experienceSection.items.length > 0) {

@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { ExperienceItem } from '@/hooks/resume/useExperienceItems';
-import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription } from '@/components/ui/form';
 
 interface ExperienceFormDialogProps {
   currentItem: Partial<ExperienceItem> | null;
@@ -85,7 +84,7 @@ const ExperienceFormDialog: React.FC<ExperienceFormDialogProps> = ({
             </div>
           </div>
           <div className="grid gap-2">
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">Description (Bullet Points)</label>
             <Textarea
               id="description"
               value={currentItem?.description || ''}

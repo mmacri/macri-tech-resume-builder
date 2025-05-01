@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import { fixDatabaseIssues } from '@/utils/resume/fixDatabaseIssues';
 import { initializeResumeData } from '@/utils/resume/initializeResumeData';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { forceInitExperience } from '@/utils/resume/forceInitExperience';
 
 /**
  * Resume page component serving as the entry point for the resume view
@@ -19,6 +20,7 @@ const Resume = () => {
   const [resumeSections, setResumeSections] = useState<any[] | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isFixing, setIsFixing] = useState<boolean>(false);
+  const [isResettingExperience, setIsResettingExperience] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
   const [isInitializing, setIsInitializing] = useState<boolean>(false);
   const { isAdmin } = useAuth();
@@ -94,6 +96,29 @@ const Resume = () => {
     }
   };
 
+  // Handler to reset experience data
+  const handleResetExperience = async () => {
+    if (!isAdmin) return;
+    
+    setIsResettingExperience(true);
+    toast.info('Resetting experience data...');
+    
+    try {
+      const result = await forceInitExperience(true);
+      if (result.initialized) {
+        toast.success('Experience data reset and initialized successfully');
+        handleRetry();
+      } else {
+        toast.error(`Failed to reset experience data: ${result.message || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('Error resetting experience data:', error);
+      toast.error(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } finally {
+      setIsResettingExperience(false);
+    }
+  };
+
   // Check on initial render if any data is available
   useEffect(() => {
     if (!isLoading && (!resumeSections || resumeSections.length === 0)) {
@@ -126,8 +151,28 @@ const Resume = () => {
               <Button
                 variant="outline"
                 size="sm"
+                onClick={handleResetExperience}
+                disabled={isResettingExperience || isFixing || isLoading || isInitializing}
+                className="flex items-center gap-1 text-purple-600 border-purple-300 hover:bg-purple-50"
+              >
+                {isResettingExperience ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <span>Resetting Experience...</span>
+                  </>
+                ) : (
+                  <>
+                    <RefreshCw className="w-4 h-4" />
+                    <span>Reset Experience Data</span>
+                  </>
+                )}
+              </Button>
+
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={handleInitializeData}
-                disabled={isInitializing || isFixing || isLoading}
+                disabled={isInitializing || isFixing || isLoading || isResettingExperience}
                 className="flex items-center gap-1 text-green-600 border-green-300 hover:bg-green-50"
               >
                 {isInitializing ? (
@@ -147,7 +192,7 @@ const Resume = () => {
                 variant="outline"
                 size="sm"
                 onClick={handleFixDatabaseIssues}
-                disabled={isFixing || isLoading || isInitializing}
+                disabled={isFixing || isLoading || isInitializing || isResettingExperience}
                 className="flex items-center gap-1 text-amber-600 border-amber-300 hover:bg-amber-50"
               >
                 {isFixing ? (

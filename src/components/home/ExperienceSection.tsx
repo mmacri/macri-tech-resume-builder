@@ -106,9 +106,11 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
               </div>
               {item.description && (
                 <ul className="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                  {item.description.split('\n').map((point: string, i: number) => (
-                    <li key={i}>{point.trim()}</li>
-                  ))}
+                  {item.description.split('\n')
+                    .filter((point: string) => point.trim().length > 0)
+                    .map((point: string, i: number) => (
+                      <li key={i}>{point.trim()}</li>
+                    ))}
                 </ul>
               )}
             </div>

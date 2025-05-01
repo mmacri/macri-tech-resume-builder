@@ -140,6 +140,8 @@ export const createExperienceData = async (sectionId: string) => {
         console.log('First created item:', createdItems[0]);
       }
     }
+
+    return createdItems;
   } catch (error) {
     console.error('Error in createExperienceData:', error);
     throw error;

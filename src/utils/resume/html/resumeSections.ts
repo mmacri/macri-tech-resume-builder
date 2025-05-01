@@ -15,14 +15,14 @@ export const generateExperiencesSection = (experiences: any[]): string => {
       ${experiences.map(exp => `
         <div class="experience-item">
           <div class="date-range">${formatDateString(exp.start_date)} - ${formatDateString(exp.end_date)}</div>
-          <div class="job-title">${exp.title}</div>
+          <div class="job-title">${exp.title || ''}</div>
           <div class="company-name">
             ${exp.organization || ''}
             ${exp.location ? `<span class="location"> | ${exp.location}</span>` : ''}
           </div>
           ${exp.description ? `
             <ul class="description">
-              ${exp.description.split('\n').map(point => `<li>${point.trim()}</li>`).join('')}
+              ${exp.description.split('\n').filter(point => point.trim().length > 0).map(point => `<li>${point.trim()}</li>`).join('')}
             </ul>
           ` : ''}
         </div>
