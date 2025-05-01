@@ -6,6 +6,7 @@ import EducationSection from '@/components/home/EducationSection';
 import SkillsSection from '@/components/home/SkillsSection';
 import InterestsSection from '@/components/home/InterestsSection';
 import AwardsSection from '@/components/home/AwardsSection';
+import { extractResumeSection } from '@/utils/resume/extractUtils';
 
 interface HomeContentProps {
   resumeSections: any[] | undefined;
@@ -16,12 +17,7 @@ interface HomeContentProps {
  */
 const HomeContent: React.FC<HomeContentProps> = ({ resumeSections }) => {
   const getSectionItems = (sectionName: string) => {
-    if (!resumeSections || resumeSections.length === 0) return [];
-    
-    const section = resumeSections.find(s => s.section_name.toLowerCase() === sectionName.toLowerCase());
-    const items = section?.items || [];
-    console.log(`Getting items for ${sectionName} in Home:`, items.length);
-    return items;
+    return extractResumeSection(resumeSections, sectionName);
   };
 
   return (

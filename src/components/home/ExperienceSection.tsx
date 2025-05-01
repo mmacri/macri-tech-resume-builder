@@ -18,7 +18,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
   
   // Log items for debugging
   useEffect(() => {
-    console.log('Experience items received in ExperienceSection component:', items);
+    console.log('Experience items received in ExperienceSection component:', items?.length);
     if (items && items.length > 0) {
       console.log('First experience item details:', items[0]);
     } else {
@@ -52,7 +52,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => 
             {isAdmin ? (
               <Alert variant="warning" className="mb-4">
                 <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Resume Data Not Found</AlertTitle>
+                <AlertTitle>Experience Data Not Found</AlertTitle>
                 <AlertDescription>
                   No experience data is available. Please initialize your resume data from the Admin Dashboard.
                 </AlertDescription>

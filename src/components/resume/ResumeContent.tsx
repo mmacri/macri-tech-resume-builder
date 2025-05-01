@@ -6,6 +6,7 @@ import EducationSection from '@/components/home/EducationSection';
 import SkillsSection from '@/components/home/SkillsSection';
 import InterestsSection from '@/components/home/InterestsSection';
 import AwardsSection from '@/components/home/AwardsSection';
+import { extractResumeSection } from '@/utils/resume/extractUtils';
 
 interface ResumeContentProps {
   resumeSections: any[];
@@ -16,11 +17,7 @@ interface ResumeContentProps {
  */
 const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
   const getSectionItems = (sectionName: string) => {
-    if (!resumeSections) return [];
-    const section = resumeSections.find(s => s.section_name === sectionName);
-    const items = section ? section.items : [];
-    console.log(`Getting items for ${sectionName} in Resume page:`, items);
-    return items;
+    return extractResumeSection(resumeSections, sectionName);
   };
 
   return (

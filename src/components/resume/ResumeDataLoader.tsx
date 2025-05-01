@@ -21,7 +21,7 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
   
   // Fetch resume sections data
   const { data: resumeSections, isLoading, error, refetch } = useQuery({
-    queryKey: ['resumeSections'],
+    queryKey: ['resumeSections', 'resume'],
     queryFn: async () => {
       console.log('Fetching resume sections data for Resume page');
       

@@ -49,7 +49,10 @@ export const useExperienceManagement = () => {
       }
     },
     onSuccess: () => {
+      // Invalidate multiple related queries to ensure consistency
       queryClient.invalidateQueries({ queryKey: ['experienceItems'] });
+      queryClient.invalidateQueries({ queryKey: ['resumeSections'] });
+      
       const actionText = currentItem?.id ? 'updated' : 'added';
       const targetText = getTargetText(updateIndex, effectiveUpdateResume);
       toast.success(`Experience ${actionText} successfully for ${targetText}`);
@@ -93,7 +96,10 @@ export const useExperienceManagement = () => {
     if (window.confirm('Are you sure you want to delete this experience?')) {
       try {
         await deleteItem(id, { updateIndex, updateResume: effectiveUpdateResume });
+        // Invalidate multiple related queries to ensure consistency
         queryClient.invalidateQueries({ queryKey: ['experienceItems'] });
+        queryClient.invalidateQueries({ queryKey: ['resumeSections'] });
+        
         const targetText = getTargetText(updateIndex, effectiveUpdateResume);
         toast.success(`Experience deleted successfully from ${targetText}`);
       } catch (error) {
@@ -108,7 +114,9 @@ export const useExperienceManagement = () => {
     const prevItem = items[index - 1];
     try {
       await reorderItems(item.id, prevItem.id, { updateIndex, updateResume: effectiveUpdateResume });
+      // Invalidate multiple related queries to ensure consistency
       queryClient.invalidateQueries({ queryKey: ['experienceItems'] });
+      queryClient.invalidateQueries({ queryKey: ['resumeSections'] });
     } catch (error) {
       toast.error(`Error reordering items: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
@@ -120,7 +128,9 @@ export const useExperienceManagement = () => {
     const nextItem = items[index + 1];
     try {
       await reorderItems(item.id, nextItem.id, { updateIndex, updateResume: effectiveUpdateResume });
+      // Invalidate multiple related queries to ensure consistency
       queryClient.invalidateQueries({ queryKey: ['experienceItems'] });
+      queryClient.invalidateQueries({ queryKey: ['resumeSections'] });
     } catch (error) {
       toast.error(`Error reordering items: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }

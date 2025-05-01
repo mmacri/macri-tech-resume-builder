@@ -18,9 +18,9 @@ interface ResumeDataLoaderProps {
 const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDataError }) => {
   const { isAdmin } = useAuth();
   
-  // Fetch all resume sections data to pass to components, but use fallback data if database is empty
+  // Fetch all resume sections data to pass to components
   const { data: resumeSections, isLoading, error, refetch } = useQuery({
-    queryKey: ['resumeSections'],
+    queryKey: ['resumeSections', 'home'],
     queryFn: async () => {
       console.log('Fetching resume sections data for Home page');
       
