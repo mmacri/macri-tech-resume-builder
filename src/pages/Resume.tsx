@@ -104,7 +104,8 @@ const Resume = () => {
     toast.info('Resetting experience data...');
     
     try {
-      const result = await forceInitExperience(true);
+      // Fix: Removing the boolean argument since forceInitExperience expects no arguments
+      const result = await forceInitExperience();
       if (result.initialized) {
         toast.success('Experience data reset and initialized successfully');
         handleRetry();
