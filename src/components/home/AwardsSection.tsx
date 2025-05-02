@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Download, Trophy, Award, Certificate } from 'lucide-react';
+import { Download, Award, Medal } from 'lucide-react';
 import ResumeSection from './ResumeSection';
 import { useResumeData } from './DataProvider';
 
@@ -24,8 +24,8 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
     if (index < 2) {
       return <Award className="h-5 w-5 text-amber-500" />;
     }
-    // For the rest, use Certificate icon
-    return <Certificate className="h-5 w-5 text-amber-500" />;
+    // For the rest, use Medal icon instead of Certificate (which doesn't exist)
+    return <Medal className="h-5 w-5 text-amber-500" />;
   };
 
   return (
