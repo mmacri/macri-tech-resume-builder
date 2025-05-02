@@ -16,10 +16,10 @@ const SkillsAndSuccessSection: React.FC<SkillsAndSuccessSectionProps> = ({
   }
 
   return (
-    <div className="my-8">
+    <div className="my-10">
       <div className="grid md:grid-cols-2 gap-6">
         {skillsItems.length > 0 && (
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center gap-2 text-xl font-semibold mb-4 text-macri-primary">
               <CheckCircle className="h-5 w-5" />
               <h3>Key Skills</h3>
@@ -33,7 +33,7 @@ const SkillsAndSuccessSection: React.FC<SkillsAndSuccessSectionProps> = ({
         )}
         
         {successItems.length > 0 && (
-          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center gap-2 text-xl font-semibold mb-4 text-macri-primary">
               <Trophy className="h-5 w-5" />
               <h3>Notable Achievements</h3>

@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { MapPin } from 'lucide-react';
-import AboutSocialIcons from './AboutSocialIcons';
 
 interface AboutHeaderProps {
   name: string;
@@ -18,18 +17,14 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
   name,
   headline,
   locations,
-  introText,
-  linkedinUrl,
-  githubUrl,
-  websiteUrl,
-  emailUrl
+  introText
 }) => {
   return (
     <>
-      <h1 className="text-macri-primary text-5xl md:text-6xl mb-0 font-bold">
+      <h1 className="text-macri-primary text-5xl md:text-6xl mb-1 font-bold">
         {name}
       </h1>
-      <div className="subheading mb-5">
+      <div className="mb-6">
         <h2 className="text-2xl text-gray-700">{headline}</h2>
         {locations.length > 0 && (
           <div className="flex items-center gap-2 mt-2 text-gray-600">
@@ -39,14 +34,7 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
         )}
       </div>
       
-      <AboutSocialIcons 
-        linkedinUrl={linkedinUrl}
-        githubUrl={githubUrl}
-        websiteUrl={websiteUrl}
-        emailUrl={emailUrl}
-      />
-      
-      <p className="lead mb-5 text-lg">
+      <p className="lead mb-7 text-lg">
         {introText}
       </p>
     </>

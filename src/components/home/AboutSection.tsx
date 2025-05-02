@@ -36,7 +36,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
   const linkedinUrl = "https://linkedin.com/in/michaelmacri";
   const githubUrl = "https://github.com/mikemacri";
   const websiteUrl = "https://mikemacri.com";
-  const emailUrl = "mailto:contact@mikemacri.com"; // Only used for icon link, not displayed
+  const emailUrl = "mailto:contact@mikemacri.com";
 
   return (
     <ResumeSection id="about" title="">

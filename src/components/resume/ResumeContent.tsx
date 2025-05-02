@@ -67,7 +67,6 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
       <InterestsSection items={interestsItems} />
       <hr className="m-0 border-gray-200" />
       <AwardsSection items={awardsItems} />
-      <hr className="m-0 border-gray-200" />
       
       <section className="resume-section py-10" id="download">
         <div className="resume-section-content px-4 md:px-8 text-center max-w-6xl mx-auto">
