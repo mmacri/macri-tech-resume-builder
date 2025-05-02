@@ -97,6 +97,36 @@ export const createExperienceData = async (sectionId: string) => {
         description: "Served as the technical SME and lead for 3 of VMware's top 10 North American partners, enabling C-level alignment and driving partner adoption of VMware jointly created services.\nDesigned and implemented scalable self-service demo labs initiatives with cloud for partners (Zones, CDW, En Pointe, HP, PCMall) enabling partner-SC enablement and solution delivery.",
         section_id: sectionId,
         display_order: 6
+      },
+      {
+        title: "Regional Partner Lead & Partner Solutions Engineer",
+        organization: "VMware",
+        location: "Seattle, WA",
+        start_date: "2009-04-01",
+        end_date: "2011-01-01",
+        description: "Developed regional partner enablement strategies that accelerated partners' technical expertise and service delivery capabilities.\nConducted hands-on technical workshops and certification training for partner engineers, resulting in increased partner competencies and solution capabilities.\nCreated partner-specific solution architectures and reference designs that partners could leverage for customer engagements.",
+        section_id: sectionId,
+        display_order: 7
+      },
+      {
+        title: "Senior Systems Engineer",
+        organization: "EMC Corporation",
+        location: "Seattle, WA",
+        start_date: "2007-06-01",
+        end_date: "2009-04-01",
+        description: "Led technical sales and architecture design for enterprise storage and information management solutions in the Pacific Northwest region.\nDesigned and implemented disaster recovery and business continuity solutions for Fortune 500 clients, ensuring data protection and availability.\nCollaborated with cross-functional teams to deliver integrated solutions addressing complex customer requirements.",
+        section_id: sectionId,
+        display_order: 8
+      },
+      {
+        title: "Systems Engineer",
+        organization: "Symantec",
+        location: "Seattle, WA",
+        start_date: "2005-03-01",
+        end_date: "2007-06-01",
+        description: "Provided pre-sales technical expertise for Symantec's enterprise security and data protection solutions.\nImplemented security frameworks and compliance solutions for enterprise customers in regulated industries.\nManaged proof-of-concept deployments demonstrating security and availability solutions.",
+        section_id: sectionId,
+        display_order: 9
       }
     ];
     
