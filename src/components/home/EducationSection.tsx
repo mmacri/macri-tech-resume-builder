@@ -30,7 +30,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({ items }) => {
         {displayItems
           .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
           .map((item, index) => (
-            <Card key={item.id || index} className="bg-white hover:shadow-md transition-shadow">
+            <Card key={item.id || index} className="bg-white shadow-card hover:shadow-card-hover transition-shadow duration-200">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
                   <div className="hidden sm:flex mt-1 bg-macri-primary/10 rounded-full p-2 text-macri-primary">

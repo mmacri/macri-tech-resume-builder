@@ -53,11 +53,11 @@
 
   html {
     scroll-behavior: smooth;
-    @apply bg-gray-50;
+    @apply bg-macri-background;
   }
 
   body {
-    @apply bg-gray-50 text-foreground font-muli;
+    @apply bg-macri-background text-foreground font-muli;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -75,7 +75,7 @@
   }
   
   .social-icon {
-    @apply flex items-center justify-center h-12 w-12 rounded-full bg-macri-primary hover:bg-black text-white transition-colors duration-200;
+    @apply flex items-center justify-center h-12 w-12 rounded-full bg-macri-primary hover:bg-macri-primary-dark text-white transition-colors duration-200;
   }
   
   .nav-item {
@@ -96,6 +96,10 @@
   
   .resume-section-content {
     @apply w-full;
+  }
+  
+  .section-title {
+    @apply text-4xl font-bold mb-8 text-macri-primary;
   }
   
   .subheading {
@@ -131,7 +135,7 @@
   }
   
   .card {
-    @apply border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow;
+    @apply border border-gray-200 rounded-lg overflow-hidden shadow-card hover:shadow-card-hover transition-shadow duration-200;
   }
   
   .card-body {
@@ -151,7 +155,7 @@
   }
   
   .btn-primary {
-    @apply bg-macri-primary text-white hover:bg-macri-primary/80;
+    @apply bg-macri-primary text-white hover:bg-macri-primary-dark;
   }
   
   .tooltip {
@@ -182,11 +186,44 @@
   }
   
   .skill-card {
-    @apply h-full bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all;
+    @apply h-full bg-white p-6 rounded-lg border border-gray-200 shadow-card hover:shadow-card-hover transition-all duration-200;
   }
   
   .skill-list li {
     @apply mb-2 last:mb-0;
+  }
+  
+  /* Experience item styling */
+  .experience-item {
+    @apply mb-8 bg-white p-6 rounded-lg border border-gray-200 shadow-card hover:shadow-card-hover transition-shadow;
+  }
+  
+  .experience-header {
+    @apply flex flex-col md:flex-row justify-between items-start md:items-center mb-2;
+  }
+  
+  .experience-title {
+    @apply text-2xl font-semibold text-macri-primary;
+  }
+  
+  .experience-date {
+    @apply text-gray-600 font-medium text-sm bg-macri-secondary px-3 py-1 rounded-full mt-2 md:mt-0;
+  }
+  
+  .experience-company {
+    @apply text-lg font-medium text-gray-700;
+  }
+  
+  .experience-location {
+    @apply text-gray-500 italic;
+  }
+  
+  .experience-description {
+    @apply mt-4 list-disc pl-5 space-y-1 text-gray-700;
+  }
+  
+  .experience-description li {
+    @apply py-1;
   }
   
   /* Print styles for resume page */
