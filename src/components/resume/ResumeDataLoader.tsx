@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
 import { initializeResumeData } from '@/utils/resume/initializeResumeData';
 import { forceInitExperience } from '@/utils/resume/forceInitExperience';
+import { fallbackResumeData } from '@/utils/resume/fallbackData';
 
 interface ResumeDataLoaderProps {
   onDataLoaded: (sections: any[]) => void;
@@ -16,7 +17,7 @@ interface ResumeDataLoaderProps {
  * Component responsible for loading resume data for the Resume page
  */
 const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDataError }) => {
-  const { isAdmin } = useAuth();
+  const { isAdmin, user } = useAuth();
   const [autoInitAttempted, setAutoInitAttempted] = useState(false);
   
   // Fetch resume sections data
@@ -102,6 +103,41 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
     retryDelay: 1000
   });
 
+  // Create static fallback sections
+  const createFallbackSections = () => {
+    console.log('Creating fallback resume sections from static data');
+    
+    // Convert fallbackResumeData to the format expected by the components
+    const sections = [
+      {
+        id: 'about',
+        section_name: 'about',
+        display_order: 1,
+        items: [fallbackResumeData.aboutData]
+      },
+      {
+        id: 'experience',
+        section_name: 'experience',
+        display_order: 2,
+        items: fallbackResumeData.experiences
+      },
+      {
+        id: 'education',
+        section_name: 'education',
+        display_order: 3,
+        items: fallbackResumeData.education
+      },
+      {
+        id: 'skills',
+        section_name: 'skills',
+        display_order: 4,
+        items: fallbackResumeData.skills
+      }
+    ];
+    
+    return sections;
+  };
+
   // Auto-initialize data if admin and no data found
   useEffect(() => {
     if (isAdmin && 
@@ -168,13 +204,53 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
     if (!isLoading) {
       if (error) {
         console.error('Error loading resume data:', error);
+        // If there's an error, use fallback data instead of showing error
+        const fallbackSections = createFallbackSections();
+        console.log('Using fallback data due to error');
+        onDataLoaded(fallbackSections);
+        
+        // Still report the error to help debug
         onDataError(error as Error);
+      } else if (!resumeSections || resumeSections.length === 0) {
+        console.log('No resume sections found, using fallback data');
+        const fallbackSections = createFallbackSections();
+        onDataLoaded(fallbackSections);
       } else {
         const sectionCount = resumeSections?.length || 0;
         console.log(`Loaded ${sectionCount} resume sections in Resume page`);
         
-        // Pass the sections even if empty - this allows conditional UI rendering
-        onDataLoaded(resumeSections || []);
+        // Check if experience section exists and has data
+        const experienceSection = resumeSections.find(s => s.section_name === 'experience');
+        if (!experienceSection || !experienceSection.items || experienceSection.items.length === 0) {
+          console.log('No experience data found in database, adding static experience data');
+          
+          // Create a copy of the sections and add static experience data
+          const enhancedSections = [...resumeSections];
+          const expIndex = experienceSection ? 
+            enhancedSections.findIndex(s => s.id === experienceSection.id) : 
+            -1;
+          
+          if (expIndex >= 0) {
+            // Update the existing experience section
+            enhancedSections[expIndex] = {
+              ...experienceSection,
+              items: fallbackResumeData.experiences
+            };
+          } else {
+            // Add a new experience section
+            enhancedSections.push({
+              id: 'experience',
+              section_name: 'experience',
+              display_order: enhancedSections.length + 1,
+              items: fallbackResumeData.experiences
+            });
+          }
+          
+          onDataLoaded(enhancedSections);
+        } else {
+          // Pass the sections as they are
+          onDataLoaded(resumeSections);
+        }
       }
     }
   }, [isLoading, error, resumeSections, onDataLoaded, onDataError]);

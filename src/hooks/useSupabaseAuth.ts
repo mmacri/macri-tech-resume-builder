@@ -56,12 +56,12 @@ export function useSupabaseAuth() {
       // First, check if the user's email matches any of our known admin emails
       const { data: userData } = await supabase.auth.getUser();
       const email = userData?.user?.email?.toLowerCase();
-      const isKnownAdmin = email === 'mike@mikemacri.com' || email === 'mike@gmail.com';
       
+      // Always set known admins to true immediately
+      const isKnownAdmin = email === 'mike@mikemacri.com' || email === 'mike@gmail.com';
       if (isKnownAdmin) {
         console.log('User has a known admin email address, setting as admin');
         setIsAdmin(true);
-        setIsLoading(false);
         
         // Also ensure their profile has admin status
         const { error: updateError } = await supabase
@@ -72,34 +72,54 @@ export function useSupabaseAuth() {
         if (updateError) {
           console.error('Error updating admin status in profile:', updateError);
         }
-        
-        return;
       }
       
-      // Check directly using the simplified is_admin function (avoids role checks)
+      // Try the new is_user_admin function first
       try {
+        console.log('Checking admin status using is_user_admin function');
+        const { data: isAdminResult, error: rpcError } = await supabase
+          .rpc('is_user_admin', { user_id: userId });
+          
+        if (rpcError) {
+          console.error('Error checking is_user_admin via RPC:', rpcError);
+        } else {
+          console.log('Admin status via is_user_admin RPC:', isAdminResult);
+          setIsAdmin(isAdminResult || isKnownAdmin);
+          setIsLoading(false);
+          return;
+        }
+      } catch (rpcError) {
+        console.error('Exception in is_user_admin RPC check:', rpcError);
+      }
+      
+      // Fall back to is_admin function
+      try {
+        console.log('Falling back to is_admin function');
         const { data: isAdminResult, error: rpcError } = await supabase
           .rpc('is_admin', { user_id: userId });
           
         if (rpcError) {
-          console.error('Error checking admin via RPC:', rpcError);
-          // Fall back to direct profile check
-          fallbackAdminCheck(userId, isKnownAdmin);
+          console.error('Error checking admin via is_admin RPC:', rpcError);
+        } else {
+          console.log('Admin status via is_admin RPC:', isAdminResult);
+          setIsAdmin(isAdminResult || isKnownAdmin);
+          setIsLoading(false);
           return;
         }
-        
-        console.log('Admin status via RPC:', isAdminResult);
-        setIsAdmin(isAdminResult || false);
-        setIsLoading(false);
-        return;
       } catch (rpcError) {
-        console.error('Exception in RPC admin check:', rpcError);
-        // Fall back to direct profile check
-        fallbackAdminCheck(userId, isKnownAdmin);
+        console.error('Exception in is_admin RPC check:', rpcError);
       }
+      
+      // Last resort: check profiles table directly
+      fallbackAdminCheck(userId, isKnownAdmin);
+      
     } catch (error) {
-      console.error('Error checking admin status:', error);
-      setIsAdmin(false);
+      console.error('Error in admin check flow:', error);
+      // If all else fails, use known admin email check
+      const { data: userData } = await supabase.auth.getUser();
+      const email = userData?.user?.email?.toLowerCase();
+      const isKnownAdmin = email === 'mike@mikemacri.com' || email === 'mike@gmail.com';
+      setIsAdmin(isKnownAdmin);
       setIsLoading(false);
     }
   };
@@ -107,6 +127,7 @@ export function useSupabaseAuth() {
   // Fallback method to check admin status directly from profiles table
   const fallbackAdminCheck = async (userId: string, isKnownAdmin: boolean) => {
     try {
+      console.log('Performing fallback admin check');
       // Check if user has a profile
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
@@ -128,17 +149,17 @@ export function useSupabaseAuth() {
         
         if (syncError) {
           console.error('Error after sync:', syncError);
-          setIsAdmin(false);
+          setIsAdmin(isKnownAdmin); // Fall back to email check
         } else if (syncedProfile) {
           console.log('Admin status after sync:', syncedProfile.is_admin);
-          setIsAdmin(syncedProfile.is_admin || false);
+          setIsAdmin(syncedProfile.is_admin || isKnownAdmin);
         } else {
           console.log('No profile found after sync');
-          setIsAdmin(isKnownAdmin); // Use email-based check as fallback
+          setIsAdmin(isKnownAdmin); // Fall back to email check
         }
       } else if (profile) {
         console.log('Admin status from database:', profile.is_admin);
-        setIsAdmin(profile.is_admin || false);
+        setIsAdmin(profile.is_admin || isKnownAdmin);
       } else {
         console.log('No profile found, running sync');
         try {
@@ -147,12 +168,12 @@ export function useSupabaseAuth() {
           console.error('Error running sync_missing_profiles:', syncError);
         }
         
-        // Set default admin status based on email
+        // Fall back to email check
         setIsAdmin(isKnownAdmin);
       }
     } catch (error) {
       console.error('Error in fallback admin check:', error);
-      setIsAdmin(false);
+      setIsAdmin(isKnownAdmin); // Fall back to email check
     } finally {
       setIsLoading(false);
     }

@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
 import { forceInitExperience } from '@/utils/resume/forceInitExperience';
 import { initializeResumeData } from '@/utils/resume/initializeResumeData';
+import { fallbackResumeData } from '@/utils/resume/fallbackData';
 
 interface ResumeDataLoaderProps {
   onDataLoaded: (sections: any[]) => void;
@@ -17,6 +18,53 @@ interface ResumeDataLoaderProps {
  */
 const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDataError }) => {
   const { isAdmin } = useAuth();
+  
+  // Create static fallback sections
+  const createFallbackSections = () => {
+    console.log('Creating fallback resume sections from static data for home page');
+    
+    // Convert fallbackResumeData to the format expected by the components
+    const sections = [
+      {
+        id: 'about',
+        section_name: 'about',
+        display_order: 1,
+        items: [fallbackResumeData.aboutData]
+      },
+      {
+        id: 'experience',
+        section_name: 'experience',
+        display_order: 2,
+        items: fallbackResumeData.experiences
+      },
+      {
+        id: 'education',
+        section_name: 'education',
+        display_order: 3,
+        items: fallbackResumeData.education
+      },
+      {
+        id: 'skills',
+        section_name: 'skills',
+        display_order: 4,
+        items: fallbackResumeData.skills
+      },
+      {
+        id: 'interests',
+        section_name: 'interests',
+        display_order: 5,
+        items: [{title: "Interests"}]
+      },
+      {
+        id: 'awards',
+        section_name: 'awards',
+        display_order: 6,
+        items: [{title: "Award 1"}, {title: "Award 2"}, {title: "Award 3"}]
+      }
+    ];
+    
+    return sections;
+  };
   
   // Fetch all resume sections data to pass to components
   const { data: resumeSections, isLoading, error, refetch } = useQuery({
@@ -52,7 +100,7 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
         // Instead of throwing an error for empty sections, return an empty array
         // This allows the page to render with fallback data in the components
         if (!sections || sections.length === 0) {
-          console.warn('No resume sections found in database, using fallback data');
+          console.warn('No resume sections found in database, will use fallback data');
           return [];
         }
         
@@ -107,7 +155,7 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
     if (!isLoading && (!resumeSections || resumeSections.length === 0)) {
       console.log('No resume sections found on initial load, attempting to force initialize...');
       
-      // Initialize data automatically
+      // Initialize data automatically if admin
       if (isAdmin) {
         initializeResumeData({ force: true })
           .then(result => {
@@ -129,7 +177,7 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
 
   // Check if we need to force initialize experience data
   useEffect(() => {
-    if (!isLoading && resumeSections) {
+    if (!isLoading && resumeSections && resumeSections.length > 0) {
       const experienceSection = resumeSections.find(s => s.section_name === 'experience');
       if (experienceSection && (!experienceSection.items || experienceSection.items.length === 0)) {
         console.log('Experience section exists but has no items, attempting to force initialize...');
@@ -158,22 +206,48 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
     if (!isLoading) {
       if (error) {
         console.error('Error loading resume data:', error);
+        // Always use fallback data if there's an error
+        const fallbackSections = createFallbackSections();
+        onDataLoaded(fallbackSections);
         onDataError(error as Error);
       } else if (!resumeSections || resumeSections.length === 0) {
         console.warn('No resume sections loaded in Home, using fallback data');
-        onDataLoaded([]);
+        const fallbackSections = createFallbackSections();
+        onDataLoaded(fallbackSections);
       } else {
         console.log(`Loaded ${resumeSections.length} resume sections in Home`);
         
         // Check if experience section has data
         const experienceSection = resumeSections.find(s => s.section_name === 'experience');
-        if (experienceSection && experienceSection.items && experienceSection.items.length > 0) {
-          console.log(`Experience section has ${experienceSection.items.length} items`);
+        if (!experienceSection || !experienceSection.items || experienceSection.items.length === 0) {
+          // Create enhanced sections with fallback experience data
+          const enhancedSections = [...resumeSections];
+          
+          if (experienceSection) {
+            // Update existing experience section
+            const expIndex = enhancedSections.findIndex(s => s.id === experienceSection.id);
+            if (expIndex >= 0) {
+              enhancedSections[expIndex] = {
+                ...experienceSection,
+                items: fallbackResumeData.experiences
+              };
+            }
+          } else {
+            // Add new experience section with fallback data
+            enhancedSections.push({
+              id: 'experience',
+              section_name: 'experience',
+              display_order: enhancedSections.length + 1,
+              items: fallbackResumeData.experiences
+            });
+          }
+          
+          console.log('Added fallback experience data to sections');
+          onDataLoaded(enhancedSections);
         } else {
-          console.warn('Experience section has no data');
+          console.log(`Experience section has ${experienceSection.items.length} items`);
+          onDataLoaded(resumeSections);
         }
-        
-        onDataLoaded(resumeSections);
       }
     }
   }, [isLoading, error, resumeSections, onDataLoaded, onDataError]);

@@ -15,8 +15,17 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
   // Use items prop if provided, otherwise use data from context
   const displayItems = items && items.length > 0 ? items : awardsData;
   
-  // Map to title
-  const awards = displayItems.map(item => item.title);
+  // Default awards if no data is available
+  const defaultAwards = [
+    { title: "Award 1" },
+    { title: "Award 2" },
+    { title: "Certificate 3" }
+  ];
+  
+  // Ensure we always have awards to display
+  const awards = displayItems && displayItems.length > 0 
+    ? displayItems.map(item => item.title)
+    : defaultAwards.map(item => item.title);
 
   // Helper function to determine which icon to use
   const getIcon = (index: number, title: string) => {

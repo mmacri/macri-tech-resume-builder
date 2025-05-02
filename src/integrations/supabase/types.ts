@@ -223,6 +223,10 @@ export type Database = {
         Args: Record<PropertyKey, never> | { user_id: string }
         Returns: boolean
       }
+      is_user_admin: {
+        Args: { user_id?: string }
+        Returns: boolean
+      }
       sync_missing_profiles: {
         Args: Record<PropertyKey, never>
         Returns: undefined
