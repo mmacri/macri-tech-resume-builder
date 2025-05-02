@@ -83,7 +83,8 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
       <hr className="m-0" />
       <AwardsSection items={awardsItems} />
       <hr className="m-0" />
-      <section className="resume-section" id="download" className="py-10">
+      {/* Fixed the duplicate className attribute */}
+      <section className="resume-section py-10" id="download">
         <div className="resume-section-content px-4 md:px-8 text-center">
           <h2 className="text-4xl font-bold mb-4">Download Resume</h2>
           <p className="mb-4">Get a downloadable version of my resume with the most up-to-date information.</p>
