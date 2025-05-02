@@ -28,12 +28,12 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
     : defaultAwards.map(item => item.title);
 
   // Helper function to determine which icon to use
-  const getIcon = (index: number, title: string) => {
+  const getIcon = (index: number) => {
     // First two items use Award icon
     if (index < 2) {
       return <Award className="h-5 w-5 text-amber-500" />;
     }
-    // For the rest, use Medal icon instead of Certificate (which doesn't exist)
+    // For the rest, use Medal icon
     return <Medal className="h-5 w-5 text-amber-500" />;
   };
 
@@ -44,7 +44,7 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
           {awards.map((award, index) => (
             <li key={index} className="flex gap-3 items-center">
               <span className="text-macri-warning text-xl flex-shrink-0">
-                {getIcon(index, award)}
+                {getIcon(index)}
               </span>
               <span className="text-gray-700">{award}</span>
             </li>

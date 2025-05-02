@@ -107,31 +107,42 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
   const createFallbackSections = () => {
     console.log('Creating fallback resume sections from static data');
     
+    // Get current timestamp for created_at and updated_at properties
+    const timestamp = new Date().toISOString();
+    
     // Convert fallbackResumeData to the format expected by the components
     const sections = [
       {
         id: 'about',
         section_name: 'about',
         display_order: 1,
-        items: [fallbackResumeData.aboutData]
+        items: [fallbackResumeData.aboutData],
+        created_at: timestamp,
+        updated_at: timestamp
       },
       {
         id: 'experience',
         section_name: 'experience',
         display_order: 2,
-        items: fallbackResumeData.experiences
+        items: fallbackResumeData.experiences,
+        created_at: timestamp,
+        updated_at: timestamp
       },
       {
         id: 'education',
         section_name: 'education',
         display_order: 3,
-        items: fallbackResumeData.education
+        items: fallbackResumeData.education,
+        created_at: timestamp,
+        updated_at: timestamp
       },
       {
         id: 'skills',
         section_name: 'skills',
         display_order: 4,
-        items: fallbackResumeData.skills
+        items: fallbackResumeData.skills,
+        created_at: timestamp,
+        updated_at: timestamp
       }
     ];
     
@@ -230,6 +241,9 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
             enhancedSections.findIndex(s => s.id === experienceSection.id) : 
             -1;
           
+          // Get current timestamp for created_at and updated_at properties
+          const timestamp = new Date().toISOString();
+          
           if (expIndex >= 0) {
             // Update the existing experience section
             enhancedSections[expIndex] = {
@@ -242,7 +256,9 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
               id: 'experience',
               section_name: 'experience',
               display_order: enhancedSections.length + 1,
-              items: fallbackResumeData.experiences
+              items: fallbackResumeData.experiences,
+              created_at: timestamp,
+              updated_at: timestamp
             });
           }
           
