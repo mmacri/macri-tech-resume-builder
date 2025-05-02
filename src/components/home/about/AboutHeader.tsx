@@ -19,35 +19,36 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
   locations,
   introText
 }) => {
-  // Format the intro text with consistent styling for better readability
-  const formattedIntroText = () => {
-    // Split the intro text into sentences
-    const sentences = introText.split(/(?<=\.)(?:\s+)/);
-    
+  // Format intro text to match the requested layout with paragraphs and bullet points
+  const renderFormattedIntro = () => {
+    // Static structure since this is a specific format request
     return (
-      <div className="space-y-4 text-lg">
-        {sentences.map((sentence, index) => (
-          <p key={index} className="leading-relaxed">
-            {sentence.trim().split(/\s+/).map((word, wordIndex) => {
-              // Highlight keywords to improve readability
-              const keywords = [
-                "Solution Consulting", "Partner GTM", "high-performing", 
-                "solution engineering", "customer success", "GSIs", "SIs", "ISVs",
-                "value realization", "AI-driven frameworks", "impact"
-              ];
-              
-              const isKeyword = keywords.some(keyword => 
-                word.toLowerCase().includes(keyword.toLowerCase())
-              );
-              
-              return (
-                <span key={wordIndex} className={isKeyword ? "font-semibold text-macri-primary" : ""}>
-                  {word}{' '}
-                </span>
-              );
-            })}
-          </p>
-        ))}
+      <div className="about-intro text-lg">
+        <p className="mb-6">
+          Solution Consulting and Partner GTM Leader with a proven track record of building <span className="font-semibold italic">high-performing Solution Engineering</span> and Customer Success teams in the enterprise cloud ecosystem.
+        </p>
+        
+        <p className="mb-6">
+          Skilled in coaching <span className="font-semibold">Solution Consultants</span>, developing <span className="italic">scalable technical sales motions</span>, and delivering partner-aligned growth with GSIs, SIs, and ISVs.
+        </p>
+        
+        <div className="mb-6">
+          <p className="font-semibold mb-2">Expertise in:</p>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>Building <span className="font-semibold">customer value realization</span> strategies</li>
+            <li>Integrating <span className="font-semibold">AI-driven</span> frameworks</li>
+            <li>Aligning with <span className="font-semibold">Sales, Marketing</span>, and Services to <span className="italic">drive outcomes</span></li>
+          </ul>
+        </div>
+        
+        <div>
+          <p className="font-semibold mb-2">Known for:</p>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>Creating impact</li>
+            <li>Guiding <span className="font-semibold">complex deals</span> to closure</li>
+            <li>Fostering cross-functional collaboration in <span className="italic">matrixed environments</span></li>
+          </ul>
+        </div>
       </div>
     );
   };
@@ -67,7 +68,7 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
         )}
       </div>
       
-      {formattedIntroText()}
+      {renderFormattedIntro()}
     </>
   );
 };

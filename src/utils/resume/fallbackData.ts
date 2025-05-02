@@ -14,7 +14,7 @@ export const fallbackResumeData: FallbackResumeData = {
       phone: "(555) 123-4567",
       address: "Seattle, WA",
       headline: "Solution Consulting & Partner GTM Leader",
-      intro_text: "Solution Consulting and Partner GTM leader with a proven track record of building high-performing solution engineering and customer success teams in the enterprise cloud ecosystem. Skilled in coaching Solution Consultants, developing scalable technical sales motions, and delivering partner-aligned growth with GSIs, SIs, and ISVs. Expertise at building customer value realization strategies, integrating AI-driven frameworks, and aligning with sales, marketing, and services teams to drive outcomes. Known for creating impact, guiding complex deals to closure, and fostering cross-functional collaboration in matrixed environments.",
+      intro_text: "Solution Consulting and Partner GTM leader with a proven track record of building high-performing Solution Engineering and Customer Success teams in the enterprise cloud ecosystem.\n\nSkilled in coaching Solution Consultants, developing scalable technical sales motions, and delivering partner-aligned growth with GSIs, SIs, and ISVs.",
       locations: ["Edmonds, WA", "San Diego, CA", "Remote"],
       skills_items: [
         "Operational Efficiency: Implementing practical solutions that cut training time and prevent compliance issues.",
