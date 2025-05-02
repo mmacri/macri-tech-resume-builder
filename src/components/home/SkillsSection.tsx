@@ -60,15 +60,15 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ items = [] }) => {
 
   // Programming icons with their classes and colors
   const programmingIcons = [
-    { icon: "fab fa-html5", color: "#e34c26" },
-    { icon: "fab fa-css3-alt", color: "#264de4" },
-    { icon: "fab fa-js-square", color: "#f0db4f" },
-    { icon: "fab fa-react", color: "#61dafb" },
-    { icon: "fab fa-vuejs", color: "#41B883" },
-    { icon: "fab fa-python", color: "#306998" },
-    { icon: "fab fa-aws", color: "#FF9900" },
-    { icon: "fab fa-docker", color: "#2496ED" },
-    { icon: "fab fa-node-js", color: "#3c873a" }
+    { icon: "fab fa-html5", color: "#e34c26", name: "HTML5" },
+    { icon: "fab fa-css3-alt", color: "#264de4", name: "CSS3" },
+    { icon: "fab fa-js-square", color: "#f0db4f", name: "JavaScript" },
+    { icon: "fab fa-react", color: "#61dafb", name: "React" },
+    { icon: "fab fa-vuejs", color: "#41B883", name: "Vue.js" },
+    { icon: "fab fa-python", color: "#306998", name: "Python" },
+    { icon: "fab fa-aws", color: "#FF9900", name: "AWS" },
+    { icon: "fab fa-docker", color: "#2496ED", name: "Docker" },
+    { icon: "fab fa-node-js", color: "#3c873a", name: "Node.js" }
   ];
 
   // Find categories that exist in our data
@@ -88,9 +88,9 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ items = [] }) => {
             }
             
             return (
-              <div key={idx} className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <div key={idx} className="skill-card">
                 <h3 className="text-xl font-semibold mb-4 text-macri-primary">{category}</h3>
-                <ul className="space-y-2">
+                <ul className="skill-list">
                   {groupedSkills[category].map((skill, skillIdx) => (
                     <li key={skillIdx} className="flex gap-2 items-start">
                       <span className="text-macri-primary mt-1">•</span>
@@ -111,9 +111,9 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ items = [] }) => {
           <div className="flex flex-wrap gap-8 justify-center md:justify-start">
             {programmingIcons.map((iconData, idx) => (
               <div key={idx} className="group relative cursor-pointer">
-                <i className={`${iconData.icon} text-4xl`} style={{ color: iconData.color }}></i>
+                <i className={`${iconData.icon} skill-icon`} style={{ color: iconData.color }}></i>
                 <div className="tooltip">
-                  {iconData.icon.replace('fab fa-', '').replace('-', ' ').toUpperCase()}
+                  {iconData.name}
                 </div>
               </div>
             ))}
@@ -129,9 +129,9 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ items = [] }) => {
           )}
         </div>
         
-        {/* Workflow section - matching reference site */}
+        {/* Workflow section */}
         <div className="mt-8 bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-          <h3 className="text-xl font-semibold mb-4 text-macri-primary">Workflow</h3>
+          <h3 className="text-xl font-semibold mb-6 text-macri-primary">Workflow</h3>
           <ul className="fa-ul space-y-3">
             <li className="flex items-center gap-3">
               <span className="text-macri-primary">

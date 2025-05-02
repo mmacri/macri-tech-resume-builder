@@ -3,7 +3,7 @@ import React from 'react';
 import { parseAboutData } from '@/utils/resume/extractResumeSectionsForPDF';
 import { initialAboutData } from '@/utils/resume/aboutData';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { Trophy, CheckCircle, Mail, Github, Linkedin, ExternalLink, Download } from 'lucide-react';
+import { Trophy, CheckCircle, Mail, Github, Linkedin, ExternalLink, Download, MapPin, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Tooltip,
@@ -38,6 +38,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
   const githubUrl = "https://github.com/mikemacri";
   const websiteUrl = "https://mikemacri.com";
   const email = "contact@mikemacri.com"; // Using a generic contact email that can be set up as a forwarder
+  const phone = "+1 (555) 123-4567"; // Placeholder phone
 
   return (
     <section className="resume-section" id="about">
@@ -50,47 +51,72 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
             <div className="subheading mb-5">
               <h2 className="text-2xl text-gray-700">{headline}</h2>
               {locations.length > 0 && (
-                <div className="text-sm mt-2 text-gray-600">
+                <div className="flex items-center gap-2 mt-2 text-gray-600">
+                  <MapPin className="h-4 w-4 text-macri-primary" />
                   {locations.join(' · ')}
                 </div>
               )}
             </div>
+            
+            <div className="flex flex-wrap gap-4 mb-5">
+              <a 
+                href={`mailto:${email}`}
+                className="flex items-center gap-2 text-macri-primary hover:underline"
+              >
+                <Mail className="h-4 w-4" />
+                <span>{email}</span>
+              </a>
+              
+              <a 
+                href={phone.replace(/\s/g, '')}
+                className="flex items-center gap-2 text-macri-primary hover:underline"
+              >
+                <Phone className="h-4 w-4" />
+                <span>{phone}</span>
+              </a>
+              
+              <a 
+                href={linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-macri-primary hover:underline"
+              >
+                <Linkedin className="h-4 w-4" />
+                <span>LinkedIn</span>
+              </a>
+              
+              <a 
+                href={websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-macri-primary hover:underline"
+              >
+                <ExternalLink className="h-4 w-4" />
+                <span>Website</span>
+              </a>
+            </div>
+            
             <p className="lead mb-5 text-lg">
               {introText}
             </p>
           </div>
           
           <div className="lg:w-1/3 flex flex-col gap-4 items-center">
-            <div className="p-4 border border-gray-200 rounded-lg bg-gray-50 w-full">
+            <div className="p-5 border border-gray-200 rounded-lg bg-white shadow-sm w-full">
               <h3 className="text-xl font-semibold mb-3 text-center text-macri-primary">Connect With Me</h3>
-              <div className="flex flex-wrap gap-3 justify-center">
-                <Button variant="outline" size="sm" className="flex items-center gap-2" asChild>
-                  <a href={`mailto:${email}`}>
-                    <Mail className="h-4 w-4" />
-                    Contact Me
-                  </a>
-                </Button>
-                
-                <Button variant="outline" size="sm" className="flex items-center gap-2" asChild>
-                  <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="h-4 w-4" />
-                    LinkedIn
-                  </a>
-                </Button>
-                
-                <Button variant="outline" size="sm" className="flex items-center gap-2" asChild>
-                  <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-                    <Github className="h-4 w-4" />
-                    GitHub
-                  </a>
-                </Button>
-                
-                <Button variant="outline" size="sm" className="flex items-center gap-2" asChild>
-                  <a href={websiteUrl} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4" />
-                    Website
-                  </a>
-                </Button>
+              <div className="social-icons justify-center">
+                <a className="social-icon" href={`mailto:${email}`}>
+                  <i className="fas fa-envelope"></i>
+                </a>
+                <a className="social-icon" href={linkedinUrl} target="_blank" rel="noopener noreferrer">
+                  <i className="fab fa-linkedin-in"></i>
+                </a>
+                <a className="social-icon" href={githubUrl} target="_blank" rel="noopener noreferrer">
+                  <i className="fab fa-github"></i>
+                </a>
+                <a className="social-icon" href={websiteUrl} target="_blank" rel="noopener noreferrer">
+                  <i className="fas fa-globe"></i>
+                </a>
               </div>
             </div>
             
@@ -113,7 +139,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
               <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
                 <div className="flex items-center gap-2 text-xl font-semibold mb-4 text-macri-primary">
                   <CheckCircle className="h-5 w-5" />
-                  <h3>Skilled At</h3>
+                  <h3>Key Skills</h3>
                 </div>
                 <ul className="list-disc pl-5 space-y-2">
                   {skillsItems.map((item, index) => (
@@ -128,7 +154,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
               <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
                 <div className="flex items-center gap-2 text-xl font-semibold mb-4 text-macri-primary">
                   <Trophy className="h-5 w-5" />
-                  <h3>Proven Experience</h3>
+                  <h3>Notable Achievements</h3>
                 </div>
                 <ul className="list-disc pl-5 space-y-2">
                   {successItems.map((item, index) => (
@@ -142,11 +168,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
 
         {/* References Section */}
         {references.length > 0 && (
-          <div className="my-8 bg-gray-50 p-6 rounded-lg border border-gray-200">
-            <h3 className="text-xl font-semibold mb-4 text-macri-primary">References</h3>
+          <div className="my-8 bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+            <h3 className="text-xl font-semibold mb-6 text-macri-primary">References</h3>
             <div className="grid md:grid-cols-2 gap-6">
               {references.map((reference, index) => (
-                <blockquote key={`ref-${index}`} className="border-l-4 border-macri-primary pl-4 italic text-gray-600 bg-white p-4 rounded-r-lg shadow-sm">
+                <blockquote key={`ref-${index}`} className="blockquote">
                   "{reference}"
                 </blockquote>
               ))}

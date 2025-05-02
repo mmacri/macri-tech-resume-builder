@@ -27,9 +27,14 @@ const EducationSection: React.FC<EducationSectionProps> = ({ items = [] }) => {
         
         <div className="grid md:grid-cols-2 gap-6">
           {educationItems.map((item, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+            <div key={index} className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
               <h3 className="text-2xl font-bold mb-2 text-macri-primary">{item.title}</h3>
-              <div className="text-lg font-medium text-gray-700 mb-2">{item.organization}</div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-lg font-medium text-gray-700">{item.organization}</span>
+                <span className="text-sm bg-macri-primary/10 text-macri-primary px-2 py-1 rounded-full">
+                  {item.organization === "MBA" ? "Master's Degree" : "Bachelor's Degree"}
+                </span>
+              </div>
               <div className="text-gray-600">{item.description}</div>
             </div>
           ))}
