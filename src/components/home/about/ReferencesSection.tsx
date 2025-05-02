@@ -57,8 +57,7 @@ const ReferencesSection: React.FC<ReferencesSectionProps> = ({ references }) => 
           >
             <Quote className="absolute top-4 left-2 h-5 w-5 text-macri-primary opacity-50" />
             <p className="text-gray-700">
-              <span className="text-macri-primary font-medium not-italic">"{reference.substring(0, 40)}..."</span>
-              <span className="text-gray-600"> {reference.substring(40)}</span>
+              {reference}
             </p>
           </blockquote>
         ))}

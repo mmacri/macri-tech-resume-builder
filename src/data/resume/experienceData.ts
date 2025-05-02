@@ -2,7 +2,7 @@
 // Static data for experience section
 export const staticExperienceData = [
   {
-    title: "Sr. Manager, Solution Consulting – Legal Ethics & Compliance",
+    title: "Sr. Manager, InfoSec Solution & Automation Engineering",
     organization: "ServiceNow",
     location: "Remote",
     start_date: "2021-12-01",

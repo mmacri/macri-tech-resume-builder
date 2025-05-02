@@ -1,29 +1,28 @@
 
-/**
- * Initial data for the About section
- */
 export const initialAboutData = {
   full_name: "Mike Macri",
+  email: "contact@mikemacri.com",
+  phone: "(555) 123-4567",
+  address: "Seattle, WA",
   headline: "Information Security & Business Development Professional",
-  intro_text: "Strategic partner development leader with a proven track record of building embedded managed services and partner-led offerings across global GSIs, ISVs, and cloud marketplaces. Expert in solution monetization, consultative selling to C-levels, and cross-functional GTM execution. Known for aligning executive vision with strategic value creations and joint revenue growth in multi-cloud, Anything as a Services (XaaS) ecosystems.",
-  locations: ["Edmonds, WA", "San Diego, CA", "San Francisco, CA", "Chicago, IL", "South Bend, IN", "Denver, CO", "Remote"],
+  intro_text: "Dedicated technology executive who combines technical expertise with business acumen to drive partner alliances, optimize global operations, and deliver comprehensive solutions to complex challenges.",
+  locations: ["Edmonds, WA", "San Diego, CA", "Remote"],
   skills_items: [
     "Operational Efficiency: Implementing practical solutions that cut training time and prevent compliance issues.",
     "Team Leadership: Building and aligning high-performing teams for clear, measurable results.",
-    "Process Improvement: Streamlining workflows to reduce redundancy and enhance transparency.",
-    "Product Adoption: Developing self-service tools and playbooks that drive usage and build customer trust."
+    "Technical Strategy: Translating complex requirements into actionable business outcomes across multiple technology domains.",
+    "Partner Enablement: Creating sales tools and programs that accelerate growth and product adoption.",
+    "Risk Management: Developing security and compliance frameworks aligned with business needs."
   ],
   success_items: [
-    "Solutions through Software Development: Created PolicyHub for on-demand access to 400+ policies, reducing training time and compliance risk.",
+    "Policy & Compliance: Created PolicyHub for on-demand access to 400+ policies, reducing training time and compliance risk.",
     "Customer Success: Built playbooks and dashboards that increased product adoption by 21% and raised NPS by 30 points.",
-    "GTM Strategy: Defined and executed business plans driving 644% revenue growth in FY21 H1, 466% in FY21 H2 and a quarterly pipeline increase of 250%.",
-    "Partner Growth: Secured top-tier partnerships with GSIs, boosting revenue and outperforming competitors.",
-    "AI/ML Initiatives: Acted as SME for enterprise AI/ML policy creation, ensuring ethical compliance and effective data governance."
+    "Partner Growth: Developed partner business motions that achieved 644% revenue growth in FY21 H1.",
+    "Team Leadership: Led a global team of technical specialists that consistently exceeded performance targets."
   ],
   references: [
-    "I have worked with Mike for the past 5 years during my time as an Enterprise Sales Exec at VMware. From Day 1 Mike has been a tremendous business partner (not only to me but most importantly, to my customers). Mike leads by example in holding himself and his team accountable resulting in the highest levels of customer satisfaction and building long-term, trusted, customer relationships. Working with Mike has been a pleasure; his attention to detail, work ethic, and unyielding commitment to delivering customer business goals &amp; outcomes has been invaluable.",
-    "I find Mike to be a manager that is a true mentor, coach, and leader. Mike not only guides but listens. When I found myself in a quandary his 'Next Step' has always got me further in my endeavors, from customer maturity to conversations with Directors and above we always moved the needle."
-  ],
-  email: "contact@mikemacri.com", // Only used for icon links, not displayed directly in content
-  phone: "" // No phone number displayed anywhere
+    "I have worked with Mike for the past 5 years during my time as an Enterprise Sales Exec at VMware. From Day 1 Mike has been a tremendous business partner.",
+    "I find Mike to be a manager that is a true mentor, coach, and leader. Mike not only guides but listens.",
+    "Mike has a strong background in both the business and technical worlds. He translates complex technical concepts into business outcomes that executives can understand and act on."
+  ]
 };

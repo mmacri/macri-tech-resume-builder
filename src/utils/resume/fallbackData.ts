@@ -10,7 +10,7 @@ export const fallbackResumeData: FallbackResumeData = {
     subtitle: "Information Security & Business Development Professional",
     description: JSON.stringify({
       full_name: "Mike Macri",
-      email: "mike@mikemacri.com",
+      email: "contact@mikemacri.com",
       phone: "(555) 123-4567",
       address: "Seattle, WA",
       headline: "Information Security & Business Development Professional",
@@ -33,17 +33,38 @@ export const fallbackResumeData: FallbackResumeData = {
   experiences: [
     {
       title: "Sr Manager, InfoSec Solution & Automation Engineering",
-      organization: "ServiceNow.com",
+      organization: "ServiceNow",
       start_date: "2021-12-01",
       end_date: null,
       description: "Created PolicyHub – a self-service portal centralizing 400+ policies – to enable fast, secure access to critical compliance documentation and reduce training dependency.\nEnhanced product features in GRC, Policy & Compliance, Strategic Portfolio Manager, and risk management by aligning cross-functional processes.\nCollaborated with executives to resolve production vulnerabilities, mitigating $900M in annual revenue risk."
     },
     {
       title: "Partner Business Development & Technical Alliance Director",
-      organization: "VMware.com",
+      organization: "VMware",
       start_date: "2019-11-01",
       end_date: "2021-12-01",
       description: "Managed VMware's largest alliances with strategic system integrators, driving multi-hundred-million-dollar growth.\nDefined and executed joint business plans that delivered 644% revenue growth in FY21 H1."
+    },
+    {
+      title: "Partner Staff Solutions Engineer Leader",
+      organization: "VMware",
+      start_date: "2017-12-01",
+      end_date: "2019-11-01",
+      description: "Managed 11 solution engineers in presales activities for partners generating $1.3B in revenue across the Central US and Canada.\nDrove 21% YoY growth, 87% YoY renewals, and 105% YoY SaaS growth through strategic relationship management."
+    },
+    {
+      title: "Sr Manager, WW Customer Success – TAMs & Product Specialists",
+      organization: "VMware",
+      start_date: "2014-11-01",
+      end_date: "2017-12-01",
+      description: "Led a global team of Technical Account Managers and cloud specialists, managing team performance/metrics.\nCreated service delivery frameworks that drove 44% improved product adoption and 30 points of NPS improvement."
+    },
+    {
+      title: "Staff Technical Account Manager",
+      organization: "VMware",
+      start_date: "2011-12-01",
+      end_date: "2014-11-01",
+      description: "Led weekly governance and executive technical review meetings with CxO and director-level stakeholders.\nCreated technical and operational architecture for three Fortune 100 enterprise customers."
     }
   ],
   education: [
@@ -63,6 +84,8 @@ export const fallbackResumeData: FallbackResumeData = {
     { title: "Business Development" },
     { title: "Strategic Partnerships" },
     { title: "Cloud Computing" },
-    { title: "GRC" }
+    { title: "GRC" },
+    { title: "AI Governance" },
+    { title: "Team Leadership" }
   ]
 };

@@ -1,93 +1,85 @@
 
 import { supabase } from '@/integrations/supabase/client';
+import { experienceItems } from '../data/experienceItems';
+import { toast } from 'sonner';
 
 /**
  * Create experience data in the database
  */
 export const createExperienceData = async (sectionId: string) => {
-  console.log('Creating experience data for section ID:', sectionId);
-  
-  if (!sectionId) {
-    console.error('No section ID provided to createExperienceData');
-    throw new Error('Section ID is required for createExperienceData');
-  }
-  
   try {
-    // First, check if there are already items for this section
+    if (!sectionId) {
+      throw new Error('Section ID is required to create experience data');
+    }
+    
+    console.log(`Creating experience data for section ID: ${sectionId}`);
+    
+    // Check if section exists
+    const { data: section, error: sectionError } = await supabase
+      .from('resume_sections')
+      .select('*')
+      .eq('id', sectionId)
+      .single();
+      
+    if (sectionError) {
+      console.error('Error checking experience section:', sectionError);
+      throw sectionError;
+    }
+    
+    if (!section) {
+      throw new Error(`Experience section with ID ${sectionId} not found`);
+    }
+    
+    console.log('Found experience section:', section);
+    
+    // First, check if items already exist for this section
     const { count, error: countError } = await supabase
       .from('resume_items')
       .select('*', { count: 'exact', head: true })
       .eq('section_id', sectionId);
       
     if (countError) {
-      console.error('Error checking for existing items:', countError);
+      console.error('Error checking existing experience items:', countError);
       throw countError;
     }
     
     if ((count || 0) > 0) {
-      console.log(`Section already has ${count} items, skipping creation`);
-      return;
+      console.log(`Experience section already has ${count} items, skipping creation`);
+      return { success: true, message: 'Experience items already exist', count };
     }
-  
-    // Clear any existing experience items for this section as a safety measure
-    const { error: deleteError } = await supabase
+    
+    // No items found, create them
+    console.log('No experience items found, creating new items');
+    
+    // Map items to include section_id
+    const itemsWithSectionId = experienceItems.map(item => ({
+      ...item,
+      section_id: sectionId
+    }));
+    
+    console.log(`Preparing to insert ${itemsWithSectionId.length} experience items`);
+    
+    // Insert all items
+    const { data: insertedItems, error: insertError } = await supabase
       .from('resume_items')
-      .delete()
-      .eq('section_id', sectionId);
+      .insert(itemsWithSectionId)
+      .select();
       
-    if (deleteError) {
-      console.error('Error deleting existing experience items:', deleteError);
-      throw deleteError;
+    if (insertError) {
+      console.error('Error inserting experience items:', insertError);
+      throw insertError;
     }
     
-    // Import experience items from the data file
-    const { importExperienceItems } = await import('../data/experienceImporter');
-    const experiences = await importExperienceItems(sectionId);
+    console.log(`Successfully created ${insertedItems?.length || 0} experience items`);
     
-    console.log(`Attempting to create ${experiences.length} experience items`);
-    
-    // Insert each experience one by one to make debugging easier
-    for (const experience of experiences) {
-      console.log(`Creating experience: ${experience.title}`);
-      try {
-        const { data, error } = await supabase
-          .from('resume_items')
-          .insert(experience)
-          .select();
-          
-        if (error) {
-          console.error(`Error creating experience data for ${experience.title}:`, error);
-          throw error;
-        }
-        
-        console.log(`Successfully created experience: ${experience.title}`);
-      } catch (err) {
-        console.error(`Failed to create experience item: ${experience.title}`, err);
-        throw err;
-      }
-    }
-    
-    console.log('Successfully created all experience items');
-    
-    // Verify that the items were actually created
-    const { data: createdItems, error: verifyError } = await supabase
-      .from('resume_items')
-      .select('*')
-      .eq('section_id', sectionId)
-      .order('display_order', { ascending: true });
-      
-    if (verifyError) {
-      console.error('Error verifying created items:', verifyError);
-    } else {
-      console.log(`Verified created items: ${createdItems?.length || 0}`);
-      if (createdItems && createdItems.length > 0) {
-        console.log('First created item:', createdItems[0]);
-      }
-    }
-
-    return createdItems;
+    return { 
+      success: true, 
+      message: `Created ${insertedItems?.length || 0} experience items`, 
+      items: insertedItems 
+    };
   } catch (error) {
     console.error('Error in createExperienceData:', error);
+    toast.error(`Failed to create experience data: ${error instanceof Error ? error.message : 'Unknown error'}`);
     throw error;
   }
 };
