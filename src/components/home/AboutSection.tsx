@@ -33,7 +33,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
   const references = aboutData?.references || initialAboutData.references;
   
   // Website links
-  const linkedinUrl = "https://linkedin.com/in/michaelmacri";
+  const linkedinUrl = "https://www.linkedin.com/in/mikemacri/";
   const githubUrl = "https://github.com/mikemacri";
   const websiteUrl = "https://mikemacri.com";
   const emailUrl = "mailto:contact@mikemacri.com";
