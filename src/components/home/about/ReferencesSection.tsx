@@ -20,8 +20,11 @@ const ReferencesSection: React.FC<ReferencesSectionProps> = ({ references }) => 
             key={`ref-${index}`} 
             className="relative pl-6 pr-4 py-4 bg-gray-50 rounded-lg border-l-4 border-macri-primary italic"
           >
-            <Quote className="absolute top-4 left-2 h-4 w-4 text-macri-primary opacity-40" />
-            <p className="text-gray-700">{reference}</p>
+            <Quote className="absolute top-4 left-2 h-5 w-5 text-macri-primary opacity-50" />
+            <p className="text-gray-700">
+              <span className="text-macri-primary font-medium not-italic">"{reference.substring(0, 40)}..."</span>
+              <span className="text-gray-600"> {reference.substring(40)}</span>
+            </p>
           </blockquote>
         ))}
       </div>

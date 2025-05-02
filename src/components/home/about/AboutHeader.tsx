@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin } from 'lucide-react';
+import { MapPin, Briefcase, Handshake, Rocket, Lightbulb } from 'lucide-react';
 
 interface AboutHeaderProps {
   name: string;
@@ -19,6 +19,24 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
   locations,
   introText
 }) => {
+  // Split the intro text to highlight key phrases
+  const formattedIntroText = () => {
+    return (
+      <>
+        <span className="font-semibold text-macri-primary">Strategic partner development leader</span> with a proven track record of building 
+        <span className="font-semibold text-macri-primary"> embedded managed services</span> and 
+        <span className="font-semibold text-macri-primary"> partner-led offerings</span> across global GSIs, ISVs, and cloud marketplaces. 
+        <br className="hidden md:block" /><br className="hidden sm:block" />
+        Expert in <span className="underline decoration-macri-primary decoration-2">solution monetization</span>, 
+        <span className="underline decoration-macri-primary decoration-2"> consultative selling to C-levels</span>, and 
+        <span className="underline decoration-macri-primary decoration-2"> cross-functional GTM execution</span>. 
+        <br className="hidden md:block" /><br className="hidden sm:block" />
+        Known for <span className="italic">aligning executive vision</span> with <span className="italic">partner IP re-platforming</span> and 
+        <span className="italic"> joint revenue growth</span> in multi-cloud and SaaS ecosystems.
+      </>
+    );
+  };
+
   return (
     <>
       <h1 className="text-macri-primary text-5xl md:text-6xl mb-1 font-bold">
@@ -35,7 +53,7 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
       </div>
       
       <p className="lead mb-7 text-lg">
-        {introText}
+        {formattedIntroText()}
       </p>
     </>
   );
