@@ -19,33 +19,35 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
   locations,
   introText
 }) => {
-  // Format the intro text with better styling to highlight key points
+  // Format the intro text with consistent styling for better readability
   const formattedIntroText = () => {
+    // Split the intro text into sentences
+    const sentences = introText.split(/(?<=\.)(?:\s+)/);
+    
     return (
       <div className="space-y-4 text-lg">
-        <p>
-          <span className="font-semibold text-macri-primary">Solution Consulting and Partner GTM leader</span> with a proven track record of building 
-          <span className="font-semibold text-macri-primary"> high-performing solution engineering</span> and 
-          <span className="font-semibold text-macri-primary"> customer success teams</span> in the enterprise cloud ecosystem.
-        </p>
-        
-        <p>
-          Skilled in <span className="font-semibold bg-macri-primary/10 px-1.5 py-0.5 rounded">coaching Solution Consultants</span>, 
-          <span className="font-semibold bg-macri-primary/10 px-1.5 py-0.5 rounded"> developing scalable technical sales motions</span>, and 
-          <span className="font-semibold bg-macri-primary/10 px-1.5 py-0.5 rounded"> delivering partner-aligned growth</span> with GSIs, SIs, and ISVs.
-        </p>
-        
-        <p>
-          Expertise in <span className="italic font-medium text-macri-primary">building customer value realization strategies</span>, 
-          <span className="italic font-medium text-macri-primary"> integrating AI-driven frameworks</span>, and
-          <span className="italic font-medium text-macri-primary"> aligning with sales, marketing, and services teams</span> to drive outcomes.
-        </p>
-        
-        <p>
-          Known for <span className="font-semibold underline decoration-macri-primary/30 underline-offset-2">creating impact</span>, 
-          <span className="font-semibold underline decoration-macri-primary/30 underline-offset-2"> guiding complex deals to closure</span>, and 
-          <span className="font-semibold underline decoration-macri-primary/30 underline-offset-2"> fostering cross-functional collaboration</span> in matrixed environments.
-        </p>
+        {sentences.map((sentence, index) => (
+          <p key={index} className="leading-relaxed">
+            {sentence.trim().split(/\s+/).map((word, wordIndex) => {
+              // Highlight keywords to improve readability
+              const keywords = [
+                "Solution Consulting", "Partner GTM", "high-performing", 
+                "solution engineering", "customer success", "GSIs", "SIs", "ISVs",
+                "value realization", "AI-driven frameworks", "impact"
+              ];
+              
+              const isKeyword = keywords.some(keyword => 
+                word.toLowerCase().includes(keyword.toLowerCase())
+              );
+              
+              return (
+                <span key={wordIndex} className={isKeyword ? "font-semibold text-macri-primary" : ""}>
+                  {word}{' '}
+                </span>
+              );
+            })}
+          </p>
+        ))}
       </div>
     );
   };
