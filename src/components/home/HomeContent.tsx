@@ -6,33 +6,25 @@ import EducationSection from '@/components/home/EducationSection';
 import SkillsSection from '@/components/home/SkillsSection';
 import InterestsSection from '@/components/home/InterestsSection';
 import AwardsSection from '@/components/home/AwardsSection';
-import { extractResumeSection } from '@/utils/resume/extractUtils';
-
-interface HomeContentProps {
-  resumeSections: any[] | undefined;
-}
 
 /**
  * Main content component for the Home page showing all resume sections
+ * Uses static content for all sections
  */
-const HomeContent: React.FC<HomeContentProps> = ({ resumeSections }) => {
-  const getSectionItems = (sectionName: string) => {
-    return extractResumeSection(resumeSections, sectionName);
-  };
-
+const HomeContent: React.FC = () => {
   return (
     <>
-      <AboutSection items={getSectionItems('about')} />
+      <AboutSection items={[]} />
       <hr className="m-0" />
-      <ExperienceSection items={getSectionItems('experience')} />
+      <ExperienceSection items={[]} />
       <hr className="m-0" />
-      <EducationSection items={getSectionItems('education')} />
+      <EducationSection items={[]} />
       <hr className="m-0" />
-      <SkillsSection items={getSectionItems('skills')} />
+      <SkillsSection items={[]} />
       <hr className="m-0" />
-      <InterestsSection items={getSectionItems('interests')} />
+      <InterestsSection items={[]} />
       <hr className="m-0" />
-      <AwardsSection items={getSectionItems('awards')} />
+      <AwardsSection items={[]} />
     </>
   );
 };

@@ -7,10 +7,10 @@ import AdminEducation from './resume/AdminEducation';
 import AdminSkills from './resume/AdminSkills';
 import AdminInterests from './resume/AdminInterests';
 import AdminAwards from './resume/AdminAwards';
-import { AdminUpdateProvider, useAdminUpdate } from '@/contexts/AdminUpdateContext';
+import { AdminUpdateProvider } from '@/contexts/AdminUpdateContext';
 import { Card, CardContent } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Info } from 'lucide-react';
 
 const AdminResume = () => {
   const [activeTab, setActiveTab] = useState("about");
@@ -31,7 +31,14 @@ const AdminResume = () => {
 
         <Card className="mb-6">
           <CardContent className="pt-6">
-            <UpdateTargetSelector />
+            <Alert>
+              <Info className="h-4 w-4" />
+              <AlertTitle>Resume Management</AlertTitle>
+              <AlertDescription>
+                Changes made here will only update the Resume page and the downloadable resume. 
+                The main site content is managed through the code directly.
+              </AlertDescription>
+            </Alert>
           </CardContent>
         </Card>
 
@@ -71,31 +78,6 @@ const AdminResume = () => {
         </Tabs>
       </div>
     </AdminUpdateProvider>
-  );
-};
-
-// Component for selecting which pages to update
-const UpdateTargetSelector = () => {
-  const { updateResume, updateIndex, toggleUpdateResume, toggleUpdateIndex } = useAdminUpdate();
-
-  return (
-    <div className="flex flex-col space-y-4">
-      <h2 className="text-lg font-medium">Update Target Pages</h2>
-      <div className="flex flex-col space-y-2">
-        <div className="flex items-center space-x-2">
-          <Checkbox id="updateResume" checked={updateResume} onCheckedChange={toggleUpdateResume} />
-          <Label htmlFor="updateResume">Update Resume Page</Label>
-        </div>
-        <div className="flex items-center space-x-2">
-          <Checkbox id="updateIndex" checked={updateIndex} onCheckedChange={toggleUpdateIndex} />
-          <Label htmlFor="updateIndex">Update Index Page</Label>
-        </div>
-      </div>
-      <p className="text-sm text-gray-500">
-        Select which pages should be updated when making changes. The Resume page will always reflect admin dashboard data
-        if no options are selected.
-      </p>
-    </div>
   );
 };
 

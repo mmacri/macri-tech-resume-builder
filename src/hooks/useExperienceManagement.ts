@@ -3,15 +3,13 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useExperienceSections } from './resume/useExperienceSections';
 import { useExperienceItems, ExperienceItem } from './resume/useExperienceItems';
-import { useExperienceMutations, UpdateOptions } from './resume/useExperienceMutations';
-import { useAdminUpdate } from '@/contexts/AdminUpdateContext';
+import { useExperienceMutations } from './resume/useExperienceMutations';
 import { toast } from 'sonner';
 
 export const useExperienceManagement = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState<any | null>(null);
   const queryClient = useQueryClient();
-  const { updateResume, updateIndex } = useAdminUpdate();
 
   // Get the experience section ID
   const { sections, isLoading: isSectionsLoading } = useExperienceSections();
@@ -21,8 +19,8 @@ export const useExperienceManagement = () => {
   const { items, isItemsLoading } = useExperienceItems(sectionId);
   const { addItem, updateItem, deleteItem, reorderItems } = useExperienceMutations();
 
-  // If neither is selected, default to updating Resume
-  const effectiveUpdateResume = updateIndex === false && updateResume === false ? true : updateResume;
+  // Always update only Resume page, not Index page
+  const updateOptions = { updateResume: true, updateIndex: false };
 
   const mutation = useMutation({
     mutationFn: async (formData: any) => {
@@ -30,7 +28,7 @@ export const useExperienceManagement = () => {
       
       if (formData.id) {
         // Update existing item
-        return await updateItem(formData, { updateIndex, updateResume: effectiveUpdateResume });
+        return await updateItem(formData, updateOptions);
       } else {
         // Add new item
         if (!sections || !sections[0]) {
@@ -45,7 +43,7 @@ export const useExperienceManagement = () => {
           ...formData,
           section_id: sections[0].id,
           display_order: highestOrder + 1
-        }, { updateIndex, updateResume: effectiveUpdateResume });
+        }, updateOptions);
       }
     },
     onSuccess: () => {
@@ -54,8 +52,7 @@ export const useExperienceManagement = () => {
       queryClient.invalidateQueries({ queryKey: ['resumeSections'] });
       
       const actionText = currentItem?.id ? 'updated' : 'added';
-      const targetText = getTargetText(updateIndex, effectiveUpdateResume);
-      toast.success(`Experience ${actionText} successfully for ${targetText}`);
+      toast.success(`Experience ${actionText} successfully for Resume page`);
       setIsDialogOpen(false);
       setCurrentItem(null);
     },
@@ -95,13 +92,12 @@ export const useExperienceManagement = () => {
   const handleDeleteItem = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this experience?')) {
       try {
-        await deleteItem(id, { updateIndex, updateResume: effectiveUpdateResume });
+        await deleteItem(id, updateOptions);
         // Invalidate multiple related queries to ensure consistency
         queryClient.invalidateQueries({ queryKey: ['experienceItems'] });
         queryClient.invalidateQueries({ queryKey: ['resumeSections'] });
         
-        const targetText = getTargetText(updateIndex, effectiveUpdateResume);
-        toast.success(`Experience deleted successfully from ${targetText}`);
+        toast.success(`Experience deleted successfully from Resume page`);
       } catch (error) {
         toast.error(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
       }
@@ -113,7 +109,7 @@ export const useExperienceManagement = () => {
     
     const prevItem = items[index - 1];
     try {
-      await reorderItems(item.id, prevItem.id, { updateIndex, updateResume: effectiveUpdateResume });
+      await reorderItems(item.id, prevItem.id, updateOptions);
       // Invalidate multiple related queries to ensure consistency
       queryClient.invalidateQueries({ queryKey: ['experienceItems'] });
       queryClient.invalidateQueries({ queryKey: ['resumeSections'] });
@@ -127,7 +123,7 @@ export const useExperienceManagement = () => {
     
     const nextItem = items[index + 1];
     try {
-      await reorderItems(item.id, nextItem.id, { updateIndex, updateResume: effectiveUpdateResume });
+      await reorderItems(item.id, nextItem.id, updateOptions);
       // Invalidate multiple related queries to ensure consistency
       queryClient.invalidateQueries({ queryKey: ['experienceItems'] });
       queryClient.invalidateQueries({ queryKey: ['resumeSections'] });
@@ -157,16 +153,4 @@ export const useExperienceManagement = () => {
     handleMoveDown,
     handleSubmit
   };
-};
-
-// Helper function to generate target text based on selected options
-const getTargetText = (updateIndex: boolean, updateResume: boolean) => {
-  if (updateIndex && updateResume) {
-    return 'both Index and Resume pages';
-  } else if (updateIndex) {
-    return 'Index page';
-  } else if (updateResume) {
-    return 'Resume page';
-  }
-  return 'Resume page'; // Default
 };

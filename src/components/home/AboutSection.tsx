@@ -4,7 +4,8 @@ import DownloadResumeButton from './DownloadResumeButton';
 import { parseAboutData } from '@/utils/resume/extractResumeSectionsForPDF';
 import { initialAboutData } from '@/utils/resume/aboutData';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { Trophy, CheckCircle } from 'lucide-react';
+import { Trophy, CheckCircle, Mail, MapPin, Phone, Linkedin, Github } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface AboutSectionProps {
   items: any[];
@@ -25,6 +26,12 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
   const skillsItems = aboutData?.skills_items || initialAboutData.skills_items;
   const successItems = aboutData?.success_items || initialAboutData.success_items;
   const references = aboutData?.references || initialAboutData.references;
+  
+  // Contact information
+  const email = "mike@mikemacri.com";
+  const phone = "+1 (555) 123-4567";
+  const linkedin = "linkedin.com/in/michaelmacri";
+  const github = "github.com/mikemacri";
 
   return (
     <section className="resume-section" id="about">
@@ -43,6 +50,33 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
         <p className="lead mb-5">
           {introText}
         </p>
+        
+        {/* Contact Information */}
+        <div className="mb-6">
+          <h3 className="text-xl font-semibold mb-3">Contact Me</h3>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="outline" size="sm" className="flex items-center gap-2">
+              <Mail className="h-4 w-4" />
+              <a href={`mailto:${email}`}>{email}</a>
+            </Button>
+            <Button variant="outline" size="sm" className="flex items-center gap-2">
+              <Phone className="h-4 w-4" />
+              <a href={`tel:${phone}`}>{phone}</a>
+            </Button>
+            <Button variant="outline" size="sm" className="flex items-center gap-2">
+              <Linkedin className="h-4 w-4" />
+              <a href={`https://${linkedin}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </Button>
+            <Button variant="outline" size="sm" className="flex items-center gap-2">
+              <Github className="h-4 w-4" />
+              <a href={`https://${github}`} target="_blank" rel="noopener noreferrer">GitHub</a>
+            </Button>
+            <Button variant="outline" size="sm" className="flex items-center gap-2">
+              <MapPin className="h-4 w-4" />
+              <span>Remote / Seattle / Chicago</span>
+            </Button>
+          </div>
+        </div>
         
         {/* Skills and Success Items Table */}
         <div className="mb-5">
