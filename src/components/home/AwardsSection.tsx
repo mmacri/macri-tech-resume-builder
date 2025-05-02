@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Download } from 'lucide-react';
+import { Download, Trophy } from 'lucide-react';
 
 interface AwardsSectionProps {
   items: any[];
@@ -30,7 +30,7 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items = [] }) => {
             {awards.map((award, index) => (
               <li key={index} className="flex gap-3 items-center">
                 <span className="text-macri-warning text-xl flex-shrink-0">
-                  <i className="fas fa-trophy"></i>
+                  <Trophy className="h-5 w-5 text-amber-500" />
                 </span>
                 <span className="text-gray-700">{award}</span>
               </li>

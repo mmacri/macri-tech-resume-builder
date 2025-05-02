@@ -3,7 +3,7 @@ import React from 'react';
 import { parseAboutData } from '@/utils/resume/extractResumeSectionsForPDF';
 import { initialAboutData } from '@/utils/resume/aboutData';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { Trophy, CheckCircle, Mail, Github, Linkedin, ExternalLink, Download, MapPin, Phone } from 'lucide-react';
+import { Trophy, CheckCircle, Github, Linkedin, ExternalLink, Download, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Tooltip,
@@ -37,8 +37,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
   const linkedinUrl = "https://linkedin.com/in/michaelmacri";
   const githubUrl = "https://github.com/mikemacri";
   const websiteUrl = "https://mikemacri.com";
-  const email = "contact@mikemacri.com"; // Using a generic contact email that can be set up as a forwarder
-  const phone = "+1 (555) 123-4567"; // Placeholder phone
+  const emailUrl = "mailto:contact@mikemacri.com"; // Only used for icon link, not displayed
 
   return (
     <section className="resume-section" id="about">
@@ -59,41 +58,79 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
             </div>
             
             <div className="flex flex-wrap gap-4 mb-5">
-              <a 
-                href={`mailto:${email}`}
-                className="flex items-center gap-2 text-macri-primary hover:underline"
-              >
-                <Mail className="h-4 w-4" />
-                <span>{email}</span>
-              </a>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <a 
+                      href={emailUrl}
+                      className="flex items-center justify-center h-10 w-10 rounded-full bg-macri-primary hover:bg-black text-white transition-colors duration-200"
+                      aria-label="Email"
+                    >
+                      <i className="fas fa-envelope"></i>
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Send me an email</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
               
-              <a 
-                href={phone.replace(/\s/g, '')}
-                className="flex items-center gap-2 text-macri-primary hover:underline"
-              >
-                <Phone className="h-4 w-4" />
-                <span>{phone}</span>
-              </a>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <a 
+                      href={linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center h-10 w-10 rounded-full bg-macri-primary hover:bg-black text-white transition-colors duration-200"
+                      aria-label="LinkedIn"
+                    >
+                      <i className="fab fa-linkedin-in"></i>
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Connect on LinkedIn</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
               
-              <a 
-                href={linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-macri-primary hover:underline"
-              >
-                <Linkedin className="h-4 w-4" />
-                <span>LinkedIn</span>
-              </a>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <a 
+                      href={githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center h-10 w-10 rounded-full bg-macri-primary hover:bg-black text-white transition-colors duration-200"
+                      aria-label="GitHub"
+                    >
+                      <i className="fab fa-github"></i>
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Check out my GitHub</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
               
-              <a 
-                href={websiteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-macri-primary hover:underline"
-              >
-                <ExternalLink className="h-4 w-4" />
-                <span>Website</span>
-              </a>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <a 
+                      href={websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center h-10 w-10 rounded-full bg-macri-primary hover:bg-black text-white transition-colors duration-200"
+                      aria-label="Website"
+                    >
+                      <i className="fas fa-globe"></i>
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Visit my website</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
             
             <p className="lead mb-5 text-lg">
@@ -104,19 +141,80 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
           <div className="lg:w-1/3 flex flex-col gap-4 items-center">
             <div className="p-5 border border-gray-200 rounded-lg bg-white shadow-sm w-full">
               <h3 className="text-xl font-semibold mb-3 text-center text-macri-primary">Connect With Me</h3>
-              <div className="social-icons justify-center">
-                <a className="social-icon" href={`mailto:${email}`}>
-                  <i className="fas fa-envelope"></i>
-                </a>
-                <a className="social-icon" href={linkedinUrl} target="_blank" rel="noopener noreferrer">
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
-                <a className="social-icon" href={githubUrl} target="_blank" rel="noopener noreferrer">
-                  <i className="fab fa-github"></i>
-                </a>
-                <a className="social-icon" href={websiteUrl} target="_blank" rel="noopener noreferrer">
-                  <i className="fas fa-globe"></i>
-                </a>
+              <div className="social-icons flex justify-center gap-3">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <a 
+                        href={emailUrl} 
+                        className="social-icon"
+                        aria-label="Email"
+                      >
+                        <i className="fas fa-envelope"></i>
+                      </a>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Send me an email</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <a 
+                        href={linkedinUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="social-icon"
+                        aria-label="LinkedIn"
+                      >
+                        <i className="fab fa-linkedin-in"></i>
+                      </a>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Connect on LinkedIn</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <a 
+                        href={githubUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="social-icon"
+                        aria-label="GitHub"
+                      >
+                        <i className="fab fa-github"></i>
+                      </a>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Check out my GitHub</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <a 
+                        href={websiteUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="social-icon"
+                        aria-label="Website"
+                      >
+                        <i className="fas fa-globe"></i>
+                      </a>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Visit my website</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             </div>
             

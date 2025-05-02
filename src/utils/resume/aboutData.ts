@@ -24,6 +24,6 @@ export const initialAboutData = {
     "I have worked with Mike for the past 5 years during my time as an Enterprise Sales Exec at VMware. From Day 1 Mike has been a tremendous business partner (not only to me but most importantly, to my customers). Mike leads by example in holding himself and his team accountable resulting in the highest levels of customer satisfaction and building long-term, trusted, customer relationships. Working with Mike has been a pleasure; his attention to detail, work ethic, and unyielding commitment to delivering customer business goals &amp; outcomes has been invaluable.",
     "I find Mike to be a manager that is a true mentor, coach, and leader. Mike not only guides but listens. When I found myself in a quandary his 'Next Step' has always got me further in my endeavors, from customer maturity to conversations with Directors and above we always moved the needle."
   ],
-  email: "contact@mikemacri.com", // Generic contact email
-  phone: "" // Removed phone number
+  email: "contact@mikemacri.com", // Only used for icon links, not displayed directly in content
+  phone: "" // No phone number displayed anywhere
 };

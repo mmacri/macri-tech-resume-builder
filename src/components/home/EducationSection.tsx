@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { MapPin } from 'lucide-react';
 
 interface EducationSectionProps {
   items: any[];
@@ -12,11 +13,13 @@ const EducationSection: React.FC<EducationSectionProps> = ({ items = [] }) => {
       title: "Xavier University - Williams College of Business",
       organization: "MBA",
       description: "Management of Information Systems",
+      location: "Cincinnati, OH"
     },
     {
       title: "Xavier University",
       organization: "B.S.",
       description: "Industrial Organizational Psychology",
+      location: "Cincinnati, OH"
     }
   ];
 
@@ -35,7 +38,14 @@ const EducationSection: React.FC<EducationSectionProps> = ({ items = [] }) => {
                   {item.organization === "MBA" ? "Master's Degree" : "Bachelor's Degree"}
                 </span>
               </div>
-              <div className="text-gray-600">{item.description}</div>
+              <div className="text-gray-600 mb-2">{item.description}</div>
+              
+              {item.location && (
+                <div className="flex items-center gap-2 text-gray-500 text-sm mt-2">
+                  <MapPin className="h-3 w-3" />
+                  <span>{item.location}</span>
+                </div>
+              )}
             </div>
           ))}
         </div>
