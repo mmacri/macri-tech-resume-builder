@@ -6,7 +6,7 @@ export const initialAboutData = {
   address: "Seattle, WA",
   headline: "Solution Consulting & Partner GTM Leader",
   intro_text: "Solution Consulting and Partner GTM leader with a proven track record of building high-performing Solution Engineering and Customer Success teams in the enterprise cloud ecosystem.\n\nSkilled in coaching Solution Consultants, developing scalable technical sales motions, and delivering partner-aligned growth with GSIs, SIs, and ISVs.\n\nExpertise in building customer value realization strategies, integrating AI-driven frameworks, and aligning with Sales, Marketing, and Services to drive outcomes.\n\nKnown for creating impact, guiding complex deals to closure, and fostering cross-functional collaboration in matrixed environments.",
-  locations: ["Edmonds, WA", "San Diego, CA", "Remote"],
+  locations: ["Edmonds, WA", "San Diego, CA", "Chicago, IL", "Denver, CO", "Remote/Hybrid"],
   skills_items: [
     "Operational Efficiency: Implementing practical solutions that cut training time and prevent compliance issues.",
     "Team Leadership: Building and aligning high-performing teams for clear, measurable results.",

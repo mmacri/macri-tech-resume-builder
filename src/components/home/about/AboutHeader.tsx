@@ -19,7 +19,7 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
   locations,
   introText
 }) => {
-  // Simplified intro text with just paragraphs, moving bullets to skills section
+  // Simplified intro text with just paragraphs
   const renderFormattedIntro = () => {
     return (
       <div className="about-intro text-lg">
@@ -42,9 +42,11 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
       <div className="mb-6">
         <h2 className="text-2xl text-gray-700">{headline}</h2>
         {locations.length > 0 && (
-          <div className="flex items-center gap-2 mt-2 text-gray-600">
+          <div className="flex flex-wrap items-center gap-2 mt-2 text-gray-600">
             <MapPin className="h-4 w-4 text-macri-primary" />
-            {locations.join(' · ')}
+            <span className="location-list">
+              {locations.join(' · ')}
+            </span>
           </div>
         )}
       </div>
