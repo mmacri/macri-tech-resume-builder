@@ -30,7 +30,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ items }) => {
             <CardContent className="py-4 flex-grow">
               <p className="text-gray-700 mb-4">{project.description}</p>
               
-              {project.technologies && project.technologies.length > 0 && (
+              {project.technologies && Array.isArray(project.technologies) && project.technologies.length > 0 && (
                 <div className="mt-2">
                   <div className="flex flex-wrap gap-2">
                     {project.technologies.map((tech: string, techIndex: number) => (
