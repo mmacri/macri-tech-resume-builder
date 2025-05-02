@@ -1,6 +1,13 @@
 
 import React from 'react';
-import { Quote } from 'lucide-react';
+import { Quote, Linkedin } from 'lucide-react';
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Button } from '@/components/ui/button';
 
 interface ReferencesSectionProps {
   references: string[];
@@ -13,7 +20,35 @@ const ReferencesSection: React.FC<ReferencesSectionProps> = ({ references }) => 
 
   return (
     <div className="my-10 bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-      <h3 className="text-xl font-semibold mb-6 text-macri-primary">References</h3>
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-xl font-semibold text-macri-primary">References</h3>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="flex items-center gap-2 border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
+                asChild
+              >
+                <a 
+                  href="https://linkedin.com/in/michaelmacri" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="View LinkedIn references"
+                >
+                  <Linkedin className="h-4 w-4" /> 
+                  <span className="hidden sm:inline">View on LinkedIn</span>
+                </a>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>View my recommendations on LinkedIn</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
+      
       <div className="grid md:grid-cols-2 gap-6">
         {references.map((reference, index) => (
           <blockquote 
