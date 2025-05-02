@@ -44,12 +44,14 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items }) => {
                 )}
               </div>
               {item.description && (
-                <ul className="list-disc pl-5 space-y-2 text-gray-700">
+                <ul className="list-disc pl-5 space-y-1 text-gray-700">
                   {item.description.split('\n')
                     .filter((point: string) => point.trim().length > 0)
-                    .map((point: string, i: number) => (
-                      <li key={i} className="py-1">{point.trim()}</li>
-                    ))}
+                    .map((point: string, i: number) => {
+                      // Remove the bullet character if it exists at the beginning of the point
+                      const cleanPoint = point.trim().replace(/^[•·]?\s*/, '');
+                      return <li key={i} className="py-1">{cleanPoint}</li>;
+                    })}
                 </ul>
               )}
             </div>

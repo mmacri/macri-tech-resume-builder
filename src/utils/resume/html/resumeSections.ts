@@ -22,7 +22,14 @@ export const generateExperiencesSection = (experiences: any[]): string => {
           </div>
           ${exp.description ? `
             <ul class="description">
-              ${exp.description.split('\n').filter(point => point.trim().length > 0).map(point => `<li>${point.trim()}</li>`).join('')}
+              ${exp.description.split('\n')
+                .filter(point => point.trim().length > 0)
+                .map(point => {
+                  // Remove bullet points if they exist at the beginning
+                  const cleanPoint = point.trim().replace(/^[•·]?\s*/, '');
+                  return `<li>${cleanPoint}</li>`;
+                })
+                .join('')}
             </ul>
           ` : ''}
         </div>
