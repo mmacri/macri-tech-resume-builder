@@ -4,8 +4,14 @@ import DownloadResumeButton from './DownloadResumeButton';
 import { parseAboutData } from '@/utils/resume/extractResumeSectionsForPDF';
 import { initialAboutData } from '@/utils/resume/aboutData';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
-import { Trophy, CheckCircle, Mail, MapPin, Phone, Linkedin, Github } from 'lucide-react';
+import { Trophy, CheckCircle, Mail, Github, Linkedin, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface AboutSectionProps {
   items: any[];
@@ -27,11 +33,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
   const successItems = aboutData?.success_items || initialAboutData.success_items;
   const references = aboutData?.references || initialAboutData.references;
   
-  // Contact information
-  const email = "mike@mikemacri.com";
-  const phone = "+1 (555) 123-4567";
-  const linkedin = "linkedin.com/in/michaelmacri";
-  const github = "github.com/mikemacri";
+  // Website links
+  const linkedinUrl = "https://linkedin.com/in/michaelmacri";
+  const githubUrl = "https://github.com/mikemacri";
+  const websiteUrl = "https://mikemacri.com";
+  const email = "contact@mikemacri.com"; // Using a generic contact email that can be set up as a forwarder
 
   return (
     <section className="resume-section" id="about">
@@ -51,31 +57,68 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
           {introText}
         </p>
         
-        {/* Contact Information */}
+        {/* Contact Information - Using buttons that link externally rather than displaying private info */}
         <div className="mb-6">
-          <h3 className="text-xl font-semibold mb-3">Contact Me</h3>
-          <div className="flex flex-wrap gap-4">
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
-              <Mail className="h-4 w-4" />
-              <a href={`mailto:${email}`}>{email}</a>
-            </Button>
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
-              <Phone className="h-4 w-4" />
-              <a href={`tel:${phone}`}>{phone}</a>
-            </Button>
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
-              <Linkedin className="h-4 w-4" />
-              <a href={`https://${linkedin}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            </Button>
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
-              <Github className="h-4 w-4" />
-              <a href={`https://${github}`} target="_blank" rel="noopener noreferrer">GitHub</a>
-            </Button>
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
-              <MapPin className="h-4 w-4" />
-              <span>Remote / Seattle / Chicago</span>
-            </Button>
-          </div>
+          <h3 className="text-xl font-semibold mb-3">Connect With Me</h3>
+          <TooltipProvider>
+            <div className="flex flex-wrap gap-4">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline" size="sm" className="flex items-center gap-2" asChild>
+                    <a href={`mailto:${email}`}>
+                      <Mail className="h-4 w-4" />
+                      Contact Me
+                    </a>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Send me an email</p>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline" size="sm" className="flex items-center gap-2" asChild>
+                    <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="h-4 w-4" />
+                      LinkedIn
+                    </a>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>View my LinkedIn profile</p>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline" size="sm" className="flex items-center gap-2" asChild>
+                    <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+                      <Github className="h-4 w-4" />
+                      GitHub
+                    </a>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>View my GitHub repositories</p>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline" size="sm" className="flex items-center gap-2" asChild>
+                    <a href={websiteUrl} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="h-4 w-4" />
+                      Website
+                    </a>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Visit my personal website</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
+          </TooltipProvider>
         </div>
         
         {/* Skills and Success Items Table */}

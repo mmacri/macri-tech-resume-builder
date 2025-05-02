@@ -31,12 +31,11 @@ const AdminResume = () => {
 
         <Card className="mb-6">
           <CardContent className="pt-6">
-            <Alert>
+            <Alert variant="warning">
               <Info className="h-4 w-4" />
-              <AlertTitle>Resume Management</AlertTitle>
+              <AlertTitle>Important Notice</AlertTitle>
               <AlertDescription>
-                Changes made here will only update the Resume page and the downloadable resume. 
-                The main site content is managed through the code directly.
+                <strong>Changes made here will ONLY update the Resume page and the downloadable resume.</strong> These changes will NOT affect the main site homepage content, which is managed through the code directly. The Home page uses static content that must be updated manually through code.
               </AlertDescription>
             </Alert>
           </CardContent>
