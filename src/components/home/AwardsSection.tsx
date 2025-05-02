@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Download, Trophy } from 'lucide-react';
+import { Download, Trophy, Award, Certificate } from 'lucide-react';
 import ResumeSection from './ResumeSection';
 import { useResumeData } from './DataProvider';
 
@@ -18,6 +18,16 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
   // Map to title
   const awards = displayItems.map(item => item.title);
 
+  // Helper function to determine which icon to use
+  const getIcon = (index: number, title: string) => {
+    // First two items use Award icon
+    if (index < 2) {
+      return <Award className="h-5 w-5 text-amber-500" />;
+    }
+    // For the rest, use Certificate icon
+    return <Certificate className="h-5 w-5 text-amber-500" />;
+  };
+
   return (
     <ResumeSection id="awards" title="Awards &amp; Certifications">
       <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
@@ -25,7 +35,7 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
           {awards.map((award, index) => (
             <li key={index} className="flex gap-3 items-center">
               <span className="text-macri-warning text-xl flex-shrink-0">
-                <Trophy className="h-5 w-5 text-amber-500" />
+                {getIcon(index, award)}
               </span>
               <span className="text-gray-700">{award}</span>
             </li>
