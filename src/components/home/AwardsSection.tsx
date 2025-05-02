@@ -24,8 +24,14 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
   
   // Ensure we always have awards to display
   const awards = displayItems && displayItems.length > 0 
-    ? displayItems.map(item => item.title)
-    : defaultAwards.map(item => item.title);
+    ? displayItems.map(item => ({
+        title: item.title,
+        id: item.id || `award-${Math.random().toString(36).substring(2, 9)}`
+      }))
+    : defaultAwards.map((item, index) => ({
+        title: item.title,
+        id: `default-award-${index}`
+      }));
 
   // Helper function to determine which icon to use
   const getIcon = (index: number) => {
@@ -42,11 +48,11 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
       <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
         <ul className="space-y-3">
           {awards.map((award, index) => (
-            <li key={index} className="flex gap-3 items-center">
+            <li key={award.id} className="flex gap-3 items-center">
               <span className="text-macri-warning text-xl flex-shrink-0">
                 {getIcon(index)}
               </span>
-              <span className="text-gray-700">{award}</span>
+              <span className="text-gray-700">{award.title}</span>
             </li>
           ))}
         </ul>
