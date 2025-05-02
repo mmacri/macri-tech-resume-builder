@@ -6,7 +6,6 @@ import EducationSection from '@/components/home/EducationSection';
 import SkillsSection from '@/components/home/SkillsSection';
 import InterestsSection from '@/components/home/InterestsSection';
 import AwardsSection from '@/components/home/AwardsSection';
-import { initialAboutData } from '@/utils/resume/aboutData';
 
 /**
  * Main content component for the Home page showing all resume sections
@@ -183,7 +182,7 @@ const HomeContent: React.FC = () => {
   ];
 
   return (
-    <>
+    <div className="resume-container">
       <AboutSection items={[]} />
       <hr className="m-0" />
       <ExperienceSection items={staticExperienceData} />
@@ -195,7 +194,7 @@ const HomeContent: React.FC = () => {
       <InterestsSection items={staticInterestsData} />
       <hr className="m-0" />
       <AwardsSection items={staticAwardsData} />
-    </>
+    </div>
   );
 };
 

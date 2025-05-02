@@ -22,20 +22,18 @@ const EducationSection: React.FC<EducationSectionProps> = ({ items = [] }) => {
 
   return (
     <section className="resume-section" id="education">
-      <div className="resume-section-content px-4 md:px-8">
-        <h2 className="text-4xl font-bold mb-8">Education</h2>
+      <div className="resume-section-content px-4 md:px-8 max-w-6xl mx-auto">
+        <h2 className="text-4xl font-bold mb-8 text-macri-primary">Education</h2>
         
-        {educationItems.map((item, index) => (
-          <div key={index} className={index < educationItems.length - 1 ? "mb-6" : ""}>
-            <div className="flex flex-col md:flex-row justify-between">
-              <div>
-                <h3 className="text-2xl font-bold mb-1">{item.title}</h3>
-                <div className="subheading mb-2">{item.organization}</div>
-                <div>{item.description}</div>
-              </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          {educationItems.map((item, index) => (
+            <div key={index} className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h3 className="text-2xl font-bold mb-2 text-macri-primary">{item.title}</h3>
+              <div className="text-lg font-medium text-gray-700 mb-2">{item.organization}</div>
+              <div className="text-gray-600">{item.description}</div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

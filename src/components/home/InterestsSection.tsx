@@ -24,13 +24,15 @@ const InterestsSection: React.FC<InterestsSectionProps> = ({ items = [] }) => {
 
   return (
     <section className="resume-section" id="interests">
-      <div className="resume-section-content px-4 md:px-8">
-        <h2 className="text-4xl font-bold mb-8">Interests</h2>
-        {paragraphs.map((paragraph, index) => (
-          <p key={index} className={index < paragraphs.length - 1 ? "mb-4" : ""}>
-            {paragraph}
-          </p>
-        ))}
+      <div className="resume-section-content px-4 md:px-8 max-w-6xl mx-auto">
+        <h2 className="text-4xl font-bold mb-8 text-macri-primary">Interests</h2>
+        <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+          {paragraphs.map((paragraph, index) => (
+            <p key={index} className={index < paragraphs.length - 1 ? "mb-4 text-gray-700 leading-relaxed" : "text-gray-700 leading-relaxed"}>
+              {paragraph}
+            </p>
+          ))}
+        </div>
       </div>
     </section>
   );

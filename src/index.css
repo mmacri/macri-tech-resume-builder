@@ -5,7 +5,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 98%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -53,14 +53,19 @@
 
   html {
     scroll-behavior: smooth;
+    @apply bg-gray-50;
   }
 
   body {
-    @apply bg-background text-foreground font-muli;
+    @apply bg-gray-50 text-foreground font-muli;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-saira;
+  }
+
+  .resume-container {
+    @apply w-full max-w-[1400px] mx-auto;
   }
 }
 
@@ -86,11 +91,11 @@
   }
   
   .resume-section {
-    @apply py-16 min-h-screen flex items-center;
+    @apply py-16 lg:min-h-screen flex items-center;
   }
   
   .resume-section-content {
-    @apply w-full max-w-4xl;
+    @apply w-full;
   }
   
   .subheading {
@@ -168,42 +173,3 @@
   .blockquote {
     @apply border-l-4 border-macri-primary pl-4 italic my-4 text-gray-600;
   }
-  
-  /* Replace circular @apply with direct CSS values */
-  .m-0 {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-  
-  .mb-0 {
-    margin-bottom: 0;
-  }
-  
-  .mb-1 {
-    margin-bottom: 0.25rem;
-  }
-  
-  .mb-2 {
-    margin-bottom: 0.5rem;
-  }
-  
-  .mb-3 {
-    margin-bottom: 0.75rem;
-  }
-  
-  .mb-4 {
-    margin-bottom: 1rem;
-  }
-  
-  .mb-5 {
-    margin-bottom: 1.25rem;
-  }
-  
-  .mt-2 {
-    margin-top: 0.5rem;
-  }
-  
-  .p-0 {
-    padding: 0;
-  }
-}

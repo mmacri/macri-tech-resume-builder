@@ -21,16 +21,33 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items = [] }) => {
 
   return (
     <section className="resume-section" id="awards">
-      <div className="resume-section-content px-4 md:px-8">
-        <h2 className="text-4xl font-bold mb-8">Awards &amp; Certifications</h2>
-        <ul className="fa-ul space-y-3">
-          {awards.map((award, index) => (
-            <li key={index} className="flex gap-2">
-              <span className="w-5 text-center"><i className="fas fa-trophy text-macri-warning"></i></span>
-              {award}
-            </li>
-          ))}
-        </ul>
+      <div className="resume-section-content px-4 md:px-8 max-w-6xl mx-auto">
+        <h2 className="text-4xl font-bold mb-8 text-macri-primary">Awards &amp; Certifications</h2>
+        <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+          <ul className="space-y-3">
+            {awards.map((award, index) => (
+              <li key={index} className="flex gap-3 items-center">
+                <span className="text-macri-warning text-xl">
+                  <i className="fas fa-trophy"></i>
+                </span>
+                <span className="text-gray-700">{award}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+        {/* Add a download resume button at the bottom */}
+        <div className="mt-12 flex justify-center">
+          <a 
+            href="/resume" 
+            className="bg-macri-primary hover:bg-macri-primary/90 text-white px-6 py-3 rounded-md font-semibold flex items-center gap-2"
+          >
+            <span className="text-xl">
+              <i className="fas fa-file-download"></i>
+            </span>
+            View Full Resume
+          </a>
+        </div>
       </div>
     </section>
   );

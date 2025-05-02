@@ -19,35 +19,33 @@ interface ExperienceSectionProps {
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items = [] }) => {
   return (
     <section className="resume-section" id="experience">
-      <div className="resume-section-content px-4 md:px-8">
-        <h2 className="text-4xl font-bold mb-8">Experience</h2>
+      <div className="resume-section-content px-4 md:px-8 max-w-6xl mx-auto">
+        <h2 className="text-4xl font-bold mb-8 text-macri-primary">Experience</h2>
         
         {items.length > 0 ? (
           items.sort((a, b) => (a.display_order || 0) - (b.display_order || 0)).map((item, index) => (
-            <div key={item.id || index} className="card mb-8">
-              <div className="card-body">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
-                  <h3 className="text-xl font-semibold text-gray-800">{item.title}</h3>
-                  <p className="text-macri-primary text-sm">
-                    {item.start_date ? new Date(item.start_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : ''} - {item.end_date ? new Date(item.end_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : 'Present'}
-                  </p>
-                </div>
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-3">
-                  <h5 className="text-base font-normal text-gray-600">{item.organization}</h5>
-                  {item.location && (
-                    <p className="text-sm text-gray-500">{item.location}</p>
-                  )}
-                </div>
-                {item.description && (
-                  <ul className="list-disc pl-5 text-sm space-y-2 text-gray-700">
-                    {item.description.split('\n')
-                      .filter((point: string) => point.trim().length > 0)
-                      .map((point: string, i: number) => (
-                        <li key={i}>{point.trim()}</li>
-                      ))}
-                  </ul>
+            <div key={item.id || index} className="mb-8 bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
+                <h3 className="text-2xl font-semibold text-macri-primary">{item.title}</h3>
+                <p className="text-gray-600 font-medium text-sm bg-gray-100 px-3 py-1 rounded-full">
+                  {item.start_date ? new Date(item.start_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : ''} - {item.end_date ? new Date(item.end_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : 'Present'}
+                </p>
+              </div>
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-3">
+                <h5 className="text-lg font-medium text-gray-700">{item.organization}</h5>
+                {item.location && (
+                  <p className="text-gray-500 italic">{item.location}</p>
                 )}
               </div>
+              {item.description && (
+                <ul className="list-disc pl-5 space-y-2 text-gray-700 mt-3">
+                  {item.description.split('\n')
+                    .filter((point: string) => point.trim().length > 0)
+                    .map((point: string, i: number) => (
+                      <li key={i} className="py-1">{point.trim()}</li>
+                    ))}
+                </ul>
+              )}
             </div>
           ))
         ) : (

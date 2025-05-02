@@ -41,34 +41,39 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ items = [] }) => {
 
   return (
     <section className="resume-section" id="skills">
-      <div className="resume-section-content px-4 md:px-8">
-        <h2 className="text-4xl font-bold mb-8">Skills</h2>
+      <div className="resume-section-content px-4 md:px-8 max-w-6xl mx-auto">
+        <h2 className="text-4xl font-bold mb-8 text-macri-primary">Skills</h2>
 
-        {/* Map through grouped skills */}
-        {Object.keys(groupedSkills).map((category, catIndex) => (
-          <div key={catIndex} className="mb-6">
-            <div className="subheading mb-3">{category}</div>
-            <ul className="fa-ul space-y-2">
-              {groupedSkills[category].map((skill, skillIndex) => (
-                <li key={skillIndex} className="flex gap-2">
-                  <span className="w-5 text-center"><i className="fas fa-check text-macri-primary"></i></span>
-                  {skill}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Map through grouped skills */}
+          {Object.keys(groupedSkills).map((category, catIndex) => (
+            <div key={catIndex} className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <h3 className="text-xl font-semibold mb-4 text-macri-primary">{category}</h3>
+              <ul className="space-y-2">
+                {groupedSkills[category].map((skill, skillIndex) => (
+                  <li key={skillIndex} className="flex gap-2 items-start">
+                    <span className="text-macri-primary mt-1">•</span>
+                    <span className="text-gray-700">{skill}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
         
-        {/* Always include programming icons section */}
-        <div>
-          <div className="subheading mb-3">Programming Languages &amp; Tools</div>
-          <div className="flex flex-wrap gap-4 text-3xl mb-4">
+        {/* Programming icons section */}
+        <div className="mt-8 bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+          <h3 className="text-xl font-semibold mb-4 text-macri-primary">Programming Languages &amp; Tools</h3>
+          <div className="flex flex-wrap gap-6 text-4xl">
             <i className="fab fa-html5 text-[#e34c26]"></i>
             <i className="fab fa-css3-alt text-[#264de4]"></i>
             <i className="fab fa-js-square text-[#f0db4f]"></i>
             <i className="fab fa-angular text-[#dd0031]"></i>
             <i className="fab fa-react text-[#61dafb]"></i>
             <i className="fab fa-node-js text-[#3c873a]"></i>
+            <i className="fab fa-python text-[#306998]"></i>
+            <i className="fab fa-aws text-[#FF9900]"></i>
+            <i className="fab fa-docker text-[#2496ED]"></i>
           </div>
         </div>
       </div>
