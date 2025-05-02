@@ -33,7 +33,7 @@ const SuccessTab: React.FC<SuccessTabProps> = ({ successItems, updateSuccessItem
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <p className="text-sm text-gray-500">Format as: "Category: Description"</p>
+          <p className="text-sm text-gray-500">Format as: "Category: Description" (e.g. "Solutions through Software Development: Created...") </p>
           {successItems.map((item, index) => (
             <div key={index} className="flex gap-2">
               <Textarea

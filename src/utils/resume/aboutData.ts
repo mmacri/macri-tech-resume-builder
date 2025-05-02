@@ -14,7 +14,7 @@ export const initialAboutData = {
     "Product Adoption: Developing self-service tools and playbooks that drive usage and build customer trust."
   ],
   success_items: [
-    "Policy & Compliance: Created PolicyHub for on-demand access to 400+ policies, reducing training time and compliance risk.",
+    "Solutions through Software Development: Created PolicyHub for on-demand access to 400+ policies, reducing training time and compliance risk.",
     "Customer Success: Built playbooks and dashboards that increased product adoption by 21% and raised NPS by 30 points.",
     "GTM Strategy: Defined and executed business plans driving 644% revenue growth in FY21 H1, 466% in FY21 H2 and a quarterly pipeline increase of 250%.",
     "Partner Growth: Secured top-tier partnerships with GSIs, boosting revenue and outperforming competitors.",
