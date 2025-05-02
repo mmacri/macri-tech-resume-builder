@@ -32,39 +32,39 @@ export const fallbackResumeData: FallbackResumeData = {
   },
   experiences: [
     {
-      title: "Sr Manager, InfoSec Solution & Automation Engineering",
+      title: "Sr. Manager, Solution Consulting – Legal Ethics & Compliance",
       organization: "ServiceNow",
       start_date: "2021-12-01",
       end_date: null,
-      description: "Created PolicyHub – a self-service portal centralizing 400+ policies – to enable fast, secure access to critical compliance documentation and reduce training dependency.\nEnhanced product features in GRC, Policy & Compliance, Strategic Portfolio Manager, and risk management by aligning cross-functional processes.\nCollaborated with executives to resolve production vulnerabilities, mitigating $900M in annual revenue risk."
+      description: "• Led internal design and consultative solutioning for GRC, Policy, IRM, and SPM modules within ServiceNow's compliance function.\n• Collaborated with stakeholders across Legal, Risk, Security, Product, and Engineering to build value allignment and ServiceNow workflows use.\n• Created and managed PolicyHub 1.0, simplifying access to enterprise policies and accelerating internal enablement across servicenow.\n• Integrated AI/ML governance into enterprise frameworks, serving as SME for the creation of ServiceNow's inaugural responsible AI risk policies & requirements.\n• Drove senior executives initiatives that streamlined compliance design to secure budget, that protected against a $900M annual security/compliance risk."
     },
     {
-      title: "Partner Business Development & Technical Alliance Director",
+      title: "Partner Business & Technical Alliance Director - Americas",
       organization: "VMware",
       start_date: "2019-11-01",
       end_date: "2021-12-01",
-      description: "Managed VMware's largest alliances with strategic system integrators, driving multi-hundred-million-dollar growth.\nDefined and executed joint business plans that delivered 644% revenue growth in FY21 H1."
+      description: "• Led GTM and presales efforts with GSI and SI partners such including DXC, Capgemini, and Accenture.\n• Developed scalable embedded partner programs and re-platformed service offerings (e.g., DXC VMware Cloud on AWS), aligning go-to-market strategy with partner executive goals.\n• Defined and executed joint business plans that led to repeated achievements above 450% of target.\n• Collaborated across matrixed SC, ProServ, and specialist teams to support technical sales cycles for strategic system integrator offerings."
     },
     {
       title: "Partner Staff Solutions Engineer Leader",
       organization: "VMware",
       start_date: "2017-12-01",
       end_date: "2019-11-01",
-      description: "Managed 11 solution engineers in presales activities for partners generating $1.3B in revenue across the Central US and Canada.\nDrove 21% YoY growth, 87% YoY renewals, and 105% YoY SaaS growth through strategic relationship management."
+      description: "• Identified market alignments with partners to deliver targeted SaaS and hybrid cloud campaigns that increased pipeline capture by 21% sell through growth.\n• Identified joint market opportunities and launched upsell and cross-sell programs resulting in a 20% revenue increase from renewals.\n• Coached partner architects and SCs to deliver consultative sales motions, resulting in $440M sell-through revenue and 21% YoY growth."
     },
     {
-      title: "Sr Manager, WW Customer Success – TAMs & Product Specialists",
+      title: "Sr Manager, Customer Success, TAMs & Product Specialists – West Coast Regional Practice",
       organization: "VMware",
       start_date: "2014-11-01",
       end_date: "2017-12-01",
-      description: "Led a global team of Technical Account Managers and cloud specialists, managing team performance/metrics.\nCreated service delivery frameworks that drove 44% improved product adoption and 30 points of NPS improvement."
+      description: "• Hired, mentored, and developed customer success teams to deliver a trusted brand increasing product adoption by 44% and improved NPS by 30 points (20 points above goal).\n• Developed and delivered engagement frameworks that aligned technical outcomes with business value metrics, driving operational efficiency and consistent expansion."
     },
     {
       title: "Staff Technical Account Manager",
       organization: "VMware",
       start_date: "2011-12-01",
       end_date: "2014-11-01",
-      description: "Led weekly governance and executive technical review meetings with CxO and director-level stakeholders.\nCreated technical and operational architecture for three Fortune 100 enterprise customers."
+      description: "• Created engagement deliverables aligning customer metrics and enhancing operational efficiency, leading to services attach on all deals.\n• Creative solutions that drove product adoption and roadmap expansions. (E.G 500 Costco storefronts in 10 minutes, eliminating on-site visits to free budget for value growth product purchases."
     }
   ],
   education: [
