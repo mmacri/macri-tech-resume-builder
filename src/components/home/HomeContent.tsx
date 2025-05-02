@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import AboutSection from '@/components/home/AboutSection';
 import ExperienceSection from '@/components/home/ExperienceSection';
@@ -5,6 +6,7 @@ import EducationSection from '@/components/home/EducationSection';
 import SkillsSection from '@/components/home/SkillsSection';
 import InterestsSection from '@/components/home/InterestsSection';
 import AwardsSection from '@/components/home/AwardsSection';
+import ProjectsSection from '@/components/home/ProjectsSection';
 import DataProvider from '@/components/home/DataProvider';
 import ResumeDataLoader from '@/components/home/ResumeDataLoader';
 
@@ -37,6 +39,8 @@ const HomeContent: React.FC = () => {
           <ExperienceSection items={[]} />
           <hr className="m-0" />
           <EducationSection items={[]} />
+          <hr className="m-0" />
+          <ProjectsSection items={[]} />
           <hr className="m-0" />
           <SkillsSection items={[]} />
           <hr className="m-0" />

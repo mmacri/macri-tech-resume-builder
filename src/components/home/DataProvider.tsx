@@ -5,7 +5,8 @@ import {
   staticEducationData, 
   staticSkillsData, 
   staticInterestsData, 
-  staticAwardsData 
+  staticAwardsData,
+  staticProjectsData
 } from '@/data/staticResumeData';
 
 /**
@@ -17,12 +18,14 @@ export const ResumeDataContext = React.createContext<{
   skillsData: any[];
   interestsData: any[];
   awardsData: any[];
+  projectsData: any[];
 }>({
   experienceData: [],
   educationData: [],
   skillsData: [],
   interestsData: [],
-  awardsData: []
+  awardsData: [],
+  projectsData: []
 });
 
 interface DataProviderProps {
@@ -45,13 +48,15 @@ const DataProvider: React.FC<DataProviderProps> = ({ children, dynamicData = [] 
   const skillsData = getSectionData('skills', staticSkillsData);
   const interestsData = getSectionData('interests', staticInterestsData);
   const awardsData = getSectionData('awards', staticAwardsData);
+  const projectsData = getSectionData('projects', staticProjectsData);
 
   const value = {
     experienceData,
     educationData,
     skillsData,
     interestsData,
-    awardsData
+    awardsData,
+    projectsData
   };
 
   return (
