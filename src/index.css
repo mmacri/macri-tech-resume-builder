@@ -173,3 +173,4 @@
   .blockquote {
     @apply border-l-4 border-macri-primary pl-4 italic my-4 text-gray-600;
   }
+}
