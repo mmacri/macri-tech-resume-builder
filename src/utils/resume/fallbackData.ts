@@ -21,7 +21,7 @@ export const fallbackResumeData: FallbackResumeData = {
         "Team Leadership: Building and aligning high-performing teams for clear, measurable results."
       ],
       success_items: [
-        "Policy & Compliance: Created PolicyHub for on-demand access to 400+ policies, reducing training time and compliance risk.",
+        "Solutions through Software Development: Created PolicyHub for on-demand access to 400+ policies, reducing training time and compliance risk.",
         "Customer Success: Built playbooks and dashboards that increased product adoption by 21% and raised NPS by 30 points."
       ],
       references: [

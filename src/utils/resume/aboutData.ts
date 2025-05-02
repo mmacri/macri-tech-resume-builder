@@ -15,7 +15,7 @@ export const initialAboutData = {
     "Risk Management: Developing security and compliance frameworks aligned with business needs."
   ],
   success_items: [
-    "Policy & Compliance: Created PolicyHub for on-demand access to 400+ policies, reducing training time and compliance risk.",
+    "Solutions through Software Development: Created PolicyHub for on-demand access to 400+ policies, reducing training time and compliance risk.",
     "Customer Success: Built playbooks and dashboards that increased product adoption by 21% and raised NPS by 30 points.",
     "Partner Growth: Developed partner business motions that achieved 644% revenue growth in FY21 H1.",
     "Team Leadership: Led a global team of technical specialists that consistently exceeded performance targets."
