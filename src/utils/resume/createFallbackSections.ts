@@ -6,9 +6,9 @@ import { fallbackResumeData } from './fallbackData';
  * Used when database data is unavailable
  */
 export const createFallbackSections = () => {
-  console.log('Creating fallback resume sections from static data for home page');
+  console.log('Creating fallback resume sections from static data');
   
-  // Get the current timestamp for created_at and updated_at properties
+  // Get current timestamp for created_at and updated_at properties
   const timestamp = new Date().toISOString();
   
   // Convert fallbackResumeData to the format expected by the components
@@ -42,22 +42,6 @@ export const createFallbackSections = () => {
       section_name: 'skills',
       display_order: 4,
       items: fallbackResumeData.skills,
-      created_at: timestamp,
-      updated_at: timestamp
-    },
-    {
-      id: 'interests',
-      section_name: 'interests',
-      display_order: 5,
-      items: [{title: "Interests"}],
-      created_at: timestamp,
-      updated_at: timestamp
-    },
-    {
-      id: 'awards',
-      section_name: 'awards',
-      display_order: 6,
-      items: [{title: "Award 1"}, {title: "Award 2"}, {title: "Award 3"}],
       created_at: timestamp,
       updated_at: timestamp
     }
