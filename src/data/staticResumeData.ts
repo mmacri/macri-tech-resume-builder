@@ -54,60 +54,6 @@ export const staticExperienceData = [
     end_date: "2011-12-01",
     description: "• Technical lead for top North American partners, enabling strategic alignment and technical enablement\n• Created partner-focused demos and tools that improved the selling capabilities of partner sales engineers\n• Delivered technical training including architecture workshops and certification courses to optimize products",
     display_order: 6
-  },
-  {
-    title: "Regional Partner Lead & Partner Solutions Engineer",
-    organization: "VMware",
-    location: "Seattle, WA",
-    start_date: "2009-04-01",
-    end_date: "2011-01-01",
-    description: "• Developed and implemented partner enablement strategies across the western U.S. region\n• Designed solutions for partners to accelerate their sales cycles and technical competency\n• Collaborated with systems integrators and resellers to create joint go-to-market strategies",
-    display_order: 7
-  },
-  {
-    title: "Senior Systems Engineer",
-    organization: "EMC Corporation",
-    location: "Seattle, WA",
-    start_date: "2007-06-01",
-    end_date: "2009-04-01",
-    description: "• Delivered technical presales support for enterprise storage, compliance, and business continuity solutions\n• Developed data protection strategies for Fortune 500 customers across multiple industries\n• Created pricing and technical proposals for enterprise customers in the Pacific Northwest",
-    display_order: 8
-  },
-  {
-    title: "Systems Engineer",
-    organization: "Symantec",
-    location: "Seattle, WA",
-    start_date: "2005-03-01",
-    end_date: "2007-06-01",
-    description: "• Provided presales engineering support for security and data protection solutions\n• Created architectural designs for enterprise backup, compliance, and security solutions\n• Managed proof-of-concept deployments and technical demonstrations for enterprise sales cycles",
-    display_order: 9
-  },
-  {
-    title: "Sr. Technical Sales Engineer",
-    organization: "Commvault",
-    location: "Cincinnati, OH",
-    start_date: "2004-01-01",
-    end_date: "2005-03-01",
-    description: "• Led technical sales engineering for enterprise backup and recovery solutions\n• Developed and delivered customer-facing presentations and demonstrations\n• Collaborated with sales team to create solution proposals for enterprise clients",
-    display_order: 10
-  },
-  {
-    title: "Network/Systems Administrator",
-    organization: "Fioptics (Cincinnati Bell)",
-    location: "Cincinnati, OH",
-    start_date: "2002-01-01",
-    end_date: "2004-01-01",
-    description: "• Managed network infrastructure and systems for regional ISP/telecom provider\n• Implemented network monitoring and security solutions\n• Supported customer deployments and technical escalations",
-    display_order: 11
-  },
-  {
-    title: "Technical Account Manager",
-    organization: "Procter & Gamble",
-    location: "Cincinnati, OH",
-    start_date: "2000-01-01",
-    end_date: "2002-01-01",
-    description: "• Supported enterprise technical infrastructure for a Fortune 50 company\n• Managed technical projects and provided escalation support\n• Collaborated with internal teams on system deployments and updates",
-    display_order: 12
   }
 ];
 
