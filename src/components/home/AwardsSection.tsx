@@ -5,22 +5,24 @@ import { Download, Award, Medal } from 'lucide-react';
 import ResumeSection from './ResumeSection';
 import { useResumeData } from './DataProvider';
 
-interface AwardsSectionProps {
-  items?: any[];
+interface AwardItem {
+  id?: string;
+  title: string;
+  display_order?: number;
 }
 
+interface AwardsSectionProps {
+  items?: AwardItem[];
+}
+
+/**
+ * Component to display awards and certifications
+ */
 const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
   const { awardsData } = useResumeData();
   
   // Use items prop if provided, otherwise use data from context
   const displayItems = items && items.length > 0 ? items : awardsData;
-  
-  // Default awards if no data is available
-  const defaultAwards = [
-    { title: "Award 1" },
-    { title: "Award 2" },
-    { title: "Certificate 3" }
-  ];
   
   // Ensure we always have awards to display
   const awards = displayItems && displayItems.length > 0 
@@ -28,20 +30,7 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
         title: item.title,
         id: item.id || `award-${Math.random().toString(36).substring(2, 9)}`
       }))
-    : defaultAwards.map((item, index) => ({
-        title: item.title,
-        id: `default-award-${index}`
-      }));
-
-  // Helper function to determine which icon to use
-  const getIcon = (index: number) => {
-    // First two items use Award icon
-    if (index < 2) {
-      return <Award className="h-5 w-5 text-amber-500" />;
-    }
-    // For the rest, use Medal icon
-    return <Medal className="h-5 w-5 text-amber-500" />;
-  };
+    : generateDefaultAwards();
 
   return (
     <ResumeSection id="awards" title="Awards &amp; Certifications">
@@ -50,7 +39,7 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
           {awards.map((award, index) => (
             <li key={award.id} className="flex gap-3 items-center">
               <span className="text-macri-warning text-xl flex-shrink-0">
-                {getIcon(index)}
+                {renderAwardIcon(index)}
               </span>
               <span className="text-gray-700">{award.title}</span>
             </li>
@@ -72,6 +61,29 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
       </div>
     </ResumeSection>
   );
+};
+
+/**
+ * Helper function to determine which icon to use based on index
+ */
+const renderAwardIcon = (index: number) => {
+  // First two items use Award icon
+  if (index < 2) {
+    return <Award className="h-5 w-5 text-amber-500" />;
+  }
+  // For the rest, use Medal icon
+  return <Medal className="h-5 w-5 text-amber-500" />;
+};
+
+/**
+ * Helper function to generate default awards when no data is available
+ */
+const generateDefaultAwards = (): AwardItem[] => {
+  return [
+    { title: "Award 1", id: "default-award-0" },
+    { title: "Award 2", id: "default-award-1" },
+    { title: "Certificate 3", id: "default-award-2" }
+  ];
 };
 
 export default AwardsSection;
