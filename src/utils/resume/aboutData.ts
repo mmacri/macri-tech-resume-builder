@@ -5,7 +5,7 @@
 export const initialAboutData = {
   full_name: "Mike Macri",
   headline: "Information Security & Business Development Professional",
-  intro_text: "A value-driven leader with 25 years of experience recognized for customer success programs, partner management, and solution advisory, specializing in enterprise technology adoption, renewal, and upsell.",
+  intro_text: "Strategic partner development leader with a proven track record of building embedded managed services and partner-led offerings across global GSIs, ISVs, and cloud marketplaces. Expert in solution monetization, consultative selling to C-levels, and cross-functional GTM execution. Known for aligning executive vision with partner IP re-platforming and joint revenue growth in multi-cloud and SaaS ecosystems.",
   locations: ["Edmonds, WA", "San Diego, CA", "San Francisco, CA", "Chicago, IL", "South Bend, IN", "Denver, CO", "Remote"],
   skills_items: [
     "Operational Efficiency: Implementing practical solutions that cut training time and prevent compliance issues.",
