@@ -36,8 +36,8 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
         </p>
         
         <p>
-          Known for <span className="italic font-medium text-macri-primary">aligning executive vision</span> with <span className="italic font-medium text-macri-primary">partner IP re-platforming</span> and 
-          <span className="italic font-medium text-macri-primary"> joint revenue growth</span> in multi-cloud and SaaS ecosystems.
+          Known for <span className="italic font-medium text-macri-primary">aligning executive vision</span> with <span className="italic font-medium text-macri-primary">strategic value creations</span> and 
+          <span className="italic font-medium text-macri-primary"> joint revenue growth</span> in multi-cloud, <span className="italic font-medium text-macri-primary">Anything as a Services (XaaS)</span> ecosystems.
         </p>
       </div>
     );
