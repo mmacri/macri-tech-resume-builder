@@ -76,6 +76,37 @@ export function useSupabaseAuth() {
         return;
       }
       
+      // Check directly using the simplified is_admin function (avoids role checks)
+      try {
+        const { data: isAdminResult, error: rpcError } = await supabase
+          .rpc('is_admin', { user_id: userId });
+          
+        if (rpcError) {
+          console.error('Error checking admin via RPC:', rpcError);
+          // Fall back to direct profile check
+          fallbackAdminCheck(userId, isKnownAdmin);
+          return;
+        }
+        
+        console.log('Admin status via RPC:', isAdminResult);
+        setIsAdmin(isAdminResult || false);
+        setIsLoading(false);
+        return;
+      } catch (rpcError) {
+        console.error('Exception in RPC admin check:', rpcError);
+        // Fall back to direct profile check
+        fallbackAdminCheck(userId, isKnownAdmin);
+      }
+    } catch (error) {
+      console.error('Error checking admin status:', error);
+      setIsAdmin(false);
+      setIsLoading(false);
+    }
+  };
+
+  // Fallback method to check admin status directly from profiles table
+  const fallbackAdminCheck = async (userId: string, isKnownAdmin: boolean) => {
+    try {
       // Check if user has a profile
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
@@ -120,7 +151,7 @@ export function useSupabaseAuth() {
         setIsAdmin(isKnownAdmin);
       }
     } catch (error) {
-      console.error('Error checking admin status:', error);
+      console.error('Error in fallback admin check:', error);
       setIsAdmin(false);
     } finally {
       setIsLoading(false);
