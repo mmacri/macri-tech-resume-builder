@@ -23,8 +23,9 @@ export const scrollToElement = (elementId: string, offset: number = 0): void => 
 
 /**
  * Set up scroll spying to highlight active nav items
+ * @returns Cleanup function to remove observers
  */
-export const setupScrollSpy = (): void => {
+export const setupScrollSpy = (): (() => void) => {
   // Elements to observe for scroll position
   const sections = document.querySelectorAll('.resume-section');
   
@@ -65,7 +66,7 @@ export const setupScrollSpy = (): void => {
     observer.observe(section);
   });
 
-  // Clean up observer on route change
+  // Return cleanup function
   return () => {
     sections.forEach(section => {
       observer.unobserve(section);
