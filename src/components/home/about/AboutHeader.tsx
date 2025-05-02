@@ -19,9 +19,8 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
   locations,
   introText
 }) => {
-  // Format intro text to match the requested layout with paragraphs and bullet points
+  // Simplified intro text with just paragraphs, moving bullets to skills section
   const renderFormattedIntro = () => {
-    // Static structure since this is a specific format request
     return (
       <div className="about-intro text-lg">
         <p className="mb-6">
@@ -31,24 +30,6 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
         <p className="mb-6">
           Skilled in coaching <span className="font-semibold">Solution Consultants</span>, developing <span className="italic">scalable technical sales motions</span>, and delivering partner-aligned growth with GSIs, SIs, and ISVs.
         </p>
-        
-        <div className="mb-6">
-          <p className="font-semibold mb-2">Expertise in:</p>
-          <ul className="list-disc pl-6 space-y-2">
-            <li>Building <span className="font-semibold">customer value realization</span> strategies</li>
-            <li>Integrating <span className="font-semibold">AI-driven</span> frameworks</li>
-            <li>Aligning with <span className="font-semibold">Sales, Marketing</span>, and Services to <span className="italic">drive outcomes</span></li>
-          </ul>
-        </div>
-        
-        <div>
-          <p className="font-semibold mb-2">Known for:</p>
-          <ul className="list-disc pl-6 space-y-2">
-            <li>Creating impact</li>
-            <li>Guiding <span className="font-semibold">complex deals</span> to closure</li>
-            <li>Fostering cross-functional collaboration in <span className="italic">matrixed environments</span></li>
-          </ul>
-        </div>
       </div>
     );
   };
