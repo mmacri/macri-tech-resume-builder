@@ -7,14 +7,14 @@ import { FallbackResumeData } from './html/resumeTypes';
 export const fallbackResumeData: FallbackResumeData = {
   aboutData: {
     title: "Mike Macri",
-    subtitle: "Information Security & Business Development Professional",
+    subtitle: "Solution Consulting & Partner GTM Leader",
     description: JSON.stringify({
       full_name: "Mike Macri",
       email: "contact@mikemacri.com",
       phone: "(555) 123-4567",
       address: "Seattle, WA",
-      headline: "Information Security & Business Development Professional",
-      intro_text: "Dedicated technology executive who combines technical expertise with business acumen to drive partner alliances, optimize global operations, and deliver comprehensive solutions to complex challenges.",
+      headline: "Solution Consulting & Partner GTM Leader",
+      intro_text: "Solution Consulting and Partner GTM leader with a proven track record of building high-performing solution engineering and customer success teams in the enterprise cloud ecosystem. Skilled in coaching Solution Consultants, developing scalable technical sales motions, and delivering partner-aligned growth with GSIs, SIs, and ISVs. Expertise at building customer value realization strategies, integrating AI-driven frameworks, and aligning with sales, marketing, and services teams to drive outcomes. Known for creating impact, guiding complex deals to closure, and fostering cross-functional collaboration in matrixed environments.",
       locations: ["Edmonds, WA", "San Diego, CA", "Remote"],
       skills_items: [
         "Operational Efficiency: Implementing practical solutions that cut training time and prevent compliance issues.",
