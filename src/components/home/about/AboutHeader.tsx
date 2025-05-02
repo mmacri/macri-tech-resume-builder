@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin, Briefcase, Handshake, Rocket, Lightbulb } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 interface AboutHeaderProps {
   name: string;
@@ -19,21 +19,27 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
   locations,
   introText
 }) => {
-  // Split the intro text to highlight key phrases
+  // Format the intro text with better styling
   const formattedIntroText = () => {
     return (
-      <>
-        <span className="font-semibold text-macri-primary">Strategic partner development leader</span> with a proven track record of building 
-        <span className="font-semibold text-macri-primary"> embedded managed services</span> and 
-        <span className="font-semibold text-macri-primary"> partner-led offerings</span> across global GSIs, ISVs, and cloud marketplaces. 
-        <br className="hidden md:block" /><br className="hidden sm:block" />
-        Expert in <span className="underline decoration-macri-primary decoration-2">solution monetization</span>, 
-        <span className="underline decoration-macri-primary decoration-2"> consultative selling to C-levels</span>, and 
-        <span className="underline decoration-macri-primary decoration-2"> cross-functional GTM execution</span>. 
-        <br className="hidden md:block" /><br className="hidden sm:block" />
-        Known for <span className="italic">aligning executive vision</span> with <span className="italic">partner IP re-platforming</span> and 
-        <span className="italic"> joint revenue growth</span> in multi-cloud and SaaS ecosystems.
-      </>
+      <div className="space-y-3 text-lg">
+        <p>
+          <span className="font-semibold text-macri-primary">Strategic partner development leader</span> with a proven track record of building 
+          <span className="font-semibold text-macri-primary"> embedded managed services</span> and 
+          <span className="font-semibold text-macri-primary"> partner-led offerings</span> across global GSIs, ISVs, and cloud marketplaces.
+        </p>
+        
+        <p>
+          Expert in <span className="font-semibold bg-macri-primary/10 px-1.5 py-0.5 rounded">solution monetization</span>, 
+          <span className="font-semibold bg-macri-primary/10 px-1.5 py-0.5 rounded"> consultative selling to C-levels</span>, and 
+          <span className="font-semibold bg-macri-primary/10 px-1.5 py-0.5 rounded"> cross-functional GTM execution</span>.
+        </p>
+        
+        <p>
+          Known for <span className="italic font-medium text-macri-primary">aligning executive vision</span> with <span className="italic font-medium text-macri-primary">partner IP re-platforming</span> and 
+          <span className="italic font-medium text-macri-primary"> joint revenue growth</span> in multi-cloud and SaaS ecosystems.
+        </p>
+      </div>
     );
   };
 
@@ -52,9 +58,7 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
         )}
       </div>
       
-      <p className="lead mb-7 text-lg">
-        {formattedIntroText()}
-      </p>
+      {formattedIntroText()}
     </>
   );
 };
