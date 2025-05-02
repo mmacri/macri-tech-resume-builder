@@ -156,6 +156,9 @@
   
   .tooltip {
     @apply absolute invisible group-hover:visible bg-black text-white text-xs rounded py-1 px-2 -mt-8;
+    transform: translateX(-50%);
+    left: 50%;
+    white-space: nowrap;
   }
   
   .fa-ul {
@@ -172,5 +175,17 @@
   
   .blockquote {
     @apply border-l-4 border-macri-primary pl-4 italic my-4 text-gray-600;
+  }
+  
+  .skill-icon {
+    @apply text-4xl transition-transform hover:scale-110;
+  }
+  
+  .skill-card {
+    @apply h-full bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all;
+  }
+  
+  .skill-list li {
+    @apply mb-2 last:mb-0;
   }
 }
