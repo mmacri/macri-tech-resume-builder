@@ -35,7 +35,7 @@ const ReferencesSection: React.FC<ReferencesSectionProps> = ({ references }) => 
                   href="https://www.linkedin.com/in/mikemacri/details/recommendations/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  aria-label="View LinkedIn references"
+                  aria-label="View References"
                 >
                   <Linkedin className="h-4 w-4" /> 
                   <span className="hidden sm:inline">View References</span>

@@ -12,19 +12,7 @@ import { AdminUpdateProvider } from "./contexts/AdminUpdateContext";
 const queryClient = new QueryClient();
 
 const App = () => {
-  // Moving the script loading logic into the main component function
-  React.useEffect(() => {
-    const script = document.createElement('script');
-    script.src = "https://use.fontawesome.com/releases/v6.3.0/js/all.js";
-    script.crossOrigin = "anonymous";
-    document.head.appendChild(script);
-    
-    return () => {
-      if (script.parentNode) {
-        document.head.removeChild(script);
-      }
-    };
-  }, []);
+  // Removed the Font Awesome script loading from here as it's now in index.html
 
   return (
     <QueryClientProvider client={queryClient}>

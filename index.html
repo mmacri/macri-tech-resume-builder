@@ -12,9 +12,20 @@
     <meta property="og:description" content="">
     <meta name="twitter:title" content="Mike Macri - Portfolio">
     <meta name="twitter:description" content="">
+    
+    <!-- Optimized Font Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@500;600;700&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@500;600;700&family=Mulish:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@500;600;700&family=Mulish:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@500;600;700&family=Mulish:wght@300;400;500;600;700&display=swap">
+    </noscript>
+    
+    <!-- Font Awesome with optimized loading -->
+    <link rel="preload" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css"></noscript>
+    <script defer src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
   </head>
   <body class="bg-gray-100 antialiased text-slate-900">
     <div id="root"></div>
