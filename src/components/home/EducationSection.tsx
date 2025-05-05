@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin, GraduationCap } from 'lucide-react';
+import { MapPin, GraduationCap, X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import ResumeSection from './ResumeSection';
 import { useResumeData } from './DataProvider';
@@ -34,7 +34,12 @@ const EducationSection: React.FC<EducationSectionProps> = ({ items }) => {
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
                   <div className="hidden sm:flex mt-1 bg-macri-primary/10 rounded-full p-2 text-macri-primary">
-                    <GraduationCap className="h-6 w-6" />
+                    {/* Use X logo for Xavier University */}
+                    {item.title.toLowerCase().includes('xavier') ? (
+                      <X className="h-6 w-6" />
+                    ) : (
+                      <GraduationCap className="h-6 w-6" />
+                    )}
                   </div>
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold mb-2 text-macri-primary">{item.title}</h3>

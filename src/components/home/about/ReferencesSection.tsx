@@ -38,7 +38,7 @@ const ReferencesSection: React.FC<ReferencesSectionProps> = ({ references }) => 
                   aria-label="View LinkedIn references"
                 >
                   <Linkedin className="h-4 w-4" /> 
-                  <span className="hidden sm:inline">View on LinkedIn</span>
+                  <span className="hidden sm:inline">View References</span>
                 </a>
               </Button>
             </TooltipTrigger>
