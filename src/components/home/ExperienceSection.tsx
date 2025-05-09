@@ -10,9 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@/components/ui/accordion';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Button } from '@/components/ui/button';
-import { ChevronDown } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 interface ExperienceItem {
   id?: string;
@@ -49,7 +47,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items }) => {
         {displayItems
           .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
           .map((item, index) => (
-            <AccordionItem key={item.id || index} value={`item-${index}`}>
+            <AccordionItem key={item.id || index} value={`item-${index}`} id={`experience-item-${index}`}>
               <AccordionTrigger className="hover:no-underline">
                 <div className="text-left">
                   <div className="font-bold text-macri-primary">{item.title}</div>
@@ -63,7 +61,10 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items }) => {
                       {formatDateDisplay(item.start_date)} - {formatDateDisplay(item.end_date)}
                     </span>
                     {item.location && (
-                      <div className="experience-location text-sm text-gray-500">{item.location}</div>
+                      <div className="experience-location text-sm text-gray-500 flex items-center gap-1 mt-1 md:mt-0">
+                        <MapPin className="h-3 w-3" />
+                        {item.location}
+                      </div>
                     )}
                   </div>
                   

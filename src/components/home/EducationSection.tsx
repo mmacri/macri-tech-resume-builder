@@ -39,7 +39,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({ items }) => {
         {displayItems
           .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
           .map((item, index) => (
-            <AccordionItem key={item.id || index} value={`item-${index}`}>
+            <AccordionItem key={item.id || index} value={`item-${index}`} id={`education-item-${index}`}>
               <AccordionTrigger className="hover:no-underline">
                 <div className="text-left">
                   <div className="font-bold text-macri-primary">{item.title}</div>

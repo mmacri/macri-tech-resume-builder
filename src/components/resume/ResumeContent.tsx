@@ -50,7 +50,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
     return (
       <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
         <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="about">
+          <AccordionItem value="about" id="about">
             <AccordionTrigger className="text-xl font-bold text-macri-primary">About</AccordionTrigger>
             <AccordionContent>
               <div className="pt-3 pb-6">
@@ -59,7 +59,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
             </AccordionContent>
           </AccordionItem>
           
-          <AccordionItem value="experience">
+          <AccordionItem value="experience" id="experience">
             <AccordionTrigger className="text-xl font-bold text-macri-primary">Experience</AccordionTrigger>
             <AccordionContent>
               <div className="pt-3 pb-6">
@@ -68,7 +68,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
             </AccordionContent>
           </AccordionItem>
           
-          <AccordionItem value="education">
+          <AccordionItem value="education" id="education">
             <AccordionTrigger className="text-xl font-bold text-macri-primary">Education</AccordionTrigger>
             <AccordionContent>
               <div className="pt-3 pb-6">
@@ -77,7 +77,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
             </AccordionContent>
           </AccordionItem>
           
-          <AccordionItem value="skills">
+          <AccordionItem value="skills" id="skills">
             <AccordionTrigger className="text-xl font-bold text-macri-primary">Skills</AccordionTrigger>
             <AccordionContent>
               <div className="pt-3 pb-6">
@@ -86,7 +86,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
             </AccordionContent>
           </AccordionItem>
           
-          <AccordionItem value="interests">
+          <AccordionItem value="interests" id="interests">
             <AccordionTrigger className="text-xl font-bold text-macri-primary">Interests</AccordionTrigger>
             <AccordionContent>
               <div className="pt-3 pb-6">
@@ -95,7 +95,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
             </AccordionContent>
           </AccordionItem>
           
-          <AccordionItem value="awards">
+          <AccordionItem value="awards" id="awards">
             <AccordionTrigger className="text-xl font-bold text-macri-primary">Awards</AccordionTrigger>
             <AccordionContent>
               <div className="pt-3 pb-6">
