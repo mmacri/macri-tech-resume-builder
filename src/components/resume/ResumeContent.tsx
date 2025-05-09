@@ -10,6 +10,13 @@ import DownloadResumeButton from '@/components/home/DownloadResumeButton';
 import { extractResumeSection } from '@/utils/resume/extractUtils';
 import { Button } from '@/components/ui/button';
 import { Download, Printer } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/ui/accordion';
 
 interface ResumeContentProps {
   resumeSections: any[];
@@ -20,6 +27,8 @@ interface ResumeContentProps {
  * This uses database content
  */
 const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
+  const isMobile = useIsMobile();
+  
   const getSectionItems = (sectionName: string) => {
     return extractResumeSection(resumeSections, sectionName);
   };
@@ -34,6 +43,90 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
 
   const handlePrint = () => {
     window.print();
+  };
+
+  // Mobile view with accordion sections
+  const renderMobileView = () => {
+    return (
+      <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="about">
+            <AccordionTrigger className="text-xl font-bold text-macri-primary">About</AccordionTrigger>
+            <AccordionContent>
+              <div className="pt-3 pb-6">
+                <AboutSection items={aboutItems} />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          
+          <AccordionItem value="experience">
+            <AccordionTrigger className="text-xl font-bold text-macri-primary">Experience</AccordionTrigger>
+            <AccordionContent>
+              <div className="pt-3 pb-6">
+                <ExperienceSection items={experienceItems} />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          
+          <AccordionItem value="education">
+            <AccordionTrigger className="text-xl font-bold text-macri-primary">Education</AccordionTrigger>
+            <AccordionContent>
+              <div className="pt-3 pb-6">
+                <EducationSection items={educationItems} />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          
+          <AccordionItem value="skills">
+            <AccordionTrigger className="text-xl font-bold text-macri-primary">Skills</AccordionTrigger>
+            <AccordionContent>
+              <div className="pt-3 pb-6">
+                <SkillsSection items={skillsItems} />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          
+          <AccordionItem value="interests">
+            <AccordionTrigger className="text-xl font-bold text-macri-primary">Interests</AccordionTrigger>
+            <AccordionContent>
+              <div className="pt-3 pb-6">
+                <InterestsSection items={interestsItems} />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          
+          <AccordionItem value="awards">
+            <AccordionTrigger className="text-xl font-bold text-macri-primary">Awards</AccordionTrigger>
+            <AccordionContent>
+              <div className="pt-3 pb-6">
+                <AwardsSection items={awardsItems} />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
+    );
+  };
+
+  // Desktop view with all sections expanded
+  const renderDesktopView = () => {
+    return (
+      <>
+        <AboutSection items={aboutItems} />
+        <hr className="m-0 border-gray-200" />
+        
+        <ExperienceSection items={experienceItems} />
+        
+        <hr className="m-0 border-gray-200" />
+        <EducationSection items={educationItems} />
+        <hr className="m-0 border-gray-200" />
+        <SkillsSection items={skillsItems} />
+        <hr className="m-0 border-gray-200" />
+        <InterestsSection items={interestsItems} />
+        <hr className="m-0 border-gray-200" />
+        <AwardsSection items={awardsItems} />
+      </>
+    );
   };
 
   return (
@@ -54,19 +147,10 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
         </div>
       </div>
 
-      <AboutSection items={aboutItems} />
-      <hr className="m-0 border-gray-200" />
-      
-      <ExperienceSection items={experienceItems} />
-      
-      <hr className="m-0 border-gray-200" />
-      <EducationSection items={educationItems} />
-      <hr className="m-0 border-gray-200" />
-      <SkillsSection items={skillsItems} />
-      <hr className="m-0 border-gray-200" />
-      <InterestsSection items={interestsItems} />
-      <hr className="m-0 border-gray-200" />
-      <AwardsSection items={awardsItems} />
+      {/* Conditional rendering based on device size */}
+      <div className="px-4 py-6 md:px-8 max-w-6xl mx-auto">
+        {isMobile ? renderMobileView() : renderDesktopView()}
+      </div>
       
       <section className="resume-section py-10" id="download">
         <div className="resume-section-content px-4 md:px-8 text-center max-w-6xl mx-auto">

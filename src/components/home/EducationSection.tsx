@@ -4,6 +4,13 @@ import { MapPin, GraduationCap, X } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import ResumeSection from './ResumeSection';
 import { useResumeData } from './DataProvider';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { 
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/ui/accordion';
 
 interface EducationItem {
   id?: string;
@@ -20,12 +27,51 @@ interface EducationSectionProps {
 
 const EducationSection: React.FC<EducationSectionProps> = ({ items }) => {
   const { educationData } = useResumeData();
+  const isMobile = useIsMobile();
   
   // Use items prop if provided, otherwise use data from context
   const displayItems = items && items.length > 0 ? items : educationData;
 
-  return (
-    <ResumeSection id="education" title="Education">
+  // Render education items as accordion on mobile
+  const renderMobileEducation = () => {
+    return (
+      <Accordion type="single" collapsible className="w-full">
+        {displayItems
+          .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
+          .map((item, index) => (
+            <AccordionItem key={item.id || index} value={`item-${index}`}>
+              <AccordionTrigger className="hover:no-underline">
+                <div className="text-left">
+                  <div className="font-bold text-macri-primary">{item.title}</div>
+                  <div className="text-sm text-gray-600">{item.organization}</div>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="pt-2">
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span className="text-sm bg-macri-primary/10 text-macri-primary px-2 py-1 rounded-full">
+                      {item.organization === "MBA" ? "Master's Degree" : item.organization === "B.S." ? "Bachelor's Degree" : "Degree"}
+                    </span>
+                  </div>
+                  <div className="text-gray-600 mb-2 text-sm">{item.description}</div>
+                  
+                  {item.location && (
+                    <div className="flex items-center gap-2 text-gray-500 text-sm mt-2">
+                      <MapPin className="h-3 w-3" />
+                      <span>{item.location}</span>
+                    </div>
+                  )}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+      </Accordion>
+    );
+  };
+  
+  // Render education items as cards on desktop
+  const renderDesktopEducation = () => {
+    return (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {displayItems
           .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
@@ -63,6 +109,25 @@ const EducationSection: React.FC<EducationSectionProps> = ({ items }) => {
             </Card>
           ))}
       </div>
+    );
+  };
+
+  return (
+    <ResumeSection id="education" title="Education">
+      {displayItems.length > 0 ? (
+        isMobile ? (
+          <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+            {renderMobileEducation()}
+          </div>
+        ) : (
+          renderDesktopEducation()
+        )
+      ) : (
+        <div className="p-8 border rounded-lg bg-macri-secondary text-center">
+          <p className="text-gray-600">No education information available.</p>
+          <p className="text-sm text-gray-500 mt-2">Education details will appear here when added.</p>
+        </div>
+      )}
     </ResumeSection>
   );
 };
