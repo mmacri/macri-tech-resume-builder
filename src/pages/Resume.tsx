@@ -6,6 +6,7 @@ import { useResumeHandlers } from '@/hooks/resume/useResumeHandlers';
 import { setupLazyLoading, prepareLazyImages } from '@/utils/lazyLoadUtils';
 import { useNavigationItems } from '@/components/routing/NavigationConfig';
 import MobileNavMenu from '@/components/layout/MobileNavMenu';
+import BackToTop from '@/components/ui/back-to-top';
 
 /**
  * Resume page component serving as the entry point for the resume view
@@ -75,6 +76,8 @@ const Resume = () => {
         onRetry={handleRetry}
         onInitializeData={handleInitializeData}
       />
+      
+      <BackToTop />
     </>
   );
 };

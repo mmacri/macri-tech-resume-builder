@@ -163,7 +163,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
               onClick={() => window.open('/resume-download', '_blank')}
             >
               <Download className="h-5 w-5" />
-              Download PDF
+              Download My Resume PDF
             </Button>
           ) : (
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -172,7 +172,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
                 onClick={() => window.open('/resume-download', '_blank')}
               >
                 <Download className="h-5 w-5" />
-                Download PDF
+                Download My Resume PDF
               </Button>
               <Button 
                 variant="outline"

@@ -10,7 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@/components/ui/accordion';
-import { MapPin } from 'lucide-react';
+import { MapPin, Link } from 'lucide-react';
 
 interface ExperienceItem {
   id?: string;
@@ -50,7 +50,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items }) => {
             <AccordionItem key={item.id || index} value={`item-${index}`} id={`experience-item-${index}`}>
               <AccordionTrigger className="hover:no-underline">
                 <div className="text-left">
-                  <div className="font-bold text-macri-primary">{item.title}</div>
+                  <div className="font-bold text-macri-primary text-lg">{item.title}</div>
                   <div className="text-sm text-gray-600">{item.organization}</div>
                 </div>
               </AccordionTrigger>
@@ -79,6 +79,22 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items }) => {
                         })}
                     </ul>
                   )}
+                  
+                  {/* Add internal link to education section */}
+                  <a 
+                    href="#education" 
+                    className="text-macri-primary flex items-center gap-1 mt-4 text-sm font-medium hover:underline"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const element = document.getElementById('education');
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
+                  >
+                    <Link className="h-4 w-4" />
+                    View my education
+                  </a>
                 </div>
               </AccordionContent>
             </AccordionItem>
@@ -93,32 +109,51 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items }) => {
       displayItems
         .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
         .map((item, index) => (
-          <div key={item.id || index} className="experience-item">
-            <div className="experience-header">
-              <h3 className="experience-title">{item.title}</h3>
-              <span className="experience-date">
+          <div key={item.id || index} className="experience-item mb-8 last:mb-0">
+            <div className="experience-header flex flex-col md:flex-row justify-between mb-2">
+              <h3 className="experience-title text-2xl font-bold text-macri-primary">{item.title}</h3>
+              <span className="experience-date text-lg font-medium text-gray-600">
                 {formatDateDisplay(item.start_date)} - {formatDateDisplay(item.end_date)}
               </span>
             </div>
             
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
-              <div className="experience-company">{item.organization}</div>
+              <div className="experience-company text-xl font-medium text-gray-700">{item.organization}</div>
               {item.location && (
-                <div className="experience-location">{item.location}</div>
+                <div className="experience-location flex items-center gap-1 text-gray-500">
+                  <MapPin className="h-4 w-4" />
+                  {item.location}
+                </div>
               )}
             </div>
             
             {item.description && (
-              <ul className="experience-description">
+              <ul className="experience-description pl-5 list-disc space-y-1">
                 {item.description.split('\n')
                   .filter((point: string) => point.trim().length > 0)
                   .map((point: string, i: number) => {
                     // Remove the bullet character if it exists at the beginning of the point
                     const cleanPoint = point.trim().replace(/^[•·]?\s*/, '');
-                    return <li key={i}>{cleanPoint}</li>;
+                    return <li key={i} className="text-gray-700">{cleanPoint}</li>;
                   })}
               </ul>
             )}
+            
+            {/* Add internal link to education section */}
+            <a 
+              href="#education" 
+              className="text-macri-primary flex items-center gap-1 mt-4 text-sm font-medium hover:underline"
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById('education');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
+              <Link className="h-4 w-4" />
+              View my education
+            </a>
           </div>
         ))
     );

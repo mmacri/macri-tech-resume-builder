@@ -58,7 +58,7 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
           >
             <a href="/resume">
               <Download className="h-5 w-5" />
-              View Full Resume
+              Download My Resume
             </a>
           </Button>
         </div>

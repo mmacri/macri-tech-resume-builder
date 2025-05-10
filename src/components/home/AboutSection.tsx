@@ -6,6 +6,7 @@ import DownloadResume from '@/components/resume/DownloadResume';
 import ResumeSection from './ResumeSection';
 import { useResumeData } from './DataProvider';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Button } from '@/components/ui/button';
 
 // Import refactored components
 import AboutHeader from './about/AboutHeader';
@@ -54,6 +55,18 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
             websiteUrl={websiteUrl}
             emailUrl={emailUrl}
           />
+          
+          {/* Clear Call to Action - Desktop */}
+          {!isMobile && (
+            <div className="mt-8">
+              <Button 
+                className="bg-macri-primary hover:bg-macri-primary/90 py-6 px-8 text-lg"
+                asChild
+              >
+                <a href="#experience">View My Experience</a>
+              </Button>
+            </div>
+          )}
         </div>
         
         <AboutSidebar

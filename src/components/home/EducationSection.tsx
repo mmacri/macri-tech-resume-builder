@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin, GraduationCap, X } from 'lucide-react';
+import { MapPin, GraduationCap, X, Link } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import ResumeSection from './ResumeSection';
 import { useResumeData } from './DataProvider';
@@ -42,7 +42,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({ items }) => {
             <AccordionItem key={item.id || index} value={`item-${index}`} id={`education-item-${index}`}>
               <AccordionTrigger className="hover:no-underline">
                 <div className="text-left">
-                  <div className="font-bold text-macri-primary">{item.title}</div>
+                  <div className="font-bold text-macri-primary text-lg">{item.title}</div>
                   <div className="text-sm text-gray-600">{item.organization}</div>
                 </div>
               </AccordionTrigger>
@@ -61,6 +61,22 @@ const EducationSection: React.FC<EducationSectionProps> = ({ items }) => {
                       <span>{item.location}</span>
                     </div>
                   )}
+                  
+                  {/* Add internal link to experience section */}
+                  <a 
+                    href="#experience" 
+                    className="text-macri-primary flex items-center gap-1 mt-4 text-sm font-medium hover:underline"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const element = document.getElementById('experience');
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
+                  >
+                    <Link className="h-4 w-4" />
+                    See related experience
+                  </a>
                 </div>
               </AccordionContent>
             </AccordionItem>
@@ -103,6 +119,22 @@ const EducationSection: React.FC<EducationSectionProps> = ({ items }) => {
                         <span>{item.location}</span>
                       </div>
                     )}
+                    
+                    {/* Add internal link to experience section */}
+                    <a 
+                      href="#experience" 
+                      className="text-macri-primary flex items-center gap-1 mt-4 text-sm font-medium hover:underline"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const element = document.getElementById('experience');
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
+                    >
+                      <Link className="h-4 w-4" />
+                      See related experience
+                    </a>
                   </div>
                 </div>
               </CardContent>

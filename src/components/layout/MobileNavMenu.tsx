@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { scrollToElement } from '@/utils/scrollUtils';
 
@@ -36,7 +36,7 @@ const MobileNavMenu: React.FC<MobileNavMenuProps> = ({ navItems }) => {
       <Button 
         variant="ghost" 
         onClick={toggleMenu}
-        className="p-2"
+        className="p-2 bg-white/80 backdrop-blur-sm shadow-sm"
         aria-label="Toggle navigation menu"
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -56,19 +56,30 @@ const MobileNavMenu: React.FC<MobileNavMenuProps> = ({ navItems }) => {
           </div>
           
           <nav className="p-6">
+            <h2 className="text-2xl font-bold mb-6 text-macri-primary border-b pb-2">Menu</h2>
             <ul className="space-y-4">
               {navItems.map((item, index) => (
                 <li key={index}>
                   <Button
                     variant="ghost"
-                    className="w-full justify-start text-lg py-3"
+                    className="w-full justify-between text-lg py-3 text-left hover:bg-gray-100 transition-colors group"
                     onClick={() => handleNavClick(item.href)}
                   >
-                    {item.label}
+                    <span className="font-medium">{item.label}</span>
+                    <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-macri-primary transition-colors" />
                   </Button>
                 </li>
               ))}
             </ul>
+            
+            <div className="mt-8 pt-4 border-t">
+              <Button 
+                className="w-full bg-macri-primary hover:bg-macri-primary/90 text-white py-6 text-lg"
+                onClick={() => window.location.href = '/contact'}
+              >
+                Contact Me
+              </Button>
+            </div>
           </nav>
         </div>
       )}

@@ -5,5 +5,12 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
+// Add performance marker
+if (window.performance && window.performance.mark) {
+  window.performance.mark('legacy-entry-loaded');
+}
+
 // Import main application
 import './main.tsx';
+
+console.log('Legacy browser detected, loading polyfills');

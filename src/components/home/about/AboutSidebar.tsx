@@ -117,7 +117,7 @@ const AboutSidebar: React.FC<AboutSidebarProps> = ({
           <a href="/resume">
             <Download className="h-5 w-5" />
             <FileText className="h-5 w-5" />
-            <span>Download CV</span>
+            <span>Download My Resume</span>
           </a>
         </Button>
       )}

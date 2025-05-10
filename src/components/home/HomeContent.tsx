@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import AboutSection from '@/components/home/AboutSection';
 import ExperienceSection from '@/components/home/ExperienceSection';
@@ -34,9 +33,12 @@ const HomeContent: React.FC = () => {
       
       <DataProvider dynamicData={sections}>
         <div className="resume-container">
+          {/* Critical sections (load first) */}
           <AboutSection items={[]} />
           <hr className="m-0" />
           <ExperienceSection items={[]} />
+          
+          {/* Less critical sections (can be loaded later) */}
           <hr className="m-0" />
           <EducationSection items={[]} />
           <hr className="m-0" />

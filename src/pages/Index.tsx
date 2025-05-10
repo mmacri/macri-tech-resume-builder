@@ -5,6 +5,7 @@ import { setupScrollSpy } from '../utils/scrollUtils';
 import { setupLazyLoading, prepareLazyImages } from '../utils/lazyLoadUtils';
 import { useNavigationItems } from '../components/routing/NavigationConfig';
 import MobileNavMenu from '../components/layout/MobileNavMenu';
+import BackToTop from '../components/ui/back-to-top';
 
 const Index = () => {
   const { getHomeNavItems } = useNavigationItems();
@@ -36,6 +37,7 @@ const Index = () => {
         <MobileNavMenu navItems={mobileNavItems} />
       </div>
       <Home />
+      <BackToTop />
     </>
   );
 };
