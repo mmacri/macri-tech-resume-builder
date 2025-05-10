@@ -5,6 +5,7 @@ import { initialAboutData } from '@/utils/resume/aboutData';
 import DownloadResume from '@/components/resume/DownloadResume';
 import ResumeSection from './ResumeSection';
 import { useResumeData } from './DataProvider';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Import refactored components
 import AboutHeader from './about/AboutHeader';
@@ -19,6 +20,7 @@ interface AboutSectionProps {
 const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
   // Get the first item or use default fallback data
   const aboutItem = items.length > 0 ? items[0] : null;
+  const isMobile = useIsMobile();
   
   // Parse the description if it exists (it should be a JSON string with all the about data)
   const aboutData = aboutItem ? parseAboutData(aboutItem.description) : null;
@@ -69,9 +71,12 @@ const AboutSection: React.FC<AboutSectionProps> = ({ items = [] }) => {
       
       <ReferencesSection references={references} />
       
-      <div className="md:hidden mt-6">
-        <DownloadResume inlineButton={false} />
-      </div>
+      {/* Only show the mobile download button if on mobile */}
+      {isMobile && (
+        <div className="mt-6">
+          <DownloadResume inlineButton={false} />
+        </div>
+      )}
     </ResumeSection>
   );
 };

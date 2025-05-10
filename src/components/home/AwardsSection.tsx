@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Download, Award, Medal } from 'lucide-react';
 import ResumeSection from './ResumeSection';
 import { useResumeData } from './DataProvider';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface AwardItem {
   id?: string;
@@ -20,6 +21,7 @@ interface AwardsSectionProps {
  */
 const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
   const { awardsData } = useResumeData();
+  const isMobile = useIsMobile();
   
   // Use items prop if provided, otherwise use data from context
   const displayItems = items && items.length > 0 ? items : awardsData;
@@ -47,18 +49,20 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
         </ul>
       </div>
       
-      {/* Add a download resume button at the bottom */}
-      <div className="mt-12 flex justify-center">
-        <Button 
-          asChild
-          className="bg-macri-primary hover:bg-macri-primary/90 text-white px-8 py-6 rounded-md font-semibold text-lg flex items-center gap-2"
-        >
-          <a href="/resume">
-            <Download className="h-5 w-5" />
-            View Full Resume
-          </a>
-        </Button>
-      </div>
+      {/* Only show the download button in desktop view */}
+      {!isMobile && (
+        <div className="mt-12 flex justify-center">
+          <Button 
+            asChild
+            className="bg-macri-primary hover:bg-macri-primary/90 text-white px-8 py-6 rounded-md font-semibold text-lg flex items-center gap-2"
+          >
+            <a href="/resume">
+              <Download className="h-5 w-5" />
+              View Full Resume
+            </a>
+          </Button>
+        </div>
+      )}
     </ResumeSection>
   );
 };

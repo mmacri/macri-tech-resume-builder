@@ -9,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface AboutSidebarProps {
   linkedinUrl: string;
@@ -23,6 +24,8 @@ const AboutSidebar: React.FC<AboutSidebarProps> = ({
   websiteUrl,
   emailUrl
 }) => {
+  const isMobile = useIsMobile();
+  
   return (
     <div className="lg:w-1/3 flex flex-col gap-6 items-center">
       <Card className="w-full shadow-sm hover:shadow-md transition-shadow duration-300">
@@ -108,13 +111,16 @@ const AboutSidebar: React.FC<AboutSidebarProps> = ({
         </CardContent>
       </Card>
       
-      <Button variant="default" className="w-full bg-macri-primary hover:bg-macri-primary/90 flex items-center gap-2 py-6 text-lg" asChild>
-        <a href="/resume">
-          <Download className="h-5 w-5" />
-          <FileText className="h-5 w-5" />
-          <span>Download CV</span>
-        </a>
-      </Button>
+      {/* Only show the CV download button if not on mobile */}
+      {!isMobile && (
+        <Button variant="default" className="w-full bg-macri-primary hover:bg-macri-primary/90 flex items-center gap-2 py-6 text-lg" asChild>
+          <a href="/resume">
+            <Download className="h-5 w-5" />
+            <FileText className="h-5 w-5" />
+            <span>Download CV</span>
+          </a>
+        </Button>
+      )}
     </div>
   );
 };

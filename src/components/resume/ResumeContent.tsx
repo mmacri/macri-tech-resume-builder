@@ -152,27 +152,38 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
         {isMobile ? renderMobileView() : renderDesktopView()}
       </div>
       
+      {/* Show the download section only on desktop or simplified on mobile */}
       <section className="resume-section py-10" id="download">
         <div className="resume-section-content px-4 md:px-8 text-center max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold mb-4 text-macri-primary">Download Resume</h2>
           <p className="mb-6 text-gray-700">Get a downloadable version of my resume with the most up-to-date information.</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          {isMobile ? (
             <Button 
-              className="bg-macri-primary hover:bg-macri-primary/90 py-6 px-8 text-lg flex items-center gap-2 w-full sm:w-auto"
+              className="bg-macri-primary hover:bg-macri-primary/90 py-6 px-8 text-lg flex items-center gap-2 w-full"
               onClick={() => window.open('/resume-download', '_blank')}
             >
               <Download className="h-5 w-5" />
               Download PDF
             </Button>
-            <Button 
-              variant="outline"
-              className="py-6 px-8 text-lg flex items-center gap-2 w-full sm:w-auto"
-              onClick={handlePrint}
-            >
-              <Printer className="h-5 w-5" />
-              Print Resume
-            </Button>
-          </div>
+          ) : (
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button 
+                className="bg-macri-primary hover:bg-macri-primary/90 py-6 px-8 text-lg flex items-center gap-2 w-full sm:w-auto"
+                onClick={() => window.open('/resume-download', '_blank')}
+              >
+                <Download className="h-5 w-5" />
+                Download PDF
+              </Button>
+              <Button 
+                variant="outline"
+                className="py-6 px-8 text-lg flex items-center gap-2 w-full sm:w-auto"
+                onClick={handlePrint}
+              >
+                <Printer className="h-5 w-5" />
+                Print Resume
+              </Button>
+            </div>
+          )}
         </div>
       </section>
     </div>
