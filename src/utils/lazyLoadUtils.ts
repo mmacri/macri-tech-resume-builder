@@ -18,8 +18,10 @@ export const prepareLazyImages = (): void => {
       img.setAttribute('data-lazy', 'true');
       
       // Add a low-quality placeholder if not already set
-      if (!img.getAttribute('src') && !img.style.backgroundImage) {
-        img.setAttribute('src', '/placeholder.svg');
+      // Cast the Element to HTMLImageElement to access the style property
+      const imgElement = img as HTMLImageElement;
+      if (!imgElement.getAttribute('src') && !imgElement.style.backgroundImage) {
+        imgElement.setAttribute('src', '/placeholder.svg');
       }
     }
   });
