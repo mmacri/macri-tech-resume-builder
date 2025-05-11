@@ -19,6 +19,11 @@ export const scrollToElement = (elementId: string, offset: number = 0): void => 
     top: offsetPosition,
     behavior: 'smooth'
   });
+  
+  // Update URL hash without triggering another scroll
+  setTimeout(() => {
+    history.replaceState(null, '', `#${elementId}`);
+  }, 800); // Wait for scroll to complete
 };
 
 /**
@@ -40,23 +45,22 @@ export const setupScrollSpy = (): (() => void) => {
     entries.forEach(entry => {
       // Get the ID of the current section
       const id = entry.target.getAttribute('id');
+      if (!id) return;
       
-      // Find the corresponding navigation link
-      const navLink = document.querySelector(`a[href="#${id}"]`);
+      // Find all corresponding navigation links (for both mobile and desktop)
+      const navLinks = document.querySelectorAll(`a[href="#${id}"]`);
       
       if (entry.isIntersecting) {
-        // Add active class to currently visible section's nav link
-        navLink?.classList.add('active');
+        // Add active class to currently visible section's nav links
+        navLinks.forEach(link => link.classList.add('active'));
         
         // Update URL hash without scrolling
-        if (id) {
-          const url = new URL(window.location.href);
-          url.hash = id;
-          window.history.replaceState(null, '', url.toString());
-        }
+        const url = new URL(window.location.href);
+        url.hash = id;
+        window.history.replaceState(null, '', url.toString());
       } else {
         // Remove active class from non-visible sections
-        navLink?.classList.remove('active');
+        navLinks.forEach(link => link.classList.remove('active'));
       }
     });
   }, options);

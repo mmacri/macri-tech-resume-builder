@@ -20,11 +20,15 @@ const BackToTop = () => {
       }
     };
 
+    // Run once immediately to check initial position
+    toggleVisibility();
+    
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, [isMobile]);
 
   const scrollToTop = () => {
+    console.log("Scrolling to top");
     window.scrollTo({
       top: 0,
       behavior: "smooth",

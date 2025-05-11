@@ -28,15 +28,17 @@ export const NavigationItems: React.FC<NavigationItemsProps> = ({
   const enhancedClickHandler = (href: string | undefined) => {
     if (!href) return;
     
+    console.log('Navigation click:', href);
+    
     // Handle anchor links with smooth scrolling
     if (href.startsWith('#')) {
       const targetId = href.substring(1);
+      console.log('Scrolling to element:', targetId);
       scrollToElement(targetId, 80); // Use our scroll utility with offset
-      return;
+    } else {
+      // Use the provided click handler for other links
+      handleNavLinkClick(href);
     }
-    
-    // Use the provided click handler for other links
-    handleNavLinkClick(href);
   };
   
   // Group navigation items by category

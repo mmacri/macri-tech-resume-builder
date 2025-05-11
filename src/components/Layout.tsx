@@ -46,14 +46,24 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name,
   }, [isNavOpen]);
 
   const handleNavLinkClick = (href: string) => {
+    console.log('Layout handling nav click:', href);
+    
+    // Close the mobile nav if open
     if (window.innerWidth < 992) {
       setIsNavOpen(false);
     }
 
+    // Handle anchor links with smooth scrolling
     if (href.startsWith('#')) {
       const targetId = href.substring(1);
-      scrollToElement(targetId, 80); // Increased offset for better positioning
+      console.log('Scrolling to element with id:', targetId);
+      
+      // Small delay to allow mobile nav to close
+      setTimeout(() => {
+        scrollToElement(targetId, 80); // Increased offset for better positioning
+      }, 100);
     } else if (href.startsWith('/')) {
+      // Navigate to other pages
       navigate(href);
     }
   };

@@ -21,14 +21,18 @@ const MobileNavMenu: React.FC<MobileNavMenuProps> = ({ navItems }) => {
   const handleNavClick = (href: string | undefined) => {
     if (!href) return;
     
+    // Close the menu first for better UX
     setIsOpen(false);
     
-    if (href.startsWith('#')) {
-      const targetId = href.substring(1);
-      scrollToElement(targetId, 80);
-    } else {
-      window.location.href = href;
-    }
+    // Small delay to allow menu closing animation before scrolling
+    setTimeout(() => {
+      if (href.startsWith('#')) {
+        const targetId = href.substring(1);
+        scrollToElement(targetId, 80);
+      } else {
+        window.location.href = href;
+      }
+    }, 100);
   };
 
   return (

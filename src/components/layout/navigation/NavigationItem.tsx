@@ -3,6 +3,7 @@ import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
+import { scrollToElement } from '@/utils/scrollUtils';
 
 interface NavigationItemProps {
   item: {
@@ -34,7 +35,8 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
     
     // For home page sections when on home page
     if (currentPath === '/' && item.href?.startsWith('#')) {
-      return isActive;
+      const hash = window.location.hash;
+      return hash === item.href || isActive;
     }
     
     // For direct page links
@@ -142,6 +144,7 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
     );
   }
   
+  // Handle anchor links (#section) specially
   if (item.href?.startsWith('#')) {
     return (
       <li className="nav-item">
@@ -150,6 +153,14 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
           className={`nav-link block py-1.5 hover:opacity-80 transition-opacity ${isActiveLink() ? 'active' : ''}`}
           onClick={(e) => {
             e.preventDefault();
+            
+            // Get section ID from href
+            const sectionId = item.href?.substring(1);
+            if (sectionId) {
+              // Scroll to the section
+              scrollToElement(sectionId, 80);
+            }
+            
             handleNavLinkClick(item.href || '');
           }}
         >
