@@ -62,7 +62,7 @@ const MobileNavMenu: React.FC<MobileNavMenuProps> = ({ navItems }) => {
                 <li key={index}>
                   <Button
                     variant="ghost"
-                    className="w-full justify-between text-lg py-3 text-left hover:bg-gray-100 transition-colors group"
+                    className="w-full justify-between text-lg py-6 text-left hover:bg-gray-100 transition-colors group rounded-lg"
                     onClick={() => handleNavClick(item.href)}
                   >
                     <span className="font-medium">{item.label}</span>

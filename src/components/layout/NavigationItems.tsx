@@ -3,6 +3,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import NavigationGroup from './navigation/NavigationGroup';
+import { scrollToElement } from '@/utils/scrollUtils';
 
 interface NavigationItemsProps {
   navItems: {
@@ -21,6 +22,22 @@ export const NavigationItems: React.FC<NavigationItemsProps> = ({
   currentPath 
 }) => {
   const { user } = useAuth();
+  const location = useLocation();
+  
+  // Enhanced click handler for section navigation
+  const enhancedClickHandler = (href: string | undefined) => {
+    if (!href) return;
+    
+    // Handle anchor links with smooth scrolling
+    if (href.startsWith('#')) {
+      const targetId = href.substring(1);
+      scrollToElement(targetId, 80); // Use our scroll utility with offset
+      return;
+    }
+    
+    // Use the provided click handler for other links
+    handleNavLinkClick(href);
+  };
   
   // Group navigation items by category
   const mainNavItems = navItems.filter(item => 
@@ -34,10 +51,10 @@ export const NavigationItems: React.FC<NavigationItemsProps> = ({
   
   return (
     <div className="flex flex-col justify-between h-full py-2">
-      {/* Main navigation links */}
+      {/* Main navigation links - enhanced with direct section navigation */}
       <NavigationGroup
         items={mainNavItems}
-        handleNavLinkClick={handleNavLinkClick}
+        handleNavLinkClick={enhancedClickHandler}
       />
       
       {/* Admin and auth links at the bottom */}

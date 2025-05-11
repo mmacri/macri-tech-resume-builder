@@ -52,9 +52,9 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name,
 
     if (href.startsWith('#')) {
       const targetId = href.substring(1);
-      if (document.getElementById(targetId)) {
-        scrollToElement(targetId);
-      }
+      scrollToElement(targetId, 80); // Increased offset for better positioning
+    } else if (href.startsWith('/')) {
+      navigate(href);
     }
   };
 
@@ -99,8 +99,6 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name,
       });
     }
   }
-  
-  console.log('Final navigation items:', updatedNavItems);
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">

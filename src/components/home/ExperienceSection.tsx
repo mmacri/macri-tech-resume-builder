@@ -47,15 +47,25 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items }) => {
         {displayItems
           .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
           .map((item, index) => (
-            <AccordionItem key={item.id || index} value={`item-${index}`} id={`experience-item-${index}`}>
-              <AccordionTrigger className="hover:no-underline">
-                <div className="text-left">
-                  <div className="font-bold text-macri-primary text-lg">{item.title}</div>
+            <AccordionItem 
+              key={item.id || index} 
+              value={`item-${index}`} 
+              id={`experience-item-${index}`}
+              className="border-b border-gray-200 last:border-0"
+            >
+              <AccordionTrigger 
+                className="hover:no-underline py-4 px-2 group flex items-center justify-between w-full"
+                aria-label={`Toggle ${item.title} details`}
+              >
+                <div className="text-left flex-1">
+                  <div className="font-bold text-macri-primary text-lg group-hover:text-macri-primary/80 transition-colors">
+                    {item.title}
+                  </div>
                   <div className="text-sm text-gray-600">{item.organization}</div>
                 </div>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="experience-item pt-2">
+                <div className="experience-item pt-2 pb-4 px-2">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
                     <span className="experience-date text-sm font-medium text-gray-600">
                       {formatDateDisplay(item.start_date)} - {formatDateDisplay(item.end_date)}
@@ -80,21 +90,32 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items }) => {
                     </ul>
                   )}
                   
-                  {/* Add internal link to education section */}
-                  <a 
-                    href="#education" 
-                    className="text-macri-primary flex items-center gap-1 mt-4 text-sm font-medium hover:underline"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const element = document.getElementById('education');
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    }}
-                  >
-                    <Link className="h-4 w-4" />
-                    View my education
-                  </a>
+                  {/* Add internal links to other sections */}
+                  <div className="flex flex-col sm:flex-row gap-2 mt-4">
+                    <a 
+                      href="#education" 
+                      className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToElement('education', 80);
+                      }}
+                    >
+                      <Link className="h-4 w-4" />
+                      View my education
+                    </a>
+                    
+                    <a 
+                      href="#skills" 
+                      className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline ml-0 sm:ml-4"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToElement('skills', 80);
+                      }}
+                    >
+                      <Link className="h-4 w-4" />
+                      View my skills
+                    </a>
+                  </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
@@ -139,21 +160,44 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items }) => {
               </ul>
             )}
             
-            {/* Add internal link to education section */}
-            <a 
-              href="#education" 
-              className="text-macri-primary flex items-center gap-1 mt-4 text-sm font-medium hover:underline"
-              onClick={(e) => {
-                e.preventDefault();
-                const element = document.getElementById('education');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-            >
-              <Link className="h-4 w-4" />
-              View my education
-            </a>
+            {/* Add more comprehensive internal links section */}
+            <div className="mt-4 pt-2 border-t border-gray-100 flex flex-wrap gap-4">
+              <a 
+                href="#education" 
+                className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToElement('education', 80);
+                }}
+              >
+                <Link className="h-4 w-4" />
+                View my education
+              </a>
+              
+              <a 
+                href="#skills" 
+                className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToElement('skills', 80);
+                }}
+              >
+                <Link className="h-4 w-4" />
+                View my skills
+              </a>
+              
+              <a 
+                href="#projects" 
+                className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToElement('projects', 80);
+                }}
+              >
+                <Link className="h-4 w-4" />
+                View my projects
+              </a>
+            </div>
           </div>
         ))
     );
