@@ -13,24 +13,38 @@
     <meta name="twitter:title" content="Mike Macri - Portfolio">
     <meta name="twitter:description" content="Professional portfolio and resume showcasing experience, skills, and projects.">
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="/src/modern-entry.js" as="script" />
-    
-    <!-- Optimized Font Loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@500;600;700&family=Mulish:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@500;600;700&family=Mulish:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@500;600;700&family=Mulish:wght@300;400;500;600;700&display=swap">
-    </noscript>
-    
-    <!-- Font Awesome with optimized loading -->
-    <link rel="preload" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css"></noscript>
-    
     <!-- Cache control for static assets -->
     <meta http-equiv="Cache-Control" content="max-age=31536000" />
+    
+    <!-- Mobile optimization - disable unnecessary features for better performance -->
+    <script>
+      // Detect mobile and apply optimizations
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        document.documentElement.classList.add('mobile');
+        // Set viewport to prevent zoom issues on form inputs
+        const mvp = document.querySelector('meta[name="viewport"]');
+        if (mvp) {
+          mvp.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
+        }
+      }
+    </script>
+    
+    <!-- Preload critical resources with high priority -->
+    <link rel="preload" href="/src/modern-entry.js" as="script" />
+    <link rel="preload" href="/src/index.css" as="style" />
+    
+    <!-- Optimized Font Loading with font-display:swap -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@500;600;700&family=Mulish:wght@300;400;500;600;700&display=swap&font-display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@500;600;700&family=Mulish:wght@300;400;500;600;700&display=swap&font-display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@500;600;700&family=Mulish:wght@300;400;500;600;700&display=swap&font-display=swap">
+    </noscript>
+    
+    <!-- Font Awesome with optimized loading and reduced impact -->
+    <link rel="preload" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet';this.setAttribute('media','all')">
+    <noscript><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css"></noscript>
     
     <!-- Modern browsers get the optimized bundle with differential loading -->
     <script type="module" src="/src/modern-entry.js" defer></script>
@@ -40,10 +54,34 @@
     <!-- Preloaded analytics for improved performance -->
     <link rel="dns-prefetch" href="https://cdn.gpteng.co">
     <link rel="preconnect" href="https://cdn.gpteng.co">
+    
+    <!-- Intersection Observer polyfill for older browsers only, loaded conditionally -->
+    <script>
+      if (!('IntersectionObserver' in window)) {
+        const polyfillScript = document.createElement('script');
+        polyfillScript.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver';
+        document.head.appendChild(polyfillScript);
+      }
+    </script>
   </head>
   <body class="bg-gray-100 antialiased text-slate-900">
     <div id="root"></div>
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Deferred non-critical scripts -->
+    <script>
+      // Add timestamp to bypass cache for development only
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        const links = document.querySelectorAll('link[rel="stylesheet"], script[src]');
+        links.forEach(link => {
+          if (link.href && !link.href.includes('?')) {
+            link.href = `${link.href}?_=${Date.now()}`;
+          } else if (link.src && !link.src.includes('?')) {
+            link.src = `${link.src}?_=${Date.now()}`;
+          }
+        });
+      }
+    </script>
   </body>
 </html>

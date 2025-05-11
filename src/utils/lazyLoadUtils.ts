@@ -7,21 +7,36 @@ export const prepareLazyImages = (): void => {
   // Add loading="lazy" to all images that are likely to be below the fold
   const images = document.querySelectorAll('img:not([loading])');
   
+  // Determine if we're on mobile for more aggressive lazy loading
+  const isMobile = window.innerWidth < 768;
+  const mobileFoldThreshold = isMobile ? 0.5 * window.innerHeight : window.innerHeight;
+  
   images.forEach((img, index) => {
     const rect = img.getBoundingClientRect();
     
-    // If image is likely below the fold (not in the first viewport) or not the first 2 images
-    if (rect.top > window.innerHeight || index > 1) {
+    // More aggressive lazy loading on mobile - load fewer images eagerly
+    const shouldLazyLoad = isMobile ? 
+      (rect.top > mobileFoldThreshold || index > 0) :  // Only first image loads eagerly on mobile
+      (rect.top > window.innerHeight || index > 1);    // First two images load eagerly on desktop
+    
+    if (shouldLazyLoad) {
       img.setAttribute('loading', 'lazy');
       
       // Add a data attribute that we can use to check if it should be lazy loaded
       img.setAttribute('data-lazy', 'true');
       
-      // Add a low-quality placeholder if not already set
-      // Cast the Element to HTMLImageElement to access the style property
-      const imgElement = img as HTMLImageElement;
-      if (!imgElement.getAttribute('src') && !imgElement.style.backgroundImage) {
-        imgElement.setAttribute('src', '/placeholder.svg');
+      // For images that will be lazy loaded, also set data-src with the real source
+      const currentSrc = img.getAttribute('src');
+      if (currentSrc && !currentSrc.includes('placeholder.svg')) {
+        img.setAttribute('data-src', currentSrc);
+        
+        // Cast the Element to HTMLImageElement to access the style property
+        const imgElement = img as HTMLImageElement;
+        
+        // Use ultra-small placeholder for mobile
+        if (!imgElement.style.backgroundImage) {
+          imgElement.setAttribute('src', '/placeholder.svg');
+        }
       }
     }
   });
@@ -45,6 +60,10 @@ export const setupLazyLoading = (): (() => void) => {
     return () => {};
   }
   
+  // Determine if we're on mobile for different root margins
+  const isMobile = window.innerWidth < 768;
+  const rootMargin = isMobile ? '50px' : '100px'; // Load closer to viewport on mobile
+  
   // Create an observer instance
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -60,6 +79,14 @@ export const setupLazyLoading = (): (() => void) => {
           img.src = src;
           img.removeAttribute('data-src');
           img.removeAttribute('data-lazy');
+          
+          // Add a fade-in effect when image loads
+          img.style.transition = 'opacity 0.3s ease';
+          img.style.opacity = '0';
+          
+          img.onload = () => {
+            img.style.opacity = '1';
+          };
         }
         
         // Stop observing this image
@@ -67,7 +94,7 @@ export const setupLazyLoading = (): (() => void) => {
       }
     });
   }, {
-    rootMargin: '100px', // Load when within 100px of viewport
+    rootMargin: rootMargin, // Load when within rootMargin of viewport
     threshold: 0.1 // When at least 10% of the image is visible
   });
   
