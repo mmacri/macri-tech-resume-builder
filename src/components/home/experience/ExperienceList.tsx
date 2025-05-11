@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import ExperienceItem from './ExperienceItem';
 import { Accordion } from '@/components/ui/accordion';
 import MobileExperienceItem from './MobileExperienceItem';
@@ -20,51 +20,23 @@ export const ExperienceList: React.FC<ExperienceListProps> = ({ items, isMobile 
     [items]
   );
 
-  // Performance optimized loading logic with batch size
+  // Improve loading performance - load all items immediately
   useEffect(() => {
     if (sortedItems.length === 0) {
       setIsLoading(false);
       return;
     }
 
-    setIsLoading(true);
+    // Immediately show first 2 items for perceived performance
+    setVisibleItems(sortedItems.slice(0, 2));
     
-    // Display first item immediately for perceived performance
-    setVisibleItems(sortedItems.slice(0, 1));
-    
-    // Mobile needs more aggressive performance optimization
-    const batchSize = isMobile ? 2 : 5; // Smaller batches on mobile
-    const loadDelay = isMobile ? 50 : 10; // Smaller delay on desktop
-    
-    // Use requestAnimationFrame for smoother loading
-    const loadMore = () => {
-      requestAnimationFrame(() => {
-        // Always show at least one item immediately
-        if (visibleItems.length >= sortedItems.length) {
-          setIsLoading(false);
-          return;
-        }
-        
-        const nextBatch = sortedItems.slice(
-          0, 
-          Math.min(visibleItems.length + batchSize, sortedItems.length)
-        );
-        
-        setVisibleItems(nextBatch);
-        
-        if (nextBatch.length < sortedItems.length) {
-          setTimeout(loadMore, loadDelay);
-        } else {
-          setIsLoading(false);
-        }
-      });
-    };
-    
-    // Start loading more items after a short delay
-    const timer = setTimeout(loadMore, 100);
-    
-    return () => clearTimeout(timer);
-  }, [sortedItems, isMobile]);
+    // Use requestAnimationFrame to load remaining items in the next frame
+    requestAnimationFrame(() => {
+      // Load all remaining items immediately
+      setVisibleItems(sortedItems);
+      setIsLoading(false);
+    });
+  }, [sortedItems]);
 
   // Performance optimization for rendering
   const renderMobileList = useCallback(() => {
@@ -73,14 +45,14 @@ export const ExperienceList: React.FC<ExperienceListProps> = ({ items, isMobile 
         {visibleItems.map((item, index) => (
           <MobileExperienceItem key={item.id || index} item={item} index={index} />
         ))}
-        {isLoading && (
-          <div className="py-4 px-2 text-sm text-gray-500 animate-pulse">
+        {isLoading && visibleItems.length < sortedItems.length && (
+          <div className="py-3 px-2 text-sm text-gray-500 animate-pulse">
             Loading more experiences...
           </div>
         )}
       </Accordion>
     );
-  }, [visibleItems, isLoading]);
+  }, [visibleItems, isLoading, sortedItems.length]);
 
   const renderDesktopList = useCallback(() => {
     return (
@@ -88,16 +60,16 @@ export const ExperienceList: React.FC<ExperienceListProps> = ({ items, isMobile 
         {visibleItems.map((item, index) => (
           <ExperienceItem key={item.id || index} item={item} index={index} />
         ))}
-        {isLoading && sortedItems.length > 1 && (
-          <div className="py-4 text-sm text-gray-500 animate-pulse">
+        {isLoading && visibleItems.length < sortedItems.length && (
+          <div className="py-3 text-sm text-gray-500 animate-pulse">
             Loading more experiences...
           </div>
         )}
       </>
     );
-  }, [visibleItems, isLoading, sortedItems]);
+  }, [visibleItems, isLoading, sortedItems.length]);
   
   return isMobile ? renderMobileList() : renderDesktopList();
 };
 
-export default React.memo(ExperienceList);
+export default memo(ExperienceList);

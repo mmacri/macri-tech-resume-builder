@@ -24,17 +24,32 @@ const Index = () => {
     // Set up lazy loading for images
     const lazyLoadCleanup = setupLazyLoading();
     
+    // Check if there are any "loading" messages that are stuck
+    const checkForStuckLoaders = setTimeout(() => {
+      const loadingElements = document.querySelectorAll('.animate-pulse');
+      loadingElements.forEach(el => {
+        // Remove animation from stuck elements
+        el.classList.remove('animate-pulse');
+        
+        // If it's a loading message, update text
+        if (el.textContent?.includes('Loading')) {
+          el.textContent = 'Content loaded';
+          
+          // Remove the element after a short delay
+          setTimeout(() => {
+            el.remove();
+          }, 2000);
+        }
+      });
+    }, 5000);
+    
     // Clean up observers when the component unmounts
     return () => {
       scrollCleanup();
       lazyLoadCleanup();
+      clearTimeout(checkForStuckLoaders);
     };
   }, []);
-
-  // Log page rendering for debugging
-  React.useEffect(() => {
-    console.log('Index page rendered with nav items:', mobileNavItems);
-  }, [mobileNavItems]);
 
   return (
     <>

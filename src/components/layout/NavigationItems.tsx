@@ -24,17 +24,19 @@ export const NavigationItems: React.FC<NavigationItemsProps> = ({
   const { user } = useAuth();
   const location = useLocation();
   
-  // Enhanced click handler for section navigation
+  // Improved click handler for section navigation
   const enhancedClickHandler = (href: string | undefined) => {
     if (!href) return;
     
     console.log('Navigation click:', href);
     
-    // Handle anchor links with smooth scrolling
+    // Handle anchor links with improved scrolling
     if (href.startsWith('#')) {
       const targetId = href.substring(1);
       console.log('Scrolling to element:', targetId);
-      scrollToElement(targetId, 80); // Use our scroll utility with offset
+      
+      // Use a more aggressive offset for better positioning
+      scrollToElement(targetId, 60);
     } else {
       // Use the provided click handler for other links
       handleNavLinkClick(href);
@@ -53,7 +55,7 @@ export const NavigationItems: React.FC<NavigationItemsProps> = ({
   
   return (
     <div className="flex flex-col justify-between h-full py-2">
-      {/* Main navigation links - enhanced with direct section navigation */}
+      {/* Main navigation links */}
       <NavigationGroup
         items={mainNavItems}
         handleNavLinkClick={enhancedClickHandler}

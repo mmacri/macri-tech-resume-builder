@@ -1,6 +1,6 @@
 
 /**
- * Scroll to element with ID
+ * Improved scroll to element function
  * @param elementId ID of the element to scroll to
  * @param offset Optional offset from the top
  */
@@ -11,19 +11,23 @@ export const scrollToElement = (elementId: string, offset: number = 0): void => 
     return;
   }
 
+  // Calculate position with offset
   const headerOffset = offset;
   const elementPosition = element.getBoundingClientRect().top;
   const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-  window.scrollTo({
-    top: offsetPosition,
-    behavior: 'smooth'
+  // Use requestAnimationFrame for smoother scrolling
+  requestAnimationFrame(() => {
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
   });
   
   // Update URL hash without triggering another scroll
   setTimeout(() => {
     history.replaceState(null, '', `#${elementId}`);
-  }, 800); // Wait for scroll to complete
+  }, 500); // Shorter timeout for better user experience
 };
 
 /**
@@ -36,8 +40,8 @@ export const setupScrollSpy = (): (() => void) => {
   
   // Intersection Observer options
   const options = {
-    threshold: 0.3, // How much of the element needs to be visible
-    rootMargin: '-80px 0px -80px 0px' // Adjust for header offset
+    threshold: 0.2, // More sensitive threshold
+    rootMargin: '-60px 0px -60px 0px' // Adjusted margin for better accuracy
   };
   
   // Create observer
@@ -64,6 +68,18 @@ export const setupScrollSpy = (): (() => void) => {
       }
     });
   }, options);
+  
+  // Immediately activate the first section if at the top of the page
+  if (window.scrollY < 100) {
+    const firstSection = document.querySelector('.resume-section');
+    if (firstSection) {
+      const firstId = firstSection.getAttribute('id');
+      if (firstId) {
+        const firstNavLinks = document.querySelectorAll(`a[href="#${firstId}"]`);
+        firstNavLinks.forEach(link => link.classList.add('active'));
+      }
+    }
+  }
   
   // Observe all sections
   sections.forEach(section => {

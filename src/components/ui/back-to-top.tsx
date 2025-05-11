@@ -13,7 +13,7 @@ const BackToTop = () => {
   // Handle scroll event to show/hide button - show it quicker on mobile
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.scrollY > (isMobile ? 200 : 300)) { // Lower threshold for mobile
+      if (window.scrollY > (isMobile ? 150 : 300)) { // Even lower threshold for mobile
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -29,9 +29,13 @@ const BackToTop = () => {
 
   const scrollToTop = () => {
     console.log("Scrolling to top");
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+    
+    // Use requestAnimationFrame for smoother scrolling
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     });
     
     // After scrolling to top, briefly show a message on mobile
@@ -55,8 +59,8 @@ const BackToTop = () => {
       </Collapsible>
 
       <Button
-        className={`fixed z-50 rounded-full p-3 shadow-lg transition-opacity duration-300 ${
-          isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
+        className={`fixed z-50 rounded-full p-3 shadow-lg transition-all duration-300 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
         } ${isMobile 
           ? "bottom-6 right-6 bg-macri-primary/90 hover:bg-macri-primary"
           : "bottom-8 right-8 bg-macri-primary hover:bg-macri-primary/90"

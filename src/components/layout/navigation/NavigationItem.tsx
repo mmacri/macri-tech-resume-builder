@@ -144,7 +144,7 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
     );
   }
   
-  // Handle anchor links (#section) specially
+  // Handle anchor links (#section) with improved scrolling
   if (item.href?.startsWith('#')) {
     return (
       <li className="nav-item">
@@ -157,8 +157,11 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
             // Get section ID from href
             const sectionId = item.href?.substring(1);
             if (sectionId) {
-              // Scroll to the section
-              scrollToElement(sectionId, 80);
+              // Fixed scroll to the section with proper offset
+              scrollToElement(sectionId, 60);
+              
+              // Log for debugging
+              console.log(`Navigating to section: ${sectionId}`);
             }
             
             handleNavLinkClick(item.href || '');
