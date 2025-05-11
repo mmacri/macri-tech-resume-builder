@@ -153,15 +153,12 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
           className={`nav-link block py-1.5 hover:opacity-80 transition-opacity ${isActiveLink() ? 'active' : ''}`}
           onClick={(e) => {
             e.preventDefault();
-            
+            console.log(`Navigation clicked: ${item.href}`);
             // Get section ID from href
             const sectionId = item.href?.substring(1);
             if (sectionId) {
               // Fixed scroll to the section with proper offset
               scrollToElement(sectionId, 60);
-              
-              // Log for debugging
-              console.log(`Navigating to section: ${sectionId}`);
             }
             
             handleNavLinkClick(item.href || '');

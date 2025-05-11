@@ -22,12 +22,14 @@ export const scrollToElement = (elementId: string, offset: number = 0): void => 
       top: offsetPosition,
       behavior: 'smooth'
     });
+    console.log(`Scrolled to ${elementId} at position ${offsetPosition}px`);
   });
   
   // Update URL hash without triggering another scroll
   setTimeout(() => {
     history.replaceState(null, '', `#${elementId}`);
-  }, 500); // Shorter timeout for better user experience
+    console.log(`Updated URL hash to #${elementId}`);
+  }, 300); // Shorter timeout for better user experience
 };
 
 /**
@@ -37,11 +39,12 @@ export const scrollToElement = (elementId: string, offset: number = 0): void => 
 export const setupScrollSpy = (): (() => void) => {
   // Elements to observe for scroll position
   const sections = document.querySelectorAll('.resume-section');
+  console.log(`Setting up scroll spy for ${sections.length} sections`);
   
   // Intersection Observer options
   const options = {
-    threshold: 0.2, // More sensitive threshold
-    rootMargin: '-60px 0px -60px 0px' // Adjusted margin for better accuracy
+    threshold: 0.15, // More sensitive threshold
+    rootMargin: '-65px 0px -65px 0px' // Adjusted margin for better accuracy
   };
   
   // Create observer
@@ -55,8 +58,12 @@ export const setupScrollSpy = (): (() => void) => {
       const navLinks = document.querySelectorAll(`a[href="#${id}"]`);
       
       if (entry.isIntersecting) {
+        console.log(`Section #${id} is now visible`);
         // Add active class to currently visible section's nav links
-        navLinks.forEach(link => link.classList.add('active'));
+        navLinks.forEach(link => {
+          link.classList.add('active');
+          console.log(`Activated nav link for #${id}`);
+        });
         
         // Update URL hash without scrolling
         const url = new URL(window.location.href);
@@ -69,14 +76,17 @@ export const setupScrollSpy = (): (() => void) => {
     });
   }, options);
   
-  // Immediately activate the first section if at the top of the page
+  // Check if we're at the top of the page and activate first section if so
   if (window.scrollY < 100) {
     const firstSection = document.querySelector('.resume-section');
     if (firstSection) {
       const firstId = firstSection.getAttribute('id');
       if (firstId) {
         const firstNavLinks = document.querySelectorAll(`a[href="#${firstId}"]`);
-        firstNavLinks.forEach(link => link.classList.add('active'));
+        firstNavLinks.forEach(link => {
+          link.classList.add('active');
+          console.log(`Initially activated nav link for #${firstId}`);
+        });
       }
     }
   }
@@ -84,6 +94,7 @@ export const setupScrollSpy = (): (() => void) => {
   // Observe all sections
   sections.forEach(section => {
     observer.observe(section);
+    console.log(`Observing section: #${section.getAttribute('id')}`);
   });
 
   // Return cleanup function
@@ -91,5 +102,6 @@ export const setupScrollSpy = (): (() => void) => {
     sections.forEach(section => {
       observer.unobserve(section);
     });
+    console.log('Cleaned up scroll spy observers');
   };
 };

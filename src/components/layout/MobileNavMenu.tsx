@@ -34,6 +34,7 @@ const MobileNavMenu: React.FC<MobileNavMenuProps> = ({ navItems }) => {
     };
     
     window.addEventListener('scroll', handleScroll);
+    console.log('MobileNavMenu: Set up scroll tracking');
     handleScroll(); // Check on mount
     
     return () => window.removeEventListener('scroll', handleScroll);
@@ -48,11 +49,11 @@ const MobileNavMenu: React.FC<MobileNavMenuProps> = ({ navItems }) => {
     
     // Close the menu first for better UX
     setIsOpen(false);
+    console.log(`MobileNavMenu: Clicked ${href}`);
     
-    // Immediately navigate to improve perceived performance
+    // Handle section navigation
     if (href.startsWith('#')) {
       const targetId = href.substring(1);
-      console.log(`Mobile nav: scrolling to ${targetId}`);
       
       // Use requestAnimationFrame for smoother navigation
       requestAnimationFrame(() => {

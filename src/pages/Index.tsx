@@ -24,8 +24,11 @@ const Index = () => {
     // Set up lazy loading for images
     const lazyLoadCleanup = setupLazyLoading();
     
-    // Check if there are any "loading" messages that are stuck
+    console.log('Index: Set up scroll spy and lazy loading');
+    
+    // Check if there are any "loading" messages that are stuck after 3 seconds
     const checkForStuckLoaders = setTimeout(() => {
+      console.log('Checking for stuck loading indicators');
       const loadingElements = document.querySelectorAll('.animate-pulse');
       loadingElements.forEach(el => {
         // Remove animation from stuck elements
@@ -33,21 +36,23 @@ const Index = () => {
         
         // If it's a loading message, update text
         if (el.textContent?.includes('Loading')) {
+          console.log('Found stuck loading message, removing animation');
           el.textContent = 'Content loaded';
           
           // Remove the element after a short delay
           setTimeout(() => {
             el.remove();
-          }, 2000);
+          }, 1000);
         }
       });
-    }, 5000);
+    }, 3000); // Shorter timeout to catch stuck loaders faster
     
     // Clean up observers when the component unmounts
     return () => {
       scrollCleanup();
       lazyLoadCleanup();
       clearTimeout(checkForStuckLoaders);
+      console.log('Index: Cleaned up all observers and timeouts');
     };
   }, []);
 
