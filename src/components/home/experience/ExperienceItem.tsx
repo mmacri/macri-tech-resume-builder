@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { memo } from 'react';
 import { MapPin, Link } from 'lucide-react';
 import { formatDate } from '@/utils/formatDate';
 import { scrollToElement } from '@/utils/scrollUtils';
@@ -10,11 +10,18 @@ interface ExperienceItemProps {
   index: number;
 }
 
-export const ExperienceItem: React.FC<ExperienceItemProps> = ({ item, index }) => {
+// Memoize the component to prevent unnecessary re-renders
+export const ExperienceItem: React.FC<ExperienceItemProps> = memo(({ item, index }) => {
   // Format date function
   const formatDateDisplay = (dateString: string | null | undefined) => {
     if (!dateString) return 'Present';
     return formatDate(dateString, { month: 'short', year: 'numeric' });
+  };
+
+  // Optimized navigation handlers
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, section: string) => {
+    e.preventDefault();
+    scrollToElement(section, 80);
   };
 
   return (
@@ -52,10 +59,8 @@ export const ExperienceItem: React.FC<ExperienceItemProps> = ({ item, index }) =
         <a 
           href="#education" 
           className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToElement('education', 80);
-          }}
+          onClick={(e) => handleNavigation(e, 'education')}
+          aria-label="Navigate to education section"
         >
           <Link className="h-4 w-4" />
           View my education
@@ -64,10 +69,8 @@ export const ExperienceItem: React.FC<ExperienceItemProps> = ({ item, index }) =
         <a 
           href="#skills" 
           className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToElement('skills', 80);
-          }}
+          onClick={(e) => handleNavigation(e, 'skills')}
+          aria-label="Navigate to skills section"
         >
           <Link className="h-4 w-4" />
           View my skills
@@ -76,10 +79,8 @@ export const ExperienceItem: React.FC<ExperienceItemProps> = ({ item, index }) =
         <a 
           href="#projects" 
           className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToElement('projects', 80);
-          }}
+          onClick={(e) => handleNavigation(e, 'projects')}
+          aria-label="Navigate to projects section"
         >
           <Link className="h-4 w-4" />
           View my projects
@@ -87,6 +88,8 @@ export const ExperienceItem: React.FC<ExperienceItemProps> = ({ item, index }) =
       </div>
     </div>
   );
-};
+});
+
+ExperienceItem.displayName = 'ExperienceItem';
 
 export default ExperienceItem;

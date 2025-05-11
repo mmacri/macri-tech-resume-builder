@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { memo } from 'react';
 import { MapPin, Link } from 'lucide-react';
 import { formatDate } from '@/utils/formatDate';
 import { scrollToElement } from '@/utils/scrollUtils';
@@ -15,11 +15,18 @@ interface MobileExperienceItemProps {
   index: number;
 }
 
-export const MobileExperienceItem: React.FC<MobileExperienceItemProps> = ({ item, index }) => {
+// Memoize the component to prevent unnecessary re-renders
+export const MobileExperienceItem: React.FC<MobileExperienceItemProps> = memo(({ item, index }) => {
   // Format date function
   const formatDateDisplay = (dateString: string | null | undefined) => {
     if (!dateString) return 'Present';
     return formatDate(dateString, { month: 'short', year: 'numeric' });
+  };
+
+  // Optimized navigation handlers
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, section: string) => {
+    e.preventDefault();
+    scrollToElement(section, 80);
   };
 
   return (
@@ -71,10 +78,8 @@ export const MobileExperienceItem: React.FC<MobileExperienceItemProps> = ({ item
             <a 
               href="#education" 
               className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToElement('education', 80);
-              }}
+              onClick={(e) => handleNavigation(e, 'education')}
+              aria-label="Navigate to education section"
             >
               <Link className="h-4 w-4" />
               View my education
@@ -83,10 +88,8 @@ export const MobileExperienceItem: React.FC<MobileExperienceItemProps> = ({ item
             <a 
               href="#skills" 
               className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline ml-0 sm:ml-4"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToElement('skills', 80);
-              }}
+              onClick={(e) => handleNavigation(e, 'skills')}
+              aria-label="Navigate to skills section"
             >
               <Link className="h-4 w-4" />
               View my skills
@@ -96,6 +99,8 @@ export const MobileExperienceItem: React.FC<MobileExperienceItemProps> = ({ item
       </AccordionContent>
     </AccordionItem>
   );
-};
+});
+
+MobileExperienceItem.displayName = 'MobileExperienceItem';
 
 export default MobileExperienceItem;
