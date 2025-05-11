@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { MapPin, Link } from 'lucide-react';
 import { formatDate } from '@/utils/formatDate';
