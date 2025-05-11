@@ -18,10 +18,12 @@ export const ExperienceItem: React.FC<ExperienceItemProps> = memo(({ item, index
     return formatDate(dateString, { month: 'short', year: 'numeric' });
   };
 
-  // Optimized navigation handlers
+  // Fixed navigation handler
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, section: string) => {
     e.preventDefault();
-    scrollToElement(section, 80);
+    if (typeof section === 'string') {
+      scrollToElement(section, 80);
+    }
   };
 
   return (
