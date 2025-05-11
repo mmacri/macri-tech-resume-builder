@@ -4,6 +4,7 @@ import ResumeSection from './ResumeSection';
 import { useResumeData } from './DataProvider';
 import { formatDate } from '@/utils/formatDate';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { scrollToElement } from '@/utils/scrollUtils';
 import { 
   Accordion,
   AccordionContent,
