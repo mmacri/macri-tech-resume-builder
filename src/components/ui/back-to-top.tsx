@@ -10,10 +10,10 @@ const BackToTop = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const isMobile = useIsMobile();
 
-  // Handle scroll event to show/hide button
+  // Handle scroll event to show/hide button - show it quicker on mobile
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.scrollY > 300) { // Reduced threshold for mobile
+      if (window.scrollY > (isMobile ? 200 : 300)) { // Lower threshold for mobile
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -22,7 +22,7 @@ const BackToTop = () => {
 
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);
-  }, []);
+  }, [isMobile]);
 
   const scrollToTop = () => {
     window.scrollTo({
