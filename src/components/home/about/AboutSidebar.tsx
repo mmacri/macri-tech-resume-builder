@@ -74,7 +74,7 @@ const AboutSidebar: React.FC<AboutSidebarProps> = ({
               <Tooltip>
                 <TooltipTrigger asChild>
                   <a 
-                    href={githubUrl} 
+                    href="https://mmacri.github.io/Websites/index.html" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="flex items-center justify-center h-10 w-10 rounded-full bg-macri-primary hover:bg-black text-white transition-colors duration-200"
