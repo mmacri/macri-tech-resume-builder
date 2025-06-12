@@ -38,7 +38,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ items }) => {
     groupedSkills[category].push(item.description);
   });
 
-  // Programming icons with their classes and colors
+  // Programming icons with their classes and colors (removed AWS)
   const programmingIcons = [
     { icon: "fab fa-html5", color: "#e34c26", name: "HTML5" },
     { icon: "fab fa-css3-alt", color: "#264de4", name: "CSS3" },
@@ -46,18 +46,19 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ items }) => {
     { icon: "fab fa-react", color: "#61dafb", name: "React" },
     { icon: "fab fa-vuejs", color: "#41B883", name: "Vue.js" },
     { icon: "fab fa-python", color: "#306998", name: "Python" },
-    { icon: "fab fa-aws", color: "#FF9900", name: "AWS" },
     { icon: "fab fa-docker", color: "#2496ED", name: "Docker" },
     { icon: "fab fa-node-js", color: "#3c873a", name: "Node.js" }
   ];
 
-  // Technology icons using Lucide icons for the new technologies
+  // Technology icons using Lucide icons and Font Awesome for cloud providers
   const technologyIcons = [
     { component: <Server className="h-8 w-8" />, color: "#00A1C9", name: "ServiceNow" },
     { component: <Cloud className="h-8 w-8" />, color: "#607078", name: "VMware" },
     { component: <Globe className="h-8 w-8" />, color: "#0066CC", name: "SaaS" },
     { component: <Layers className="h-8 w-8" />, color: "#FF6B35", name: "PaaS" },
-    { component: <Zap className="h-8 w-8" />, color: "#8B5CF6", name: "XaaS" }
+    { component: <Zap className="h-8 w-8" />, color: "#8B5CF6", name: "XaaS" },
+    { icon: "fab fa-aws", color: "#FF9900", name: "AWS" },
+    { icon: "fab fa-google", color: "#4285F4", name: "Google Cloud" }
   ];
 
   // Find categories that exist in our data
@@ -123,9 +124,13 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ items }) => {
         <div className="flex flex-wrap gap-8 justify-center md:justify-start">
           {technologyIcons.map((techData, idx) => (
             <div key={idx} className="group relative cursor-pointer">
-              <div className="transition-transform duration-200 hover:scale-110" style={{ color: techData.color }}>
-                {techData.component}
-              </div>
+              {techData.component ? (
+                <div className="transition-transform duration-200 hover:scale-110" style={{ color: techData.color }}>
+                  {techData.component}
+                </div>
+              ) : (
+                <i className={`${techData.icon} skill-icon transition-transform duration-200 hover:scale-110`} style={{ color: techData.color }}></i>
+              )}
               <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
                 {techData.name}
               </div>
@@ -136,7 +141,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ items }) => {
         {/* Text description for technologies */}
         <div className="mt-6 pt-4 border-t border-gray-200">
           <p className="text-gray-700">
-            ServiceNow Platform Solutions, VMware Infrastructure, Software as a Service (SaaS), Platform as a Service (PaaS), Everything as a Service (XaaS)
+            ServiceNow Platform Solutions, VMware Infrastructure, Software as a Service (SaaS), Platform as a Service (PaaS), Everything as a Service (XaaS), Amazon Web Services (AWS), Google Cloud Platform (GCP)
           </p>
         </div>
       </div>
