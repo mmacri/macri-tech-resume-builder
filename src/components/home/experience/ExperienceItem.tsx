@@ -1,8 +1,7 @@
 
 import React, { memo } from 'react';
-import { MapPin, Link } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import { formatDate } from '@/utils/formatDate';
-import { scrollToElement } from '@/utils/scrollUtils';
 import { ExperienceItem as ExperienceItemType } from './types';
 
 interface ExperienceItemProps {
@@ -16,14 +15,6 @@ export const ExperienceItem: React.FC<ExperienceItemProps> = memo(({ item, index
   const formatDateDisplay = (dateString: string | null | undefined) => {
     if (!dateString) return 'Present';
     return formatDate(dateString, { month: 'short', year: 'numeric' });
-  };
-
-  // Fixed navigation handler
-  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, section: string) => {
-    e.preventDefault();
-    if (typeof section === 'string') {
-      scrollToElement(section, 80);
-    }
   };
 
   return (
@@ -56,38 +47,6 @@ export const ExperienceItem: React.FC<ExperienceItemProps> = memo(({ item, index
             })}
         </ul>
       )}
-      
-      <div className="mt-4 pt-2 border-t border-gray-100 flex flex-wrap gap-4">
-        <a 
-          href="#education" 
-          className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline"
-          onClick={(e) => handleNavigation(e, 'education')}
-          aria-label="Navigate to education section"
-        >
-          <Link className="h-4 w-4" />
-          View my education
-        </a>
-        
-        <a 
-          href="#skills" 
-          className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline"
-          onClick={(e) => handleNavigation(e, 'skills')}
-          aria-label="Navigate to skills section"
-        >
-          <Link className="h-4 w-4" />
-          View my skills
-        </a>
-        
-        <a 
-          href="#projects" 
-          className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline"
-          onClick={(e) => handleNavigation(e, 'projects')}
-          aria-label="Navigate to projects section"
-        >
-          <Link className="h-4 w-4" />
-          View my projects
-        </a>
-      </div>
     </div>
   );
 });

@@ -1,8 +1,7 @@
 
 import React, { memo } from 'react';
-import { MapPin, Link } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import { formatDate } from '@/utils/formatDate';
-import { scrollToElement } from '@/utils/scrollUtils';
 import { ExperienceItem as ExperienceItemType } from './types';
 import {
   AccordionItem,
@@ -21,14 +20,6 @@ export const MobileExperienceItem: React.FC<MobileExperienceItemProps> = memo(({
   const formatDateDisplay = (dateString: string | null | undefined) => {
     if (!dateString) return 'Present';
     return formatDate(dateString, { month: 'short', year: 'numeric' });
-  };
-
-  // Fixed navigation handler
-  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, section: string) => {
-    e.preventDefault();
-    if (typeof section === 'string') {
-      scrollToElement(section, 80);
-    }
   };
 
   return (
@@ -75,28 +66,6 @@ export const MobileExperienceItem: React.FC<MobileExperienceItemProps> = memo(({
                 })}
             </ul>
           )}
-          
-          <div className="flex flex-col sm:flex-row gap-2 mt-4">
-            <a 
-              href="#education" 
-              className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline"
-              onClick={(e) => handleNavigation(e, 'education')}
-              aria-label="Navigate to education section"
-            >
-              <Link className="h-4 w-4" />
-              View my education
-            </a>
-            
-            <a 
-              href="#skills" 
-              className="text-macri-primary flex items-center gap-1 text-sm font-medium hover:underline ml-0 sm:ml-4"
-              onClick={(e) => handleNavigation(e, 'skills')}
-              aria-label="Navigate to skills section"
-            >
-              <Link className="h-4 w-4" />
-              View my skills
-            </a>
-          </div>
         </div>
       </AccordionContent>
     </AccordionItem>
