@@ -38,7 +38,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ items }) => {
     groupedSkills[category].push(item.description);
   });
 
-  // Programming icons with their classes and colors (removed AWS)
+  // Programming icons with their classes and colors (removed AWS and Docker)
   const programmingIcons = [
     { icon: "fab fa-html5", color: "#e34c26", name: "HTML5" },
     { icon: "fab fa-css3-alt", color: "#264de4", name: "CSS3" },
@@ -46,7 +46,6 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ items }) => {
     { icon: "fab fa-react", color: "#61dafb", name: "React" },
     { icon: "fab fa-vuejs", color: "#41B883", name: "Vue.js" },
     { icon: "fab fa-python", color: "#306998", name: "Python" },
-    { icon: "fab fa-docker", color: "#2496ED", name: "Docker" },
     { icon: "fab fa-node-js", color: "#3c873a", name: "Node.js" }
   ];
 
@@ -58,7 +57,8 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ items }) => {
     { component: <Layers className="h-8 w-8" />, color: "#FF6B35", name: "PaaS" },
     { component: <Zap className="h-8 w-8" />, color: "#8B5CF6", name: "XaaS" },
     { icon: "fab fa-aws", color: "#FF9900", name: "AWS" },
-    { icon: "fab fa-google", color: "#4285F4", name: "Google Cloud" }
+    { icon: "fab fa-google", color: "#4285F4", name: "Google Cloud" },
+    { icon: "fab fa-docker", color: "#2496ED", name: "Docker" }
   ];
 
   // Find categories that exist in our data
@@ -141,7 +141,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ items }) => {
         {/* Text description for technologies */}
         <div className="mt-6 pt-4 border-t border-gray-200">
           <p className="text-gray-700">
-            ServiceNow Platform Solutions, VMware Infrastructure, Software as a Service (SaaS), Platform as a Service (PaaS), Everything as a Service (XaaS), Amazon Web Services (AWS), Google Cloud Platform (GCP)
+            ServiceNow Platform Solutions, VMware Infrastructure, Software as a Service (SaaS), Platform as a Service (PaaS), Everything as a Service (XaaS), Amazon Web Services (AWS), Google Cloud Platform (GCP), Docker Containerization
           </p>
         </div>
       </div>
