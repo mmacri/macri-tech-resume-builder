@@ -1,14 +1,12 @@
 
-// Static data for experience items
-
 export const experienceItems = [
   {
-    title: "Sr. Manager, Solution Consulting – Legal Ethics & Compliance",
+    title: "Sr. Manager, Solution Advisory – Legal Ethics & Compliance",
     organization: "ServiceNow",
     location: "Remote",
     start_date: "2021-12-01",
-    end_date: null,
-    description: "• Led internal design and consultative solutioning for GRC, Policy, IRM, and SPM modules within ServiceNow's compliance function.\n• Collaborated with stakeholders across Legal, Risk, Security, Product, and Engineering to build value allignment and ServiceNow workflows use.\n• Created and managed PolicyHub 1.0, simplifying access to enterprise policies and accelerating internal enablement across servicenow.\n• Integrated AI/ML governance into enterprise frameworks, serving as SME for the creation of ServiceNow's inaugural responsible AI risk policies & requirements.\n• Drove senior executives initiatives that streamlined compliance design to secure budget, that protected against a $900M annual security/compliance risk.",
+    end_date: "2025-05-01",
+    description: "• Led cross-functional solution advisory and engineering initiatives across ServiceNow, aligning Legal, Ethics & Compliance, Security, Product, Sales, Finance, and Engineering teams to deliver impactful solutions that secured stakeholder investment through compelling value propositions that accelerated workflow adoption.\n• Integrated AI/ML governance into enterprise frameworks, serving as SME for ServiceNow's inaugural AI risk policies & requirements.\n• Drove senior executives initiatives that streamlined compliance design to secure budget, that protected against a $900M annual security / compliance risk.\n• Created and managed PolicyHub 1.0, a new ServiceNow module for customers and internal teams that simplified enterprise policy access & accelerated cross-functional enablement servicenow.",
     display_order: 1
   },
   {
@@ -17,7 +15,7 @@ export const experienceItems = [
     location: "San Francisco, CA",
     start_date: "2019-11-01",
     end_date: "2021-12-01",
-    description: "• Led GTM and presales efforts with GSI and SI partners such including DXC, Capgemini, and Accenture.\n• Developed scalable embedded partner programs and re-platformed service offerings (e.g., DXC VMware Cloud on AWS), aligning go-to-market strategy with partner executive goals.\n• Defined and executed joint business plans that led to repeated achievements above 450% of target.\n• Collaborated across matrixed SC, ProServ, and specialist teams to support technical sales cycles for strategic system integrator offerings.",
+    description: "• Led GTM and presales efforts with GSI and SI partners such including DXC, Capgemini, and Accenture.\n• Developed scalable embedded partner programs and re-platformed solutions (e.g., DXC VMware Cloud on AWS), aligning go-to-market strategy with partner goals.\n• Defined and executed joint business plans that led to repeated achievements above 450% of target.\n• Collaborated across matrixed SC, ProServ, and specialist teams to support technical sales cycles for strategic system integrator offerings.",
     display_order: 2
   },
   {
@@ -25,8 +23,8 @@ export const experienceItems = [
     organization: "VMware",
     location: "Chicago, IL",
     start_date: "2017-12-01",
-    end_date: "2019-11-01",
-    description: "• Identified market alignments with partners to deliver targeted SaaS and hybrid cloud campaigns that increased pipeline capture by 21% sell through growth.\n• Identified joint market opportunities and launched upsell and cross-sell programs resulting in a 20% revenue increase from renewals.\n• Coached partner architects and SCs to deliver consultative sales motions, resulting in $440M sell-through revenue and 21% YoY growth.",
+    end_date: "2019-12-01",
+    description: "• Solution Enablement Frameworks development- Built scalable internal demo labs and frameworks for partner-SCs (Zones, CDW, En Pointe, HP), enabling consistent technical presales execution.\n• Coached partner architects to identify and execute targeted SaaS and hybrid cloud campaigns, resulting in a 21% increase in pipeline capture, 20% growth in renewals, and driving $440M in sell-through revenue.",
     display_order: 3
   },
   {
@@ -48,12 +46,48 @@ export const experienceItems = [
     display_order: 5
   },
   {
-    title: "Technical Partner Lead – Channel Partner Strategy",
+    title: "Technical Partner Lead – Channel Partner Strategy (North America)",
     organization: "VMware",
     location: "Seattle, WA",
     start_date: "2011-01-01",
     end_date: "2011-12-01",
     description: "• Served as the technical SME and lead for 3 of VMware's top 10 North American partners, enabling C-level alignment and driving partner adoption of VMware jointly created services.\n• Designed and implemented scalable self-service demo labs initiatives with cloud for partners (Zones, CDW, En Pointe, HP, PCMall) enabling partner-SC enablement and solution delivery.",
     display_order: 6
+  },
+  {
+    title: "Managing Consultant",
+    organization: "ISOutsource.com",
+    location: "Remote",
+    start_date: "2007-07-01",
+    end_date: "2011-01-01",
+    description: "• Provided strategic consulting services for IT outsourcing initiatives.",
+    display_order: 7
+  },
+  {
+    title: "Entrepreneur",
+    organization: "Connecting Point",
+    location: "Seattle, WA",
+    start_date: "2003-03-01",
+    end_date: "2007-07-01",
+    description: "• Founded and operated technology consulting business.",
+    display_order: 8
+  },
+  {
+    title: "Program Manager",
+    organization: "IOIPay.Com",
+    location: "Seattle, WA",
+    start_date: "2002-02-01",
+    end_date: "2003-03-01",
+    description: "• Managed technology programs and initiatives.",
+    display_order: 9
+  },
+  {
+    title: "Network Administrator",
+    organization: "Xavier University",
+    location: "Cincinnati, OH",
+    start_date: "2000-01-01",
+    end_date: "2002-02-01",
+    description: "• Administered university network infrastructure and systems.",
+    display_order: 10
   }
 ];
