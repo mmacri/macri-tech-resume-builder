@@ -6,7 +6,7 @@ export const staticExperienceData = [
     organization: "ServiceNow",
     location: "Remote",
     start_date: "2021-12-01",
-    end_date: "2025-05-01",
+    end_date: null,
     description: "• Led cross-functional solution advisory and engineering initiatives across ServiceNow, aligning Legal, Ethics & Compliance, Security, Product, Sales, Finance, and Engineering teams to deliver impactful solutions that secured stakeholder investment through compelling value propositions that accelerated workflow adoption.\n• Integrated AI/ML governance into enterprise frameworks, serving as SME for ServiceNow's inaugural AI risk policies & requirements.\n• Drove senior executives initiatives that streamlined compliance design to secure budget, that protected against a $900M annual security / compliance risk.\n• Created and managed PolicyHub 1.0, a new ServiceNow module for customers and internal teams that simplified enterprise policy access & accelerated cross-functional enablement servicenow.",
     display_order: 1
   },
