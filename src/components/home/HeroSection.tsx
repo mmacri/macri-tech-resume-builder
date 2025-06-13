@@ -92,24 +92,24 @@ const HeroSection: React.FC = () => {
                 <div className="flex items-center justify-center mb-2">
                   <TrendingUp className="h-6 w-6 text-macri-primary" />
                 </div>
-                <div className="text-2xl font-bold text-gray-900">644%</div>
-                <div className="text-sm text-gray-600">Revenue Growth</div>
+                <div className="text-2xl font-bold text-gray-900">15+</div>
+                <div className="text-sm text-gray-600">Years Experience</div>
               </div>
               
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Users className="h-6 w-6 text-macri-primary" />
                 </div>
-                <div className="text-2xl font-bold text-gray-900">400+</div>
-                <div className="text-sm text-gray-600">Policies Managed</div>
+                <div className="text-2xl font-bold text-gray-900">$100M+</div>
+                <div className="text-sm text-gray-600">Revenue Managed</div>
               </div>
               
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
                   <Award className="h-6 w-6 text-macri-primary" />
                 </div>
-                <div className="text-2xl font-bold text-gray-900">21%</div>
-                <div className="text-sm text-gray-600">Adoption Increase</div>
+                <div className="text-2xl font-bold text-gray-900">50+</div>
+                <div className="text-sm text-gray-600">Enterprise Clients</div>
               </div>
             </div>
           </div>
