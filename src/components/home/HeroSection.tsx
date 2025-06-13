@@ -27,19 +27,13 @@ const HeroSection: React.FC = () => {
                 {/* Professional Summary */}
                 <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-200/50">
                   <h2 className="text-2xl font-bold text-gray-900 mb-4">Professional Summary</h2>
-                  <div className="text-lg text-gray-700 leading-relaxed space-y-4 text-left">
+                  <div className="text-lg text-gray-700 leading-relaxed">
                     <p>
-                      Accomplished GTM and Solution Engineering leader with expertise in building scalable technical sales organizations, 
-                      developing comprehensive compliance frameworks, and driving enterprise cloud adoption strategies.
+                      Solution Consulting and Partner GTM Leader with a proven track record of building high-performing Solution Engineering and Customer Success teams in the enterprise cloud ecosystem.
                     </p>
+                    <br />
                     <p>
-                      Proven track record of delivering 644% revenue growth through strategic partner enablement, implementing 
-                      policy management systems serving 400+ enterprise policies, and leading cross-functional teams to achieve 
-                      measurable business outcomes in complex technology environments.
-                    </p>
-                    <p>
-                      Specialized in ServiceNow platform optimization, AI governance frameworks, and solution architecture with 
-                      deep experience in security operations, compliance management, and customer success initiatives.
+                      Skilled in coaching Solution Consultants, developing scalable technical sales motions, and delivering partner-aligned growth with GSIs, SIs, and ISVs.
                     </p>
                   </div>
                 </div>
@@ -57,7 +51,7 @@ const HeroSection: React.FC = () => {
               </a>
               
               <a 
-                href="#about" 
+                href="#experience" 
                 className="border-2 border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center"
               >
                 Learn More
