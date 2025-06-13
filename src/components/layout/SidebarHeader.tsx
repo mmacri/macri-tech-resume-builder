@@ -23,7 +23,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
         className="flex items-center"
         onClick={() => handleNavLinkClick('/')}
       >
-        <span className="text-xl font-bold lg:hidden">{name}</span>
+        <span className="text-xl font-bold lg:hidden">Mike Macri, M.B.A.</span>
       </Link>
       <button 
         className="lg:hidden p-2 focus:outline-none"

@@ -4,7 +4,7 @@ import { ArrowRight, Award, Users, TrendingUp, MapPin, Shield, Heart } from 'luc
 
 const HeroSection: React.FC = () => {
   // Name and locations data
-  const name = "Mike Macri";
+  const name = "Mike Macri, M.B.A.";
   const locations = ["Edmonds, WA", "San Diego, CA", "Chicago, IL", "Denver, CO", "Remote/Hybrid"];
 
   return (

@@ -61,7 +61,7 @@ export const initializeProfile = async () => {
           .from('profiles')
           .insert({
             id: profileId,
-            full_name: 'Mike Macri',
+            full_name: 'Mike Macri, M.B.A.',
             username: authData?.user?.email || 'mike@example.com',
             is_admin: true
           })
@@ -88,7 +88,7 @@ export const initializeProfile = async () => {
               .from('profiles')
               .insert({
                 id: defaultProfileId,
-                full_name: 'Mike Macri',
+                full_name: 'Mike Macri, M.B.A.',
                 username: 'mike@example.com',
                 is_admin: true
               })
