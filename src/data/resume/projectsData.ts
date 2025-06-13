@@ -16,7 +16,7 @@ export const staticProjectsData = [
     description: "An interactive assessment tool designed to help organizations evaluate their ServiceNow implementation readiness and identify optimal solution paths. Provides customized recommendations based on organizational maturity, technical requirements, and business objectives.",
     technologies: ["ServiceNow", "Solution Architecture", "Assessment Framework", "JavaScript", "Web Development"],
     link: "https://mmacri.github.io/nowassess/index.html",
-    image_url: null,
+    image_url: "/lovable-uploads/a6fd2e82-34d4-4f60-90fc-4f5236a13aaf.png",
     display_order: 2
   },
   {
