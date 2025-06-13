@@ -20,22 +20,13 @@ export const staticProjectsData = [
     display_order: 2
   },
   {
-    id: "policy-compliance-hub",
-    title: "Policy & Compliance Hub",
-    description: "A centralized portal for managing enterprise policies and compliance documentation with secure access controls. Created a usable interface for over 400 policies, reducing training time by 60% and decreasing compliance risk.",
-    technologies: ["ServiceNow", "GRC", "Policy Management", "AI Governance"],
-    link: "/portfolio",
-    image_url: null,
-    display_order: 3
-  },
-  {
     id: "customer-success-dashboard",
     title: "Customer Success Dashboard",
     description: "Analytics dashboard that improved product adoption by 21% and increased NPS scores through better customer metrics tracking. Enabled data-driven decisions to improve customer satisfaction and identify growth opportunities.",
     technologies: ["PowerBI", "Salesforce", "Data Analytics", "Customer Success"],
-    link: "/portfolio",
-    image_url: null,
-    display_order: 4
+    link: "https://mmacri.github.io/customer-engagement-tracker/",
+    image_url: "/lovable-uploads/eb90f300-90d1-4c77-86ec-2814b17e1be4.png",
+    display_order: 3
   },
   {
     id: "partner-enablement",
@@ -44,7 +35,7 @@ export const staticProjectsData = [
     technologies: ["Business Development", "Partner Management", "VMware", "Cloud Services"],
     link: "/portfolio",
     image_url: null,
-    display_order: 5
+    display_order: 4
   },
   {
     id: "security-compliance",
@@ -53,6 +44,6 @@ export const staticProjectsData = [
     technologies: ["NIST", "CIS", "Security Operations", "Audit & Compliance"],
     link: "/portfolio",
     image_url: null,
-    display_order: 6
+    display_order: 5
   }
 ];
