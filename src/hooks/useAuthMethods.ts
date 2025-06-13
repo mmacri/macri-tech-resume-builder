@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -19,10 +18,8 @@ export function useAuthMethods() {
         error: {
           message: 'Invalid email format',
           name: 'ValidationError',
-          code: 'invalid_email',
-          status: 400,
-          __isAuthError: true
-        }
+          status: 400
+        } as any
       };
     }
 
@@ -34,10 +31,8 @@ export function useAuthMethods() {
         error: {
           message: passwordValidation.message || 'Invalid password',
           name: 'ValidationError',
-          code: 'invalid_password',
-          status: 400,
-          __isAuthError: true
-        }
+          status: 400
+        } as any
       };
     }
 
@@ -51,10 +46,8 @@ export function useAuthMethods() {
         error: {
           message: 'Rate limit exceeded',
           name: 'RateLimitError',
-          code: 'rate_limit_exceeded',
-          status: 429,
-          __isAuthError: true
-        }
+          status: 429
+        } as any
       };
     }
 
@@ -90,10 +83,8 @@ export function useAuthMethods() {
         error: {
           message: 'Unexpected error',
           name: 'UnexpectedError',
-          code: 'unexpected_error',
-          status: 500,
-          __isAuthError: true
-        }
+          status: 500
+        } as any
       };
     } finally {
       setIsLoading(false);
@@ -110,10 +101,8 @@ export function useAuthMethods() {
         error: {
           message: 'Invalid email format',
           name: 'ValidationError',
-          code: 'invalid_email',
-          status: 400,
-          __isAuthError: true
-        }
+          status: 400
+        } as any
       };
     }
 
@@ -125,10 +114,8 @@ export function useAuthMethods() {
         error: {
           message: passwordValidation.message || 'Invalid password',
           name: 'ValidationError',
-          code: 'invalid_password',
-          status: 400,
-          __isAuthError: true
-        }
+          status: 400
+        } as any
       };
     }
 
@@ -140,10 +127,8 @@ export function useAuthMethods() {
         error: {
           message: 'Password too short',
           name: 'ValidationError',
-          code: 'password_too_short',
-          status: 400,
-          __isAuthError: true
-        }
+          status: 400
+        } as any
       };
     }
 
@@ -156,10 +141,8 @@ export function useAuthMethods() {
         error: {
           message: 'Rate limit exceeded',
           name: 'RateLimitError',
-          code: 'rate_limit_exceeded',
-          status: 429,
-          __isAuthError: true
-        }
+          status: 429
+        } as any
       };
     }
 
@@ -197,10 +180,8 @@ export function useAuthMethods() {
         error: {
           message: 'Unexpected error',
           name: 'UnexpectedError',
-          code: 'unexpected_error',
-          status: 500,
-          __isAuthError: true
-        }
+          status: 500
+        } as any
       };
     } finally {
       setIsLoading(false);
