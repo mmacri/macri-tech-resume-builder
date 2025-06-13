@@ -220,7 +220,7 @@ export type Database = {
     }
     Functions: {
       is_admin: {
-        Args: Record<PropertyKey, never> | { user_id: string }
+        Args: Record<PropertyKey, never> | { user_id?: string }
         Returns: boolean
       }
       is_user_admin: {
