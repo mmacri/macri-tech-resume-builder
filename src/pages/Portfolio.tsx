@@ -2,11 +2,19 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { ProjectIndex } from '@/components/portfolio/ProjectIndex';
 import { ProjectList } from '@/components/portfolio/ProjectList';
-import { usePortfolioProjects } from '@/hooks/usePortfolioProjects';
+import { staticProjectsData } from '@/data/resume/projectsData';
 
 const Portfolio = () => {
   const { user } = useAuth();
-  const { projects, loading, seedProjects } = usePortfolioProjects(user);
+  
+  // Use static projects data instead of database
+  const projects = staticProjectsData;
+  const loading = false;
+  
+  // Mock seed function for consistency with existing interface
+  const seedProjects = async () => {
+    console.log('Using static data - no seeding needed');
+  };
 
   return (
     <>
