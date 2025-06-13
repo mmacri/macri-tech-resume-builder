@@ -4,22 +4,41 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { authRateLimiter } from '@/utils/security/rateLimiting';
 import { sanitizeEmail, validateInput } from '@/utils/security/sanitization';
+import { AuthResponse } from '@supabase/supabase-js';
 
 export function useAuthMethods() {
   const [isLoading, setIsLoading] = useState(false);
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email: string, password: string): Promise<AuthResponse> => {
     // Input validation and sanitization
     const sanitizedEmail = sanitizeEmail(email);
     if (!sanitizedEmail) {
       toast.error('Please enter a valid email address');
-      return { data: null, error: { message: 'Invalid email format' } };
+      return { 
+        data: { user: null, session: null }, 
+        error: {
+          message: 'Invalid email format',
+          name: 'ValidationError',
+          code: 'invalid_email',
+          status: 400,
+          __isAuthError: true
+        }
+      };
     }
 
     const passwordValidation = validateInput(password, 128);
     if (!passwordValidation.isValid) {
       toast.error(passwordValidation.message || 'Invalid password');
-      return { data: null, error: { message: passwordValidation.message } };
+      return { 
+        data: { user: null, session: null }, 
+        error: {
+          message: passwordValidation.message || 'Invalid password',
+          name: 'ValidationError',
+          code: 'invalid_password',
+          status: 400,
+          __isAuthError: true
+        }
+      };
     }
 
     // Rate limiting
@@ -27,7 +46,16 @@ export function useAuthMethods() {
     if (authRateLimiter.isRateLimited(rateLimitKey)) {
       const remaining = authRateLimiter.getRemainingAttempts(rateLimitKey);
       toast.error(`Too many login attempts. Please try again later. Remaining: ${remaining}`);
-      return { data: null, error: { message: 'Rate limit exceeded' } };
+      return { 
+        data: { user: null, session: null }, 
+        error: {
+          message: 'Rate limit exceeded',
+          name: 'RateLimitError',
+          code: 'rate_limit_exceeded',
+          status: 429,
+          __isAuthError: true
+        }
+      };
     }
 
     setIsLoading(true);
@@ -35,59 +63,104 @@ export function useAuthMethods() {
     try {
       console.log('Attempting secure sign in for:', sanitizedEmail);
       
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const response = await supabase.auth.signInWithPassword({
         email: sanitizedEmail,
-        password: password // Don't log the actual password
+        password: password
       });
 
-      if (error) {
-        console.error('Sign in error:', error.message);
-        toast.error(`Sign in failed: ${error.message}`);
-        return { data: null, error };
+      if (response.error) {
+        console.error('Sign in error:', response.error.message);
+        toast.error(`Sign in failed: ${response.error.message}`);
+        return response;
       }
 
-      if (data.user) {
+      if (response.data.user) {
         // Reset rate limit on successful login
         authRateLimiter.reset(rateLimitKey);
-        console.log('Sign in successful for user:', data.user.id);
+        console.log('Sign in successful for user:', response.data.user.id);
         toast.success('Signed in successfully');
       }
 
-      return { data, error: null };
+      return response;
     } catch (error) {
       console.error('Unexpected sign in error:', error);
       toast.error('An unexpected error occurred during sign in');
-      return { data: null, error: { message: 'Unexpected error' } };
+      return { 
+        data: { user: null, session: null }, 
+        error: {
+          message: 'Unexpected error',
+          name: 'UnexpectedError',
+          code: 'unexpected_error',
+          status: 500,
+          __isAuthError: true
+        }
+      };
     } finally {
       setIsLoading(false);
     }
   };
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string): Promise<AuthResponse> => {
     // Input validation and sanitization
     const sanitizedEmail = sanitizeEmail(email);
     if (!sanitizedEmail) {
       toast.error('Please enter a valid email address');
-      return { data: null, error: { message: 'Invalid email format' } };
+      return { 
+        data: { user: null, session: null }, 
+        error: {
+          message: 'Invalid email format',
+          name: 'ValidationError',
+          code: 'invalid_email',
+          status: 400,
+          __isAuthError: true
+        }
+      };
     }
 
     const passwordValidation = validateInput(password, 128);
     if (!passwordValidation.isValid) {
       toast.error(passwordValidation.message || 'Invalid password');
-      return { data: null, error: { message: passwordValidation.message } };
+      return { 
+        data: { user: null, session: null }, 
+        error: {
+          message: passwordValidation.message || 'Invalid password',
+          name: 'ValidationError',
+          code: 'invalid_password',
+          status: 400,
+          __isAuthError: true
+        }
+      };
     }
 
     // Additional password strength validation
     if (password.length < 8) {
       toast.error('Password must be at least 8 characters long');
-      return { data: null, error: { message: 'Password too short' } };
+      return { 
+        data: { user: null, session: null }, 
+        error: {
+          message: 'Password too short',
+          name: 'ValidationError',
+          code: 'password_too_short',
+          status: 400,
+          __isAuthError: true
+        }
+      };
     }
 
     // Rate limiting
     const rateLimitKey = `signup_${sanitizedEmail}`;
     if (authRateLimiter.isRateLimited(rateLimitKey)) {
       toast.error('Too many signup attempts. Please try again later.');
-      return { data: null, error: { message: 'Rate limit exceeded' } };
+      return { 
+        data: { user: null, session: null }, 
+        error: {
+          message: 'Rate limit exceeded',
+          name: 'RateLimitError',
+          code: 'rate_limit_exceeded',
+          status: 429,
+          __isAuthError: true
+        }
+      };
     }
 
     setIsLoading(true);
@@ -95,31 +168,40 @@ export function useAuthMethods() {
     try {
       console.log('Attempting secure sign up for:', sanitizedEmail);
       
-      const { data, error } = await supabase.auth.signUp({
+      const response = await supabase.auth.signUp({
         email: sanitizedEmail,
         password: password,
         options: {
           data: {
             signup_timestamp: new Date().toISOString(),
-            signup_ip: 'client-side' // In production, get this from server
+            signup_ip: 'client-side'
           }
         }
       });
 
-      if (error) {
-        console.error('Sign up error:', error.message);
-        toast.error(`Sign up failed: ${error.message}`);
-        return { data: null, error };
+      if (response.error) {
+        console.error('Sign up error:', response.error.message);
+        toast.error(`Sign up failed: ${response.error.message}`);
+        return response;
       }
 
-      console.log('Sign up successful for user:', data.user?.id);
+      console.log('Sign up successful for user:', response.data.user?.id);
       toast.success('Account created successfully! Please check your email for verification.');
       
-      return { data, error: null };
+      return response;
     } catch (error) {
       console.error('Unexpected sign up error:', error);
       toast.error('An unexpected error occurred during sign up');
-      return { data: null, error: { message: 'Unexpected error' } };
+      return { 
+        data: { user: null, session: null }, 
+        error: {
+          message: 'Unexpected error',
+          name: 'UnexpectedError',
+          code: 'unexpected_error',
+          status: 500,
+          __isAuthError: true
+        }
+      };
     } finally {
       setIsLoading(false);
     }
