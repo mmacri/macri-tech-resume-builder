@@ -1,24 +1,52 @@
 
 import React from 'react';
-import { ArrowRight, Award, Users, TrendingUp } from 'lucide-react';
+import { ArrowRight, Award, Users, TrendingUp, MapPin } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
+  // Name and locations data
+  const name = "Mike Macri";
+  const locations = ["Edmonds, WA", "San Diego, CA", "Chicago, IL", "Denver, CO", "Remote/Hybrid"];
+
   return (
     <section className="bg-gradient-to-br from-macri-primary/5 via-white to-macri-primary/10 py-20 px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-left">
           {/* Hero Content */}
           <div className="space-y-8">
             <div className="space-y-6">
+              {/* Name */}
               <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-tight">
+                <span className="text-macri-primary">{name}</span>
+              </h1>
+
+              {/* Locations */}
+              <div className="mb-6">
+                <div className="p-4 bg-gradient-to-r from-macri-primary/5 to-macri-primary/10 rounded-lg border border-macri-primary/20">
+                  <div className="flex items-start gap-3">
+                    <MapPin className="h-5 w-5 text-macri-primary mt-1 flex-shrink-0" />
+                    <div className="flex flex-wrap gap-2">
+                      {locations.map((location, index) => (
+                        <span
+                          key={index}
+                          className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-macri-primary text-white shadow-sm hover:bg-macri-primary/90 transition-colors"
+                        >
+                          {location}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight">
                 Driving <span className="text-macri-primary">GTM</span> and 
                 <br />
                 <span className="text-macri-primary">Solution Engineering</span>
                 <br />
                 Excellence
-              </h1>
+              </h2>
               
-              <div className="max-w-4xl mx-auto space-y-6">
+              <div className="max-w-4xl space-y-6">
                 <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed">
                   Building high-performing teams and scalable technical sales motions 
                   that deliver enterprise cloud solutions and drive partner-aligned growth.
@@ -26,7 +54,7 @@ const HeroSection: React.FC = () => {
                 
                 {/* Professional Summary */}
                 <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-200/50">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Professional Summary</h2>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Professional Summary</h3>
                   <div className="text-lg text-gray-700 leading-relaxed">
                     <p>
                       Solution Consulting and Partner GTM Leader with a proven track record of building high-performing Solution Engineering and Customer Success teams in the enterprise cloud ecosystem.
@@ -41,7 +69,7 @@ const HeroSection: React.FC = () => {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4">
               <a 
                 href="/portfolio" 
                 className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
@@ -59,7 +87,7 @@ const HeroSection: React.FC = () => {
             </div>
 
             {/* Achievement Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200 max-w-2xl mx-auto">
+            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200 max-w-2xl">
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
                   <TrendingUp className="h-6 w-6 text-macri-primary" />
