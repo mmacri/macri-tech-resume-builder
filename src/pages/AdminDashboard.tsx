@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminLayout from '@/components/admin/AdminLayout';
@@ -11,145 +12,173 @@ import LoadingStatus from '@/components/admin/status/LoadingStatus';
 import CompletedStatus from '@/components/admin/status/CompletedStatus';
 import { checkResumeSections, checkExperienceItems } from '@/utils/resume/checkResumeData';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle, Database } from 'lucide-react';
 
 const AdminDashboard = () => {
   const [allSectionsReady, setAllSectionsReady] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
   const [lastError, setLastError] = useState<string | null>(null);
-  const [diagInfo, setDiagInfo] = useState<any>(null);
+  const [connectionStatus, setConnectionStatus] = useState<'checking' | 'connected' | 'error'>('checking');
+  const [dbStats, setDbStats] = useState({
+    sections: 0,
+    projects: 0,
+    blogs: 0,
+    profiles: 0
+  });
   const { initializeData, isInitializing, error } = useInitializeResumeData();
   const navigate = useNavigate();
   
-  // Check if content exists in the database
-  useEffect(() => {
-    const checkContent = async () => {
-      try {
-        setIsChecking(true);
-        setLastError(null);
+  // Test database connection first
+  const testConnection = async () => {
+    try {
+      setConnectionStatus('checking');
+      console.log('Testing database connection...');
+      
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('count', { count: 'exact', head: true });
         
-        // First check the database connection directly
-        const { data: sections, error: connError } = await supabase
-          .from('resume_sections')
-          .select('*');
-          
-        if (connError) {
-          console.error('Database connection test failed:', connError);
-          setLastError(`Database connection issue: ${connError.message}`);
-          setDiagInfo({ connError });
-          return;
-        }
-        
-        // Use our diagnostic function to check resume sections
-        const sectionsResult = await checkResumeSections();
-        console.log('Resume sections check result:', sectionsResult);
-        
-        // Store diagnostic info
-        setDiagInfo({
-          sectionsResult,
-          timestamp: new Date().toISOString()
-        });
-        
-        if (sectionsResult.success && sectionsResult.sections.length > 0) {
-          // Check experience items
-          const experienceResult = await checkExperienceItems();
-          console.log('Experience items check result:', experienceResult);
-          setDiagInfo(prev => ({
-            ...prev,
-            experienceResult
-          }));
-        } else if (!sectionsResult.success) {
-          setLastError(`Resume sections check failed: ${sectionsResult.error}`);
-          return;
-        }
-        
-        // Check resume sections count
-        const sectionCount = sections?.length || 0;
-        
-        // Check portfolio projects
-        const { data: projects, error: projectError } = await supabase
-          .from('portfolio_projects')
-          .select('*');
-          
-        if (projectError) {
-          setLastError(`Error checking projects: ${projectError.message}`);
-          throw projectError;
-        }
-
-        const projectCount = projects?.length || 0;
-        
-        // Check blog posts
-        const { data: blogPosts, error: blogError } = await supabase
-          .from('blog_posts')
-          .select('*');
-          
-        if (blogError) {
-          setLastError(`Error checking blog posts: ${blogError.message}`);
-          throw blogError;
-        }
-        
-        const blogCount = blogPosts?.length || 0;
-        
-        // Set status based on whether content exists
-        setAllSectionsReady(
-          sectionCount > 0 && 
-          projectCount > 0 &&
-          blogCount > 0
-        );
-        
-        setDiagInfo(prev => ({
-          ...prev,
-          sectionCount,
-          projectCount,
-          blogCount
-        }));
-        
-        console.log('Content check completed:', {
-          sectionCount,
-          projectCount,
-          blogCount,
-          allSectionsReady: sectionCount > 0 && projectCount > 0 && blogCount > 0
-        });
-      } catch (error) {
-        console.error('Error checking content:', error);
-        toast.error('Failed to check content status');
-        setLastError(error instanceof Error ? error.message : 'Unknown error checking content');
-      } finally {
-        setIsChecking(false);
-      }
-    };
-    
-    checkContent();
-  }, [isInitializing]);
-  
-  // Clear the error when initialization status changes
-  useEffect(() => {
-    if (!isInitializing) {
-      // Check if there was an error
       if (error) {
-        setLastError(error instanceof Error ? error.message : 'Unknown initialization error');
+        console.error('Database connection failed:', error);
+        setConnectionStatus('error');
+        setLastError(`Database connection failed: ${error.message}`);
+        return false;
       }
+      
+      console.log('Database connection successful');
+      setConnectionStatus('connected');
+      setLastError(null);
+      return true;
+    } catch (err) {
+      console.error('Unexpected connection error:', err);
+      setConnectionStatus('error');
+      setLastError(`Connection error: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      return false;
     }
-  }, [isInitializing, error]);
+  };
+  
+  // Check if content exists in the database
+  const checkContent = async () => {
+    if (connectionStatus !== 'connected') {
+      return;
+    }
+    
+    try {
+      setIsChecking(true);
+      setLastError(null);
+      console.log('Checking database content...');
+      
+      // Check all tables with proper error handling
+      const [sectionsResult, projectsResult, blogsResult, profilesResult] = await Promise.allSettled([
+        supabase.from('resume_sections').select('*', { count: 'exact', head: true }),
+        supabase.from('portfolio_projects').select('*', { count: 'exact', head: true }),
+        supabase.from('blog_posts').select('*', { count: 'exact', head: true }),
+        supabase.from('profiles').select('*', { count: 'exact', head: true })
+      ]);
+      
+      // Process results safely
+      const sectionCount = sectionsResult.status === 'fulfilled' ? sectionsResult.value.count || 0 : 0;
+      const projectCount = projectsResult.status === 'fulfilled' ? projectsResult.value.count || 0 : 0;
+      const blogCount = blogsResult.status === 'fulfilled' ? blogsResult.value.count || 0 : 0;
+      const profileCount = profilesResult.status === 'fulfilled' ? profilesResult.value.count || 0 : 0;
+      
+      // Log any failures
+      if (sectionsResult.status === 'rejected') {
+        console.warn('Failed to check resume_sections:', sectionsResult.reason);
+      }
+      if (projectsResult.status === 'rejected') {
+        console.warn('Failed to check portfolio_projects:', projectsResult.reason);
+      }
+      if (blogsResult.status === 'rejected') {
+        console.warn('Failed to check blog_posts:', blogsResult.reason);
+      }
+      if (profilesResult.status === 'rejected') {
+        console.warn('Failed to check profiles:', profilesResult.reason);
+      }
+      
+      // Update stats
+      setDbStats({
+        sections: sectionCount,
+        projects: projectCount,
+        blogs: blogCount,
+        profiles: profileCount
+      });
+      
+      // Set status based on whether content exists
+      const hasContent = sectionCount > 0 && projectCount > 0 && blogCount > 0;
+      setAllSectionsReady(hasContent);
+      
+      console.log('Content check completed:', {
+        sections: sectionCount,
+        projects: projectCount,
+        blogs: blogCount,
+        profiles: profileCount,
+        allReady: hasContent
+      });
+      
+      if (!hasContent) {
+        console.log('Some content is missing - initialization may be needed');
+      }
+      
+    } catch (error) {
+      console.error('Error checking content:', error);
+      setLastError(error instanceof Error ? error.message : 'Unknown error checking content');
+    } finally {
+      setIsChecking(false);
+    }
+  };
+
+  // Initial connection test
+  useEffect(() => {
+    testConnection();
+  }, []);
+  
+  // Check content when connection is established or when initialization completes
+  useEffect(() => {
+    if (connectionStatus === 'connected' && !isInitializing) {
+      checkContent();
+    }
+  }, [connectionStatus, isInitializing]);
+  
+  // Handle initialization errors
+  useEffect(() => {
+    if (error && !isInitializing) {
+      setLastError(error instanceof Error ? error.message : 'Unknown initialization error');
+    }
+  }, [error, isInitializing]);
   
   const handleAllSectionsPopulated = () => {
     setAllSectionsReady(true);
     toast.success('All content sections are now populated with data!');
   };
 
-  const handleInitializeData = () => {
+  const handleInitializeData = async () => {
     console.log('Initializing data with default options');
     setLastError(null);
     toast.info('Starting resume data initialization...');
-    initializeData({});
+    
+    try {
+      await initializeData({});
+      toast.success('Data initialization completed');
+    } catch (err) {
+      console.error('Initialization failed:', err);
+      setLastError(err instanceof Error ? err.message : 'Unknown initialization error');
+    }
   };
 
-  const handleForceInitializeData = () => {
+  const handleForceInitializeData = async () => {
     if (window.confirm('This will reset all resume data with fresh sample data. Are you sure?')) {
       console.log('Initializing data with force option');
       setLastError(null);
       toast.info('Starting forced resume data initialization...');
-      initializeData({ force: true });
+      
+      try {
+        await initializeData({ force: true });
+        toast.success('Forced data initialization completed');
+      } catch (err) {
+        console.error('Force initialization failed:', err);
+        setLastError(err instanceof Error ? err.message : 'Unknown force initialization error');
+      }
     }
   };
 
@@ -157,69 +186,62 @@ const AdminDashboard = () => {
     navigate('/admin#resume');
   };
 
-  const checkDatabaseStatus = async () => {
-    try {
-      setIsChecking(true);
-      setLastError(null);
-      toast.info('Checking database status...');
-      
-      // First check DB connection
-      const { data: sections, error: connError } = await supabase
-        .from('resume_sections')
-        .select('*');
-        
-      if (connError) {
-        console.error('Database connection test failed:', connError);
-        toast.error(`Database connection issue: ${connError.message}`);
-        setLastError(`Database connection issue: ${connError.message}`);
-        return;
-      }
-      
-      toast.success('Database connection successful.');
-      
-      const sectionsResult = await checkResumeSections();
-      console.log('Sections check result:', sectionsResult);
-      
-      if (sectionsResult.success) {
-        if (sectionsResult.sections.length === 0) {
-          toast.warning('No resume sections found. Please initialize data.');
-        } else {
-          toast.success(`Found ${sectionsResult.sections.length} resume sections.`);
-          
-          // Check for items
-          if (sectionsResult.hasItems) {
-            toast.success('Resume sections have content items.');
-          } else {
-            toast.warning('Resume sections exist but have no content items.');
-          }
-          
-          // Check experience specifically
-          const experienceResult = await checkExperienceItems();
-          if (experienceResult.success && experienceResult.items.length > 0) {
-            toast.success(`Found ${experienceResult.items.length} experience items.`);
-          } else {
-            toast.warning('No experience items found.');
-          }
-        }
-      } else {
-        toast.error('Failed to check resume sections.');
-        setLastError(sectionsResult.error ? 
-          (sectionsResult.error instanceof Error ? sectionsResult.error.message : 'Unknown error') : 
-          'Unknown error checking resume sections');
-      }
-    } catch (error) {
-      console.error('Error checking database status:', error);
-      toast.error('Failed to check database status');
-      setLastError(error instanceof Error ? error.message : 'Unknown error checking database status');
-    } finally {
-      setIsChecking(false);
+  const handleCheckDatabaseStatus = async () => {
+    await testConnection();
+    if (connectionStatus === 'connected') {
+      await checkContent();
     }
+  };
+
+  const handleRetryConnection = async () => {
+    setLastError(null);
+    await testConnection();
   };
 
   return (
     <AdminLayout>
       <div className="p-6">
         <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+        
+        {/* Connection Status */}
+        <div className="mb-4">
+          {connectionStatus === 'checking' && (
+            <Alert>
+              <Database className="h-4 w-4" />
+              <AlertTitle>Checking Connection</AlertTitle>
+              <AlertDescription>Testing database connection...</AlertDescription>
+            </Alert>
+          )}
+          
+          {connectionStatus === 'connected' && (
+            <Alert>
+              <CheckCircle className="h-4 w-4 text-green-600" />
+              <AlertTitle>Database Connected</AlertTitle>
+              <AlertDescription>
+                Successfully connected to database. 
+                Found: {dbStats.sections} sections, {dbStats.projects} projects, {dbStats.blogs} blog posts, {dbStats.profiles} profiles.
+              </AlertDescription>
+            </Alert>
+          )}
+          
+          {connectionStatus === 'error' && (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Connection Error</AlertTitle>
+              <AlertDescription>
+                Failed to connect to database. 
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={handleRetryConnection}
+                  className="ml-2"
+                >
+                  Retry Connection
+                </Button>
+              </AlertDescription>
+            </Alert>
+          )}
+        </div>
         
         {lastError && (
           <Alert variant="destructive" className="mb-4">
@@ -230,7 +252,7 @@ const AdminDashboard = () => {
         )}
         
         <div className="mb-6">
-          {isChecking ? (
+          {isChecking || connectionStatus === 'checking' ? (
             <LoadingStatus />
           ) : allSectionsReady ? (
             <CompletedStatus />
@@ -241,14 +263,14 @@ const AdminDashboard = () => {
           <div className="mt-4 flex flex-wrap gap-2">
             <Button 
               onClick={handleInitializeData} 
-              disabled={isInitializing} 
+              disabled={isInitializing || connectionStatus !== 'connected'} 
               variant="default"
             >
               {isInitializing ? 'Initializing...' : 'Initialize Resume Data'}
             </Button>
             <Button 
               onClick={handleForceInitializeData}
-              disabled={isInitializing}
+              disabled={isInitializing || connectionStatus !== 'connected'}
               variant="destructive"
             >
               Reset Resume Data
@@ -260,16 +282,16 @@ const AdminDashboard = () => {
               Manage Resume
             </Button>
             <Button 
-              onClick={checkDatabaseStatus}
+              onClick={handleCheckDatabaseStatus}
               variant="secondary"
               disabled={isChecking}
             >
-              Check Database Status
+              {isChecking ? 'Checking...' : 'Check Database Status'}
             </Button>
           </div>
         </div>
         
-        <CardGrid />
+        {connectionStatus === 'connected' && <CardGrid />}
       </div>
     </AdminLayout>
   );

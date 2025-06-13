@@ -1,56 +1,55 @@
 
 import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
+
+// Known admin email addresses
+const ADMIN_EMAILS = ['mike@mikemacri.com', 'mike@gmail.com'];
 
 /**
- * Check if the user is an admin based on email address
+ * Check if an email is a known admin email
  */
-export const isKnownAdminEmail = (email: string | undefined | null): boolean => {
+export const isKnownAdminEmail = (email?: string | null): boolean => {
   if (!email) return false;
-  const lowerEmail = email.toLowerCase();
-  return lowerEmail === 'mike@mikemacri.com' || lowerEmail === 'mike@gmail.com';
+  return ADMIN_EMAILS.includes(email.toLowerCase());
 };
 
 /**
- * Check admin status using RPC function
+ * Check admin status via the is_admin RPC function
  */
 export const checkAdminViaRPC = async (userId: string): Promise<boolean | null> => {
   try {
-    console.log('Checking admin status using is_user_admin function');
-    const { data: isAdminResult, error: rpcError } = await supabase
-      .rpc('is_user_admin', { user_id: userId });
-      
-    if (rpcError) {
-      console.error('Error checking is_user_admin via RPC:', rpcError);
+    console.log('Checking admin via RPC for user:', userId);
+    const { data, error } = await supabase.rpc('is_admin', { user_id: userId });
+    
+    if (error) {
+      console.warn('RPC is_admin failed:', error.message);
       return null;
     }
     
-    console.log('Admin status via is_user_admin RPC:', isAdminResult);
-    return isAdminResult;
-  } catch (rpcError) {
-    console.error('Exception in is_user_admin RPC check:', rpcError);
+    console.log('RPC admin check result:', data);
+    return Boolean(data);
+  } catch (error) {
+    console.warn('RPC admin check error:', error);
     return null;
   }
 };
 
 /**
- * Fallback admin check using legacy RPC function
+ * Check admin status via the legacy is_user_admin RPC function
  */
 export const checkAdminViaLegacyRPC = async (userId: string): Promise<boolean | null> => {
   try {
-    console.log('Falling back to is_admin function');
-    const { data: isAdminResult, error: rpcError } = await supabase
-      .rpc('is_admin', { user_id: userId });
-      
-    if (rpcError) {
-      console.error('Error checking admin via is_admin RPC:', rpcError);
+    console.log('Checking admin via legacy RPC for user:', userId);
+    const { data, error } = await supabase.rpc('is_user_admin', { user_id: userId });
+    
+    if (error) {
+      console.warn('Legacy RPC is_user_admin failed:', error.message);
       return null;
     }
     
-    console.log('Admin status via is_admin RPC:', isAdminResult);
-    return isAdminResult;
-  } catch (rpcError) {
-    console.error('Exception in is_admin RPC check:', rpcError);
+    console.log('Legacy RPC admin check result:', data);
+    return Boolean(data);
+  } catch (error) {
+    console.warn('Legacy RPC admin check error:', error);
     return null;
   }
 };
@@ -60,128 +59,163 @@ export const checkAdminViaLegacyRPC = async (userId: string): Promise<boolean | 
  */
 export const checkAdminViaProfilesTable = async (userId: string): Promise<boolean | null> => {
   try {
-    console.log('Performing direct profile admin check');
-    // Check if user has a profile
-    const { data: profile, error: profileError } = await supabase
+    console.log('Checking admin via profiles table for user:', userId);
+    const { data, error } = await supabase
       .from('profiles')
       .select('is_admin')
       .eq('id', userId)
       .maybeSingle();
     
-    if (profileError) {
-      console.error('Error checking profile:', profileError);
+    if (error) {
+      console.warn('Profiles table admin check failed:', error.message);
       return null;
-    } 
-    
-    if (profile) {
-      console.log('Admin status from database:', profile.is_admin);
-      return profile.is_admin;
     }
     
-    return null;
+    if (!data) {
+      console.log('No profile found for user');
+      return null;
+    }
+    
+    console.log('Profiles table admin check result:', data.is_admin);
+    return Boolean(data.is_admin);
   } catch (error) {
-    console.error('Error in profile table admin check:', error);
+    console.warn('Profiles table admin check error:', error);
     return null;
   }
 };
 
 /**
- * Run the profile sync function and try to get admin status again
+ * Sync missing profiles and check admin status
  */
 export const syncProfilesAndCheckAdmin = async (userId: string): Promise<boolean | null> => {
   try {
-    console.log('Running profile sync and checking admin status');
+    console.log('Syncing profiles and checking admin for user:', userId);
     
-    // Attempt to run the sync function
-    await supabase.rpc('sync_missing_profiles');
-    
-    // Try to get profile after sync
-    const { data: syncedProfile, error: syncError } = await supabase
-      .from('profiles')
-      .select('is_admin')
-      .eq('id', userId)
-      .maybeSingle();
+    // Call the sync function
+    const { error: syncError } = await supabase.rpc('sync_missing_profiles');
     
     if (syncError) {
-      console.error('Error after sync:', syncError);
+      console.warn('Profile sync failed:', syncError.message);
       return null;
-    } 
-    
-    if (syncedProfile) {
-      console.log('Admin status after sync:', syncedProfile.is_admin);
-      return syncedProfile.is_admin;
     }
     
-    console.log('No profile found after sync');
-    return null;
+    console.log('Profile sync completed, checking admin status...');
+    
+    // Now check the profiles table again
+    const result = await checkAdminViaProfilesTable(userId);
+    console.log('Post-sync admin check result:', result);
+    
+    return result;
   } catch (error) {
-    console.error('Error in sync and check:', error);
+    console.warn('Sync and admin check error:', error);
     return null;
   }
 };
 
 /**
- * Function to update admin status for a user
+ * Update user admin status (for admin management)
  */
 export const updateUserAdminStatus = async (
-  userId: string, 
+  targetUserId: string, 
   adminStatus: boolean, 
-  currentUserId: string | undefined
-): Promise<{success: boolean; message?: string}> => {
+  currentUserId?: string
+): Promise<{ success: boolean; message?: string }> => {
   try {
-    console.log('Setting admin status for user ID:', userId, 'to:', adminStatus);
-    
-    // Safety check: prevent removing admin status from your own account
-    if (currentUserId === userId && !adminStatus) {
-      return { 
-        success: false, 
-        message: 'You cannot remove admin status from your own account'
+    // Prevent self-demotion for safety
+    if (targetUserId === currentUserId && !adminStatus) {
+      return {
+        success: false,
+        message: 'You cannot remove your own admin privileges'
       };
-    }
-    
-    // Check if this would remove the last admin
-    if (!adminStatus) {
-      const { data: adminUsers, error: checkError } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('is_admin', true);
-        
-      if (checkError) {
-        console.error('Error checking admin users:', checkError);
-        return {
-          success: false,
-          message: 'Could not verify admin users'
-        };
-      }
-      
-      if (adminUsers.length === 1 && adminUsers[0].id === userId) {
-        return {
-          success: false,
-          message: 'Cannot remove admin status from the last admin user'
-        };
-      }
     }
     
     const { error } = await supabase
       .from('profiles')
       .update({ is_admin: adminStatus })
-      .eq('id', userId);
-      
+      .eq('id', targetUserId);
+    
     if (error) {
-      console.error('Error updating admin status:', error);
+      console.error('Failed to update admin status:', error);
       return {
         success: false,
-        message: error.message || 'Error updating admin status'
+        message: `Failed to update admin status: ${error.message}`
       };
     }
     
-    console.log('Admin status updated successfully');
     return { success: true };
   } catch (error) {
-    console.error('Error updating admin status:', error);
-    return { 
-      success: false, 
-      message: 'Error updating admin status'
+    console.error('Admin status update error:', error);
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : 'Unknown error'
     };
+  }
+};
+
+/**
+ * Comprehensive admin check that tries multiple methods and handles errors gracefully
+ */
+export const comprehensiveAdminCheck = async (userId: string): Promise<boolean> => {
+  try {
+    console.log('Starting comprehensive admin check for user:', userId);
+    
+    // First, check if the user's email matches any known admin emails
+    const { data: userData } = await supabase.auth.getUser();
+    const email = userData?.user?.email;
+    
+    const isKnownAdmin = isKnownAdminEmail(email);
+    if (isKnownAdmin) {
+      console.log('User has known admin email, ensuring profile reflects this...');
+      
+      // Ensure their profile has admin status
+      try {
+        await supabase
+          .from('profiles')
+          .update({ is_admin: true })
+          .eq('id', userId);
+      } catch (updateError) {
+        console.warn('Failed to update profile admin status:', updateError);
+      }
+      
+      return true;
+    }
+    
+    // Try different methods to check admin status
+    
+    // Method 1: Check via RPC function
+    const rpcResult = await checkAdminViaRPC(userId);
+    if (rpcResult !== null) {
+      return rpcResult;
+    }
+    
+    // Method 2: Check via legacy RPC function
+    const legacyRpcResult = await checkAdminViaLegacyRPC(userId);
+    if (legacyRpcResult !== null) {
+      return legacyRpcResult;
+    }
+    
+    // Method 3: Check profiles table directly
+    const profileResult = await checkAdminViaProfilesTable(userId);
+    if (profileResult !== null) {
+      return profileResult;
+    }
+    
+    // Method 4: Sync profiles and try again
+    const syncResult = await syncProfilesAndCheckAdmin(userId);
+    if (syncResult !== null) {
+      return syncResult;
+    }
+    
+    // Final fallback: return false for safety
+    console.log('All admin checks failed, defaulting to false');
+    return false;
+    
+  } catch (error) {
+    console.error('Comprehensive admin check failed:', error);
+    
+    // Final safety check: use known admin email check
+    const { data: userData } = await supabase.auth.getUser();
+    const email = userData?.user?.email;
+    return isKnownAdminEmail(email);
   }
 };
