@@ -42,11 +42,20 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
       <div className="mb-6">
         <h2 className="text-2xl text-gray-700">{headline}</h2>
         {locations.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2 mt-2 text-gray-600">
-            <MapPin className="h-4 w-4 text-macri-primary" />
-            <span className="location-list">
-              {locations.join(' · ')}
-            </span>
+          <div className="mt-4 p-4 bg-gradient-to-r from-macri-primary/5 to-macri-primary/10 rounded-lg border border-macri-primary/20">
+            <div className="flex items-start gap-3">
+              <MapPin className="h-5 w-5 text-macri-primary mt-1 flex-shrink-0" />
+              <div className="flex flex-wrap gap-2">
+                {locations.map((location, index) => (
+                  <span
+                    key={index}
+                    className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-macri-primary text-white shadow-sm hover:bg-macri-primary/90 transition-colors"
+                  >
+                    {location}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </div>
