@@ -34,6 +34,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
   }, [user, isAdmin, isKnownAdmin, effectiveIsAdmin]);
   
   const goToAdmin = () => {
+    console.log('Navigating to admin dashboard...');
     navigate('/admin-dashboard');
   };
   

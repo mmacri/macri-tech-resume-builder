@@ -22,6 +22,11 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
       console.log('ProtectedRoute - Admin required:', requiresAdmin);
       console.log('ProtectedRoute - User authenticated:', !!user);
       console.log('ProtectedRoute - User admin status:', isAdmin);
+      console.log('ProtectedRoute - User email:', user?.email);
+      
+      // Check for known admin emails
+      const isKnownAdmin = user?.email === 'mike@mikemacri.com' || user?.email === 'mike@gmail.com';
+      console.log('ProtectedRoute - Is known admin:', isKnownAdmin);
     }
   }, [user, isAdmin, requiresAdmin]);
   
@@ -34,10 +39,16 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return <Navigate to={`/auth?redirectTo=${currentPath}`} replace />;
   }
   
-  // Admin route check
-  if (requiresAdmin && !isAdmin) {
-    toast.error("You don't have permission to access the admin area");
-    return <Navigate to="/" replace />;
+  // Admin route check with fallback for known admin emails
+  if (requiresAdmin) {
+    const isKnownAdmin = user.email === 'mike@mikemacri.com' || user.email === 'mike@gmail.com';
+    const effectiveIsAdmin = isAdmin || isKnownAdmin;
+    
+    if (!effectiveIsAdmin) {
+      console.log('Access denied - not admin. User:', user.email, 'isAdmin:', isAdmin, 'isKnownAdmin:', isKnownAdmin);
+      toast.error("You don't have permission to access the admin area");
+      return <Navigate to="/" replace />;
+    }
   }
   
   return <>{children}</>;

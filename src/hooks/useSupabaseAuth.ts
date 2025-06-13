@@ -19,17 +19,27 @@ export function useSupabaseAuth() {
     
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, currentSession) => {
+      async (event, currentSession) => {
         console.log('Auth state changed:', event, currentSession?.user?.email);
         setSession(currentSession);
         setUser(currentSession?.user ?? null);
 
-        // Check if user is admin - use setTimeout to prevent potential deadlocks
         if (currentSession?.user) {
-          setTimeout(() => {
-            checkIfAdmin(currentSession.user.id);
-          }, 0);
+          console.log('User authenticated, checking admin status...');
+          try {
+            // Ensure profile exists first
+            await ensureProfileExists(currentSession.user);
+            
+            // Then check admin status
+            await checkIfAdmin(currentSession.user.id);
+          } catch (error) {
+            console.error('Error during auth state processing:', error);
+            setIsAdmin(false);
+          } finally {
+            setIsLoading(false);
+          }
         } else {
+          console.log('User not authenticated');
           setIsAdmin(false);
           setIsLoading(false);
         }
@@ -37,14 +47,24 @@ export function useSupabaseAuth() {
     );
 
     // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
+    supabase.auth.getSession().then(async ({ data: { session: currentSession } }) => {
       console.log('Got existing session:', currentSession?.user?.email);
       setSession(currentSession);
       setUser(currentSession?.user ?? null);
       
-      // Check if user is admin
       if (currentSession?.user) {
-        checkIfAdmin(currentSession.user.id);
+        try {
+          // Ensure profile exists first
+          await ensureProfileExists(currentSession.user);
+          
+          // Then check admin status
+          await checkIfAdmin(currentSession.user.id);
+        } catch (error) {
+          console.error('Error during session processing:', error);
+          setIsAdmin(false);
+        } finally {
+          setIsLoading(false);
+        }
       } else {
         setIsLoading(false);
       }
@@ -52,6 +72,44 @@ export function useSupabaseAuth() {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  // Helper function to ensure profile exists
+  const ensureProfileExists = async (user: User) => {
+    try {
+      // Check if profile exists
+      const { data: existingProfile } = await supabase
+        .from('profiles')
+        .select('id, is_admin')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      if (!existingProfile) {
+        console.log('No profile found, creating one...');
+        
+        // Create profile with admin status based on email
+        const isKnownAdmin = user.email === 'mike@mikemacri.com' || user.email === 'mike@gmail.com';
+        
+        const { error: insertError } = await supabase
+          .from('profiles')
+          .insert({
+            id: user.id,
+            username: user.email,
+            full_name: isKnownAdmin ? 'Mike Macri, M.B.A.' : (user.email || 'New User'),
+            is_admin: isKnownAdmin
+          });
+
+        if (insertError) {
+          console.error('Error creating profile:', insertError);
+          // Try to sync profiles using the database function
+          await supabase.rpc('sync_missing_profiles');
+        } else {
+          console.log('Profile created successfully');
+        }
+      }
+    } catch (error) {
+      console.error('Error ensuring profile exists:', error);
+    }
+  };
 
   return {
     session,
