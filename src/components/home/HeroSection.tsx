@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ArrowRight, Award, Users, TrendingUp, MapPin, Shield } from 'lucide-react';
+import { ArrowRight, Award, Users, TrendingUp, MapPin, Shield, Heart } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   // Name and locations data
@@ -87,7 +87,7 @@ const HeroSection: React.FC = () => {
             </div>
 
             {/* Achievement Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-gray-200 max-w-4xl">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 pt-8 border-t border-gray-200 max-w-5xl">
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
                   <TrendingUp className="h-6 w-6 text-macri-primary" />
@@ -118,6 +118,14 @@ const HeroSection: React.FC = () => {
                 </div>
                 <div className="text-2xl font-bold text-gray-900">$900M</div>
                 <div className="text-sm text-gray-600">Risk Mitigated</div>
+              </div>
+
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <Heart className="h-6 w-6 text-macri-primary" />
+                </div>
+                <div className="text-2xl font-bold text-gray-900">83</div>
+                <div className="text-sm text-gray-600">NPS Score</div>
               </div>
             </div>
           </div>
