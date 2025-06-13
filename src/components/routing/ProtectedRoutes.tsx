@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useSecurity } from '@/contexts/SecurityContext';
 import { toast } from 'sonner';
 
 interface ProtectedRouteProps {
@@ -14,24 +15,49 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   requiresAdmin = false 
 }) => {
   const { user, isAdmin, isLoading } = useAuth();
+  const { validateSession, reportSecurityEvent } = useSecurity();
   const location = useLocation();
   
-  // Add logging for debugging
+  // Security validation on route access
   useEffect(() => {
-    if (requiresAdmin) {
-      console.log('ProtectedRoute - Admin required:', requiresAdmin);
-      console.log('ProtectedRoute - User authenticated:', !!user);
-      console.log('ProtectedRoute - User admin status:', isAdmin);
-      console.log('ProtectedRoute - User email:', user?.email);
-      
-      // Check for known admin emails
-      const isKnownAdmin = user?.email === 'mike@mikemacri.com' || user?.email === 'mike@gmail.com';
-      console.log('ProtectedRoute - Is known admin:', isKnownAdmin);
+    if (user && !validateSession()) {
+      reportSecurityEvent('INVALID_SESSION_ACCESS', {
+        userId: user.id,
+        route: location.pathname,
+        requiresAdmin
+      });
+      toast.error('Session validation failed. Please sign in again.');
     }
-  }, [user, isAdmin, requiresAdmin]);
+  }, [user, location.pathname, requiresAdmin, validateSession, reportSecurityEvent]);
+  
+  // Enhanced logging for admin routes
+  useEffect(() => {
+    if (requiresAdmin && user) {
+      console.log('ProtectedRoute - Admin access attempt:', {
+        userId: user.id,
+        email: user.email,
+        isAdmin,
+        route: location.pathname,
+        timestamp: new Date().toISOString()
+      });
+      
+      // Report admin route access for audit purposes
+      if (isAdmin) {
+        reportSecurityEvent('ADMIN_ROUTE_ACCESS', {
+          userId: user.id,
+          email: user.email,
+          route: location.pathname
+        });
+      }
+    }
+  }, [user, isAdmin, requiresAdmin, location.pathname, reportSecurityEvent]);
   
   if (isLoading) {
-    return <div className="p-8 flex justify-center">Loading...</div>;
+    return (
+      <div className="p-8 flex justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
   }
   
   if (!user) {
@@ -39,14 +65,27 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return <Navigate to={`/auth?redirectTo=${currentPath}`} replace />;
   }
   
-  // Admin route check with fallback for known admin emails
+  // Enhanced admin route protection
   if (requiresAdmin) {
     const isKnownAdmin = user.email === 'mike@mikemacri.com' || user.email === 'mike@gmail.com';
     const effectiveIsAdmin = isAdmin || isKnownAdmin;
     
     if (!effectiveIsAdmin) {
-      console.log('Access denied - not admin. User:', user.email, 'isAdmin:', isAdmin, 'isKnownAdmin:', isKnownAdmin);
-      toast.error("You don't have permission to access the admin area");
+      console.warn('Unauthorized admin access attempt:', {
+        userId: user.id,
+        email: user.email,
+        route: location.pathname,
+        isAdmin,
+        isKnownAdmin
+      });
+      
+      reportSecurityEvent('UNAUTHORIZED_ADMIN_ACCESS', {
+        userId: user.id,
+        email: user.email,
+        route: location.pathname
+      });
+      
+      toast.error("Access denied: Insufficient privileges");
       return <Navigate to="/" replace />;
     }
   }

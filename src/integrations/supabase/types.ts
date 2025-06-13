@@ -48,6 +48,13 @@ export type Database = {
             referencedRelation: "blog_posts"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "fk_blog_comments_post_id"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
         ]
       }
       blog_posts: {
@@ -182,6 +189,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "fk_resume_items_section_id"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "resume_sections"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "resume_items_section_id_fkey"
             columns: ["section_id"]
             isOneToOne: false
@@ -219,6 +233,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_admin_status: {
+        Args: { user_id?: string }
+        Returns: boolean
+      }
       is_admin: {
         Args: Record<PropertyKey, never> | { user_id?: string }
         Returns: boolean

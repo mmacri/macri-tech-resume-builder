@@ -1,34 +1,42 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
-import React from "react";
-import { AuthProvider } from "./contexts/AuthContext";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import AppRoutes from "./components/routing/AppRoutes";
-import { AdminUpdateProvider } from "./contexts/AdminUpdateContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { SecurityProvider } from "@/contexts/SecurityContext";
+import { AppRoutes } from "@/components/routing/AppRoutes";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      retry: (failureCount, error) => {
+        // Don't retry on auth errors or rate limit errors
+        if (error?.message?.includes('rate limit') || error?.message?.includes('auth')) {
+          return false;
+        }
+        return failureCount < 3;
+      }
+    },
+  },
+});
 
-const App = () => {
-  // Removed the Font Awesome script loading from here as it's now in index.html
-
+function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
+      <SecurityProvider>
         <AuthProvider>
-          <AdminUpdateProvider>
+          <TooltipProvider>
             <Toaster />
-            <Sonner />
             <BrowserRouter>
               <AppRoutes />
             </BrowserRouter>
-          </AdminUpdateProvider>
+          </TooltipProvider>
         </AuthProvider>
-      </TooltipProvider>
+      </SecurityProvider>
     </QueryClientProvider>
   );
-};
+}
 
 export default App;

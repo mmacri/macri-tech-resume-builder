@@ -2,22 +2,19 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Session, User } from '@supabase/supabase-js';
-import { useAdminCheck } from './auth/useAdminCheck';
-import { useAdminManagement } from './auth/useAdminManagement';
+import { secureAdminCheck, validateAdminSession } from '@/utils/auth/secureAdminChecker';
+import { toast } from 'sonner';
 
 export function useSupabaseAuth() {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  
-  // Use our smaller, focused hooks
-  const { isAdmin, setIsAdmin, checkIfAdmin } = useAdminCheck();
-  const { setAdminStatus } = useAdminManagement(user, setIsAdmin);
 
   useEffect(() => {
-    console.log('Setting up auth state listener');
+    console.log('Setting up secure auth state listener');
     
-    // Set up auth state listener FIRST
+    // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, currentSession) => {
         console.log('Auth state changed:', event, currentSession?.user?.email);
@@ -25,15 +22,26 @@ export function useSupabaseAuth() {
         setUser(currentSession?.user ?? null);
 
         if (currentSession?.user) {
-          console.log('User authenticated, checking admin status...');
+          console.log('User authenticated, performing secure admin check...');
           try {
             // Ensure profile exists first
             await ensureProfileExists(currentSession.user);
             
-            // Then check admin status
-            await checkIfAdmin(currentSession.user.id);
+            // Perform secure admin check
+            const adminStatus = await secureAdminCheck(currentSession.user.id);
+            setIsAdmin(adminStatus);
+            
+            // Validate admin session if user is admin
+            if (adminStatus) {
+              const validation = await validateAdminSession(currentSession.user.id);
+              if (!validation.isValid) {
+                console.warn('Admin session validation failed:', validation.reason);
+                setIsAdmin(false);
+                toast.warning('Admin session validation failed. Please sign in again.');
+              }
+            }
           } catch (error) {
-            console.error('Error during auth state processing:', error);
+            console.error('Error during secure auth state processing:', error);
             setIsAdmin(false);
           } finally {
             setIsLoading(false);
@@ -46,7 +54,7 @@ export function useSupabaseAuth() {
       }
     );
 
-    // THEN check for existing session
+    // Check for existing session
     supabase.auth.getSession().then(async ({ data: { session: currentSession } }) => {
       console.log('Got existing session:', currentSession?.user?.email);
       setSession(currentSession);
@@ -57,10 +65,20 @@ export function useSupabaseAuth() {
           // Ensure profile exists first
           await ensureProfileExists(currentSession.user);
           
-          // Then check admin status
-          await checkIfAdmin(currentSession.user.id);
+          // Perform secure admin check
+          const adminStatus = await secureAdminCheck(currentSession.user.id);
+          setIsAdmin(adminStatus);
+          
+          // Validate admin session if user is admin
+          if (adminStatus) {
+            const validation = await validateAdminSession(currentSession.user.id);
+            if (!validation.isValid) {
+              console.warn('Admin session validation failed:', validation.reason);
+              setIsAdmin(false);
+            }
+          }
         } catch (error) {
-          console.error('Error during session processing:', error);
+          console.error('Error during secure session processing:', error);
           setIsAdmin(false);
         } finally {
           setIsLoading(false);
@@ -108,6 +126,47 @@ export function useSupabaseAuth() {
       }
     } catch (error) {
       console.error('Error ensuring profile exists:', error);
+    }
+  };
+
+  // Secure admin status setter with validation
+  const setAdminStatus = async (userId: string, adminStatus: boolean): Promise<boolean> => {
+    try {
+      // Only allow admin users to change admin status
+      if (!isAdmin) {
+        toast.error('Unauthorized: Only admins can change admin status');
+        return false;
+      }
+
+      // Prevent self-demotion
+      if (userId === user?.id && !adminStatus) {
+        toast.error('You cannot remove your own admin privileges');
+        return false;
+      }
+
+      const { error } = await supabase
+        .from('profiles')
+        .update({ is_admin: adminStatus })
+        .eq('id', userId);
+
+      if (error) {
+        console.error('Failed to update admin status:', error);
+        toast.error(`Failed to update admin status: ${error.message}`);
+        return false;
+      }
+
+      // Update local state if user is updating their own status
+      if (user && user.id === userId) {
+        setIsAdmin(adminStatus);
+      }
+
+      console.log(`Admin status ${adminStatus ? 'granted' : 'revoked'} for user ${userId}`);
+      toast.success(`Admin status ${adminStatus ? 'granted' : 'revoked'} successfully`);
+      return true;
+    } catch (error) {
+      console.error('Error updating admin status:', error);
+      toast.error('Failed to update admin status');
+      return false;
     }
   };
 
