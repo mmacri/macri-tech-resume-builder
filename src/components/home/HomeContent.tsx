@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import HeroSection from '@/components/home/HeroSection';
 import ExperienceSection from '@/components/home/ExperienceSection';
@@ -6,8 +7,10 @@ import SkillsSection from '@/components/home/SkillsSection';
 import InterestsSection from '@/components/home/InterestsSection';
 import AwardsSection from '@/components/home/AwardsSection';
 import ProjectsSection from '@/components/home/ProjectsSection';
+import ReferencesSection from '@/components/home/about/ReferencesSection';
 import DataProvider from '@/components/home/DataProvider';
 import ResumeDataLoader from '@/components/home/ResumeDataLoader';
+import { initialAboutData } from '@/utils/resume/aboutData';
 
 /**
  * Main content component for the Home page showing all resume sections
@@ -33,6 +36,13 @@ const HomeContent: React.FC = () => {
       
       {/* Hero Section */}
       <HeroSection />
+      
+      {/* References Section */}
+      <section className="py-12 md:py-16 border-b border-gray-200">
+        <div className="px-4 md:px-8 max-w-6xl mx-auto">
+          <ReferencesSection references={initialAboutData.references} />
+        </div>
+      </section>
       
       <DataProvider dynamicData={sections}>
         <div className="resume-container">
