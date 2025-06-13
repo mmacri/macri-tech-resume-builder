@@ -1,4 +1,5 @@
 
+
 export const experienceItems = [
   {
     title: "Sr. Manager, Solution Advisory – Legal Ethics & Compliance",
@@ -57,7 +58,7 @@ export const experienceItems = [
   {
     title: "Managing Consultant",
     organization: "ISOutsource.com",
-    location: "Remote",
+    location: "Seattle, WA",
     start_date: "2007-07-01",
     end_date: "2011-01-01",
     description: "• Provided strategic consulting services for IT outsourcing initiatives.",
@@ -66,7 +67,7 @@ export const experienceItems = [
   {
     title: "Entrepreneur",
     organization: "Connecting Point",
-    location: "Seattle, WA",
+    location: "South Bend, IN",
     start_date: "2003-03-01",
     end_date: "2007-07-01",
     description: "• Founded and operated technology consulting business.",
@@ -75,7 +76,7 @@ export const experienceItems = [
   {
     title: "Program Manager",
     organization: "IOIPay.Com",
-    location: "Seattle, WA",
+    location: "Elkhart, IN",
     start_date: "2002-02-01",
     end_date: "2003-03-01",
     description: "• Managed technology programs and initiatives.",
