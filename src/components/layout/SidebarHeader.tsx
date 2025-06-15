@@ -24,18 +24,25 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
         onClick={() => handleNavLinkClick('/')}
         aria-label="Go to homepage"
       >
-        <div className="rounded-full overflow-hidden shadow-none border-2 border-macri-primary/60 bg-macri-primary/20" style={{height:'48px',width:'48px',display:'flex',alignItems:'center',justifyContent:'center'}}>
+        <div 
+          className="rounded-full overflow-hidden border-2 border-macri-primary/50 bg-macri-primary/20 shadow-md"
+          style={{
+            height: '48px',
+            width: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <img
-            src="/lovable-uploads/logo-navbar-clean.png"
+            src="/lovable-uploads/1734d6e1-fc92-4f70-949c-192bdebc6d72.png"
             alt="Site Logo"
             className="h-10 w-10 lg:h-12 lg:w-12 object-contain"
             style={{
               display: 'block',
               background: 'transparent',
               borderRadius: '50%',
-              boxShadow: '0 1px 6px 0 rgba(0,0,0,0.14)',
-              // To further remove any faint white lines left
-              filter: 'drop-shadow(0 0 2px rgba(44,44,44,0.09))'
+              filter: 'drop-shadow(0 1px 4px rgba(20,20,20,0.28))',
             }}
           />
         </div>
