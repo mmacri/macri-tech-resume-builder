@@ -13,15 +13,15 @@ export const isKnownAdminEmail = (email?: string | null): boolean => {
 };
 
 /**
- * Check admin status via the is_admin RPC function
+ * Check admin status via the check_admin_status RPC function
  */
 export const checkAdminViaRPC = async (userId: string): Promise<boolean | null> => {
   try {
     console.log('Checking admin via RPC for user:', userId);
-    const { data, error } = await supabase.rpc('is_admin', { user_id: userId });
+    const { data, error } = await supabase.rpc('check_admin_status', { user_id: userId });
     
     if (error) {
-      console.warn('RPC is_admin failed:', error.message);
+      console.warn('RPC check_admin_status failed:', error.message);
       return null;
     }
     
