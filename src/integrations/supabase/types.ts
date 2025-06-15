@@ -241,14 +241,6 @@ export type Database = {
           total_comments: number
         }[]
       }
-      is_admin: {
-        Args: Record<PropertyKey, never> | { user_id?: string }
-        Returns: boolean
-      }
-      is_user_admin: {
-        Args: { user_id?: string }
-        Returns: boolean
-      }
       promote_user: {
         Args: { user_id: string }
         Returns: undefined
