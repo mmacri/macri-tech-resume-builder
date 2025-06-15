@@ -22,8 +22,14 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
         to="/" 
         className="flex items-center"
         onClick={() => handleNavLinkClick('/')}
+        aria-label="Go to homepage"
       >
-        <span className="text-xl font-bold lg:hidden">Mike Macri, M.B.A.</span>
+        <img
+          src="/lovable-uploads/85b0b79e-240c-4fdc-9841-cd0d889d496b.png"
+          alt="Site Logo"
+          className="h-10 w-10 object-contain rounded bg-white lg:h-12 lg:w-12"
+          style={{ maxWidth: '48px', maxHeight: '48px' }}
+        />
       </Link>
       <button 
         className="lg:hidden p-2 focus:outline-none"
@@ -39,3 +45,4 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
     </div>
   );
 };
+
