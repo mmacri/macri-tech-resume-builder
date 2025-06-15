@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ArrowRight, Award, Users, TrendingUp, MapPin, Shield, Heart } from 'lucide-react';
 
@@ -15,7 +14,7 @@ const HeroSection: React.FC = () => {
           <div className="space-y-8">
             <div className="space-y-6">
               {/* Name */}
-              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-tight font-saira uppercase tracking-wider">
                 <span className="text-macri-primary">{name}</span>
               </h1>
 
@@ -38,7 +37,7 @@ const HeroSection: React.FC = () => {
                 </div>
               </div>
 
-              <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight">
+              <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight font-saira">
                 Driving <span className="text-macri-primary">GTM</span> and 
                 <br />
                 <span className="text-macri-primary">Solution Engineering</span>
@@ -54,7 +53,7 @@ const HeroSection: React.FC = () => {
                 
                 {/* Professional Summary */}
                 <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-200/50">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Professional Summary</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 font-saira">Professional Summary</h3>
                   <div className="text-lg text-gray-700 leading-relaxed">
                     <p>
                       Solution Consulting and Partner GTM Leader with a proven track record of building high-performing Solution Engineering and Customer Success teams in the enterprise cloud ecosystem.

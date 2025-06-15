@@ -15,6 +15,17 @@ const Index = () => {
   const mobileNavItems = navItems.filter(item => item.href?.startsWith('#'));
 
   React.useEffect(() => {
+    // Set document title and meta description for SEO
+    document.title = "Mike Macri, M.B.A. | GTM & Solution Engineering Leader";
+    
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement('meta');
+      metaDescription.setAttribute('name', 'description');
+      document.head.appendChild(metaDescription);
+    }
+    metaDescription.setAttribute('content', 'Proven GTM and Solution Engineering leader, building high-performing teams to deliver enterprise cloud solutions and drive partner-aligned growth.');
+
     // Set up scroll spying to highlight active nav items
     const scrollCleanup = setupScrollSpy();
     
