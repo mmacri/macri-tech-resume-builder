@@ -48,13 +48,6 @@ export type Database = {
             referencedRelation: "blog_posts"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "fk_blog_comments_post_id"
-            columns: ["post_id"]
-            isOneToOne: false
-            referencedRelation: "blog_posts"
-            referencedColumns: ["id"]
-          },
         ]
       }
       blog_posts: {
@@ -233,9 +226,20 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      approve_comments: {
+        Args: { comment_ids: string[] }
+        Returns: undefined
+      }
       check_admin_status: {
         Args: { user_id?: string }
         Returns: boolean
+      }
+      get_blog_analytics: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          total_posts: number
+          total_comments: number
+        }[]
       }
       is_admin: {
         Args: Record<PropertyKey, never> | { user_id?: string }
@@ -245,9 +249,22 @@ export type Database = {
         Args: { user_id?: string }
         Returns: boolean
       }
+      promote_user: {
+        Args: { user_id: string }
+        Returns: undefined
+      }
       sync_missing_profiles: {
         Args: Record<PropertyKey, never>
         Returns: undefined
+      }
+      view_all_users: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          username: string
+          full_name: string
+          is_admin: boolean
+        }[]
       }
     }
     Enums: {

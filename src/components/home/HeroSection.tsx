@@ -74,7 +74,7 @@ const HeroSection: React.FC = () => {
                 href="/portfolio" 
                 className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
-                View My Work
+                View My Portfolio
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
               
@@ -82,7 +82,7 @@ const HeroSection: React.FC = () => {
                 href="#experience" 
                 className="border-2 border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center"
               >
-                Learn More
+                View My Experience
               </a>
             </div>
 
