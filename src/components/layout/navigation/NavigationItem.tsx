@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -26,6 +25,10 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
   const { user, isAdmin } = useAuth();
   const currentPath = location.pathname;
 
+  // Compute effective admin based on context and known email
+  const isKnownAdmin = user?.email === 'mike@mikemacri.com' || user?.email === 'mike@gmail.com';
+  const effectiveIsAdmin = isAdmin || isKnownAdmin;
+
   // Check if this item corresponds to the current route section
   const isActiveLink = () => {
     // For resume page links
@@ -52,14 +55,11 @@ const NavigationItem: React.FC<NavigationItemProps> = ({
     const handleAdminDashboardClick = (e: React.MouseEvent) => {
       e.preventDefault();
       if (!user) {
-        // If not logged in, redirect to auth with return URL
         navigate("/auth?redirectTo=/admin-dashboard");
         toast.info("Please login to access the admin dashboard");
-      } else if (!isAdmin) {
-        // If logged in but not admin, show message and stay on current page
+      } else if (!effectiveIsAdmin) {
         toast.error("Only administrators can access this area");
       } else {
-        // If logged in and admin, go directly to admin dashboard
         navigate("/admin-dashboard");
       }
       handleNavLinkClick(item.href || '');
