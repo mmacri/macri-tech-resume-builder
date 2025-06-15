@@ -60,7 +60,7 @@ const HeroSection: React.FC = () => {
                     </p>
                     <br />
                     <p>
-                      Skilled in coaching Solution Consultants, developing scalable technical sales motions, and delivering partner-aligned growth with GSIs, SIs, and ISVs.
+                      Skilled in coaching Solution Consultants, developing scalable technical sales solutions, and delivering partner-aligned growth with SIs, MSPs, and ISVs.
                     </p>
                   </div>
                 </div>

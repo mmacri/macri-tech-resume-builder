@@ -28,7 +28,7 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
         </p>
         
         <p className="mb-6">
-          Skilled in coaching <span className="font-semibold">Solution Consultants</span>, developing <span className="italic">scalable technical sales motions</span>, and delivering partner-aligned growth with GSIs, SIs, and ISVs.
+          Skilled in coaching <span className="font-semibold">Solution Consultants</span>, developing <span className="italic">scalable technical sales solutions</span>, and delivering partner-aligned growth with <span className="font-semibold">SIs</span>, <span className="font-semibold">MSPs</span>, and <span className="font-semibold">ISVs</span>.
         </p>
       </div>
     );
