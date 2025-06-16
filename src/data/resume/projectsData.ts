@@ -11,13 +11,22 @@ export const staticProjectsData = [
     display_order: 1
   },
   {
+    id: "framework-fusion-engine",
+    title: "Framework Fusion Engine",
+    description: "A community-driven cross-compliance framework mapping tool that streamlines compliance across multiple frameworks with AI-powered control mapping and gap analysis. Features comprehensive coverage of major compliance and security frameworks including NIST 800-53, PCI-DSS, and more.",
+    technologies: ["Compliance Framework", "AI-Powered Mapping", "Security Standards", "NIST", "PCI-DSS", "Gap Analysis"],
+    link: "https://mmacri.github.io/framework-fusion-engine/",
+    image_url: "/lovable-uploads/e001dd85-f8b8-4c6e-9d04-e8b316bbebcb.png",
+    display_order: 2
+  },
+  {
     id: "servicenow-advisor",
     title: "ServiceNow Solution Advisor Guide",
     description: "An interactive assessment tool designed to help organizations evaluate their ServiceNow implementation readiness and identify optimal solution paths. Provides customized recommendations based on organizational maturity, technical requirements, and business objectives.",
     technologies: ["ServiceNow", "Solution Architecture", "Assessment Framework", "JavaScript", "Web Development"],
     link: "https://mmacri.github.io/nowassess/index.html",
     image_url: "/lovable-uploads/a6fd2e82-34d4-4f60-90fc-4f5236a13aaf.png",
-    display_order: 2
+    display_order: 3
   },
   {
     id: "customer-success-dashboard",
@@ -26,7 +35,7 @@ export const staticProjectsData = [
     technologies: ["PowerBI", "Salesforce", "Data Analytics", "Customer Success"],
     link: "https://mmacri.github.io/customer-engagement-tracker/",
     image_url: "/lovable-uploads/eb90f300-90d1-4c77-86ec-2814b17e1be4.png",
-    display_order: 3
+    display_order: 4
   },
   {
     id: "partner-enablement",
@@ -35,7 +44,7 @@ export const staticProjectsData = [
     technologies: ["Business Development", "Partner Management", "VMware", "Cloud Services"],
     link: "/portfolio",
     image_url: null,
-    display_order: 4
+    display_order: 5
   },
   {
     id: "security-compliance",
@@ -44,6 +53,6 @@ export const staticProjectsData = [
     technologies: ["NIST", "CIS", "Security Operations", "Audit & Compliance"],
     link: "/portfolio",
     image_url: null,
-    display_order: 5
+    display_order: 6
   }
 ];
