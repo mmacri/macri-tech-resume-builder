@@ -1,8 +1,4 @@
-
-
 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- Letter M design matching the reference image -->
-  <path d="M6 6v36h6V18l6 12h2l6-12v24h6V6h-6L18 24 10 6H6z" fill="#d35400"/>
-  <path d="M6 6v36h4V14l8 16h2l8-16v28h4V6h-4L18 28 8 6H6z" fill="#d35400"/>
+  <path d="M6 42V6h8l8 18 8-18h8v36h-6V18L24 36h-0L16 18v24H6z" fill="#d35400"/>
 </svg>
-
