@@ -35,7 +35,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
           }}
         >
           <img
-            src="/lovable-uploads/1734d6e1-fc92-4f70-949c-192bdebc6d72.png"
+            src="/lovable-uploads/logo-navbar-clean.png"
             alt="Site Logo"
             className="h-10 w-10 lg:h-12 lg:w-12 object-contain"
             style={{
