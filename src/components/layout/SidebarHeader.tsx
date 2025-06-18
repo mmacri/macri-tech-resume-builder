@@ -25,7 +25,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
         aria-label="Go to homepage"
       >
         <div 
-          className="rounded-full overflow-hidden border-2 border-macri-primary/50 bg-macri-primary/20 shadow-md"
+          className="rounded-full overflow-hidden border-2 border-macri-primary/50 bg-white shadow-md"
           style={{
             height: '48px',
             width: '48px',
@@ -35,20 +35,17 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
           }}
         >
           <img
-            src="/lovable-uploads/logo-navbar-clean.png"
-            alt="Site Logo"
-            className="h-10 w-10 lg:h-12 lg:w-12 object-contain"
+            src="/lovable-uploads/custom-logo.svg"
+            alt="Mike Macri Logo"
+            className="h-full w-full object-contain"
             style={{
               display: 'block',
               background: 'transparent',
-              borderRadius: '50%',
-              filter: 'drop-shadow(0 1px 4px rgba(20,20,20,0.28))',
             }}
             onError={(e) => {
-              console.log('Logo failed to load, checking available images...');
-              // Fallback to a known working image if the logo fails
+              console.log('Custom logo failed to load');
               const target = e.target as HTMLImageElement;
-              target.src = '/lovable-uploads/1734d6e1-fc92-4f70-949c-192bdebc6d72.png';
+              target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="%231e40af"/><text x="24" y="32" text-anchor="middle" fill="white" font-family="Arial" font-size="20" font-weight="bold">M</text></svg>';
             }}
           />
         </div>
