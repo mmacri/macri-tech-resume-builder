@@ -44,6 +44,12 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
               borderRadius: '50%',
               filter: 'drop-shadow(0 1px 4px rgba(20,20,20,0.28))',
             }}
+            onError={(e) => {
+              console.log('Logo failed to load, checking available images...');
+              // Fallback to a known working image if the logo fails
+              const target = e.target as HTMLImageElement;
+              target.src = '/lovable-uploads/1734d6e1-fc92-4f70-949c-192bdebc6d72.png';
+            }}
           />
         </div>
       </Link>
