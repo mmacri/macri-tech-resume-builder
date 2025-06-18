@@ -1,11 +1,5 @@
 
 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background circle -->
-  <circle cx="24" cy="24" r="22" fill="#1e40af" stroke="#ffffff" stroke-width="2"/>
-  
-  <!-- Letter M -->
-  <path d="M12 32V16h4l4 8 4-8h4v16h-3V21l-3 6h-2l-3-6v11h-3z" fill="#ffffff" stroke="#ffffff" stroke-width="0.5"/>
-  
-  <!-- Accent dot -->
-  <circle cx="36" cy="12" r="3" fill="#3b82f6"/>
+  <!-- Letter M in orange -->
+  <path d="M8 40V8h6l8 16 8-16h6v32h-6V20l-6 12h-4l-6-12v20h-6z" fill="#d35400"/>
 </svg>
