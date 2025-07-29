@@ -260,34 +260,70 @@ const AdminDashboard = () => {
             <AdminSectionStatus onAllSectionsPopulated={handleAllSectionsPopulated} />
           )}
           
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Button 
-              onClick={handleInitializeData} 
-              disabled={isInitializing || connectionStatus !== 'connected'} 
-              variant="default"
-            >
-              {isInitializing ? 'Initializing...' : 'Initialize Resume Data'}
-            </Button>
-            <Button 
-              onClick={handleForceInitializeData}
-              disabled={isInitializing || connectionStatus !== 'connected'}
-              variant="destructive"
-            >
-              Reset Resume Data
-            </Button>
-            <Button 
-              onClick={navigateToResumePage}
-              variant="outline"
-            >
-              Manage Resume
-            </Button>
-            <Button 
-              onClick={handleCheckDatabaseStatus}
-              variant="secondary"
-              disabled={isChecking}
-            >
-              {isChecking ? 'Checking...' : 'Check Database Status'}
-            </Button>
+          {/* Admin Action Buttons - Always show these regardless of data status */}
+          <div className="mt-4 space-y-4">
+            <h3 className="text-lg font-semibold text-gray-900">Admin Actions</h3>
+            <div className="flex flex-wrap gap-2">
+              <Button 
+                onClick={handleInitializeData} 
+                disabled={isInitializing || connectionStatus !== 'connected'} 
+                variant="default"
+              >
+                {isInitializing ? 'Initializing...' : 'Initialize Resume Data'}
+              </Button>
+              <Button 
+                onClick={handleForceInitializeData}
+                disabled={isInitializing || connectionStatus !== 'connected'}
+                variant="destructive"
+              >
+                Reset Resume Data
+              </Button>
+              <Button 
+                onClick={navigateToResumePage}
+                variant="outline"
+                className="bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-700"
+              >
+                Manage Resume
+              </Button>
+              <Button 
+                onClick={handleCheckDatabaseStatus}
+                variant="secondary"
+                disabled={isChecking}
+              >
+                {isChecking ? 'Checking...' : 'Check Database Status'}
+              </Button>
+            </div>
+            
+            {/* Quick Navigation Links */}
+            <div className="mt-4">
+              <h4 className="text-sm font-medium text-gray-700 mb-2">Quick Navigation</h4>
+              <div className="flex flex-wrap gap-2 text-sm">
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => navigate('/admin#blog')}
+                  className="text-blue-600 hover:text-blue-700"
+                >
+                  Blog Posts
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => navigate('/admin#portfolio')}
+                  className="text-blue-600 hover:text-blue-700"
+                >
+                  Portfolio Projects
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => navigate('/admin#users')}
+                  className="text-blue-600 hover:text-blue-700"
+                >
+                  User Management
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
         
