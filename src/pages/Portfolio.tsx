@@ -11,6 +11,9 @@ const Portfolio = () => {
   // Use database data with fallback to static data
   const { projects: dbProjects, isLoading, refreshProjects } = usePortfolioProjectsData();
   
+  console.log('Portfolio: dbProjects:', dbProjects?.length || 0, 'items');
+  console.log('Portfolio: isLoading:', isLoading);
+  
   // Transform database projects to match expected interface and use fallback to static data
   const transformedDbProjects = dbProjects?.map(project => ({
     id: project.id,
@@ -24,6 +27,9 @@ const Portfolio = () => {
   
   const projects = transformedDbProjects && transformedDbProjects.length > 0 ? transformedDbProjects : staticProjectsData;
   const loading = isLoading;
+  
+  console.log('Portfolio: Final projects count:', projects.length);
+  console.log('Portfolio: Using database data:', transformedDbProjects && transformedDbProjects.length > 0 ? 'YES' : 'NO (using static)');
   
   // Updated seed function to refresh from database
   const seedProjects = async () => {
