@@ -1,0 +1,4 @@
+-- Insert Interests data
+INSERT INTO resume_items (title, description, section_id, display_order) VALUES
+  ('Professional Interests', 'Technology innovation, enterprise architecture, compliance frameworks, AI governance, and solution advisory. Passionate about bridging the gap between technical capabilities and business value through strategic technology initiatives.', '9b38dbf3-9a56-4113-9b53-b3e591e99c6b', 1),
+  ('Industry Focus', 'ServiceNow platform development, VMware virtualization technologies, cloud infrastructure optimization, security compliance automation, and partner enablement strategies.', '9b38dbf3-9a56-4113-9b53-b3e591e99c6b', 2);
