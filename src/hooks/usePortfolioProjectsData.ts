@@ -13,7 +13,7 @@ export const usePortfolioProjectsData = () => {
     queryFn: async () => {
       console.log('Fetching portfolio projects...');
       
-      // Fetch all projects directly
+      // Fetch all projects directly - more reliable than checking count first
       const { data, error } = await supabase
         .from('portfolio_projects')
         .select('*')
@@ -21,10 +21,11 @@ export const usePortfolioProjectsData = () => {
       
       if (error) {
         console.error('Error fetching portfolio projects:', error);
+        toast.error(`Error loading portfolio projects: ${error.message}`);
         throw error;
       }
       
-      console.log('Found projects:', data?.length || 0);
+      console.log('Portfolio projects fetched successfully:', data?.length || 0, 'projects');
       return data as PortfolioProject[];
     },
     staleTime: 1000 * 60 * 5, // 5 minutes

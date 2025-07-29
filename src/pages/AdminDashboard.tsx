@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import AdminLayout from '@/components/admin/AdminLayout';
 import AdminSectionStatus from '@/components/admin/AdminSectionStatus';
 import { toast } from 'sonner';
@@ -12,9 +13,11 @@ import LoadingStatus from '@/components/admin/status/LoadingStatus';
 import CompletedStatus from '@/components/admin/status/CompletedStatus';
 import { checkResumeSections, checkExperienceItems } from '@/utils/resume/checkResumeData';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, CheckCircle, Database } from 'lucide-react';
+import { AlertCircle, CheckCircle, Database, User } from 'lucide-react';
 
 const AdminDashboard = () => {
+  const { user, isAdmin } = useAuth();
+  console.log('AdminDashboard: Current user:', user?.email, 'isAdmin:', isAdmin);
   const [allSectionsReady, setAllSectionsReady] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
   const [lastError, setLastError] = useState<string | null>(null);
@@ -202,6 +205,17 @@ const AdminDashboard = () => {
     <AdminLayout>
       <div className="p-6">
         <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+        
+        {/* Current User Info */}
+        <div className="mb-4">
+          <Alert>
+            <User className="h-4 w-4" />
+            <AlertTitle>Current User</AlertTitle>
+            <AlertDescription>
+              Logged in as: {user?.email} | Admin Status: {isAdmin ? 'Yes' : 'No'}
+            </AlertDescription>
+          </Alert>
+        </div>
         
         {/* Connection Status */}
         <div className="mb-4">
