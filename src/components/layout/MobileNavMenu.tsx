@@ -34,7 +34,6 @@ const MobileNavMenu: React.FC<MobileNavMenuProps> = ({ navItems }) => {
     };
     
     window.addEventListener('scroll', handleScroll);
-    console.log('MobileNavMenu: Set up scroll tracking');
     handleScroll(); // Check on mount
     
     return () => window.removeEventListener('scroll', handleScroll);
@@ -49,7 +48,6 @@ const MobileNavMenu: React.FC<MobileNavMenuProps> = ({ navItems }) => {
     
     // Close the menu first for better UX
     setIsOpen(false);
-    console.log(`MobileNavMenu: Clicked ${href}`);
     
     // Handle section navigation
     if (href.startsWith('#')) {
@@ -114,14 +112,16 @@ const MobileNavMenu: React.FC<MobileNavMenuProps> = ({ navItems }) => {
               })}
             </ul>
             
-            <div className="mt-8 pt-4 border-t">
-              <Button 
-                className="w-full bg-macri-primary hover:bg-macri-primary/90 text-white py-6 text-lg"
-                onClick={() => window.location.href = '/contact'}
-              >
-                Contact Me
-              </Button>
-            </div>
+            {navItems.some(item => item.href === '/contact') && (
+              <div className="mt-8 pt-4 border-t">
+                <Button 
+                  className="w-full bg-macri-primary hover:bg-macri-primary/90 text-white py-6 text-lg"
+                  onClick={() => window.location.href = '/contact'}
+                >
+                  Contact Me
+                </Button>
+              </div>
+            )}
           </nav>
         </div>
       )}

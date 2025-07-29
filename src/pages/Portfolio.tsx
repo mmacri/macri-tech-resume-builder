@@ -2,18 +2,32 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { ProjectIndex } from '@/components/portfolio/ProjectIndex';
 import { ProjectList } from '@/components/portfolio/ProjectList';
+import { usePortfolioProjectsData } from '@/hooks/usePortfolioProjectsData';
 import { staticProjectsData } from '@/data/resume/projectsData';
 
 const Portfolio = () => {
   const { user } = useAuth();
   
-  // Use static projects data instead of database
-  const projects = staticProjectsData;
-  const loading = false;
+  // Use database data with fallback to static data
+  const { projects: dbProjects, isLoading, refreshProjects } = usePortfolioProjectsData();
   
-  // Mock seed function for consistency with existing interface
+  // Transform database projects to match expected interface and use fallback to static data
+  const transformedDbProjects = dbProjects?.map(project => ({
+    id: project.id,
+    title: project.title,
+    description: project.description,
+    link: project.link || '/portfolio',
+    image_url: project.image_url,
+    technologies: project.technologies,
+    display_order: project.display_order
+  }));
+  
+  const projects = transformedDbProjects && transformedDbProjects.length > 0 ? transformedDbProjects : staticProjectsData;
+  const loading = isLoading;
+  
+  // Updated seed function to refresh from database
   const seedProjects = async () => {
-    console.log('Using static data - no seeding needed');
+    await refreshProjects();
   };
 
   return (

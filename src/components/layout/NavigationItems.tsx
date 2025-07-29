@@ -28,12 +28,9 @@ export const NavigationItems: React.FC<NavigationItemsProps> = ({
   const enhancedClickHandler = (href: string | undefined) => {
     if (!href) return;
     
-    console.log('Navigation click:', href);
-    
     // Handle anchor links with improved scrolling
     if (href.startsWith('#')) {
       const targetId = href.substring(1);
-      console.log('Scrolling to element:', targetId);
       
       // Use a more aggressive offset for better positioning
       scrollToElement(targetId, 60);

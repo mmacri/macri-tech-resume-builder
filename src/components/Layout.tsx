@@ -21,12 +21,6 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name,
   const navigate = useNavigate();
   const { user, isAdmin, signOut } = useAuth();
 
-  useEffect(() => {
-    // Log auth state for debugging
-    console.log('Layout rendered - Current user:', user?.email);
-    console.log('Layout rendered - Is admin:', isAdmin);
-  }, [user, isAdmin]);
-
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };

@@ -26,6 +26,7 @@ export const useNavigationItems = () => {
       { label: "Project Portfolio", href: "/portfolio" },
       { label: "Blog", href: "/blog" },
       { label: "Resume", href: "/resume" },
+      { label: "Contact", href: "/contact" },
     ];
     
     // Always add admin dashboard link for admin users at the end
@@ -51,6 +52,7 @@ export const useNavigationItems = () => {
       { label: "Home", href: "/" },
       { label: "Blog", href: "/blog" },
       { label: "Resume", href: "/resume" },
+      { label: "Contact", href: "/contact" },
     ];
     
     // Always add admin dashboard link for admin users at the end
@@ -76,6 +78,7 @@ export const useNavigationItems = () => {
       { label: "Home", href: "/" },
       { label: "Portfolio", href: "/portfolio" },
       { label: "Resume", href: "/resume" },
+      { label: "Contact", href: "/contact" },
     ];
     
     // Always add admin dashboard link for admin users at the end
@@ -110,6 +113,7 @@ export const useNavigationItems = () => {
       { label: "Home", href: "/" },
       { label: "Portfolio", href: "/portfolio" },
       { label: "Blog", href: "/blog" },
+      { label: "Contact", href: "/contact" },
     ];
     
     // Always add admin dashboard link for admin users at the end
