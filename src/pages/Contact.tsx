@@ -35,17 +35,23 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase
-        .from('contact_messages')
-        .insert([formData]);
+      // Call the edge function to send email
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData
+      });
 
       if (error) throw error;
+
+      // Also save to database for record keeping
+      await supabase
+        .from('contact_messages')
+        .insert([formData]);
 
       toast.success('Message sent successfully! I\'ll get back to you soon.');
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       console.error('Error sending message:', error);
-      toast.error('Failed to send message. Please try again or email me directly.');
+      toast.error('Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -63,69 +69,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Contact Information */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Mail className="h-5 w-5" />
-                Contact Information
-              </CardTitle>
-              <CardDescription>
-                Ready to connect? Here's how to reach me.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex items-start gap-3">
-                <Mail className="h-5 w-5 text-primary mt-1" />
-                <div>
-                  <h3 className="font-semibold">Email</h3>
-                  <a 
-                    href="mailto:contact@mikemacri.com" 
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    contact@mikemacri.com
-                  </a>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-primary mt-1" />
-                <div>
-                  <h3 className="font-semibold">Locations</h3>
-                  <p className="text-muted-foreground">
-                    Edmonds, WA • San Diego, CA • Chicago, IL
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Available for remote collaboration worldwide
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <h3 className="font-semibold mb-3">Connect on Social</h3>
-                <div className="flex gap-4">
-                  <a 
-                    href="https://www.linkedin.com/in/mikemacri/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <i className="fab fa-linkedin text-xl"></i>
-                  </a>
-                  <a 
-                    href="https://mmacri.github.io/Websites/index.html" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <i className="fab fa-github text-xl"></i>
-                  </a>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
+        <div className="max-w-2xl mx-auto">
           {/* Contact Form */}
           <Card>
             <CardHeader>
