@@ -14,6 +14,7 @@ import Auth from '@/pages/Auth';
 import Admin from '@/pages/Admin';
 import AdminDashboard from '@/pages/AdminDashboard';
 import NotFound from '@/pages/NotFound';
+import Contact from '@/pages/Contact';
 import Layout from '@/components/Layout';
 
 export const AppRoutes: React.FC = () => {
@@ -59,6 +60,7 @@ export const AppRoutes: React.FC = () => {
           <Resume />
         </Layout>
       } />
+      <Route path="/contact" element={<Contact />} />
       <Route path="/auth" element={<Auth />} />
       <Route path="/register" element={<Auth />} />
       <Route path="/reset" element={<Auth />} />
