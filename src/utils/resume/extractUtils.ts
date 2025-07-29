@@ -23,16 +23,20 @@ export const extractResumeSection = (resumeSections: any[] | undefined, sectionN
 
 /**
  * Parse about data description from JSON string to object
- * @param description - JSON string of about data
+ * @param description - JSON string of about data or plain text
  * @returns Parsed about data object or default structure
  */
 export const parseAboutData = (description: string | null | undefined) => {
   if (!description) return null;
   
   try {
+    // Try to parse as JSON first
     return JSON.parse(description);
   } catch (e) {
-    console.error('Error parsing about data:', e);
-    return null;
+    console.log('Description is plain text, not JSON. Using as bio text.');
+    // If it's not JSON, treat as plain text bio
+    return {
+      intro_text: description
+    };
   }
 };
