@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Download, Award, Medal } from 'lucide-react';
 import ResumeSection from './ResumeSection';
@@ -56,10 +57,10 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
             asChild
             className="bg-macri-primary hover:bg-macri-primary/90 text-white px-8 py-6 rounded-md font-semibold text-lg flex items-center gap-2"
           >
-            <a href="/resume">
+            <Link to="/resume">
               <Download className="h-5 w-5" />
               Download My Resume
-            </a>
+            </Link>
           </Button>
         </div>
       )}

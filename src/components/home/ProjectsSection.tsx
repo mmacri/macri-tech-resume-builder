@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ResumeSection from './ResumeSection';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { Book, ExternalLink, Code, Award, TrendingUp } from 'lucide-react';
@@ -95,13 +96,13 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ items }) => {
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
             Explore my complete portfolio to see detailed case studies, project outcomes, and technical implementations.
           </p>
-          <a 
-            href="/portfolio" 
+          <Link 
+            to="/portfolio" 
             className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-4 rounded-lg font-semibold inline-flex items-center gap-2 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5"
           >
             <Award className="h-5 w-5" />
             View Complete Portfolio
-          </a>
+          </Link>
         </div>
       </div>
     </ResumeSection>

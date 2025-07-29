@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Award, Users, TrendingUp, MapPin, Shield, Heart } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
@@ -69,13 +70,13 @@ const HeroSection: React.FC = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <a 
-                href="/portfolio" 
+              <Link 
+                to="/portfolio" 
                 className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 View My Portfolio
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
+              </Link>
               
               <a 
                 href="#experience" 

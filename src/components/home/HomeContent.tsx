@@ -32,9 +32,10 @@ const HomeContent: React.FC = () => {
 
   return (
     <>
+      {/* Always load data but don't block rendering */}
       <ResumeDataLoader onDataLoaded={handleDataLoaded} onDataError={handleDataError} />
       
-      {/* Hero Section */}
+      {/* Hero Section - Always visible */}
       <HeroSection />
       
       {/* References Section */}

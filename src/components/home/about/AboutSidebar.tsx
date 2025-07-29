@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Download, Mail, Linkedin, Github, Globe, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -114,11 +115,11 @@ const AboutSidebar: React.FC<AboutSidebarProps> = ({
       {/* Only show the CV download button if not on mobile */}
       {!isMobile && (
         <Button variant="default" className="w-full bg-macri-primary hover:bg-macri-primary/90 flex items-center gap-2 py-6 text-lg" asChild>
-          <a href="/resume">
+          <Link to="/resume">
             <Download className="h-5 w-5" />
             <FileText className="h-5 w-5" />
             <span>Download My Resume</span>
-          </a>
+          </Link>
         </Button>
       )}
     </div>
