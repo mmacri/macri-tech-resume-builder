@@ -20,7 +20,7 @@ export const useResumeData = () => {
             id,
             section_name,
             display_order,
-            resume_items (
+            resume_items!fk_resume_items_section_id (
               id,
               title,
               description,
