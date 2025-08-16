@@ -12,7 +12,7 @@ export const useHomeResumeProcessing = (
   onDataLoaded: (sections: any[]) => void,
   onDataError: (error: Error) => void
 ) => {
-  // Effect to process data when loading is complete
+  // Effect to process data when loading is complete - with memoization to prevent unnecessary calls
   useEffect(() => {
     if (!isLoading) {
       if (error) {
@@ -22,7 +22,11 @@ export const useHomeResumeProcessing = (
         onDataLoaded(fallbackSections);
         onDataError(error);
       } else if (!resumeSections || resumeSections.length === 0) {
-        console.warn('No resume sections loaded in Home, using fallback data');
+        // Only log warning once per session to reduce console spam
+        if (!window.sessionStorage.getItem('fallback-warning-logged')) {
+          console.warn('No resume sections loaded in Home, using fallback data');
+          window.sessionStorage.setItem('fallback-warning-logged', 'true');
+        }
         const fallbackSections = createFallbackSections();
         onDataLoaded(fallbackSections);
       } else {
@@ -30,5 +34,5 @@ export const useHomeResumeProcessing = (
         onDataLoaded(resumeSections);
       }
     }
-  }, [isLoading, error, resumeSections, onDataLoaded, onDataError]);
+  }, [isLoading, error, resumeSections?.length]); // Use length dependency to avoid full array comparison
 };

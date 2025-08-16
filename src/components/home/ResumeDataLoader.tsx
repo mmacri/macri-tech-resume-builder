@@ -27,17 +27,21 @@ const ResumeDataLoader: React.FC<ResumeDataLoaderProps> = ({ onDataLoaded, onDat
   // Process and prepare data for components
   useHomeResumeProcessing(resumeSections, isLoading, error as Error, onDataLoaded, onDataError);
 
-  // Auto-initialize on component mount if needed
+  // Auto-initialize on component mount if needed - with debouncing to prevent repeated calls
   React.useEffect(() => {
     if (isAdmin && !isLoading && (!resumeSections || resumeSections.length === 0)) {
       console.log('No resume sections found on initial load, attempting to initialize...');
-      attemptManualInit().then(success => {
-        if (success) {
-          setTimeout(() => refetch(), 1000); // Refetch after a short delay
-        }
-      });
+      const timeoutId = setTimeout(() => {
+        attemptManualInit().then(success => {
+          if (success) {
+            setTimeout(() => refetch(), 1000); // Refetch after a short delay
+          }
+        });
+      }, 500); // Debounce the initialization
+
+      return () => clearTimeout(timeoutId);
     }
-  }, [isLoading, resumeSections, isAdmin, attemptManualInit, refetch]);
+  }, [isLoading, resumeSections?.length, isAdmin]); // Use length instead of the full array to prevent unnecessary re-runs
 
   return null; // This is a non-visual component
 };

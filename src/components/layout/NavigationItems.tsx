@@ -24,8 +24,8 @@ export const NavigationItems: React.FC<NavigationItemsProps> = ({
   const { user } = useAuth();
   const location = useLocation();
   
-  // Improved click handler for section navigation
-  const enhancedClickHandler = (href: string | undefined) => {
+  // Memoize the enhanced click handler to prevent recreation on every render
+  const enhancedClickHandler = React.useCallback((href: string | undefined) => {
     if (!href) return;
     
     // Handle anchor links with improved scrolling
@@ -38,35 +38,39 @@ export const NavigationItems: React.FC<NavigationItemsProps> = ({
       // Use the provided click handler for other links
       handleNavLinkClick(href);
     }
-  };
+  }, [handleNavLinkClick]);
   
-  // Group navigation items by category
-  const mainNavItems = navItems.filter(item => 
-    !['Login', 'Logout', 'Admin Dashboard'].includes(item.label));
-  
-  const adminItems = navItems.filter(item => 
-    item.label === 'Admin Dashboard');
-  
-  const authItems = navItems.filter(item => 
-    ['Login', 'Logout'].includes(item.label));
+  // Memoize navigation groups to prevent recalculation
+  const navigationGroups = React.useMemo(() => {
+    const mainNavItems = navItems.filter(item => 
+      !['Login', 'Logout', 'Admin Dashboard'].includes(item.label));
+    
+    const adminItems = navItems.filter(item => 
+      item.label === 'Admin Dashboard');
+    
+    const authItems = navItems.filter(item => 
+      ['Login', 'Logout'].includes(item.label));
+
+    return { mainNavItems, adminItems, authItems };
+  }, [navItems]);
   
   return (
     <div className="flex flex-col justify-between h-full py-2">
       {/* Main navigation links */}
       <NavigationGroup
-        items={mainNavItems}
+        items={navigationGroups.mainNavItems}
         handleNavLinkClick={enhancedClickHandler}
       />
       
       {/* Admin and auth links at the bottom */}
       <div className="mt-auto pt-2 border-t border-white/20">
         <NavigationGroup
-          items={adminItems}
+          items={navigationGroups.adminItems}
           handleNavLinkClick={handleNavLinkClick}
           className="mb-1"
         />
         <NavigationGroup
-          items={authItems}
+          items={navigationGroups.authItems}
           handleNavLinkClick={handleNavLinkClick}
         />
       </div>

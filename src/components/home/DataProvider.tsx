@@ -37,30 +37,33 @@ interface DataProviderProps {
  * Provider component that supplies static or dynamic resume data to child components
  */
 const DataProvider: React.FC<DataProviderProps> = ({ children, dynamicData = [] }) => {
-  // Map dynamic data (if available) or use static data
-  const getSectionData = (sectionName: string, staticData: any[]) => {
-    const section = dynamicData.find(section => section.section_name === sectionName);
-    return section && section.items && section.items.length > 0 ? section.items : staticData;
-  };
+  // Memoize the data mapping to prevent unnecessary re-calculations
+  const contextValue = React.useMemo(() => {
+    // Map dynamic data (if available) or use static data
+    const getSectionData = (sectionName: string, staticData: any[]) => {
+      const section = dynamicData.find(section => section.section_name === sectionName);
+      return section && section.items && section.items.length > 0 ? section.items : staticData;
+    };
 
-  const experienceData = getSectionData('experience', staticExperienceData);
-  const educationData = getSectionData('education', staticEducationData);
-  const skillsData = getSectionData('skills', staticSkillsData);
-  const interestsData = getSectionData('interests', staticInterestsData);
-  const awardsData = getSectionData('awards', staticAwardsData);
-  const projectsData = getSectionData('projects', staticProjectsData);
+    const experienceData = getSectionData('experience', staticExperienceData);
+    const educationData = getSectionData('education', staticEducationData);
+    const skillsData = getSectionData('skills', staticSkillsData);
+    const interestsData = getSectionData('interests', staticInterestsData);
+    const awardsData = getSectionData('awards', staticAwardsData);
+    const projectsData = getSectionData('projects', staticProjectsData);
 
-  const value = {
-    experienceData,
-    educationData,
-    skillsData,
-    interestsData,
-    awardsData,
-    projectsData
-  };
+    return {
+      experienceData,
+      educationData,
+      skillsData,
+      interestsData,
+      awardsData,
+      projectsData
+    };
+  }, [dynamicData?.length]); // Only recalculate when data length changes
 
   return (
-    <ResumeDataContext.Provider value={value}>
+    <ResumeDataContext.Provider value={contextValue}>
       {children}
     </ResumeDataContext.Provider>
   );

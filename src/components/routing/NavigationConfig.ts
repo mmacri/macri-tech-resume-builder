@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 
 interface NavItem {
@@ -11,11 +12,14 @@ interface NavItem {
 export const useNavigationItems = () => {
   const { user, isAdmin, signOut } = useAuth();
   
-  // Special check for known admin emails
-  const isKnownAdmin = user?.email === 'mike@mikemacri.com' || user?.email === 'mike@gmail.com';
-  const effectiveIsAdmin = isAdmin || isKnownAdmin;
+  // Memoize admin check to prevent recalculation on every render
+  const effectiveIsAdmin = React.useMemo(() => {
+    const isKnownAdmin = user?.email === 'mike@mikemacri.com' || user?.email === 'mike@gmail.com';
+    return isAdmin || isKnownAdmin;
+  }, [isAdmin, user?.email]);
   
-  const getHomeNavItems = (): NavItem[] => {
+  // Memoize navigation items to prevent recreation on every render
+  const getHomeNavItems = React.useCallback((): NavItem[] => {
     const baseItems: NavItem[] = [
       { label: "About", href: "#about" },
       { label: "Experience", href: "#experience" },
@@ -44,9 +48,9 @@ export const useNavigationItems = () => {
     }
     
     return [...baseItems, ...authItems];
-  };
+  }, [user, effectiveIsAdmin, signOut]);
 
-  const getPortfolioNavItems = (): NavItem[] => {
+  const getPortfolioNavItems = React.useCallback((): NavItem[] => {
     const baseItems: NavItem[] = [
       { label: "Index of Projects", href: "#index-of-projects" },
       { label: "Home", href: "/" },
@@ -70,9 +74,9 @@ export const useNavigationItems = () => {
     }
     
     return [...baseItems, ...authItems];
-  };
+  }, [user, effectiveIsAdmin, signOut]);
 
-  const getBlogNavItems = (): NavItem[] => {
+  const getBlogNavItems = React.useCallback((): NavItem[] => {
     const baseItems: NavItem[] = [
       { label: "Recent Posts", href: "#recent-posts" },
       { label: "Home", href: "/" },
@@ -99,10 +103,9 @@ export const useNavigationItems = () => {
     }
     
     return [...baseItems, ...authItems];
-  };
+  }, [user, effectiveIsAdmin, signOut]);
 
-  // Add a new function for Resume page navigation items
-  const getResumeNavItems = (): NavItem[] => {
+  const getResumeNavItems = React.useCallback((): NavItem[] => {
     const baseItems: NavItem[] = [
       { label: "About", href: "#about" },
       { label: "Experience", href: "#experience" },
@@ -131,7 +134,7 @@ export const useNavigationItems = () => {
     }
     
     return [...baseItems, ...authItems];
-  };
+  }, [user, effectiveIsAdmin, signOut]);
 
   return {
     getHomeNavItems,
