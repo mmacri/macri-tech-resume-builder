@@ -97,7 +97,7 @@ const HomeContent: React.FC = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
-              href="mailto:mikemacri@gmail.com" 
+              href="/contact" 
               className="bg-white text-macri-primary hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center shadow-lg"
             >
               Send Email

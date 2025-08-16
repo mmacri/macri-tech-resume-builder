@@ -51,10 +51,10 @@ export const SocialIcons: React.FC = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <a 
-              className="social-icon rounded-full border border-white p-2 hover:bg-white/20 transition-colors" 
-              href="mailto:mikemacri@gmail.com" 
-              aria-label="Email"
+              <a 
+                className="social-icon rounded-full border border-white p-2 hover:bg-white/20 transition-colors" 
+                href="/contact" 
+                aria-label="Contact Form"
             >
               <i className="fas fa-envelope"></i>
             </a>
