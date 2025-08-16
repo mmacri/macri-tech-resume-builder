@@ -45,15 +45,18 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
           <div className="mt-4 p-4 bg-gradient-to-r from-macri-primary/5 to-macri-primary/10 rounded-lg border border-macri-primary/20">
             <div className="flex items-start gap-3">
               <MapPin className="h-5 w-5 text-macri-primary mt-1 flex-shrink-0" />
-              <div className="flex flex-wrap gap-2">
-                {locations.map((location, index) => (
-                  <span
-                    key={index}
-                    className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-macri-primary text-white shadow-sm hover:bg-macri-primary/90 transition-colors"
-                  >
-                    {location}
-                  </span>
-                ))}
+              <div className="flex flex-col gap-2">
+                <span className="text-sm font-medium text-gray-700">Available in:</span>
+                <div className="flex flex-wrap gap-2">
+                  {locations.map((location, index) => (
+                    <span
+                      key={index}
+                      className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-macri-primary text-white shadow-sm hover:bg-macri-primary/90 transition-colors"
+                    >
+                      {location}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
