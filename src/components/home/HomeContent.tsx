@@ -39,7 +39,7 @@ const HomeContent: React.FC = () => {
       <HeroSection />
       
       {/* References Section */}
-      <section className="py-12 md:py-16 border-b border-gray-200">
+      <section className="py-16 bg-macri-section-alt">
         <div className="px-4 md:px-8 max-w-6xl mx-auto">
           <ReferencesSection references={initialAboutData.references} />
         </div>
@@ -48,21 +48,78 @@ const HomeContent: React.FC = () => {
       <DataProvider dynamicData={sections}>
         <div className="resume-container">
           {/* Critical sections (load first) */}
-          <ExperienceSection items={[]} />
+          <section className="py-16 bg-white">
+            <div className="px-4 md:px-8 max-w-6xl mx-auto">
+              <ExperienceSection items={[]} />
+            </div>
+          </section>
           
           {/* Less critical sections (can be loaded later) */}
-          <hr className="m-0" />
-          <EducationSection items={[]} />
-          <hr className="m-0" />
-          <ProjectsSection items={[]} />
-          <hr className="m-0" />
-          <SkillsSection items={[]} />
-          <hr className="m-0" />
-          <InterestsSection items={[]} />
-          <hr className="m-0" />
-          <AwardsSection items={[]} />
+          <section className="py-16 bg-macri-section-alt">
+            <div className="px-4 md:px-8 max-w-6xl mx-auto">
+              <EducationSection items={[]} />
+            </div>
+          </section>
+          
+          <section className="py-16 bg-white">
+            <div className="px-4 md:px-8 max-w-6xl mx-auto">
+              <ProjectsSection items={[]} />
+            </div>
+          </section>
+          
+          <section className="py-16 bg-macri-section-alt">
+            <div className="px-4 md:px-8 max-w-6xl mx-auto">
+              <SkillsSection items={[]} />
+            </div>
+          </section>
+          
+          <section className="py-16 bg-white">
+            <div className="px-4 md:px-8 max-w-6xl mx-auto">
+              <InterestsSection items={[]} />
+            </div>
+          </section>
+          
+          <section className="py-16 bg-macri-section-alt">
+            <div className="px-4 md:px-8 max-w-6xl mx-auto">
+              <AwardsSection items={[]} />
+            </div>
+          </section>
         </div>
       </DataProvider>
+
+      {/* Contact Section */}
+      <section className="py-20 bg-gradient-to-br from-macri-primary to-macri-primary-dark text-white">
+        <div className="max-w-4xl mx-auto px-4 md:px-8 text-center">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6">Let's Work Together</h2>
+          <p className="text-xl mb-8 opacity-90">
+            Interested in discussing how I can help drive your technical sales and solution engineering success?
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="mailto:contact@mikemacri.com" 
+              className="bg-white text-macri-primary hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center shadow-lg"
+            >
+              Send Email
+            </a>
+            
+            <a 
+              href="https://www.linkedin.com/in/mikemacri/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border-2 border-white text-white hover:bg-white hover:text-macri-primary px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center"
+            >
+              Connect on LinkedIn
+            </a>
+          </div>
+          
+          <div className="mt-8 pt-8 border-t border-white/20">
+            <p className="text-sm opacity-75">
+              Available for remote, hybrid, or on-site opportunities across North America
+            </p>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

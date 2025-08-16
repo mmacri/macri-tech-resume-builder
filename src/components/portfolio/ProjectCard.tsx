@@ -25,6 +25,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
             src={project.image_url} 
             alt={project.title} 
             className="w-full h-full object-cover"
+            loading="lazy"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">

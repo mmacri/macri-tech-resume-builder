@@ -48,8 +48,8 @@ const HeroSection: React.FC = () => {
               
               <div className="max-w-4xl space-y-6">
                 <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed">
-                  Building high-performing teams and scalable technical sales motions 
-                  that deliver enterprise cloud solutions and drive partner-aligned growth.
+                  Building high-performing teams and scalable technical sales processes 
+                  that deliver enterprise cloud solutions and measurable business growth.
                 </p>
                 
                 {/* Professional Summary */}
@@ -61,7 +61,7 @@ const HeroSection: React.FC = () => {
                     </p>
                     <br />
                     <p>
-                      Skilled in coaching Solution Consultants, developing scalable technical sales solutions, and delivering partner-aligned growth with SIs, MSPs, and ISVs.
+                      Expert in coaching Solution Consultants, developing scalable technical sales strategies, and delivering measurable growth with SIs, MSPs, and ISVs.
                     </p>
                   </div>
                 </div>
@@ -83,6 +83,20 @@ const HeroSection: React.FC = () => {
                 className="border-2 border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center"
               >
                 View My Experience
+              </a>
+
+              <a 
+                href="mailto:contact@mikemacri.com" 
+                className="bg-macri-secondary hover:bg-macri-secondary-dark text-macri-dark px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center border border-gray-300"
+              >
+                Contact Me
+              </a>
+
+              <a 
+                href="/resume" 
+                className="bg-white hover:bg-gray-50 text-macri-dark px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center border border-gray-300 shadow-sm"
+              >
+                Download Résumé
               </a>
             </div>
 

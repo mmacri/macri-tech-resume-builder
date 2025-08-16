@@ -63,17 +63,20 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				macri: {
-					primary: '#d35400',
-					'primary-dark': '#a03f00',
-					'primary-light': '#ff7d2e',
-					secondary: '#f5f5f7',
-					dark: '#333333',
-					light: '#ffffff',
-					muted: '#888888',
-					success: '#28a745',
-					info: '#17a2b8',
-					warning: '#ffc107',
-					background: '#f9f9fb'
+					primary: 'hsl(24 100% 41%)',
+					'primary-dark': 'hsl(24 100% 31%)',
+					'primary-light': 'hsl(24 100% 55%)',
+					'primary-subtle': 'hsl(24 100% 97%)',
+					secondary: 'hsl(210 20% 96%)',
+					'secondary-dark': 'hsl(210 20% 90%)',
+					dark: 'hsl(210 20% 20%)',
+					light: 'hsl(0 0% 100%)',
+					muted: 'hsl(210 10% 53%)',
+					success: 'hsl(142 76% 36%)',
+					info: 'hsl(188 78% 41%)',
+					warning: 'hsl(48 100% 51%)',
+					background: 'hsl(210 20% 98%)',
+					'section-alt': 'hsl(210 20% 99%)'
 				}
 			},
 			borderRadius: {

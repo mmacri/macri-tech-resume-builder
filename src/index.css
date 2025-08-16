@@ -57,11 +57,31 @@
   }
 
   body {
-    @apply bg-macri-background text-foreground font-muli;
+    @apply bg-macri-background text-foreground font-muli text-base leading-relaxed;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-saira;
+    @apply font-saira font-bold;
+  }
+
+  h1 {
+    @apply text-5xl lg:text-6xl leading-tight tracking-wide;
+  }
+
+  h2 {
+    @apply text-4xl lg:text-5xl leading-tight;
+  }
+
+  h3 {
+    @apply text-2xl lg:text-3xl leading-snug;
+  }
+
+  h4 {
+    @apply text-xl lg:text-2xl leading-snug;
+  }
+
+  p {
+    @apply text-base lg:text-lg leading-relaxed mb-4;
   }
 
   .resume-container {
