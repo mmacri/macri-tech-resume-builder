@@ -7,10 +7,10 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
+    PostgrestVersion: "13.0.4"
   }
   public: {
     Tables: {
@@ -272,8 +272,8 @@ export type Database = {
       get_blog_analytics: {
         Args: Record<PropertyKey, never>
         Returns: {
-          total_posts: number
           total_comments: number
+          total_posts: number
         }[]
       }
       promote_user: {
@@ -287,10 +287,10 @@ export type Database = {
       view_all_users: {
         Args: Record<PropertyKey, never>
         Returns: {
-          id: string
-          username: string
           full_name: string
+          id: string
           is_admin: boolean
+          username: string
         }[]
       }
     }
