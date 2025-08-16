@@ -10,7 +10,7 @@ export const fallbackResumeData: FallbackResumeData = {
     subtitle: "Solution Consulting & Partner GTM Leader",
     description: JSON.stringify({
       full_name: "Mike Macri",
-      email: "contact@mikemacri.com",
+      email: "mikemacri@gmail.com",
       phone: "(555) 123-4567",
       address: "Seattle, WA",
       headline: "Solution Consulting & Partner GTM Leader",

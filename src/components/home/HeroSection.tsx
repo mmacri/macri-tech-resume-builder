@@ -86,7 +86,7 @@ const HeroSection: React.FC = () => {
               </a>
 
               <a 
-                href="mailto:contact@mikemacri.com" 
+                href="mailto:mikemacri@gmail.com" 
                 className="bg-macri-secondary hover:bg-macri-secondary-dark text-macri-dark px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 inline-flex items-center justify-center border border-gray-300"
               >
                 Contact Me

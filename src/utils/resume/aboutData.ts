@@ -4,7 +4,7 @@ export const initialAboutData = {
   headline: '',
   intro_text: 'A value-driven leader with 25 years of experience recognized for customer success programs, partner management, and solution advisory, specializing in enterprise technology adoption, renewal, and upsell.',
   locations: ['Edmonds, WA', 'San Diego, CA', 'San Francisco, CA', 'Chicago, IL', 'South Bend, IN', 'Denver, CO', 'Remote'],
-  email: 'contact@mikemacri.com',
+  email: 'mikemacri@gmail.com',
   skills_items: [
     'Operational Efficiency: Implementing practical solutions that cut training time and prevent compliance issues.',
     'Team Leadership: Building and aligning high-performing teams for clear, measurable results.',

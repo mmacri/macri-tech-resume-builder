@@ -53,7 +53,7 @@ export const SocialIcons: React.FC = () => {
           <TooltipTrigger asChild>
             <a 
               className="social-icon rounded-full border border-white p-2 hover:bg-white/20 transition-colors" 
-              href="mailto:contact@mikemacri.com" 
+              href="mailto:mikemacri@gmail.com" 
               aria-label="Email"
             >
               <i className="fas fa-envelope"></i>
