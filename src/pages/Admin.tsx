@@ -7,7 +7,7 @@ import AdminPortfolioProjects from '@/components/admin/AdminPortfolioProjects';
 import AdminUsers from '@/components/admin/AdminUsers';
 import AdminResume from '@/components/admin/AdminResume';
 import AdminSectionStatus from '@/components/admin/AdminSectionStatus';
-import { useInitializeResumeData } from '@/hooks/useInitializeResumeData';
+import { useInitializeResumeData } from '@/hooks/resume/useInitializeResumeData';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
