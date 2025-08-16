@@ -1,12 +1,12 @@
 
-import { useAuth } from '@/contexts/AuthContext';
+
 import { ProjectIndex } from '@/components/portfolio/ProjectIndex';
 import { ProjectList } from '@/components/portfolio/ProjectList';
 import { usePortfolioProjectsData } from '@/hooks/usePortfolioProjectsData';
 import { staticProjectsData } from '@/data/resume/projectsData';
 
 const Portfolio = () => {
-  const { user } = useAuth();
+  const user = null; // Removed auth functionality
   
   // Use database data with fallback to static data - show static immediately
   const { projects: dbProjects, refreshProjects } = usePortfolioProjectsData();

@@ -9,7 +9,7 @@ import AwardsSection from '@/components/home/AwardsSection';
 import ProjectsSection from '@/components/home/ProjectsSection';
 import ReferencesSection from '@/components/home/about/ReferencesSection';
 import DataProvider from '@/components/home/DataProvider';
-import ResumeDataLoader from '@/components/home/ResumeDataLoader';
+import SimpleResumeDataLoader from '@/components/home/SimpleResumeDataLoader';
 import { initialAboutData } from '@/utils/resume/aboutData';
 
 /**
@@ -33,7 +33,7 @@ const HomeContent: React.FC = () => {
   return (
     <>
       {/* Always load data but don't block rendering */}
-      <ResumeDataLoader onDataLoaded={handleDataLoaded} onDataError={handleDataError} />
+      <SimpleResumeDataLoader onDataLoaded={handleDataLoaded} onDataError={handleDataError} />
       
       {/* Hero Section - Always visible */}
       <HeroSection />

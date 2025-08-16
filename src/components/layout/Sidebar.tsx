@@ -1,11 +1,10 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavigationItems } from './NavigationItems';
 import { SidebarHeader } from './SidebarHeader';
 import { SocialIcons } from './SocialIcons';
 import { ProfileSection } from './ProfileSection';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { useLocation } from 'react-router-dom';
 
 interface SidebarProps {
   isNavOpen: boolean;
@@ -15,7 +14,6 @@ interface SidebarProps {
     label: string;
     href?: string;
     external?: boolean;
-    onClick?: () => Promise<void>;
   }[];
   profileImage: string;
   name: string;
@@ -30,13 +28,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   name
 }) => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const { user, signOut } = useAuth();
-
-  const handleLogout = async () => {
-    await signOut();
-    navigate('/');
-  };
   
   return (
     <nav 
@@ -55,7 +46,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <ProfileSection 
             profileImage={profileImage}
             name={name}
-            handleLogout={handleLogout}
           />
         </div>
         

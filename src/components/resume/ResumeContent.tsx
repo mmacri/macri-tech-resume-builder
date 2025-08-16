@@ -1,12 +1,12 @@
 
 import React from 'react';
-import AboutSection from '@/components/home/AboutSection';
+// Removed AboutSection
 import ExperienceSection from '@/components/home/ExperienceSection';
 import EducationSection from '@/components/home/EducationSection';
 import SkillsSection from '@/components/home/SkillsSection';
 import InterestsSection from '@/components/home/InterestsSection';
 import AwardsSection from '@/components/home/AwardsSection';
-import DownloadResumeButton from '@/components/home/DownloadResumeButton';
+// Removed DownloadResumeButton
 import { extractResumeSection } from '@/utils/resume/extractUtils';
 import { Button } from '@/components/ui/button';
 import { Download, Printer } from 'lucide-react';

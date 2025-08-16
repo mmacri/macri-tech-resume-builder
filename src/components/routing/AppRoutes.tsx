@@ -1,24 +1,18 @@
 
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { Routes, Route } from 'react-router-dom';
 import { useNavigationItems } from './NavigationConfig';
-import { AdminRoute, ProtectedRoute } from './ProtectedRoutes';
 
 // Page components
 import Home from '@/pages/Home';
 import Portfolio from '@/pages/Portfolio';
 import Blog from '@/pages/Blog';
 import Resume from '@/pages/Resume';
-import Auth from '@/pages/Auth';
-import Admin from '@/pages/Admin';
-import AdminDashboard from '@/pages/AdminDashboard';
 import NotFound from '@/pages/NotFound';
 import Contact from '@/pages/Contact';
 import Layout from '@/components/Layout';
 
 export const AppRoutes: React.FC = () => {
-  const { user } = useAuth();
   const { getHomeNavItems, getPortfolioNavItems, getBlogNavItems, getResumeNavItems } = useNavigationItems();
   
   return (
@@ -61,19 +55,6 @@ export const AppRoutes: React.FC = () => {
         </Layout>
       } />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/register" element={<Auth />} />
-      <Route path="/reset" element={<Auth />} />
-      <Route path="/admin-dashboard" element={
-        <AdminRoute>
-          <AdminDashboard />
-        </AdminRoute>
-      } />
-      <Route path="/admin" element={
-        <AdminRoute>
-          <Admin />
-        </AdminRoute>
-      } />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

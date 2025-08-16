@@ -1,33 +1,11 @@
-
 import React, { useEffect } from 'react';
-import AdminControls from '@/components/resume/AdminControls';
-import ResumeContainer from '@/components/resume/ResumeContainer';
-import { useResumeHandlers } from '@/hooks/resume/useResumeHandlers';
 import { setupLazyLoading, prepareLazyImages } from '@/utils/lazyLoadUtils';
 import { useNavigationItems } from '@/components/routing/NavigationConfig';
 import MobileNavMenu from '@/components/layout/MobileNavMenu';
 import BackToTop from '@/components/ui/back-to-top';
+import ResumeContent from '@/components/resume/ResumeContent';
 
-/**
- * Resume page component serving as the entry point for the resume view
- */
 const Resume = () => {
-  const {
-    resumeSections,
-    isLoading,
-    isFixing,
-    isResettingExperience,
-    error,
-    isInitializing,
-    isAdmin,
-    handleDataLoaded,
-    handleDataError,
-    handleRetry,
-    handleInitializeData,
-    handleFixDatabaseIssues,
-    handleResetExperience
-  } = useResumeHandlers();
-
   const { getResumeNavItems } = useNavigationItems();
   const navItems = getResumeNavItems();
   
@@ -53,29 +31,7 @@ const Resume = () => {
         <MobileNavMenu navItems={mobileNavItems} />
       </div>
       
-      {/* Admin tools */}
-      <AdminControls 
-        isAdmin={isAdmin}
-        resumeSections={resumeSections}
-        isLoading={isLoading}
-        isFixing={isFixing}
-        isInitializing={isInitializing}
-        isResettingExperience={isResettingExperience}
-        onResetExperience={handleResetExperience}
-        onInitializeData={handleInitializeData}
-        onFixDatabaseIssues={handleFixDatabaseIssues}
-      />
-      
-      {/* Resume content with appropriate loading/error states */}
-      <ResumeContainer
-        isLoading={isLoading}
-        error={error}
-        resumeSections={resumeSections}
-        onDataLoaded={handleDataLoaded}
-        onDataError={handleDataError}
-        onRetry={handleRetry}
-        onInitializeData={handleInitializeData}
-      />
+      <ResumeContent resumeSections={[]} />
       
       <BackToTop />
     </>

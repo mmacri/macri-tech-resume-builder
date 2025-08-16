@@ -2,14 +2,11 @@
 import React, { ReactNode, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { scrollToElement } from '../utils/scrollUtils';
-import { Button } from '@/components/ui/button';
-import { LogOut, Settings, LayoutDashboard } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
 import { Sidebar } from './layout/Sidebar';
 
 interface LayoutProps {
   children: ReactNode;
-  navItems: { label: string; href?: string; external?: boolean; onClick?: () => Promise<void> }[];
+  navItems: { label: string; href?: string; external?: boolean }[];
   profileImage: string;
   name: string;
   highlightResume?: boolean;
@@ -19,7 +16,6 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name,
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, isAdmin, signOut } = useAuth();
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -62,47 +58,6 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name,
     }
   };
 
-  const handleLogout = async () => {
-    await signOut();
-    navigate('/');
-  };
-
-  // Create a complete copy of navItems to avoid modifying the original array
-  const updatedNavItems = [...navItems];
-  
-  // Special handling for Admin Dashboard
-  if (isAdmin && user) {
-    // Check if Admin Dashboard is already in the nav items
-    const adminIndex = updatedNavItems.findIndex(item => item.label === "Admin Dashboard");
-    
-    // If not found, add it after the first item (typically "About")
-    if (adminIndex === -1) {
-      updatedNavItems.splice(1, 0, {
-        label: "Admin Dashboard",
-        href: "/admin-dashboard"
-      });
-    }
-  }
-
-  // Add login/logout link if not already present
-  const loginLogoutIndex = updatedNavItems.findIndex(
-    item => item.label === "Login" || item.label === "Logout"
-  );
-  
-  if (loginLogoutIndex === -1) {
-    if (user) {
-      updatedNavItems.push({
-        label: "Logout",
-        onClick: signOut,
-        href: "#"
-      });
-    } else {
-      updatedNavItems.push({
-        label: "Login",
-        href: "/auth"
-      });
-    }
-  }
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
@@ -110,7 +65,7 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name,
         isNavOpen={isNavOpen}
         toggleNav={toggleNav}
         handleNavLinkClick={handleNavLinkClick}
-        navItems={updatedNavItems}
+        navItems={navItems}
         profileImage={profileImage}
         name={name}
       />

@@ -12,8 +12,18 @@ import {
   DialogFooter
 } from "@/components/ui/dialog";
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/contexts/AuthContext';
-import BlogComment, { BlogComment as BlogCommentType } from '@/components/BlogComment';
+
+// Removed BlogComment component
+interface BlogCommentType {
+  id: string;
+  content: string;
+  name: string;
+  created_at: string;
+  updated_at?: string;
+  user_id?: string;
+  post_id: string;
+  approved?: boolean | null;
+}
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -46,7 +56,9 @@ const Blog = () => {
   const [currentTab, setCurrentTab] = useState<string>('all');
   const [pendingCommentsCount, setPendingCommentsCount] = useState<number>(0);
 
-  const { user, isAdmin } = useAuth();
+  // Removed auth functionality
+  const user = null;
+  const isAdmin = false;
 
   useEffect(() => {
     fetchPosts();
@@ -468,14 +480,13 @@ const Blog = () => {
                         </p>
                         
                         <div className="space-y-3">
-                          {pendingComments.map(comment => (
-                            <BlogComment 
-                              key={comment.id} 
-                              comment={comment} 
-                              onCommentDeleted={() => handleCommentDeleted(postId)}
-                              onCommentApproved={() => handleCommentApproved(postId)}
-                            />
-                          ))}
+                           {pendingComments.map(comment => (
+                             <div key={comment.id} className="border p-3 rounded">
+                               <p><strong>{comment.name}</strong></p>
+                               <p>{comment.content}</p>
+                               <p className="text-sm text-gray-500">{formatDate(comment.created_at)}</p>
+                             </div>
+                           ))}
                         </div>
                       </div>
                     );
@@ -615,14 +626,13 @@ const Blog = () => {
                             
                             {comments[post.id]?.length > 0 ? (
                               <div className="mb-4">
-                                {comments[post.id].map(comment => (
-                                  <BlogComment 
-                                    key={comment.id} 
-                                    comment={comment} 
-                                    onCommentDeleted={() => handleCommentDeleted(post.id)}
-                                    onCommentApproved={() => handleCommentApproved(post.id)}
-                                  />
-                                ))}
+                                 {comments[post.id].map(comment => (
+                                   <div key={comment.id} className="border p-3 rounded mb-2">
+                                     <p><strong>{comment.name}</strong></p>
+                                     <p>{comment.content}</p>
+                                     <p className="text-sm text-gray-500">{formatDate(comment.created_at)}</p>
+                                   </div>
+                                 ))}
                               </div>
                             ) : (
                               <p className="text-gray-500 mb-4">No comments yet.</p>
