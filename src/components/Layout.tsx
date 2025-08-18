@@ -3,6 +3,7 @@ import React, { ReactNode, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { scrollToElement } from '../utils/scrollUtils';
 import { Sidebar } from './layout/Sidebar';
+import { UniversalFloatingNav } from './ui/UniversalFloatingNav';
 
 interface LayoutProps {
   children: ReactNode;
@@ -74,6 +75,7 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name,
         <div className="container-fluid p-0">
           {children}
         </div>
+        <UniversalFloatingNav />
       </main>
     </div>
   );
