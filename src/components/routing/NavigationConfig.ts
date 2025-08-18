@@ -17,7 +17,7 @@ export const useNavigationItems = () => {
       { label: "Skills & Methods", href: "#skills" },
       { label: "Interests", href: "#interests" },
       { label: "Awards & Certs", href: "#awards" },
-      { label: "Project Portfolio", href: "/portfolio" },
+      { label: "Portfolio", href: "/portfolio" },
       { label: "Blog", href: "/blog" },
       { label: "Resume", href: "/resume" },
       { label: "Contact", href: "/contact" },

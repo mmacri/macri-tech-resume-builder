@@ -30,6 +30,7 @@ export const UniversalFloatingNav: React.FC = () => {
         { id: 'skills', label: 'Skills', icon: Code },
         { id: 'interests', label: 'Interests', icon: Heart },
         { id: 'awards', label: 'Awards', icon: Award },
+        { id: 'portfolio', label: 'Portfolio', icon: Folder, href: '/portfolio', isRoute: true },
         { id: 'contact', label: 'Contact', icon: Mail },
       ];
     } else if (currentPath === '/portfolio') {
@@ -97,8 +98,12 @@ export const UniversalFloatingNav: React.FC = () => {
     });
   };
 
-  const handleNavClick = (sectionId: string) => {
-    scrollToElement(sectionId, 80);
+  const handleNavClick = (item: FloatingNavItem) => {
+    if (item.isRoute && item.href) {
+      window.location.href = item.href;
+    } else {
+      scrollToElement(item.id, 80);
+    }
   };
 
   if (!isVisible) return null;
@@ -123,7 +128,7 @@ export const UniversalFloatingNav: React.FC = () => {
                 key={item.id}
                 variant="ghost"
                 size="sm"
-                onClick={() => handleNavClick(item.id)}
+                onClick={() => handleNavClick(item)}
                 className={`transition-all duration-200 ${
                   isExpanded 
                     ? 'w-full justify-start px-3 py-2 h-auto' 
