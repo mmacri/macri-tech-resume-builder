@@ -35,7 +35,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
           }}
         >
           <img
-            src="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+            src="/lovable-uploads/custom-logo.svg"
             alt="Mike Macri M.B.A. Logo"
             className="h-full w-full object-contain"
             style={{
@@ -45,7 +45,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
             onError={(e) => {
               console.log('Custom logo failed to load');
               const target = e.target as HTMLImageElement;
-              target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="%231e40af"/><text x="24" y="32" text-anchor="middle" fill="white" font-family="Arial" font-size="20" font-weight="bold">M</text></svg>';
+              target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="%23d35400"/><text x="24" y="32" text-anchor="middle" fill="white" font-family="Arial" font-size="20" font-weight="bold">M</text></svg>';
             }}
           />
         </div>
