@@ -17,6 +17,9 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name,
   const [isNavOpen, setIsNavOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  
+  // Hide sidebar on homepage
+  const isHomePage = location.pathname === '/';
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -62,16 +65,18 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name,
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
-      <Sidebar 
-        isNavOpen={isNavOpen}
-        toggleNav={toggleNav}
-        handleNavLinkClick={handleNavLinkClick}
-        navItems={navItems}
-        profileImage={profileImage}
-        name={name}
-      />
+      {!isHomePage && (
+        <Sidebar 
+          isNavOpen={isNavOpen}
+          toggleNav={toggleNav}
+          handleNavLinkClick={handleNavLinkClick}
+          navItems={navItems}
+          profileImage={profileImage}
+          name={name}
+        />
+      )}
 
-      <main className="flex-1 lg:ml-64">
+      <main className={`flex-1 ${!isHomePage ? 'lg:ml-64' : ''}`}>
         <div className="container-fluid p-0">
           {children}
         </div>

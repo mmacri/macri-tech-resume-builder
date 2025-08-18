@@ -8,7 +8,7 @@ interface AboutSectionProps {
 const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {
   return (
     <section className="py-16 bg-white" id="about">
-      <div className="resume-section-content px-4 md:px-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex flex-col lg:flex-row lg:items-start lg:gap-12">
           {/* Profile Picture and Name Section */}
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 lg:flex-col lg:items-center lg:min-w-fit mb-8 lg:mb-0">
