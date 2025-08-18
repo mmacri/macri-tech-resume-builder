@@ -7,26 +7,38 @@ export const staticAwardsData = [
   },
   {
     id: "2",
-    title: "Data Privacy Specialist Certification - BigID (2023)",
-    description: "Comprehensive certification in data discovery, classification, and privacy compliance technologies.",
+    title: "VMware Certified Professional",
+    description: "Comprehensive certification in VMware virtualization and cloud infrastructure technologies.",
     display_order: 2
   },
   {
     id: "3",
-    title: "Top Performer Award - Varonis (2023)",
-    description: "Recognition for exceptional technical sales performance and customer success achievements.",
+    title: "GSI Americas Regions Technical Alliance Manager of the Quarter - FY21Q4",
+    description: "Recognition for exceptional performance in technical alliance management and partner enablement.",
     display_order: 3
   },
   {
     id: "4",
-    title: "President's Club - Quest Software (2020)",
-    description: "Annual recognition for top sales performance and technical excellence in solution engineering.",
+    title: "GSI Americas Regions Technical Alliance Manager of the Quarter - FY21Q3",
+    description: "Consecutive quarter recognition for outstanding technical partnership and revenue achievement.",
     display_order: 4
   },
   {
     id: "5",
-    title: "Technical Excellence Award - Dell Technologies (2018)",
-    description: "Recognition for outstanding technical solution design and customer implementation success.",
+    title: "GSI Partners - Rockstar of the Half Award - FY21H2",
+    description: "Six-month recognition for exceptional partner enablement and business development achievements.",
     display_order: 5
+  },
+  {
+    id: "6",
+    title: "Partner Solutions Engineer of the Quarter - FY19Q4",
+    description: "Recognition for technical excellence and customer success in partner solution engineering.",
+    display_order: 6
+  },
+  {
+    id: "7",
+    title: "VMware Americas VP Award of Service Excellence",
+    description: "Regional VP-level recognition for outstanding service delivery and customer satisfaction.",
+    display_order: 7
   }
 ];

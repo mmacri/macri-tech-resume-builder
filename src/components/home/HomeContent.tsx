@@ -1,5 +1,6 @@
 
 import React from 'react';
+import AboutSection from '@/components/home/AboutSection';
 import HeroSection from '@/components/home/HeroSection';
 import ExperienceSection from '@/components/home/ExperienceSection';
 import EducationSection from '@/components/home/EducationSection';
@@ -19,6 +20,9 @@ const HomeContent: React.FC = () => {
   return (
     <>
       {/* Static data - no loading needed */}
+      
+      {/* About Section with Professional Summary */}
+      <AboutSection />
       
       {/* Hero Section - Always visible */}
       <HeroSection />

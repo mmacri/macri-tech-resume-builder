@@ -1,38 +1,62 @@
 export const staticSkillsData = [
   {
     id: "1",
-    title: "Technical Sales & Solution Engineering",
-    description: "Expert in technical pre-sales, solution architecture, proof-of-concept design, and technical customer relationship management across enterprise technology solutions.",
+    title: "Methodologies and Focus",
+    description: "Value Selling, Spin Seller, Golden Circle, Phoenix-Project Solutioning, Ethical AI, and Problem Solver",
     display_order: 1
   },
   {
     id: "2",
-    title: "Data Security & Privacy Technologies", 
-    description: "Deep expertise in data discovery, classification, privacy compliance (GDPR, CCPA), data loss prevention, and enterprise data governance platforms.",
+    title: "Analytics and Business Intelligence", 
+    description: "AI/ML implementation, Prompt Engineering, Business Analytics in ServiceNow, PowerBI, and Salesforce",
     display_order: 2
   },
   {
     id: "3",
-    title: "AI & Machine Learning Governance",
-    description: "Experience with AI governance frameworks, model risk management, algorithmic bias detection, and enterprise AI compliance and security solutions.",
+    title: "Routes to Market",
+    description: "Sell to, sell through, Managed Services, OEM, ISV, and GSI",
     display_order: 3
   },
   {
     id: "4",
-    title: "Enterprise Software & Cloud Platforms",
-    description: "Extensive experience with SaaS, PaaS, and IaaS solutions, enterprise software architecture, cloud migration strategies, and hybrid infrastructure design.",
+    title: "Solutioning - ServiceNow",
+    description: "ServiceNow Core, GRC/IRM, ITSM, ITOM, SecOps, Performance Analytics, CSM, and ITBM",
     display_order: 4
   },
   {
     id: "5",
-    title: "Cybersecurity & Compliance",
-    description: "Knowledge of enterprise security frameworks, compliance standards (SOX, HIPAA, PCI), identity and access management, and security operations center technologies.",
+    title: "Solutioning - VMware",
+    description: "VMware vSphere, vSAN, NSX, SD-WAN, vRealize, vROPS, VMC on AWS, and Tanzu",
     display_order: 5
   },
   {
     id: "6",
-    title: "Customer Success & Technical Communication",
-    description: "Strong ability to translate complex technical concepts for business stakeholders, conduct executive presentations, and manage strategic customer relationships.",
+    title: "Solutioning - Cloud",
+    description: "AWS, Azure, GCP, Docker, SnowFlake, Splunk, Hybrid Cloud, and HashiCorp",
     display_order: 6
+  },
+  {
+    id: "7",
+    title: "Compliance Frameworks",
+    description: "NIST 800-53, NIST AI 600-1, NIST 800-190, NIST CSF, HIPAA, PCI, SOC 2, CIS, STIGS and EU AI Act",
+    display_order: 7
+  },
+  {
+    id: "8",
+    title: "Programming Languages & Tools",
+    description: "HTML5, CSS3, JavaScript, React, Vue.js, Python, Node.js",
+    display_order: 8
+  },
+  {
+    id: "9",
+    title: "Enterprise Technologies & Platforms",
+    description: "ServiceNow Platform Solutions, VMware Infrastructure, Software as a Service (SaaS), Platform as a Service (PaaS), Everything as a Service (XaaS), Amazon Web Services (AWS), Google Cloud Platform (GCP), Docker Containerization",
+    display_order: 9
+  },
+  {
+    id: "10",
+    title: "Workflow",
+    description: "Customer-focused, value-driven approach; Collaborative problem solving and partnerships; Cross-functional team leadership; Agile development and continuous improvement",
+    display_order: 10
   }
 ];

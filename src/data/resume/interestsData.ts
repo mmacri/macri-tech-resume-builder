@@ -1,26 +1,20 @@
 export const staticInterestsData = [
   {
     id: "1",
-    title: "Technology Innovation & Emerging Trends",
-    description: "Passionate about staying current with emerging technologies, particularly in AI/ML, data privacy, and cybersecurity. Regularly attend industry conferences and maintain certifications.",
+    title: "Technology Innovation",
+    description: "Outside of my professional work, I stay current with advancements in AI, automation, and cloud computing—exploring practical applications that solve complex problems.",
     display_order: 1
   },
   {
     id: "2",
-    title: "Professional Development & Continuous Learning",
-    description: "Committed to continuous learning through industry certifications, technical training, and professional development programs. Enjoy mentoring junior professionals in technical sales.",
+    title: "Travel & Outdoor Activities",
+    description: "I also enjoy traveling between my homes in Washington, California, and Illinois, with outdoor activities like hiking and fishing to recharge.",
     display_order: 2
   },
   {
     id: "3",
-    title: "Outdoor Activities & Fitness",
-    description: "Enjoy hiking, cycling, and outdoor activities. Believe in maintaining work-life balance through regular physical activity and time in nature.",
+    title: "Creative Pursuits",
+    description: "Indoors, I pursue photography, AI-powered content projects, and innovative investing in crypto and global stock markets.",
     display_order: 3
-  },
-  {
-    id: "4",
-    title: "Travel & Cultural Exploration",
-    description: "Love traveling and experiencing different cultures. This interest supports my ability to work with diverse, global teams and understand different market perspectives.",
-    display_order: 4
   }
 ];
