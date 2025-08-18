@@ -24,7 +24,7 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
     return (
       <div className="about-intro text-lg">
         <p className="mb-6">
-          Solution Consulting and Partner GTM Leader with a proven track record of building <span className="font-semibold italic">high-performing Solution Engineering</span> and Customer Success teams in the enterprise cloud ecosystem.
+          Solution Advisory and value identification Leader with a proven track record of building <span className="font-semibold italic">high-performing Solution Engineering</span> and Customer Success teams in the enterprise cloud ecosystem.
         </p>
         
         <p className="mb-6">
@@ -47,11 +47,11 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
               <MapPin className="h-5 w-5 text-macri-primary mt-1 flex-shrink-0" />
               <div className="flex flex-col gap-2">
                 <span className="text-sm font-medium text-gray-700">Available in:</span>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-3">
                   {locations.map((location, index) => (
                     <span
                       key={index}
-                      className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-macri-primary text-white shadow-sm hover:bg-macri-primary/90 transition-colors"
+                      className="inline-flex items-center px-4 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-macri-primary to-macri-primary/80 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 border border-macri-primary/20"
                     >
                       {location}
                     </span>

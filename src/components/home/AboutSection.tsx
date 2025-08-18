@@ -34,7 +34,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {
               <h3 className="text-2xl font-bold mb-6">Professional Summary</h3>
               <div className="space-y-4 text-lg text-gray-700">
                 <p>
-                  Solution Consulting and Partner GTM Leader with a proven track record of building 
+                  Solution Advisory and value identification Leader with a proven track record of building 
                   high-performing Solution Engineering and Customer Success teams in the enterprise cloud ecosystem.
                 </p>
                 <p>

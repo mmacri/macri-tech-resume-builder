@@ -2,9 +2,9 @@
 console.log('aboutData.ts loaded and exporting data');
 
 export const initialAboutData = {
-  intro_text: "Solution Consulting and Partner GTM Leader with a proven track record of building high-performing Solution Engineering and Customer Success teams in the enterprise cloud ecosystem. Expert in coaching Solution Consultants, developing scalable technical sales strategies, and delivering measurable growth with SIs, MSPs, and ISVs.",
+  intro_text: "Solution Advisory and value identification Leader with a proven track record of building high-performing Solution Engineering and Customer Success teams in the enterprise cloud ecosystem. Expert in coaching Solution Consultants, developing scalable technical sales strategies, and delivering measurable growth with SIs, MSPs, and ISVs.",
   
-  title: "Solution Consulting and Partner GTM Leader",
+  title: "Solution Advisory and value identification Leader",
   location: "Available in: Edmonds, WA | San Diego, CA | Chicago, IL | Denver, CO | Remote/Hybrid",
   
   contact: {
