@@ -28,17 +28,6 @@ const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {
 
           {/* Content Section */}
           <div className="flex-1 space-y-8">
-            {/* Available Locations */}
-            <div className="mb-8">
-              <p className="text-lg text-gray-600 mb-4">Available in:</p>
-              <div className="flex flex-wrap gap-2">
-                <span className="bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium">Edmonds, WA</span>
-                <span className="bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium">San Diego, CA</span>
-                <span className="bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium">Chicago, IL</span>
-                <span className="bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium">Denver, CO</span>
-                <span className="bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium">Remote/Hybrid</span>
-              </div>
-            </div>
 
             {/* Professional Summary */}
             <div className="bg-gray-50 p-8 rounded-xl">
