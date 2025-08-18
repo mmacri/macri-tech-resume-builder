@@ -42,8 +42,9 @@ export const ExperienceItem: React.FC<ExperienceItemProps> = memo(({ item, index
             .filter((point: string) => point.trim().length > 0)
             .map((point: string, i: number) => {
               // Remove the bullet character if it exists at the beginning of the point
-              const cleanPoint = point.trim().replace(/^[•·]?\s*/, '');
-              return <li key={i} className="text-gray-700">{cleanPoint}</li>;
+              const cleanPoint = point.trim().replace(/^[•·-]?\s*/, '');
+              console.log(`ExperienceItem: Bullet point ${i}: ${cleanPoint.substring(0, 50)}...`);
+              return <li key={i} className="text-gray-700 mb-2">{cleanPoint}</li>;
             })}
         </ul>
       )}

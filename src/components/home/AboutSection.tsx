@@ -5,8 +5,11 @@ interface AboutSectionProps {
 }
 
 const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {
+  console.log('AboutSection: Rendering about section');
   return (
-    <section className="py-16 bg-white" id="about">
+    <section className="py-16 bg-white" id="about"
+      style={{ border: '2px solid red' }} // Temporary debug border
+    >
       <div className="px-4 md:px-8 max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">

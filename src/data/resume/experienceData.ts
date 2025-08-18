@@ -6,7 +6,7 @@ export const staticExperienceData = [
     location: "Remote",
     start_date: "2021-11-01",
     end_date: null,
-    description: "Led cross-functional solution advisory and engineering initiatives across ServiceNow, aligning Legal, Ethics & Compliance, Security, Product, Sales, Finance, and Engineering teams to deliver impactful solutions that secured stakeholder investment through compelling value propositions that accelerated workflow adoption. Integrated AI/ML governance into enterprise frameworks, serving as SME for ServiceNow's inaugural AI risk policies & requirements. Drove senior executives initiatives that streamlined compliance design to secure budget, that protected against a $900M annual security / compliance risk. Created and managed PolicyHub 1.0, a new ServiceNow module for customers and internal teams that simplified enterprise policy access & accelerated cross-functional enablement servicenow.",
+    description: "Led cross-functional solution advisory and engineering initiatives across ServiceNow, aligning Legal, Ethics & Compliance, Security, Product, Sales, Finance, and Engineering teams to deliver impactful solutions that secured stakeholder investment through compelling value propositions that accelerated workflow adoption.\nIntegrated AI/ML governance into enterprise frameworks, serving as SME for ServiceNow's inaugural AI risk policies & requirements.\nDrove senior executives initiatives that streamlined compliance design to secure budget, that protected against a $900M annual security / compliance risk.\nCreated and managed PolicyHub 1.0, a new ServiceNow module for customers and internal teams that simplified enterprise policy access & accelerated cross-functional enablement servicenow.",
     display_order: 1
   },
   {
@@ -16,7 +16,7 @@ export const staticExperienceData = [
     location: "San Francisco, CA",
     start_date: "2019-10-01",
     end_date: "2021-11-01",
-    description: "Led GTM and presales efforts with GSI and SI partners such including DXC, Capgemini, and Accenture. Developed scalable embedded partner programs and re-platformed solutions (e.g., DXC VMware Cloud on AWS), aligning go-to-market strategy with partner goals. Defined and executed joint business plans that led to repeated achievements above 450% of target. Collaborated across matrixed SC, ProServ, and specialist teams to support technical sales cycles for strategic system integrator offerings.",
+    description: "Led GTM and presales efforts with GSI and SI partners such including DXC, Capgemini, and Accenture.\nDeveloped scalable embedded partner programs and re-platformed solutions (e.g., DXC VMware Cloud on AWS), aligning go-to-market strategy with partner goals.\nDefined and executed joint business plans that led to repeated achievements above 450% of target.\nCollaborated across matrixed SC, ProServ, and specialist teams to support technical sales cycles for strategic system integrator offerings.",
     display_order: 2
   },
   {
@@ -26,7 +26,7 @@ export const staticExperienceData = [
     location: "Chicago, IL", 
     start_date: "2017-11-01",
     end_date: "2019-11-01",
-    description: "Solution Enablement Frameworks development- Built scalable internal demo labs and frameworks for partner-SCs (Zones, CDW, En Pointe, HP), enabling consistent technical presales execution. Coached partner architects to identify and execute targeted SaaS and hybrid cloud campaigns, resulting in a 21% increase in pipeline capture, 20% growth in renewals, and driving $440M in sell-through revenue.",
+    description: "Solution Enablement Frameworks development- Built scalable internal demo labs and frameworks for partner-SCs (Zones, CDW, En Pointe, HP), enabling consistent technical presales execution.\nCoached partner architects to identify and execute targeted SaaS and hybrid cloud campaigns, resulting in a 21% increase in pipeline capture, 20% growth in renewals, and driving $440M in sell-through revenue.",
     display_order: 3
   },
   {
@@ -36,7 +36,7 @@ export const staticExperienceData = [
     location: "Seattle, WA",
     start_date: "2014-10-01", 
     end_date: "2017-11-01",
-    description: "Hired, mentored, and developed customer success teams to deliver a trusted brand increasing product adoption by 44% and improved NPS by 30 points (20 points above goal). Developed and delivered engagement frameworks that aligned technical outcomes with business value metrics, driving operational efficiency and consistent expansion.",
+    description: "Hired, mentored, and developed customer success teams to deliver a trusted brand increasing product adoption by 44% and improved NPS by 30 points (20 points above goal).\nDeveloped and delivered engagement frameworks that aligned technical outcomes with business value metrics, driving operational efficiency and consistent expansion.",
     display_order: 4
   },
   {
@@ -46,7 +46,7 @@ export const staticExperienceData = [
     location: "Seattle, WA",
     start_date: "2011-11-01",
     end_date: "2014-10-01", 
-    description: "Created engagement deliverables aligning customer metrics and enhancing operational efficiency, leading to services attach on all deals. Creative solutions that drove product adoption and roadmap expansions. (E.G 500 Costco storefronts in 10 minutes, eliminating on-site visits to free budget for value growth product purchases.",
+    description: "Created engagement deliverables aligning customer metrics and enhancing operational efficiency, leading to services attach on all deals.\nCreative solutions that drove product adoption and roadmap expansions. (E.G 500 Costco storefronts in 10 minutes, eliminating on-site visits to free budget for value growth product purchases.",
     display_order: 5
   },
   {
@@ -56,7 +56,7 @@ export const staticExperienceData = [
     location: "Seattle, WA",
     start_date: "2010-12-01",
     end_date: "2011-11-01",
-    description: "Served as the technical SME and lead for 3 of VMware's top 10 North American partners, enabling C-level alignment and driving partner adoption of VMware jointly created services. Designed and implemented scalable self-service demo labs initiatives with cloud for partners (Zones, CDW, En Pointe, HP, PCMall) enabling partner-SC enablement and solution delivery.",
+    description: "Served as the technical SME and lead for 3 of VMware's top 10 North American partners, enabling C-level alignment and driving partner adoption of VMware jointly created services.\nDesigned and implemented scalable self-service demo labs initiatives with cloud for partners (Zones, CDW, En Pointe, HP, PCMall) enabling partner-SC enablement and solution delivery.",
     display_order: 6
   },
   {
