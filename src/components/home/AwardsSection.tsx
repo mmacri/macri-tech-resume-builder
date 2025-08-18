@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Download, Award, Medal } from 'lucide-react';
 import ResumeSection from './ResumeSection';
-import { useResumeData } from './DataProvider';
+import { staticAwardsData } from '@/data/staticResumeData';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 interface AwardItem {
@@ -21,11 +21,10 @@ interface AwardsSectionProps {
  * Component to display awards and certifications
  */
 const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
-  const { awardsData } = useResumeData();
   const isMobile = useIsMobile();
   
-  // Use items prop if provided, otherwise use data from context
-  const displayItems = items && items.length > 0 ? items : awardsData;
+  // Use items prop if provided, otherwise use static data
+  const displayItems = items && items.length > 0 ? items : staticAwardsData;
   
   // Ensure we always have awards to display
   const awards = displayItems && displayItems.length > 0 

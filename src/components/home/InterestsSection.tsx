@@ -1,17 +1,16 @@
 
 import React from 'react';
 import ResumeSection from './ResumeSection';
-import { useResumeData } from './DataProvider';
+import { staticInterestsData } from '@/data/staticResumeData';
 
 interface InterestsSectionProps {
   items?: any[];
 }
 
 const InterestsSection: React.FC<InterestsSectionProps> = ({ items }) => {
-  const { interestsData } = useResumeData();
   
-  // Use items prop if provided, otherwise use data from context
-  const displayItems = items && items.length > 0 ? items : interestsData;
+  // Use items prop if provided, otherwise use static data
+  const displayItems = items && items.length > 0 ? items : staticInterestsData;
   
   // Convert each item to a paragraph string
   const paragraphs = displayItems.map(item => item.description || '').filter(Boolean);

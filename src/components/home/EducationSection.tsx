@@ -3,7 +3,7 @@ import React from 'react';
 import { MapPin, GraduationCap, X, Link } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import ResumeSection from './ResumeSection';
-import { useResumeData } from './DataProvider';
+import { staticEducationData } from '@/data/staticResumeData';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { 
   Accordion,
@@ -26,11 +26,10 @@ interface EducationSectionProps {
 }
 
 const EducationSection: React.FC<EducationSectionProps> = ({ items }) => {
-  const { educationData } = useResumeData();
   const isMobile = useIsMobile();
   
-  // Use items prop if provided, otherwise use data from context
-  const displayItems = items && items.length > 0 ? items : educationData;
+  // Use items prop if provided, otherwise use static data
+  const displayItems = items && items.length > 0 ? items : staticEducationData;
 
   // Render education items as accordion on mobile
   const renderMobileEducation = () => {

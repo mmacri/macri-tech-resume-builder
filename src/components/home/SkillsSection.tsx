@@ -1,7 +1,7 @@
 
 import React from 'react';
 import ResumeSection from './ResumeSection';
-import { useResumeData } from './DataProvider';
+import { staticSkillsData } from '@/data/staticResumeData';
 import { Cloud, Server, Globe, Layers, Zap } from 'lucide-react';
 
 interface SkillsSectionProps {
@@ -9,10 +9,9 @@ interface SkillsSectionProps {
 }
 
 const SkillsSection: React.FC<SkillsSectionProps> = ({ items }) => {
-  const { skillsData } = useResumeData();
   
-  // Use items prop if provided, otherwise use data from context
-  const displayItems = items && items.length > 0 ? items : skillsData;
+  // Use items prop if provided, otherwise use static data
+  const displayItems = items && items.length > 0 ? items : staticSkillsData;
 
   // Define our skill categories
   const skillCategories = [

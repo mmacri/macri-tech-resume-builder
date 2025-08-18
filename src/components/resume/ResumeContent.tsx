@@ -7,7 +7,7 @@ import SkillsSection from '@/components/home/SkillsSection';
 import InterestsSection from '@/components/home/InterestsSection';
 import AwardsSection from '@/components/home/AwardsSection';
 // Removed DownloadResumeButton
-import { extractResumeSection } from '@/utils/resume/extractUtils';
+// Simplified resume content - no database needed
 import { Button } from '@/components/ui/button';
 import { Download, Printer } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -29,16 +29,13 @@ interface ResumeContentProps {
 const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
   const isMobile = useIsMobile();
   
-  const getSectionItems = (sectionName: string) => {
-    return extractResumeSection(resumeSections, sectionName);
-  };
-
-  // Get the sections from database
-  const experienceItems = getSectionItems('experience');
-  const educationItems = getSectionItems('education');
-  const skillsItems = getSectionItems('skills');
-  const interestsItems = getSectionItems('interests');
-  const awardsItems = getSectionItems('awards');
+  // Since we're using static data, these will be empty arrays
+  // The individual components will use their static data instead
+  const experienceItems: any[] = [];
+  const educationItems: any[] = [];
+  const skillsItems: any[] = [];
+  const interestsItems: any[] = [];
+  const awardsItems: any[] = [];
 
   const handlePrint = () => {
     window.print();

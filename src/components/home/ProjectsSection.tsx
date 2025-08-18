@@ -4,17 +4,16 @@ import { Link } from 'react-router-dom';
 import ResumeSection from './ResumeSection';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { Book, ExternalLink, Code, Award, TrendingUp } from 'lucide-react';
-import { useResumeData } from './DataProvider';
+import { staticProjectsData } from '@/data/staticResumeData';
 
 interface ProjectsSectionProps {
   items?: any[];
 }
 
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({ items }) => {
-  const { projectsData } = useResumeData();
   
-  // Use items prop if provided, otherwise use data from context
-  const displayItems = items && items.length > 0 ? items : projectsData;
+  // Use items prop if provided, otherwise use static data  
+  const displayItems = items && items.length > 0 ? items : staticProjectsData;
   
   return (
     <ResumeSection id="projects" title="Featured Projects">

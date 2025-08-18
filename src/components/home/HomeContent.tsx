@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import HeroSection from '@/components/home/HeroSection';
 import ExperienceSection from '@/components/home/ExperienceSection';
 import EducationSection from '@/components/home/EducationSection';
@@ -8,44 +8,31 @@ import InterestsSection from '@/components/home/InterestsSection';
 import AwardsSection from '@/components/home/AwardsSection';
 import ProjectsSection from '@/components/home/ProjectsSection';
 import ReferencesSection from '@/components/home/about/ReferencesSection';
-import DataProvider from '@/components/home/DataProvider';
-import SimpleResumeDataLoader from '@/components/home/SimpleResumeDataLoader';
-import { initialAboutData } from '@/utils/resume/aboutData';
+// Removed about data dependency
 
 /**
  * Main content component for the Home page showing all resume sections
  * Uses static content for all sections by default, but can also load dynamic data
  */
 const HomeContent: React.FC = () => {
-  const [sections, setSections] = useState<any[]>([]);
-
-  const handleDataLoaded = (loadedSections: any[]) => {
-    if (loadedSections && loadedSections.length > 0) {
-      setSections(loadedSections);
-    }
-  };
-  
-  const handleDataError = (error: Error) => {
-    console.error('Error loading resume data:', error);
-    // Keep using static data on error
-  };
 
   return (
     <>
-      {/* Always load data but don't block rendering */}
-      <SimpleResumeDataLoader onDataLoaded={handleDataLoaded} onDataError={handleDataError} />
+      {/* Static data - no loading needed */}
       
       {/* Hero Section - Always visible */}
       <HeroSection />
       
       {/* References Section */}
       <section className="py-16 bg-macri-section-alt">
-        <div className="px-4 md:px-8 max-w-6xl mx-auto">
-          <ReferencesSection references={initialAboutData.references} />
-        </div>
+          <div className="px-4 md:px-8 max-w-6xl mx-auto">
+            <div className="text-center">
+              <h2 className="text-4xl font-bold mb-6">What People Say</h2>
+              <p className="text-xl text-gray-600">References and testimonials available upon request.</p>
+            </div>
+          </div>
       </section>
       
-      <DataProvider dynamicData={sections}>
         <div className="resume-container">
           {/* Critical sections (load first) */}
           <section className="py-16 bg-white">
@@ -85,7 +72,6 @@ const HomeContent: React.FC = () => {
             </div>
           </section>
         </div>
-      </DataProvider>
 
       {/* Contact Section */}
       <section className="py-20 bg-gradient-to-br from-macri-primary to-macri-primary-dark text-white">

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import ResumeSection from './ResumeSection';
-import { useResumeData } from './DataProvider';
+import { staticExperienceData } from '@/data/staticResumeData';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { ExperienceItem } from './experience/types';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -15,11 +15,10 @@ interface ExperienceSectionProps {
 }
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items }) => {
-  const { experienceData } = useResumeData();
   const isMobile = useIsMobile();
   
-  // Use items prop if provided, otherwise use data from context
-  const displayItems = items && items.length > 0 ? items : experienceData;
+  // Use items prop if provided, otherwise use static data
+  const displayItems = items && items.length > 0 ? items : staticExperienceData;
   
   console.log(`ExperienceSection: Rendering with ${displayItems?.length || 0} items`);
 
