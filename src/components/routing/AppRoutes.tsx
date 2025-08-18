@@ -21,7 +21,7 @@ export const AppRoutes: React.FC = () => {
         <Layout 
           navItems={getHomeNavItems()} 
           profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-          name="Mike Macri"
+          name="Mike Macri M.B.A."
         >
           <Home />
         </Layout>
@@ -30,7 +30,7 @@ export const AppRoutes: React.FC = () => {
         <Layout 
           navItems={getPortfolioNavItems()} 
           profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-          name="Mike Macri"
+          name="Mike Macri M.B.A."
         >
           <Portfolio />
         </Layout>
@@ -39,7 +39,7 @@ export const AppRoutes: React.FC = () => {
         <Layout 
           navItems={getBlogNavItems()} 
           profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-          name="Mike Macri"
+          name="Mike Macri M.B.A."
         >
           <Blog />
         </Layout>
@@ -48,7 +48,7 @@ export const AppRoutes: React.FC = () => {
         <Layout 
           navItems={getResumeNavItems()} 
           profileImage="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-          name="Mike Macri"
+          name="Mike Macri M.B.A."
           highlightResume={true}
         >
           <Resume />

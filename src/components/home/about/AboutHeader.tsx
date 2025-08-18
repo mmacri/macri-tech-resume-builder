@@ -24,7 +24,7 @@ const AboutHeader: React.FC<AboutHeaderProps> = ({
     return (
       <div className="about-intro text-lg">
         <p className="mb-6">
-          Solution Advisory and value identification Leader with a proven track record of building <span className="font-semibold italic">high-performing Solution Engineering</span> and Customer Success teams in the enterprise cloud ecosystem.
+          Driving Solutions and Unlocking Business Value Leader with a proven track record of building <span className="font-semibold italic">high-performing Solution Engineering</span> and Customer Success teams in the enterprise cloud ecosystem.
         </p>
         
         <p className="mb-6">

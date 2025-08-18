@@ -15,12 +15,12 @@ const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {
             <div className="flex-shrink-0">
               <img
                 src="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-                alt="Mike Macri profile"
+                alt="Mike Macri M.B.A. profile"
                 className="w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover border-4 border-macri-primary/20 shadow-lg"
               />
             </div>
             <div className="text-center sm:text-left lg:text-center">
-              <h1 className="text-4xl lg:text-5xl font-bold mb-2 text-macri-primary">Mike Macri</h1>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-2 text-macri-primary">Mike Macri M.B.A.</h1>
               <p className="text-xl lg:text-2xl text-gray-600 font-medium">{aboutData.title}</p>
               <p className="text-lg text-gray-500 mt-1">{aboutData.location}</p>
             </div>
@@ -34,7 +34,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {
               <h3 className="text-2xl font-bold mb-6">Professional Summary</h3>
               <div className="space-y-4 text-lg text-gray-700">
                 <p>
-                  Solution Advisory and value identification Leader with a proven track record of building 
+                  Driving Solutions and Unlocking Business Value Leader with a proven track record of building 
                   high-performing Solution Engineering and Customer Success teams in the enterprise cloud ecosystem.
                 </p>
                 <p>

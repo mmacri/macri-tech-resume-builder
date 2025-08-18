@@ -36,7 +36,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
         >
           <img
             src="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-            alt="Mike Macri Logo"
+            alt="Mike Macri M.B.A. Logo"
             className="h-full w-full object-contain"
             style={{
               display: 'block',
