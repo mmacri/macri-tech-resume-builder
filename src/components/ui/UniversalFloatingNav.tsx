@@ -51,6 +51,7 @@ export const UniversalFloatingNav: React.FC = () => {
         { id: 'skills', label: 'Skills', icon: Code },
         { id: 'interests', label: 'Interests', icon: Heart },
         { id: 'awards', label: 'Awards', icon: Award },
+        { id: 'portfolio', label: 'Portfolio', icon: Folder, href: '/portfolio', isRoute: true },
       ];
     } else {
       return [
