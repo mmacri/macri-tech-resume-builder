@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { scrollToElement } from '../utils/scrollUtils';
 import { Sidebar } from './layout/Sidebar';
 import { UniversalFloatingNav } from './ui/UniversalFloatingNav';
+import { HamburgerMenu } from './ui/HamburgerMenu';
 
 interface LayoutProps {
   children: ReactNode;
@@ -80,6 +81,7 @@ const Layout: React.FC<LayoutProps> = ({ children, navItems, profileImage, name,
         <div className="container-fluid p-0">
           {children}
         </div>
+        <HamburgerMenu />
         <UniversalFloatingNav />
       </main>
     </div>
