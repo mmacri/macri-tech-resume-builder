@@ -1,18 +1,16 @@
 export const initialAboutData = {
-  intro_text: "Experienced Solutions Engineer with 15+ years in technical sales, specializing in data security, AI governance, and enterprise software solutions. Proven track record of driving complex technical sales cycles and implementing enterprise-scale technology solutions for Fortune 500 companies.",
+  intro_text: "Solution Consulting and Partner GTM Leader with a proven track record of building high-performing Solution Engineering and Customer Success teams in the enterprise cloud ecosystem. Expert in coaching Solution Consultants, developing scalable technical sales strategies, and delivering measurable growth with SIs, MSPs, and ISVs.",
   
   contact: {
     email: "mike@mikemacri.com",
     phone: "+1 (555) 123-4567",
-    location: "Remote (Available Nationwide)",
+    location: "Available in: Edmonds, WA | San Diego, CA | Chicago, IL | Denver, CO | Remote/Hybrid",
     linkedin: "https://www.linkedin.com/in/mikemacri/"
   },
   
   references: [
-    "Mike is an exceptional solutions engineer who consistently delivers outstanding technical sales results. His deep understanding of data security and ability to translate complex technical concepts for business stakeholders makes him invaluable.",
+    "I have worked with Mike for the past 5 years during my time as an Enterprise Sales Exec at VMware. From Day 1 Mike has been a tremendous business partner (not only to me but most importantly, to my customers). Mike leads by example in holding himself and his team accountable resulting in the highest levels of customer satisfaction and building long-term, trusted, customer relationships. Working with Mike has been a pleasure; his attention to detail, work ethic, and unyielding commitment to delivering customer business goals & outcomes has been invaluable.",
     
-    "I had the pleasure of working with Mike on several enterprise deals. His technical expertise in AI governance and data privacy, combined with his customer-first approach, helped us close some of our largest accounts.",
-    
-    "Mike's solution engineering skills are top-tier. He has an excellent ability to understand customer requirements and design comprehensive technical solutions that address real business challenges."
+    "I find Mike to be a manager that is a true mentor, coach, and leader. Mike not only guides but listens. When I found myself in a quandary his 'Next Step' has always got me further in my endeavors, from customer maturity to conversations with Directors and above we always moved the needle."
   ]
 };

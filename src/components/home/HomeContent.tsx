@@ -1,7 +1,6 @@
 
 import React from 'react';
 import AboutSection from '@/components/home/AboutSection';
-import HeroSection from '@/components/home/HeroSection';
 import ExperienceSection from '@/components/home/ExperienceSection';
 import EducationSection from '@/components/home/EducationSection';
 import SkillsSection from '@/components/home/SkillsSection';
@@ -21,17 +20,25 @@ const HomeContent: React.FC = () => {
     <>
       {/* Static data - no loading needed */}
       
-      {/* About Section with Professional Summary */}
+      {/* About Section with Professional Summary - matches mikemacri.com exactly */}
       <AboutSection />
-      
-      {/* Hero Section - Always visible */}
-      <HeroSection />
       
       {/* References Section */}
       <section className="py-16 bg-macri-section-alt">
-          <div className="px-4 md:px-8 max-w-6xl mx-auto">
-            <ReferencesSection references={initialAboutData.references} />
+        <div className="px-4 md:px-8 max-w-6xl mx-auto">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-macri-primary mb-4">What Colleagues Say</h3>
+            <a 
+              href="https://www.linkedin.com/in/mikemacri/details/recommendations/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-orange-600 hover:text-orange-700 font-medium"
+            >
+              View References
+            </a>
           </div>
+          <ReferencesSection references={initialAboutData.references} />
+        </div>
       </section>
       
         <div className="resume-container">
