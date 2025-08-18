@@ -35,7 +35,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
           }}
         >
           <img
-            src="/lovable-uploads/0b2077d6-0d8a-4913-9ba7-1001cb320d19.png"
+            src="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
             alt="Mike Macri Logo"
             className="h-full w-full object-contain"
             style={{

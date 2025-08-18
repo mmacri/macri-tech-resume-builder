@@ -1,6 +1,6 @@
 
 import React from 'react';
-// Removed AboutSection
+import AboutSection from '@/components/home/AboutSection';
 import ExperienceSection from '@/components/home/ExperienceSection';
 import EducationSection from '@/components/home/EducationSection';
 import SkillsSection from '@/components/home/SkillsSection';
@@ -46,6 +46,14 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
     return (
       <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
         <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="about" id="about">
+            <AccordionTrigger className="text-xl font-bold text-macri-primary">About</AccordionTrigger>
+            <AccordionContent>
+              <div className="pt-3 pb-6">
+                <AboutSection />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
           
           <AccordionItem value="experience" id="experience">
             <AccordionTrigger className="text-xl font-bold text-macri-primary">Experience</AccordionTrigger>
@@ -99,7 +107,10 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
   // Desktop view with all sections expanded
   const renderDesktopView = () => {
     return (
-      <>        
+      <>
+        <AboutSection />
+        
+        <hr className="m-0 border-gray-200" />
         <ExperienceSection items={experienceItems} />
         
         <hr className="m-0 border-gray-200" />
@@ -130,7 +141,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
             <Button 
               variant="outline" 
               className="flex items-center gap-2"
-              onClick={() => window.open('/resume-download', '_blank')}
+              onClick={() => alert('Resume download functionality will be implemented soon!')}
             >
               <Download className="h-4 w-4" /> Download
             </Button>
@@ -151,7 +162,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
           {isMobile ? (
             <Button 
               className="bg-macri-primary hover:bg-macri-primary/90 py-6 px-8 text-lg flex items-center gap-2 w-full"
-              onClick={() => window.open('/resume-download', '_blank')}
+              onClick={() => alert('Resume download functionality will be implemented soon!')}
             >
               <Download className="h-5 w-5" />
               Download My Resume PDF
@@ -160,7 +171,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button 
                 className="bg-macri-primary hover:bg-macri-primary/90 py-6 px-8 text-lg flex items-center gap-2 w-full sm:w-auto"
-                onClick={() => window.open('/resume-download', '_blank')}
+                onClick={() => alert('Resume download functionality will be implemented soon!')}
               >
                 <Download className="h-5 w-5" />
                 Download My Resume PDF
