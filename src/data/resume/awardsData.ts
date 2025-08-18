@@ -1,32 +1,32 @@
-
-// Static data for awards section
 export const staticAwardsData = [
   {
+    id: "1",
     title: "AI Security and Governance Certification - Securiti (2024)",
+    description: "Advanced certification in AI governance, model risk management, and enterprise AI security frameworks.",
     display_order: 1
   },
   {
-    title: "VMware Certified Professional",
+    id: "2",
+    title: "Data Privacy Specialist Certification - BigID (2023)",
+    description: "Comprehensive certification in data discovery, classification, and privacy compliance technologies.",
     display_order: 2
   },
   {
-    title: "GSI Americas Regions Technical Alliance Manager of the Quarter - FY21Q4",
+    id: "3",
+    title: "Top Performer Award - Varonis (2023)",
+    description: "Recognition for exceptional technical sales performance and customer success achievements.",
     display_order: 3
   },
   {
-    title: "GSI Americas Regions Technical Alliance Manager of the Quarter - FY21Q3",
+    id: "4",
+    title: "President's Club - Quest Software (2020)",
+    description: "Annual recognition for top sales performance and technical excellence in solution engineering.",
     display_order: 4
   },
   {
-    title: "GSI Partners - Rockstar of the Half Award - FY21H2",
+    id: "5",
+    title: "Technical Excellence Award - Dell Technologies (2018)",
+    description: "Recognition for outstanding technical solution design and customer implementation success.",
     display_order: 5
-  },
-  {
-    title: "Partner Solutions Engineer of the Quarter - FY19Q4",
-    display_order: 6
-  },
-  {
-    title: "VMware Americas VP Award of Service Excellence",
-    display_order: 7
   }
 ];

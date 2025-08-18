@@ -1,8 +1,7 @@
-
-// Export all resume data sections from a central file
-export * from './experienceData';
-export * from './educationData';
-export * from './skillsData';
-export * from './interestsData';
-export * from './awardsData';
-export * from './projectsData';
+// Central export file for all resume data
+export { staticExperienceData } from './experienceData';
+export { staticEducationData } from './educationData'; 
+export { staticSkillsData } from './skillsData';
+export { staticInterestsData } from './interestsData';
+export { staticAwardsData } from './awardsData';
+export { staticProjectsData } from './projectsData';

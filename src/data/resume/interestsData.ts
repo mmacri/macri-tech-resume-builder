@@ -1,19 +1,26 @@
-
-// Static data for interests section
 export const staticInterestsData = [
   {
-    title: "Interest Paragraph",
-    description: "Outside of my professional work, I stay current with advancements in AI, automation, and cloud computing—exploring practical applications that solve complex problems.",
+    id: "1",
+    title: "Technology Innovation & Emerging Trends",
+    description: "Passionate about staying current with emerging technologies, particularly in AI/ML, data privacy, and cybersecurity. Regularly attend industry conferences and maintain certifications.",
     display_order: 1
   },
   {
-    title: "Interest Paragraph",
-    description: "I also enjoy traveling between my homes in Washington, California, and Illinois, with outdoor activities like hiking and fishing to recharge.",
+    id: "2",
+    title: "Professional Development & Continuous Learning",
+    description: "Committed to continuous learning through industry certifications, technical training, and professional development programs. Enjoy mentoring junior professionals in technical sales.",
     display_order: 2
   },
   {
-    title: "Interest Paragraph",
-    description: "Indoors, I pursue photography, AI-powered content projects, and innovative investing in crypto and global stock markets.",
+    id: "3",
+    title: "Outdoor Activities & Fitness",
+    description: "Enjoy hiking, cycling, and outdoor activities. Believe in maintaining work-life balance through regular physical activity and time in nature.",
     display_order: 3
+  },
+  {
+    id: "4",
+    title: "Travel & Cultural Exploration",
+    description: "Love traveling and experiencing different cultures. This interest supports my ability to work with diverse, global teams and understand different market perspectives.",
+    display_order: 4
   }
 ];

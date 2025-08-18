@@ -8,7 +8,7 @@ import InterestsSection from '@/components/home/InterestsSection';
 import AwardsSection from '@/components/home/AwardsSection';
 import ProjectsSection from '@/components/home/ProjectsSection';
 import ReferencesSection from '@/components/home/about/ReferencesSection';
-// Removed about data dependency
+import { initialAboutData } from '@/data/aboutData';
 
 /**
  * Main content component for the Home page showing all resume sections
@@ -26,10 +26,7 @@ const HomeContent: React.FC = () => {
       {/* References Section */}
       <section className="py-16 bg-macri-section-alt">
           <div className="px-4 md:px-8 max-w-6xl mx-auto">
-            <div className="text-center">
-              <h2 className="text-4xl font-bold mb-6">What People Say</h2>
-              <p className="text-xl text-gray-600">References and testimonials available upon request.</p>
-            </div>
+            <ReferencesSection references={initialAboutData.references} />
           </div>
       </section>
       

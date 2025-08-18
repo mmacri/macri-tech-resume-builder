@@ -1,44 +1,38 @@
-
-// Static data for skills section
 export const staticSkillsData = [
   {
-    title: "Methodologies and Focus",
-    description: "Value Selling, Spin Seller, Golden Circle, Phoenix-Project Solutioning, Ethical AI, and Problem Solver",
+    id: "1",
+    title: "Technical Sales & Solution Engineering",
+    description: "Expert in technical pre-sales, solution architecture, proof-of-concept design, and technical customer relationship management across enterprise technology solutions.",
     display_order: 1
   },
   {
-    title: "Analytics and Business Intelligence",
-    description: "AI/ML implementation, Prompt Engineering, Business Analytics in ServiceNow, PowerBI, and Salesforce",
+    id: "2",
+    title: "Data Security & Privacy Technologies", 
+    description: "Deep expertise in data discovery, classification, privacy compliance (GDPR, CCPA), data loss prevention, and enterprise data governance platforms.",
     display_order: 2
   },
   {
-    title: "Routes to Market",
-    description: "Sell to, sell through, Managed Services, OEM, ISV, and GSI",
+    id: "3",
+    title: "AI & Machine Learning Governance",
+    description: "Experience with AI governance frameworks, model risk management, algorithmic bias detection, and enterprise AI compliance and security solutions.",
     display_order: 3
   },
   {
-    title: "Solutioning - ServiceNow",
-    description: "ServiceNow Core, GRC/IRM, ITSM, ITOM, SecOps, Performance Analytics, CSM, and ITBM",
+    id: "4",
+    title: "Enterprise Software & Cloud Platforms",
+    description: "Extensive experience with SaaS, PaaS, and IaaS solutions, enterprise software architecture, cloud migration strategies, and hybrid infrastructure design.",
     display_order: 4
   },
   {
-    title: "Solutioning - VMware",
-    description: "VMware vSphere, vSAN, NSX, SD-WAN, vRealize, vROPS, VMC on AWS, and Tanzu",
+    id: "5",
+    title: "Cybersecurity & Compliance",
+    description: "Knowledge of enterprise security frameworks, compliance standards (SOX, HIPAA, PCI), identity and access management, and security operations center technologies.",
     display_order: 5
   },
   {
-    title: "Solutioning - Cloud",
-    description: "AWS, Azure, GCP, Docker, SnowFlake, Splunk, Hybrid Cloud, and HashiCorp",
+    id: "6",
+    title: "Customer Success & Technical Communication",
+    description: "Strong ability to translate complex technical concepts for business stakeholders, conduct executive presentations, and manage strategic customer relationships.",
     display_order: 6
-  },
-  {
-    title: "Compliance Frameworks",
-    description: "NIST 800-53, NIST AI 600-1, NIST 800-190, NIST CSF, HIPAA, PCI, SOC 2, CIS, STIGS and EU AI Act",
-    display_order: 7
-  },
-  {
-    title: "Programming",
-    description: "Python, Glide, Javascript, HTML, CSS, React, Vue, LLM, and API integrations",
-    display_order: 8
   }
 ];
