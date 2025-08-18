@@ -131,20 +131,22 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold text-macri-primary">Resume</h1>
           <div className="flex gap-3">
-            <Button 
-              variant="outline" 
-              className="flex items-center gap-2"
-              onClick={handlePrint}
+            <a 
+              href="https://linkedin.com/in/mikemacri" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 text-blue-600 hover:text-blue-800 transition-colors"
             >
-              <Printer className="h-4 w-4" /> Print
-            </Button>
-            <Button 
-              variant="outline" 
-              className="flex items-center gap-2"
-              onClick={() => alert('Resume download functionality will be implemented soon!')}
+              <i className="fab fa-linkedin-in"></i> LinkedIn
+            </a>
+            <a 
+              href="https://github.com/mmacri/my-portfolio" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors"
             >
-              <Download className="h-4 w-4" /> Download
-            </Button>
+              <i className="fab fa-github"></i> GitHub
+            </a>
           </div>
         </div>
       </div>
@@ -154,38 +156,31 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
         {isMobile ? renderMobileView() : renderDesktopView()}
       </div>
       
-      {/* Show the download section only on desktop or simplified on mobile */}
-      <section className="resume-section py-10" id="download">
+      {/* Connect Section */}
+      <section className="resume-section py-10" id="connect">
         <div className="resume-section-content px-4 md:px-8 text-center max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold mb-4 text-macri-primary">Download Resume</h2>
-          <p className="mb-6 text-gray-700">Get a downloadable version of my resume with the most up-to-date information.</p>
-          {isMobile ? (
-            <Button 
-              className="bg-macri-primary hover:bg-macri-primary/90 py-6 px-8 text-lg flex items-center gap-2 w-full"
-              onClick={() => alert('Resume download functionality will be implemented soon!')}
+          <h2 className="text-4xl font-bold mb-4 text-macri-primary">Let's Connect</h2>
+          <p className="mb-6 text-gray-700">Find me on these platforms or reach out directly.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a 
+              href="https://linkedin.com/in/mikemacri" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-md font-semibold text-lg flex items-center gap-3 w-full sm:w-auto transition-colors"
             >
-              <Download className="h-5 w-5" />
-              Download My Resume PDF
-            </Button>
-          ) : (
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button 
-                className="bg-macri-primary hover:bg-macri-primary/90 py-6 px-8 text-lg flex items-center gap-2 w-full sm:w-auto"
-                onClick={() => alert('Resume download functionality will be implemented soon!')}
-              >
-                <Download className="h-5 w-5" />
-                Download My Resume PDF
-              </Button>
-              <Button 
-                variant="outline"
-                className="py-6 px-8 text-lg flex items-center gap-2 w-full sm:w-auto"
-                onClick={handlePrint}
-              >
-                <Printer className="h-5 w-5" />
-                Print Resume
-              </Button>
-            </div>
-          )}
+              <i className="fab fa-linkedin-in text-xl"></i>
+              Connect on LinkedIn
+            </a>
+            <a 
+              href="https://github.com/mmacri/my-portfolio" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-gray-800 hover:bg-gray-900 text-white py-4 px-8 rounded-md font-semibold text-lg flex items-center gap-3 w-full sm:w-auto transition-colors"
+            >
+              <i className="fab fa-github text-xl"></i>
+              View GitHub
+            </a>
+          </div>
         </div>
       </section>
     </div>

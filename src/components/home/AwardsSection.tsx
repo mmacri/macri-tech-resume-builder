@@ -49,20 +49,6 @@ const AwardsSection: React.FC<AwardsSectionProps> = ({ items }) => {
         </ul>
       </div>
       
-      {/* Only show the download button in desktop view */}
-      {!isMobile && (
-        <div className="mt-12 flex justify-center">
-          <Button 
-            asChild
-            className="bg-macri-primary hover:bg-macri-primary/90 text-white px-8 py-6 rounded-md font-semibold text-lg flex items-center gap-2"
-          >
-            <Link to="/resume">
-              <Download className="h-5 w-5" />
-              Download My Resume
-            </Link>
-          </Button>
-        </div>
-      )}
     </ResumeSection>
   );
 };

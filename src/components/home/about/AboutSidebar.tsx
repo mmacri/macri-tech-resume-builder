@@ -113,15 +113,6 @@ const AboutSidebar: React.FC<AboutSidebarProps> = ({
       </Card>
       
       {/* Only show the CV download button if not on mobile */}
-      {!isMobile && (
-        <Button variant="default" className="w-full bg-macri-primary hover:bg-macri-primary/90 flex items-center gap-2 py-6 text-lg" asChild>
-          <Link to="/resume">
-            <Download className="h-5 w-5" />
-            <FileText className="h-5 w-5" />
-            <span>Download My Resume</span>
-          </Link>
-        </Button>
-      )}
     </div>
   );
 };
