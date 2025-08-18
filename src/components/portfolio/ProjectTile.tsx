@@ -34,6 +34,14 @@ export const ProjectTile: React.FC<ProjectTileProps> = ({ project }) => {
               alt={project.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
               loading="lazy"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const parent = target.parentElement;
+                if (parent) {
+                  parent.innerHTML = `<div class="w-full h-full flex items-center justify-center"><div class="text-6xl font-bold text-macri-primary/20 font-saira">${project.title.charAt(0)}</div></div>`;
+                }
+              }}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
