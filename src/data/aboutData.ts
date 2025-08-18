@@ -5,12 +5,12 @@ export const initialAboutData = {
   intro_text: "Driving Solutions and Unlocking Business Value with a proven track record of building high-performing Solution Engineering and Customer Success teams in the enterprise cloud ecosystem. Expert in coaching Solution Consultants, developing scalable technical sales strategies, and delivering measurable growth with SIs, MSPs, and ISVs.",
   
   title: "Driving Solutions and Unlocking Business Value",
-  location: "Available in: Edmonds, WA | San Diego, CA | Chicago, IL | Denver, CO | Remote/Hybrid",
+  location: "📍 Available in: Edmonds, WA • San Diego, CA • Chicago, IL • Denver, CO • Remote/Hybrid",
   
   contact: {
     email: "mike@mikemacri.com",
     phone: "+1 (555) 123-4567",
-    location: "Available in: Edmonds, WA | San Diego, CA | Chicago, IL | Denver, CO | Remote/Hybrid",
+    location: "📍 Available in: Edmonds, WA • San Diego, CA • Chicago, IL • Denver, CO • Remote/Hybrid",
     linkedin: "https://www.linkedin.com/in/mikemacri/"
   },
   
