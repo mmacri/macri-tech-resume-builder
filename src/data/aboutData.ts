@@ -1,5 +1,11 @@
+// Debug: Temporary logging to confirm export
+console.log('aboutData.ts loaded and exporting data');
+
 export const initialAboutData = {
   intro_text: "Solution Consulting and Partner GTM Leader with a proven track record of building high-performing Solution Engineering and Customer Success teams in the enterprise cloud ecosystem. Expert in coaching Solution Consultants, developing scalable technical sales strategies, and delivering measurable growth with SIs, MSPs, and ISVs.",
+  
+  title: "Solution Consulting and Partner GTM Leader",
+  location: "Available in: Edmonds, WA | San Diego, CA | Chicago, IL | Denver, CO | Remote/Hybrid",
   
   contact: {
     email: "mike@mikemacri.com",
@@ -14,3 +20,9 @@ export const initialAboutData = {
     "I find Mike to be a manager that is a true mentor, coach, and leader. Mike not only guides but listens. When I found myself in a quandary his 'Next Step' has always got me further in my endeavors, from customer maturity to conversations with Directors and above we always moved the needle."
   ]
 };
+
+// Export both for compatibility - this should fix the import error
+export const aboutData = initialAboutData;
+
+// Debug: Log the export to confirm it's available
+console.log('aboutData exported:', aboutData);

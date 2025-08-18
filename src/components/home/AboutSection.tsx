@@ -1,5 +1,5 @@
 import React from 'react';
-import { initialAboutData } from '@/data/aboutData';
+import { aboutData } from '@/data/aboutData';
 
 interface AboutSectionProps {
   data?: any;
@@ -21,8 +21,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {
             </div>
             <div className="text-center sm:text-left lg:text-center">
               <h1 className="text-4xl lg:text-5xl font-bold mb-2 text-macri-primary">Mike Macri</h1>
-              <p className="text-xl lg:text-2xl text-gray-600 font-medium">Solution Consulting and Partner GTM Leader</p>
-              <p className="text-lg text-gray-500 mt-1">Available in: Multiple Locations & Remote</p>
+              <p className="text-xl lg:text-2xl text-gray-600 font-medium">{aboutData.title}</p>
+              <p className="text-lg text-gray-500 mt-1">{aboutData.location}</p>
             </div>
           </div>
 
