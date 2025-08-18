@@ -43,6 +43,7 @@ export const HamburgerMenu: React.FC = () => {
       ];
     } else if (currentPath === '/portfolio') {
       return [
+        { id: 'home', label: 'Home', href: '/#about', isRoute: true },
         { id: 'index-of-projects', label: 'Overview' },
         { id: '1', label: 'Policy Hub' },
         { id: '2', label: 'Framework Fusion' },
@@ -53,6 +54,7 @@ export const HamburgerMenu: React.FC = () => {
       ];
     } else if (currentPath === '/resume') {
       return [
+        { id: 'home', label: 'Home', href: '/#about', isRoute: true },
         { id: 'about', label: 'About' },
         { id: 'experience', label: 'Experience' },
         { id: 'education', label: 'Education' },
@@ -63,7 +65,7 @@ export const HamburgerMenu: React.FC = () => {
       ];
     } else {
       return [
-        { id: 'home', label: 'Home', href: '/', isRoute: true },
+        { id: 'home', label: 'Home', href: '/#about', isRoute: true },
       ];
     }
   };
