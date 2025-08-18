@@ -34,7 +34,6 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
   };
 
   // Get the sections from database
-  const aboutItems = getSectionItems('about');
   const experienceItems = getSectionItems('experience');
   const educationItems = getSectionItems('education');
   const skillsItems = getSectionItems('skills');
@@ -50,14 +49,6 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
     return (
       <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
         <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="about" id="about">
-            <AccordionTrigger className="text-xl font-bold text-macri-primary">About</AccordionTrigger>
-            <AccordionContent>
-              <div className="pt-3 pb-6">
-                <AboutSection items={aboutItems} />
-              </div>
-            </AccordionContent>
-          </AccordionItem>
           
           <AccordionItem value="experience" id="experience">
             <AccordionTrigger className="text-xl font-bold text-macri-primary">Experience</AccordionTrigger>
@@ -111,10 +102,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
   // Desktop view with all sections expanded
   const renderDesktopView = () => {
     return (
-      <>
-        <AboutSection items={aboutItems} />
-        <hr className="m-0 border-gray-200" />
-        
+      <>        
         <ExperienceSection items={experienceItems} />
         
         <hr className="m-0 border-gray-200" />
@@ -142,7 +130,13 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
             >
               <Printer className="h-4 w-4" /> Print
             </Button>
-            <DownloadResumeButton />
+            <Button 
+              variant="outline" 
+              className="flex items-center gap-2"
+              onClick={() => window.open('/resume-download', '_blank')}
+            >
+              <Download className="h-4 w-4" /> Download
+            </Button>
           </div>
         </div>
       </div>
