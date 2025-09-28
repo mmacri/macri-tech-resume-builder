@@ -96,13 +96,13 @@ const Resume: React.FC = () => {
 
             {/* About Me Sidebar */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 sticky top-8">
-                <h3 className="font-saira font-bold text-xl text-macri-primary mb-4">About Me</h3>
+              <div className="bg-white rounded-lg shadow-md p-4 border border-gray-200">
+                <h3 className="font-saira font-bold text-lg text-macri-primary mb-3">About Me</h3>
                 
-                <div className="space-y-4 text-sm text-gray-700">
+                <div className="space-y-3 text-sm text-gray-700">
                   <div>
-                    <h4 className="font-semibold text-macri-primary mb-2">Key Strengths</h4>
-                    <ul className="space-y-1">
+                    <h4 className="font-semibold text-macri-primary mb-1">Key Strengths</h4>
+                    <ul className="space-y-0.5 text-xs">
                       <li>• Solution Architecture</li>
                       <li>• Strategic Planning</li>
                       <li>• Risk Management</li>
@@ -111,8 +111,8 @@ const Resume: React.FC = () => {
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-macri-primary mb-2">Industries</h4>
-                    <ul className="space-y-1">
+                    <h4 className="font-semibold text-macri-primary mb-1">Industries</h4>
+                    <ul className="space-y-0.5 text-xs">
                       <li>• Technology Services</li>
                       <li>• Enterprise Software</li>
                       <li>• Cloud Solutions</li>
@@ -122,34 +122,18 @@ const Resume: React.FC = () => {
                   
                   <div>
                     <h4 className="font-semibold text-macri-primary mb-2">References</h4>
-                    <div className="space-y-3">
-                      <div className="bg-gray-50 p-3 rounded text-xs">
-                        <p className="italic mb-2">
-                          "I have worked with Mike for the past 5 years during my time as an Enterprise Sales Exec at VMware. From Day 1 Mike has been a tremendous business partner... his attention to detail, work ethic, and unyielding commitment to delivering customer business goals & outcomes has been invaluable."
-                        </p>
-                        <p className="text-macri-primary font-medium">- LinkedIn Recommendation</p>
-                      </div>
-                      
-                      <div className="bg-gray-50 p-3 rounded text-xs">
-                        <p className="italic mb-2">
-                          "I find Mike to be a manager that is a true mentor, coach, and leader. Mike not only guides but listens. When I found myself in a quandary his 'Next Step' has always got me further in my endeavors."
-                        </p>
-                        <p className="text-macri-primary font-medium">- LinkedIn Recommendation</p>
-                      </div>
-                      
-                      <div className="text-center mt-3">
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white text-xs"
-                          asChild
-                        >
-                          <a href="https://www.linkedin.com/in/mikemacri/details/recommendations/" target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="mr-1 w-3 h-3" />
-                            View All References
-                          </a>
-                        </Button>
-                      </div>
+                    <div className="text-center">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white text-xs"
+                        asChild
+                      >
+                        <a href="https://www.linkedin.com/in/mikemacri/details/recommendations/" target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="mr-1 w-3 h-3" />
+                          View References
+                        </a>
+                      </Button>
                     </div>
                   </div>
                 </div>
