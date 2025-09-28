@@ -16,94 +16,172 @@ const Resume: React.FC = () => {
 
       {/* Header Section */}
       <section className="py-16 bg-gradient-to-br from-macri-primary/10 via-white to-macri-primary/5">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h1 className="font-saira font-bold text-5xl text-macri-primary mb-4">
-              Professional Resume
-            </h1>
-            <p className="text-xl text-gray-600 mb-8">
-              Comprehensive overview of my professional experience, education, and achievements
-            </p>
-            
-            {/* Download Button */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Button 
-                size="lg"
-                className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-3"
-                asChild
-              >
-                <a href="/resume.pdf" download>
-                  <Download className="mr-2 w-5 h-5" />
-                  Download PDF Resume
-                </a>
-              </Button>
-              
-              <Button 
-                size="lg"
-                variant="outline"
-                className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-8 py-3"
-                asChild
-              >
-                <a href="https://linkedin.com/in/mikemacri" target="_blank" rel="noopener noreferrer">
-                  <Linkedin className="mr-2 w-5 h-5" />
-                  LinkedIn Profile
-                </a>
-              </Button>
-            </div>
-          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Main Profile Card */}
+            <div className="lg:col-span-3">
+              <div className="bg-white rounded-lg shadow-md p-8 border border-gray-200">
+                <div className="flex flex-col lg:flex-row items-center gap-6 mb-6">
+                  <img
+                    src="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+                    alt="Mike Macri - Professional headshot"
+                    className="w-32 h-32 rounded-full border-4 border-macri-primary/20 object-cover"
+                  />
+                  
+                  <div className="flex-1 text-center lg:text-left">
+                    <h1 className="font-saira font-bold text-4xl text-macri-primary mb-2">
+                      Mike Macri, M.B.A.
+                    </h1>
+                    <p className="text-xl text-gray-700 mb-4">
+                      Strategic Business Consultant & Solution Architect
+                    </p>
+                    
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start text-gray-600">
+                      <div className="flex items-center">
+                        <MapPin className="w-4 h-4 mr-2" />
+                        <span>Seattle, WA • San Diego, CA • Chicago Metro Area</span>
+                      </div>
+                      <div className="flex items-center">
+                        <span className="w-4 h-4 mr-2 text-center">📍</span>
+                        <span>Available Nationwide - Onsite or Remote</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-          {/* Contact Info */}
-          <div className="bg-white rounded-lg shadow-md p-8 border border-gray-200 mb-8">
-            <div className="flex flex-col lg:flex-row items-center gap-6">
-              <img
-                src="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-                alt="Mike Macri - Professional headshot"
-                className="w-32 h-32 rounded-full border-4 border-macri-primary/20 object-cover"
-              />
-              
-              <div className="flex-1 text-center lg:text-left">
-                <h2 className="font-saira font-bold text-3xl text-macri-primary mb-2">
-                  Mike Macri, M.B.A.
-                </h2>
-                <p className="text-xl text-gray-700 mb-4">
-                  Strategic Business Consultant & Solution Architect
-                </p>
+                {/* Professional Summary */}
+                <div className="mb-6">
+                  <h2 className="font-saira font-bold text-2xl text-macri-primary mb-4">
+                    Professional Summary
+                  </h2>
+                  <div className="prose prose-lg max-w-none text-gray-700">
+                    <p className="text-lg leading-relaxed mb-4">
+                      Strategic Solution Engineering Leader with a proven record of aligning technical solutions to business priorities, accelerating adoption, and mitigating enterprise risk. At ServiceNow, delivered $900M in risk reduction through customer zero solution advisory and technical governance initiatives.
+                    </p>
+                    <p className="text-lg leading-relaxed">
+                      At VMware, grew advisory teams across the US West and delivered partner joint business planning that secured two $50M+ landmark deals. Recognized for driving brand growth with an NPS of 83 (20 points above company target of 63) and 100% deal attach rate, scaling partner ecosystems to go-to-market jointly and resolving complex global compliance challenges that strengthened enterprise resilience.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Download and LinkedIn Links */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button 
+                    size="lg"
+                    className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-3"
+                    asChild
+                  >
+                    <a href="/resume.pdf" download>
+                      <Download className="mr-2 w-5 h-5" />
+                      Download PDF Resume
+                    </a>
+                  </Button>
+                  
+                  <Button 
+                    size="lg"
+                    variant="outline"
+                    className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-8 py-3"
+                    asChild
+                  >
+                    <a href="https://linkedin.com/in/mikemacri" target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="mr-2 w-5 h-5" />
+                      LinkedIn Profile
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* About Me Sidebar */}
+            <div className="lg:col-span-1">
+              <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 sticky top-8">
+                <h3 className="font-saira font-bold text-xl text-macri-primary mb-4">About Me</h3>
                 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start text-gray-600">
-                <div className="flex items-center">
-                  <MapPin className="w-4 h-4 mr-2" />
-                  <span>San Francisco, CA / Remote</span>
+                <div className="space-y-4 text-sm text-gray-700">
+                  <div>
+                    <h4 className="font-semibold text-macri-primary mb-2">Key Strengths</h4>
+                    <ul className="space-y-1">
+                      <li>• Solution Architecture</li>
+                      <li>• Strategic Planning</li>
+                      <li>• Risk Management</li>
+                      <li>• Partner Development</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-macri-primary mb-2">Industries</h4>
+                    <ul className="space-y-1">
+                      <li>• Technology Services</li>
+                      <li>• Enterprise Software</li>
+                      <li>• Cloud Solutions</li>
+                      <li>• Compliance & Security</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-macri-primary mb-2">References</h4>
+                    <p className="text-xs italic">
+                      Professional references available upon request from previous colleagues at ServiceNow, VMware, and consulting clients.
+                    </p>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <span className="w-4 h-4 mr-2 text-center">📍</span>
-                  <span>Available Nationwide</span>
-                </div>
-              </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Professional Summary */}
-      <section className="py-12 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-saira font-bold text-3xl text-macri-primary mb-6">
-            Professional Summary
-          </h2>
-            <div className="prose prose-lg max-w-none text-gray-700">
-              <p className="text-lg leading-relaxed mb-4">
-                Experienced Strategic Solution Engineering Leader with a proven record of aligning technical solutions to business priorities, accelerating adoption, and mitigating enterprise risk. At ServiceNow, delivered $900M in risk reduction through customer zero solution advisory and technical governance initiatives.
-              </p>
-              <p className="text-lg leading-relaxed">
-                At VMware, grew advisory teams across the US West and delivered partner joint business planning that secured two $50M+ landmark deals. Recognized for driving brand growth with an NPS of 83 (20 points above company target of 63) and 100% deal attach rate, scaling partner ecosystems to go-to-market jointly and resolving complex global compliance challenges that strengthened enterprise resilience.
-              </p>
+          {/* Quick Navigation */}
+          <div className="mt-12">
+            <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+              <h3 className="font-saira font-bold text-lg text-macri-primary mb-4 text-center">Resume Sections</h3>
+              <div className="flex flex-wrap justify-center gap-4">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
+                  onClick={() => document.getElementById('achievements')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Key Achievements
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
+                  onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Experience
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
+                  onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Skills
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
+                  onClick={() => document.getElementById('education')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Education
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
+                  onClick={() => document.getElementById('awards')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Awards
+                </Button>
+              </div>
             </div>
+          </div>
         </div>
       </section>
 
       {/* Key Achievements */}
-      <section className="py-12 bg-gray-50">
+      <section id="achievements" className="py-12 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-saira font-bold text-3xl text-macri-primary mb-8">
             Key Achievements
@@ -145,7 +223,7 @@ const Resume: React.FC = () => {
       </section>
 
       {/* Experience Section */}
-      <section className="py-12 bg-white">
+      <section id="experience" className="py-12 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-saira font-bold text-3xl text-macri-primary mb-8">
             Professional Experience
@@ -186,7 +264,7 @@ const Resume: React.FC = () => {
       </section>
 
       {/* Skills Section */}
-      <section className="py-12 bg-gray-50">
+      <section id="skills" className="py-12 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-saira font-bold text-3xl text-macri-primary mb-8">
             Skills & Expertise
@@ -207,7 +285,7 @@ const Resume: React.FC = () => {
       </section>
 
       {/* Education Section */}
-      <section className="py-12 bg-white">
+      <section id="education" className="py-12 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-saira font-bold text-3xl text-macri-primary mb-8 flex items-center">
             <GraduationCap className="w-8 h-8 mr-3" />
@@ -237,7 +315,7 @@ const Resume: React.FC = () => {
       </section>
 
       {/* Awards & Certifications */}
-      <section className="py-12 bg-gray-50">
+      <section id="awards" className="py-12 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-saira font-bold text-3xl text-macri-primary mb-8 flex items-center">
             <Award className="w-8 h-8 mr-3" />
