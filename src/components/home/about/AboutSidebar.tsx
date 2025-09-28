@@ -73,17 +73,17 @@ const AboutSidebar: React.FC<AboutSidebarProps> = ({
             
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger asChild>
-                  <a 
-                    href={websiteUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="flex items-center justify-center h-10 w-10 rounded-full bg-macri-primary hover:bg-black text-white transition-colors duration-200"
-                    aria-label="Website"
-                  >
-                    <Globe className="h-5 w-5" />
-                  </a>
-                </TooltipTrigger>
+              <TooltipTrigger asChild>
+                <a 
+                  href={websiteUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center justify-center h-10 w-10 rounded-full bg-macri-primary hover:bg-black text-white transition-colors duration-200"
+                  aria-label="Website"
+                >
+                  <span className="text-lg font-bold">M</span>
+                </a>
+              </TooltipTrigger>
                 <TooltipContent>
                   <p>Visit my website</p>
                 </TooltipContent>

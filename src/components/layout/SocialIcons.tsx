@@ -75,7 +75,7 @@ export const SocialIcons: React.FC = () => {
               rel="noopener noreferrer"
               aria-label="Website"
             >
-              <i className="fas fa-globe"></i>
+              <span className="text-lg font-bold">M</span>
             </a>
           </TooltipTrigger>
           <TooltipContent>

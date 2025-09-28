@@ -90,9 +90,9 @@ const Home: React.FC = () => {
                   className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-8 py-4 text-lg"
                   asChild
                 >
-                  <a href="/resume.pdf" download>
-                    <Download className="mr-2 w-5 h-5" />
-                    Download Resume
+                  <a href="/resume">
+                    <ExternalLink className="mr-2 w-5 h-5" />
+                    View Resume
                   </a>
                 </Button>
               </div>
