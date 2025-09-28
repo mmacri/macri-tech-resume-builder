@@ -62,7 +62,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Send email to you (replace with your actual email)
     const emailResponse = await resend.emails.send({
       from: "Contact Form <contact@resend.dev>", // This is a verified domain from Resend
-      to: ["mike@mikemacri.com"], // Replace with your actual email
+      to: ["mikemacri@gmail.com"], // Replace with your actual email
       reply_to: email,
       subject: `${emailSubject} - from ${name}`,
       html: `
