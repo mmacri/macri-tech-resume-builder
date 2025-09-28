@@ -29,6 +29,28 @@ const About: React.FC = () => {
               <p>
                 At VMware, grew advisory teams across the US West and delivered partner joint business planning that secured two $50M+ landmark deals. Recognized for driving brand growth with an NPS of 83 (20 points above company target of 63) and 100% deal attach rate, scaling partner ecosystems to go-to-market jointly and resolving complex global compliance challenges that strengthened enterprise resilience.
               </p>
+
+              <div className="bg-macri-primary/5 p-6 rounded-lg">
+                <h3 className="font-semibold text-lg text-macri-primary mb-3">Available Locations</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-base">
+                  <div className="flex items-center">
+                    <span className="w-2 h-2 bg-macri-primary rounded-full mr-3"></span>
+                    San Francisco Bay Area, CA
+                  </div>
+                  <div className="flex items-center">
+                    <span className="w-2 h-2 bg-macri-primary rounded-full mr-3"></span>
+                    Remote (Nationwide)
+                  </div>
+                  <div className="flex items-center">
+                    <span className="w-2 h-2 bg-macri-primary rounded-full mr-3"></span>
+                    On-site Consulting Available
+                  </div>
+                  <div className="flex items-center">
+                    <span className="w-2 h-2 bg-macri-primary rounded-full mr-3"></span>
+                    International Projects Welcome
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Key Stats */}

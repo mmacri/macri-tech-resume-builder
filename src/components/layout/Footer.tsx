@@ -41,9 +41,9 @@ export const Footer: React.FC = () => {
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
-                href="mailto:MikeMacri@gmail.com"
+                href="/contact"
                 className="flex items-center justify-center w-10 h-10 bg-macri-primary hover:bg-macri-primary-dark rounded-full transition-colors"
-                aria-label="Email Mike"
+                aria-label="Contact Form"
               >
                 <Mail className="w-5 h-5" />
               </a>

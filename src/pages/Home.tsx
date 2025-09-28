@@ -83,8 +83,8 @@ const Home: React.FC = () => {
                   asChild
                 >
                   <a href="/portfolio">
-                    View My Work
-                    <ArrowRight className="ml-2 w-5 h-5" />
+                  View My Portfolio
+                  <ArrowRight className="ml-2 w-5 h-5" />
                   </a>
                 </Button>
                 
@@ -131,16 +131,22 @@ const Home: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div className="text-left">
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                  With over 15 years of experience in business consulting and solution architecture, 
-                  I specialize in helping organizations navigate complex challenges and achieve 
-                  sustainable growth through innovative strategies and technology implementations.
+                  Experienced Strategic Solution Engineering Leader with a proven record of aligning technical solutions to business priorities, accelerating adoption, and mitigating enterprise risk. At ServiceNow, delivered $900M in risk reduction through customer zero solution advisory and technical governance initiatives.
                 </p>
                 
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                  My expertise spans governance frameworks, risk management, partner ecosystem 
-                  development, and customer success optimization. I'm passionate about turning 
-                  strategic vision into measurable business results.
+                  At VMware, grew advisory teams across the US West and delivered partner joint business planning that secured two $50M+ landmark deals. Recognized for driving brand growth with an NPS of 83 (20 points above company target) and 100% deal attach rate.
                 </p>
+
+                <div className="bg-gray-50 p-6 rounded-lg mb-6">
+                  <h3 className="font-semibold text-lg text-macri-primary mb-3">Available for Consulting</h3>
+                  <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
+                    <div>• San Francisco Bay Area</div>
+                    <div>• Remote Nationwide</div>
+                    <div>• On-site Available</div>
+                    <div>• International Projects</div>
+                  </div>
+                </div>
 
                 <Button 
                   className="bg-macri-primary hover:bg-macri-primary-dark text-white"
@@ -238,7 +244,7 @@ const Home: React.FC = () => {
               asChild
             >
               <a href="/portfolio">
-                View All Projects
+                View My Portfolio
                 <ArrowRight className="ml-2 w-5 h-5" />
               </a>
             </Button>

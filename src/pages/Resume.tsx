@@ -72,19 +72,11 @@ const Resume: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start text-gray-600">
                 <div className="flex items-center">
                   <MapPin className="w-4 h-4 mr-2" />
-                  <span>San Francisco, CA</span>
+                  <span>San Francisco, CA / Remote</span>
                 </div>
                 <div className="flex items-center">
-                  <Mail className="w-4 h-4 mr-2" />
-                  <a href="mailto:MikeMacri@gmail.com" className="hover:text-macri-primary transition-colors">
-                    MikeMacri@gmail.com
-                  </a>
-                </div>
-                <div className="flex items-center">
-                  <span className="w-4 h-4 mr-2 text-center text-xs">📞</span>
-                  <a href="tel:+16503084071" className="hover:text-macri-primary transition-colors">
-                    650-308-4071
-                  </a>
+                  <span className="w-4 h-4 mr-2 text-center">📍</span>
+                  <span>Available Nationwide</span>
                 </div>
               </div>
               </div>

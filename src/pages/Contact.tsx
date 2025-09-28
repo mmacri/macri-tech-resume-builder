@@ -51,10 +51,11 @@ const Contact = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Get In Touch
+            Let's Connect
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Let's discuss how we can work together to solve your technology challenges and drive business growth.
+            Ready to discuss your technology challenges and business goals? This contact form is the best way to reach me. 
+            I personally respond to every message within 24 hours.
           </p>
         </div>
 
@@ -67,7 +68,7 @@ const Contact = () => {
                 Send a Message
               </CardTitle>
               <CardDescription>
-                I'll respond within 24 hours.
+                The most reliable way to reach me. I personally respond to every inquiry within 24 hours.
               </CardDescription>
             </CardHeader>
             <CardContent>
