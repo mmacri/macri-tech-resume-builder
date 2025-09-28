@@ -72,30 +72,6 @@ export const ProjectIndex = ({ projects, loading, user, seedProjects }: ProjectI
                 <ProjectTile key={project.id} project={project} />
               ))}
             </div>
-
-            {/* Quick Navigation */}
-            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
-              <h3 className="text-2xl font-bold mb-6 text-center text-macri-primary">Quick Navigation</h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {projects.map((project) => (
-                  <a 
-                    key={project.id}
-                    href={`#${project.id}`} 
-                    className="p-4 rounded-lg border border-gray-200 hover:border-macri-primary hover:bg-macri-primary/5 transition-all duration-200 group"
-                  >
-                    <div className="font-medium text-macri-dark group-hover:text-macri-primary transition-colors">
-                      {project.title}
-                    </div>
-                    <div className="text-sm text-gray-500 mt-1">
-                      {project.description.length > 60 
-                        ? `${project.description.slice(0, 60)}...` 
-                        : project.description
-                      }
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
           </>
         )}
       </div>

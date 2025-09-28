@@ -1,5 +1,6 @@
 import { ProjectIndex } from '@/components/portfolio/ProjectIndex';
 import { ProjectList } from '@/components/portfolio/ProjectList';
+import { FloatingNav } from '@/components/portfolio/FloatingNav';
 import { staticProjectsData } from '@/data/staticResumeData';
 
 const Portfolio = () => {
@@ -27,6 +28,8 @@ const Portfolio = () => {
       <hr className="m-0" />
       
       <ProjectList projects={projects} loading={isLoading} />
+      
+      <FloatingNav projects={projects} />
     </>
   );
 };
