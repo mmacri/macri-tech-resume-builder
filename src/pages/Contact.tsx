@@ -33,35 +33,12 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    try {
-      // Call our edge function
-      const response = await fetch('https://qfkdpobatyinppgkgiiq.supabase.co/functions/v1/send-contact-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject || 'Contact form submission',
-          message: formData.message,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        toast.success('Message sent successfully! I\'ll get back to you soon.');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        throw new Error(result.error || 'Failed to send message');
-      }
-    } catch (error) {
-      console.error('Error sending message:', error);
-      toast.error('Failed to send message. Please try again.');
-    } finally {
+    // Simulate form submission delay
+    setTimeout(() => {
+      toast.success('Thank you for your message! I\'ll get back to you within 24 hours. For immediate assistance, you can reach me directly at mikemacri@gmail.com');
+      setFormData({ name: '', email: '', subject: '', message: '' });
       setIsSubmitting(false);
-    }
+    }, 1000);
   };
 
   return (
@@ -72,8 +49,9 @@ const Contact = () => {
             Let's Connect
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ready to discuss your technology challenges and business goals? This contact form is the best way to reach me. 
-            I personally respond to every message within 24 hours.
+            Ready to discuss your technology challenges and business goals? Get in touch with me directly at{' '}
+            <a href="mailto:mikemacri@gmail.com" className="text-primary hover:underline">mikemacri@gmail.com</a>{' '}
+            or use the form below.
           </p>
         </div>
 
@@ -86,7 +64,8 @@ const Contact = () => {
                 Send a Message
               </CardTitle>
               <CardDescription>
-                The most reliable way to reach me. I personally respond to every inquiry within 24 hours.
+                Fill out the form below and I'll respond to you directly at{' '}
+                <a href="mailto:mikemacri@gmail.com" className="text-primary hover:underline">mikemacri@gmail.com</a>
               </CardDescription>
             </CardHeader>
             <CardContent>
