@@ -1,1 +1,5 @@
 project_id = "qfkdpobatyinppgkgiiq"
+
+# Make the contact form function public (no authentication required)
+[functions.send-contact-email]
+verify_jwt = false

@@ -34,8 +34,8 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Using Formspree for form handling - replace YOUR_FORM_ID with your actual form ID
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      // Call our edge function
+      const response = await fetch('https://qfkdpobatyinppgkgiiq.supabase.co/functions/v1/send-contact-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,11 +48,13 @@ const Contact = () => {
         }),
       });
 
-      if (response.ok) {
+      const result = await response.json();
+
+      if (response.ok && result.success) {
         toast.success('Message sent successfully! I\'ll get back to you soon.');
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
-        throw new Error('Failed to send message');
+        throw new Error(result.error || 'Failed to send message');
       }
     } catch (error) {
       console.error('Error sending message:', error);
