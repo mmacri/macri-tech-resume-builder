@@ -60,14 +60,22 @@ const Home: React.FC = () => {
             </p>
 
               {/* Key Stats */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
-                  <div className="text-3xl font-bold text-macri-primary mb-2">$900M</div>
-                  <div className="text-sm font-medium text-gray-600">Risk Reduction</div>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+                <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
+                  <div className="text-lg font-bold text-macri-primary mb-1">Solution</div>
+                  <div className="text-xs font-medium text-gray-600">Advisory</div>
                 </div>
-                <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
-                  <div className="text-3xl font-bold text-macri-primary mb-2">83</div>
-                  <div className="text-sm font-medium text-gray-600">NPS Score</div>
+                <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
+                  <div className="text-lg font-bold text-macri-primary mb-1">Partner</div>
+                  <div className="text-xs font-medium text-gray-600">Development</div>
+                </div>
+                <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
+                  <div className="text-lg font-bold text-macri-primary mb-1">Compliance</div>
+                  <div className="text-xs font-medium text-gray-600">& AI Ethics</div>
+                </div>
+                <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
+                  <div className="text-lg font-bold text-macri-primary mb-1">Brand & KPI</div>
+                  <div className="text-xs font-medium text-gray-600">Builder</div>
                 </div>
               </div>
 
@@ -135,7 +143,7 @@ const Home: React.FC = () => {
                 </p>
 
                 <div className="bg-gray-50 p-6 rounded-lg mb-6">
-                  <h3 className="font-semibold text-lg text-macri-primary mb-3">Available for Consulting</h3>
+                  <h3 className="font-semibold text-lg text-macri-primary mb-3">Available</h3>
                   <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
                     <div>• Seattle, WA</div>
                     <div>• San Diego, CA</div>
@@ -175,6 +183,10 @@ const Home: React.FC = () => {
                     <li className="flex items-center">
                       <Star className="w-5 h-5 text-macri-primary mr-3" />
                       Partner Ecosystem Development
+                    </li>
+                    <li className="flex items-center">
+                      <Star className="w-5 h-5 text-macri-primary mr-3" />
+                      Compliance Manager (Policy & regulatory compliance technical solutions)
                     </li>
                   </ul>
                 </div>
