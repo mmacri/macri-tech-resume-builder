@@ -103,19 +103,19 @@ const About: React.FC = () => {
                     1
                   </div>
                   <div className="ml-4 md:w-80 md:text-right md:pr-8">
-                    <h3 className="font-semibold text-xl text-macri-primary">Early Career Foundation</h3>
+                    <h3 className="font-semibold text-xl text-macri-primary">Technical Foundation & Early Leadership</h3>
                     <p className="text-gray-600 flex items-center">
                       <Calendar className="w-4 h-4 mr-2" />
-                      2008-2012
+                      2008-2014
                     </p>
                   </div>
                 </div>
                 <div className="md:w-96 md:pl-8">
                   <p className="text-gray-700">
-                    Built technical expertise developing online payroll systems using mainframe and web technologies. 
-                    Founded and successfully merged my own consulting firm, then expanded into CIO consulting, 
-                    V-Dash implementations for Microsoft, and serving customers across the US of all sizes with 
-                    strategic technology solutions.
+                    Built technical expertise developing online payroll systems using mainframe and web technologies while 
+                    founding and successfully merging my own consulting firm. Transitioned into enterprise technology as 
+                    Staff Technical Account Manager at VMware, creating engagement deliverables that aligned customer 
+                    metrics with operational efficiency, achieving 100% services attach rate on all deals.
                   </p>
                 </div>
               </div>
@@ -127,17 +127,19 @@ const About: React.FC = () => {
                     2
                   </div>
                   <div className="ml-4 md:mr-4 md:w-80 md:text-left md:pl-8">
-                    <h3 className="font-semibold text-xl text-macri-primary">Solution Consulting Excellence</h3>
+                    <h3 className="font-semibold text-xl text-macri-primary">Solution Consulting Excellence & Team Building</h3>
                     <p className="text-gray-600 flex items-center">
                       <Calendar className="w-4 h-4 mr-2" />
-                      2013-2018
+                      2014-2019
                     </p>
                   </div>
                 </div>
                 <div className="md:w-96 md:pr-8">
                   <p className="text-gray-700">
-                    Specialized in solution consulting, helping organizations implement governance frameworks 
-                    and optimize business processes. Led multiple successful technology implementations.
+                    Advanced to Sr Manager leading Customer Success, TAMs, and Product Specialists across the US West Coast. 
+                    Built engagement frameworks that improved NPS by 30 points (20 above company standard) while growing and 
+                    mentoring 3 teams. Later led Partner Solutions Engineering, driving $440M through multi-tiered routes with 
+                    CDW, increasing pipeline capture by 20% and solution adoption by 20%.
                   </p>
                 </div>
               </div>
@@ -149,7 +151,7 @@ const About: React.FC = () => {
                     3
                   </div>
                   <div className="ml-4 md:w-80 md:text-right md:pr-8">
-                    <h3 className="font-semibold text-xl text-macri-primary">Strategic Leadership</h3>
+                    <h3 className="font-semibold text-xl text-macri-primary">Strategic Executive Leadership</h3>
                     <p className="text-gray-600 flex items-center">
                       <Calendar className="w-4 h-4 mr-2" />
                       2019-Present
@@ -158,10 +160,11 @@ const About: React.FC = () => {
                 </div>
                 <div className="md:w-96 md:pl-8">
                   <p className="text-gray-700">
-                    Advanced to strategic leadership roles, building trusted brands that sales teams and customers 
-                    rely upon. Led internal compliance technology solutions and cross-departmental projects, 
-                    collaborating with product teams to influence roadmaps across all organizations within 
-                    a rapidly growing PaaS company while consistently delivering measurable business impact.
+                    Elevated to Partner Business & Technical Alliance Director, designing joint business plans that secured 
+                    two record-setting $50M+ deals while exceeding sales targets by 450%. Currently Sr Manager of Solution 
+                    Advisory for Legal Ethics & Compliance at ServiceNow, delivering $900M in risk reduction through 
+                    cross-functional initiatives, shaping product roadmaps, and establishing AI/ML governance frameworks 
+                    as SME for inaugural AI risk policies.
                   </p>
                 </div>
               </div>
