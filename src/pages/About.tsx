@@ -1,7 +1,7 @@
 import React from 'react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Button } from '@/components/ui/button';
-import { Download, ExternalLink, MapPin, Calendar, Building } from 'lucide-react';
+import { Download, ExternalLink, MapPin, Calendar, Building, Mail } from 'lucide-react';
 
 const About: React.FC = () => {
   return (
