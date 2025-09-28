@@ -45,7 +45,7 @@ const FloatingResumeNav: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-50">
+    <div className="fixed right-4 top-20 z-50 hidden lg:block">
       {/* Toggle Button */}
       <Button
         onClick={() => setIsOpen(!isOpen)}

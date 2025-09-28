@@ -91,84 +91,80 @@ const About: React.FC = () => {
             </p>
           </div>
 
-          {/* Timeline */}
-          <div className="relative">
-            <div className="absolute left-4 md:left-1/2 transform md:-translate-x-px top-6 bottom-6 w-0.5 bg-macri-primary/30"></div>
-            
-            <div className="space-y-12">
-              {/* Timeline Item 1 */}
-              <div className="relative flex flex-col md:flex-row md:items-center">
-                <div className="flex items-center mb-4 md:mb-0">
-                  <div className="flex items-center justify-center w-8 h-8 bg-macri-primary rounded-full text-white font-bold text-sm">
+          {/* Timeline - Mobile First Design */}
+          <div className="space-y-8">
+            {/* Timeline Item 1 */}
+            <div className="relative">
+              <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+                <div className="flex items-start space-x-4">
+                  <div className="flex items-center justify-center w-10 h-10 bg-macri-primary rounded-full text-white font-bold text-lg flex-shrink-0">
                     1
                   </div>
-                  <div className="ml-4 md:w-80 md:text-right md:pr-8">
-                    <h3 className="font-semibold text-xl text-macri-primary">Technical Foundation & Consulting Excellence</h3>
-                    <p className="text-gray-600 flex items-center">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      2000-2008
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-xl text-macri-primary mb-2">Technical Foundation & Consulting Excellence</h3>
+                    <p className="text-gray-600 flex items-center mb-4">
+                      <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
+                      <span>2000-2008</span>
+                    </p>
+                    <p className="text-gray-700 leading-relaxed">
+                      Built deep technical expertise developing online payroll systems using mainframe and web technologies. 
+                      Founded and successfully merged my own consulting firm, delivering strategic technology solutions 
+                      across healthcare, dental, and diverse industries. Established CIO consulting practice and V-Dash 
+                      implementations for Microsoft, serving customers nationwide and building foundation for enterprise 
+                      technology leadership.
                     </p>
                   </div>
                 </div>
-                <div className="md:w-96 md:pl-8">
-                  <p className="text-gray-700">
-                    Built deep technical expertise developing online payroll systems using mainframe and web technologies. 
-                    Founded and successfully merged my own consulting firm, delivering strategic technology solutions 
-                    across healthcare, dental, and diverse industries. Established CIO consulting practice and V-Dash 
-                    implementations for Microsoft, serving customers nationwide and building foundation for enterprise 
-                    technology leadership.
-                  </p>
-                </div>
               </div>
+            </div>
 
-              {/* Timeline Item 2 */}
-              <div className="relative flex flex-col md:flex-row md:items-center">
-                <div className="flex items-center mb-4 md:mb-0 md:flex-row-reverse">
-                  <div className="flex items-center justify-center w-8 h-8 bg-macri-primary rounded-full text-white font-bold text-sm">
+            {/* Timeline Item 2 */}
+            <div className="relative">
+              <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+                <div className="flex items-start space-x-4">
+                  <div className="flex items-center justify-center w-10 h-10 bg-macri-primary rounded-full text-white font-bold text-lg flex-shrink-0">
                     2
                   </div>
-                  <div className="ml-4 md:mr-4 md:w-80 md:text-left md:pl-8">
-                    <h3 className="font-semibold text-xl text-macri-primary">Enterprise Scale & Team Leadership</h3>
-                    <p className="text-gray-600 flex items-center">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      2008-2019
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-xl text-macri-primary mb-2">Enterprise Scale & Team Leadership</h3>
+                    <p className="text-gray-600 flex items-center mb-4">
+                      <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
+                      <span>2008-2019</span>
+                    </p>
+                    <p className="text-gray-700 leading-relaxed">
+                      Transitioned to VMware, serving Fortune 500 clients including Boeing, Salesforce, Costco, and Intuit, 
+                      plus State and Education sectors. Advanced from Staff Technical Account Manager to Sr Manager, 
+                      building engagement frameworks that improved NPS by 30 points and drove $440M in partner revenue. 
+                      Created scalable solutions like deploying 500 Costco storefronts in 10 minutes, achieving 100% 
+                      services attach rate while growing teams across the US West Coast.
                     </p>
                   </div>
-                </div>
-                <div className="md:w-96 md:pr-8">
-                  <p className="text-gray-700">
-                    Transitioned to VMware, serving Fortune 500 clients including Boeing, Salesforce, Costco, and Intuit, 
-                    plus State and Education sectors. Advanced from Staff Technical Account Manager to Sr Manager, 
-                    building engagement frameworks that improved NPS by 30 points and drove $440M in partner revenue. 
-                    Created scalable solutions like deploying 500 Costco storefronts in 10 minutes, achieving 100% 
-                    services attach rate while growing teams across the US West Coast.
-                  </p>
                 </div>
               </div>
+            </div>
 
-              {/* Timeline Item 3 */}
-              <div className="relative flex flex-col md:flex-row md:items-center">
-                <div className="flex items-center mb-4 md:mb-0">
-                  <div className="flex items-center justify-center w-8 h-8 bg-macri-primary rounded-full text-white font-bold text-sm">
+            {/* Timeline Item 3 */}
+            <div className="relative">
+              <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+                <div className="flex items-start space-x-4">
+                  <div className="flex items-center justify-center w-10 h-10 bg-macri-primary rounded-full text-white font-bold text-lg flex-shrink-0">
                     3
                   </div>
-                  <div className="ml-4 md:w-80 md:text-right md:pr-8">
-                    <h3 className="font-semibold text-xl text-macri-primary">Strategic Executive Leadership</h3>
-                    <p className="text-gray-600 flex items-center">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      2019-Present
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-xl text-macri-primary mb-2">Strategic Executive Leadership</h3>
+                    <p className="text-gray-600 flex items-center mb-4">
+                      <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
+                      <span>2019-Present</span>
+                    </p>
+                    <p className="text-gray-700 leading-relaxed">
+                      Elevated to Partner Business & Technical Alliance Director, designing joint business plans that secured 
+                      two record-setting $50M+ deals while exceeding sales targets by 450%. As Sr Manager of Solution 
+                      Advisory for Legal Ethics & Compliance at ServiceNow, I bridge departmental solutions across 
+                      ServiceNow orgs, sales, customers and legal, delivering $900M in risk reduction through 
+                      cross-functional initiatives, shaping product roadmaps, and establishing AI/ML governance frameworks 
+                      as SME for inaugural AI risk policies.
                     </p>
                   </div>
-                </div>
-                <div className="md:w-96 md:pl-8">
-                  <p className="text-gray-700">
-                    Elevated to Partner Business & Technical Alliance Director, designing joint business plans that secured 
-                    two record-setting $50M+ deals while exceeding sales targets by 450%. As Sr Manager of Solution 
-                    Advisory for Legal Ethics & Compliance at ServiceNow, I bridge departmental solutions across 
-                    ServiceNow orgs, sales, customers and legal, delivering $900M in risk reduction through 
-                    cross-functional initiatives, shaping product roadmaps, and establishing AI/ML governance frameworks 
-                    as SME for inaugural AI risk policies.
-                  </p>
                 </div>
               </div>
             </div>

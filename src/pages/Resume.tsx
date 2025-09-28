@@ -16,80 +16,81 @@ const Resume: React.FC = () => {
       />
 
       {/* Header Section */}
-      <section className="py-16 bg-gradient-to-br from-macri-primary/10 via-white to-macri-primary/5">
+      <section className="py-8 sm:py-16 bg-gradient-to-br from-macri-primary/10 via-white to-macri-primary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
             {/* Main Profile Card */}
             <div className="lg:col-span-3">
-              <div className="bg-white rounded-lg shadow-md p-8 border border-gray-200">
-                <div className="flex flex-col lg:flex-row items-center gap-6 mb-6">
+              <div className="bg-white rounded-lg shadow-md p-4 sm:p-8 border border-gray-200">
+                <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-6 mb-6">
                   <img
                     src="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
                     alt="Mike Macri - Professional headshot"
-                    className="w-32 h-32 rounded-full border-4 border-macri-primary/20 object-cover"
+                    className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-macri-primary/20 object-cover"
                   />
                   
-                  <div className="flex-1 text-center lg:text-left">
-                    <h1 className="font-saira font-bold text-4xl text-macri-primary mb-2">
-                      Mike Macri, M.B.A.
-                    </h1>
-                    <p className="text-xl text-gray-700 mb-4">
-                      Strategic Business Consultant & Solution Architect
-                    </p>
-                    
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start text-gray-600">
-                      <div className="flex items-center">
-                        <MapPin className="w-4 h-4 mr-2" />
-                        <span>Seattle, WA • San Diego, CA • Chicago Metro Area</span>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="w-4 h-4 mr-2 text-center">📍</span>
-                        <span>Available Nationwide - Onsite or Remote</span>
-                      </div>
-                    </div>
-                  </div>
+                   <div className="flex-1 text-center lg:text-left">
+                     <h1 className="font-saira font-bold text-2xl sm:text-4xl text-macri-primary mb-2">
+                       Mike Macri, M.B.A.
+                     </h1>
+                     <p className="text-lg sm:text-xl text-gray-700 mb-4">
+                       Strategic Business Consultant & Solution Architect
+                     </p>
+                     
+                     <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center lg:justify-start text-gray-600">
+                       <div className="flex items-center justify-center lg:justify-start">
+                         <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+                         <span className="text-sm sm:text-base text-center lg:text-left">Seattle, WA • San Diego, CA • Chicago Metro Area</span>
+                       </div>
+                       <div className="flex items-center justify-center lg:justify-start">
+                         <span className="w-4 h-4 mr-2 text-center flex-shrink-0">📍</span>
+                         <span className="text-sm sm:text-base text-center lg:text-left">Available Nationwide - Onsite or Remote</span>
+                       </div>
+                     </div>
+                   </div>
                 </div>
 
-                {/* Professional Summary */}
-                <div className="mb-6">
-                  <h2 className="font-saira font-bold text-2xl text-macri-primary mb-4">
-                    Professional Summary
-                  </h2>
-                  <div className="prose prose-lg max-w-none text-gray-700">
-                    <p className="text-lg leading-relaxed mb-4">
-                      Strategic Solution Engineering Leader with a proven record of aligning technical solutions to business priorities, accelerating adoption, and mitigating enterprise risk. At ServiceNow, delivered $900M in risk reduction through customer zero solution advisory and technical governance initiatives.
-                    </p>
-                    <p className="text-lg leading-relaxed">
-                      At VMware, grew advisory teams across the US West and delivered partner joint business planning that secured two $50M+ landmark deals. Recognized for driving brand growth with an NPS of 83 (20 points above company target of 63) and 100% deal attach rate, scaling partner ecosystems to go-to-market jointly and resolving complex global compliance challenges that strengthened enterprise resilience.
-                    </p>
-                  </div>
-                </div>
+                 {/* Professional Summary */}
+                 <div className="mb-6">
+                   <h2 className="font-saira font-bold text-xl sm:text-2xl text-macri-primary mb-4">
+                     Professional Summary
+                   </h2>
+                   <div className="prose prose-lg max-w-none text-gray-700">
+                     <p className="text-base sm:text-lg leading-relaxed mb-4">
+                       Strategic Solution Engineering Leader with a proven record of aligning technical solutions to business priorities, accelerating adoption, and mitigating enterprise risk. At ServiceNow, delivered $900M in risk reduction through customer zero solution advisory and technical governance initiatives.
+                     </p>
+                     <p className="text-base sm:text-lg leading-relaxed">
+                       At VMware, grew advisory teams across the US West and delivered partner joint business planning that secured two $50M+ landmark deals. Recognized for driving brand growth with an NPS of 83 (20 points above company target of 63) and 100% deal attach rate, scaling partner ecosystems to go-to-market jointly and resolving complex global compliance challenges that strengthened enterprise resilience.
+                     </p>
+                   </div>
+                 </div>
 
-                {/* Download and LinkedIn Links */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button 
-                    size="lg"
-                    className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-3"
-                    asChild
-                  >
-                    <a href="/resume.pdf" download>
-                      <Download className="mr-2 w-5 h-5" />
-                      Download PDF Resume
-                    </a>
-                  </Button>
-                  
-                  <Button 
-                    size="lg"
-                    variant="outline"
-                    className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-8 py-3"
-                    asChild
-                  >
-                    <a href="https://linkedin.com/in/mikemacri" target="_blank" rel="noopener noreferrer">
-                      <Linkedin className="mr-2 w-5 h-5" />
-                      LinkedIn Profile
-                    </a>
-                  </Button>
-                </div>
+                 {/* Contact Links - Only LinkedIn and Website */}
+                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                   <Button 
+                     size="lg"
+                     variant="outline"
+                     className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-6 py-3"
+                     asChild
+                   >
+                     <a href="https://linkedin.com/in/mikemacri" target="_blank" rel="noopener noreferrer">
+                       <Linkedin className="mr-2 w-5 h-5" />
+                       LinkedIn Profile
+                     </a>
+                   </Button>
+                   
+                   <Button 
+                     size="lg"
+                     variant="outline"
+                     className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-6 py-3"
+                     asChild
+                   >
+                     <a href="https://mikemacri.com" target="_blank" rel="noopener noreferrer">
+                       <ExternalLink className="mr-2 w-5 h-5" />
+                       Visit Website
+                     </a>
+                   </Button>
+                 </div>
               </div>
             </div>
 
@@ -161,13 +162,13 @@ const Resume: React.FC = () => {
 
       <FloatingResumeNav />
 
-      {/* Key Achievements */}
-      <section id="achievements" className="py-12 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-saira font-bold text-3xl text-macri-primary mb-8">
-            Key Achievements
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+       {/* Key Achievements */}
+       <section id="achievements" className="py-8 sm:py-12 bg-gray-50">
+         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+           <h2 className="font-saira font-bold text-2xl sm:text-3xl text-macri-primary mb-6 sm:mb-8">
+             Key Achievements
+           </h2>
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
               <div className="text-3xl font-bold text-macri-primary mb-2">$900M</div>
               <div className="font-semibold text-gray-900 mb-2">Risk Reduction Delivered</div>
