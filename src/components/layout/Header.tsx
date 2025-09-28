@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Download, Linkedin } from 'lucide-react';
+import { Menu, X, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export const Header: React.FC = () => {
@@ -66,16 +66,6 @@ export const Header: React.FC = () => {
               >
                 <Linkedin className="w-5 h-5" />
               </a>
-              <Button
-                size="sm"
-                className="bg-macri-primary hover:bg-macri-primary-dark text-white"
-                asChild
-              >
-                <a href="/resume.pdf" download>
-                  <Download className="w-4 h-4 mr-2" />
-                  Resume
-                </a>
-              </Button>
             </div>
           </nav>
 
@@ -121,16 +111,6 @@ export const Header: React.FC = () => {
                   <Linkedin className="w-5 h-5 mr-2" />
                   LinkedIn
                 </a>
-                <Button
-                  size="sm"
-                  className="bg-macri-primary hover:bg-macri-primary-dark text-white"
-                  asChild
-                >
-                  <a href="/resume.pdf" download>
-                    <Download className="w-4 h-4 mr-2" />
-                    Resume
-                  </a>
-                </Button>
               </div>
             </div>
           </div>
