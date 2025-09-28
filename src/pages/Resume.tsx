@@ -1,7 +1,7 @@
 import React from 'react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Button } from '@/components/ui/button';
-import { Download, ExternalLink, MapPin, Mail, Linkedin, Calendar, Award, GraduationCap } from 'lucide-react';
+import { Download, ExternalLink, MapPin, Mail, Linkedin, Calendar, Award, GraduationCap, Star } from 'lucide-react';
 import { staticExperienceData, staticEducationData, staticSkillsData, staticAwardsData } from '@/data/staticResumeData';
 
 const Resume: React.FC = () => {
@@ -120,9 +120,35 @@ const Resume: React.FC = () => {
                   
                   <div>
                     <h4 className="font-semibold text-macri-primary mb-2">References</h4>
-                    <p className="text-xs italic">
-                      Professional references available upon request from previous colleagues at ServiceNow, VMware, and consulting clients.
-                    </p>
+                    <div className="space-y-3">
+                      <div className="bg-gray-50 p-3 rounded text-xs">
+                        <p className="italic mb-2">
+                          "I have worked with Mike for the past 5 years during my time as an Enterprise Sales Exec at VMware. From Day 1 Mike has been a tremendous business partner... his attention to detail, work ethic, and unyielding commitment to delivering customer business goals & outcomes has been invaluable."
+                        </p>
+                        <p className="text-macri-primary font-medium">- LinkedIn Recommendation</p>
+                      </div>
+                      
+                      <div className="bg-gray-50 p-3 rounded text-xs">
+                        <p className="italic mb-2">
+                          "I find Mike to be a manager that is a true mentor, coach, and leader. Mike not only guides but listens. When I found myself in a quandary his 'Next Step' has always got me further in my endeavors."
+                        </p>
+                        <p className="text-macri-primary font-medium">- LinkedIn Recommendation</p>
+                      </div>
+                      
+                      <div className="text-center mt-3">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white text-xs"
+                          asChild
+                        >
+                          <a href="https://www.linkedin.com/in/mikemacri/details/recommendations/" target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="mr-1 w-3 h-3" />
+                            View All References
+                          </a>
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -132,46 +158,51 @@ const Resume: React.FC = () => {
           {/* Quick Navigation */}
           <div className="mt-12">
             <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-              <h3 className="font-saira font-bold text-lg text-macri-primary mb-4 text-center">Resume Sections</h3>
-              <div className="flex flex-wrap justify-center gap-4">
+              <h3 className="font-saira font-bold text-lg text-macri-primary mb-4 text-center">Quick Navigation</h3>
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
-                  onClick={() => document.getElementById('achievements')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white transition-all duration-200"
+                  onClick={() => document.getElementById('achievements')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
                 >
-                  Key Achievements
+                  <Award className="mr-1 w-4 h-4" />
+                  Achievements
                 </Button>
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
-                  onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white transition-all duration-200"
+                  onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
                 >
+                  <Calendar className="mr-1 w-4 h-4" />
                   Experience
                 </Button>
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
-                  onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white transition-all duration-200"
+                  onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
                 >
+                  <Star className="mr-1 w-4 h-4" />
                   Skills
                 </Button>
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
-                  onClick={() => document.getElementById('education')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white transition-all duration-200"
+                  onClick={() => document.getElementById('education')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
                 >
+                  <GraduationCap className="mr-1 w-4 h-4" />
                   Education
                 </Button>
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
-                  onClick={() => document.getElementById('awards')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white transition-all duration-200"
+                  onClick={() => document.getElementById('awards')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
                 >
+                  <Award className="mr-1 w-4 h-4" />
                   Awards
                 </Button>
               </div>
