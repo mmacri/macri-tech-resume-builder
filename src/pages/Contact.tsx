@@ -35,7 +35,7 @@ const Contact = () => {
 
     // Simulate form submission delay
     setTimeout(() => {
-      toast.success('Thank you for your message! I\'ll get back to you within 24 hours. For immediate assistance, you can reach me directly at mikemacri@gmail.com');
+      toast.success('Thank you for your message! I will be in contact shortly.');
       setFormData({ name: '', email: '', subject: '', message: '' });
       setIsSubmitting(false);
     }, 1000);
@@ -49,9 +49,7 @@ const Contact = () => {
             Let's Connect
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ready to discuss your technology challenges and business goals? Get in touch with me directly at{' '}
-            <a href="mailto:mikemacri@gmail.com" className="text-primary hover:underline">mikemacri@gmail.com</a>{' '}
-            or use the form below.
+            Ready to discuss your technology challenges and business goals? Use the form below to get in touch.
           </p>
         </div>
 
@@ -64,8 +62,7 @@ const Contact = () => {
                 Send a Message
               </CardTitle>
               <CardDescription>
-                Fill out the form below and I'll respond to you directly at{' '}
-                <a href="mailto:mikemacri@gmail.com" className="text-primary hover:underline">mikemacri@gmail.com</a>
+                Fill out the form below and I'll respond to your inquiry promptly.
               </CardDescription>
             </CardHeader>
             <CardContent>
