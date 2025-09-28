@@ -13,7 +13,6 @@ export const Header: React.FC = () => {
     { label: 'Resume', href: '/resume' },
     { label: 'Portfolio', href: '/portfolio' },
     { label: 'My Websites', href: '/my-websites' },
-    { label: 'Blog', href: '/blog' },
     { label: 'Contact', href: '/contact' }
   ];
 

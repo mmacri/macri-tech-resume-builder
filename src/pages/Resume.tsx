@@ -69,29 +69,24 @@ const Resume: React.FC = () => {
                   Strategic Business Consultant & Solution Architect
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start text-gray-600">
-                  <div className="flex items-center">
-                    <MapPin className="w-4 h-4 mr-2" />
-                    <span>San Francisco, CA</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Mail className="w-4 h-4 mr-2" />
-                    <a href="mailto:mike@mikemacri.com" className="hover:text-macri-primary transition-colors">
-                      mike@mikemacri.com
-                    </a>
-                  </div>
-                  <div className="flex items-center">
-                    <Linkedin className="w-4 h-4 mr-2" />
-                    <a 
-                      href="https://linkedin.com/in/mikemacri" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="hover:text-macri-primary transition-colors"
-                    >
-                      LinkedIn Profile
-                    </a>
-                  </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start text-gray-600">
+                <div className="flex items-center">
+                  <MapPin className="w-4 h-4 mr-2" />
+                  <span>San Francisco, CA</span>
                 </div>
+                <div className="flex items-center">
+                  <Mail className="w-4 h-4 mr-2" />
+                  <a href="mailto:MikeMacri@gmail.com" className="hover:text-macri-primary transition-colors">
+                    MikeMacri@gmail.com
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <span className="w-4 h-4 mr-2 text-center text-xs">📞</span>
+                  <a href="tel:+16503084071" className="hover:text-macri-primary transition-colors">
+                    650-308-4071
+                  </a>
+                </div>
+              </div>
               </div>
             </div>
           </div>
@@ -104,19 +99,14 @@ const Resume: React.FC = () => {
           <h2 className="font-saira font-bold text-3xl text-macri-primary mb-6">
             Professional Summary
           </h2>
-          <div className="prose prose-lg max-w-none text-gray-700">
-            <p className="text-lg leading-relaxed mb-4">
-              Strategic business consultant and solution architect with over 15 years of experience 
-              driving organizational transformation and growth. Proven track record of implementing 
-              governance frameworks, managing complex technology initiatives, and optimizing business 
-              processes across diverse industries.
-            </p>
-            <p className="text-lg leading-relaxed">
-              Expertise in solution consulting, risk management, partner ecosystem development, and 
-              customer success optimization. Consistently delivers measurable results through innovative 
-              approaches, strategic thinking, and collaborative leadership.
-            </p>
-          </div>
+            <div className="prose prose-lg max-w-none text-gray-700">
+              <p className="text-lg leading-relaxed mb-4">
+                Experienced Strategic Solution Engineering Leader with a proven record of aligning technical solutions to business priorities, accelerating adoption, and mitigating enterprise risk. At ServiceNow, delivered $900M in risk reduction through customer zero solution advisory and technical governance initiatives.
+              </p>
+              <p className="text-lg leading-relaxed">
+                At VMware, grew advisory teams across the US West and delivered partner joint business planning that secured two $50M+ landmark deals. Recognized for driving brand growth with an NPS of 83 (20 points above company target of 63) and 100% deal attach rate, scaling partner ecosystems to go-to-market jointly and resolving complex global compliance challenges that strengthened enterprise resilience.
+              </p>
+            </div>
         </div>
       </section>
 
@@ -126,36 +116,36 @@ const Resume: React.FC = () => {
           <h2 className="font-saira font-bold text-3xl text-macri-primary mb-8">
             Key Achievements
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-              <div className="text-3xl font-bold text-macri-primary mb-2">$50M+</div>
-              <div className="font-semibold text-gray-900 mb-2">Revenue Growth Managed</div>
+              <div className="text-3xl font-bold text-macri-primary mb-2">$900M</div>
+              <div className="font-semibold text-gray-900 mb-2">Risk Reduction Delivered</div>
               <p className="text-gray-700 text-sm">
-                Successfully managed initiatives resulting in over $50M in revenue growth across multiple client engagements.
+                Successfully managed initiatives at ServiceNow resulting in $900M in enterprise risk reduction through solution advisory.
               </p>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-              <div className="text-3xl font-bold text-macri-primary mb-2">40%</div>
-              <div className="font-semibold text-gray-900 mb-2">Risk Reduction Average</div>
+              <div className="text-3xl font-bold text-macri-primary mb-2">450%</div>
+              <div className="font-semibold text-gray-900 mb-2">Sales Target Achievement</div>
               <p className="text-gray-700 text-sm">
-                Implemented governance frameworks that reduced organizational risk by an average of 40%.
+                Exceeded sales targets by 450% at VMware through strategic partner joint business planning and execution.
               </p>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-              <div className="text-3xl font-bold text-macri-primary mb-2">95%</div>
-              <div className="font-semibold text-gray-900 mb-2">Client Satisfaction Rate</div>
+              <div className="text-3xl font-bold text-macri-primary mb-2">83</div>
+              <div className="font-semibold text-gray-900 mb-2">Net Promoter Score</div>
               <p className="text-gray-700 text-sm">
-                Maintained exceptional client satisfaction through strategic consulting and solution delivery.
+                Achieved NPS of 83, which is 20 points above company target, through exceptional customer success delivery.
               </p>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-              <div className="text-3xl font-bold text-macri-primary mb-2">500+</div>
-              <div className="font-semibold text-gray-900 mb-2">Stakeholders Managed</div>
+              <div className="text-3xl font-bold text-macri-primary mb-2">$100M+</div>
+              <div className="font-semibold text-gray-900 mb-2">Landmark Deal Value</div>
               <p className="text-gray-700 text-sm">
-                Successfully coordinated and managed relationships with over 500 stakeholders across various initiatives.
+                Secured two record-setting $50M+ deals through strategic partner alliance and business development.
               </p>
             </div>
           </div>

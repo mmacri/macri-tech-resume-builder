@@ -2,21 +2,21 @@ export const staticEducationData = [
   {
     id: "1",
     title: "Master of Business Administration (MBA)",
-    organization: "Xavier University - Williams College of Business",
+    organization: "Xavier University",
     location: "Cincinnati, OH",
-    start_date: "2007-01-01",
-    end_date: "2009-05-01",
-    description: "Management of Information Systems concentration. Advanced coursework in enterprise technology strategy, systems analysis, and business process optimization.",
+    start_date: "",
+    end_date: "",
+    description: "Master of Business Administration with focus on strategic management and organizational leadership.",
     display_order: 1
   },
   {
-    id: "2", 
-    title: "Bachelor of Science (B.S.)",
+    id: "2",
+    title: "Bachelor of Science in Industrial Organizational Psychology",
     organization: "Xavier University",
-    location: "Cincinnati, OH",
-    start_date: "2003-01-01",
-    end_date: "2007-05-01",
-    description: "Industrial Organizational Psychology degree with comprehensive study of organizational behavior, human factors in technology adoption, and statistical analysis.",
+    location: "Cincinnati, OH", 
+    start_date: "",
+    end_date: "",
+    description: "Bachelor's degree in Industrial Organizational Psychology with emphasis on human behavior in workplace environments.",
     display_order: 2
   }
 ];

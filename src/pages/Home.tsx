@@ -65,13 +65,13 @@ const Home: React.FC = () => {
                   <div className="text-3xl font-bold text-macri-primary mb-1">15+</div>
                   <div className="text-sm font-medium text-gray-600">Years Experience</div>
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-macri-primary mb-1">$50M+</div>
-                  <div className="text-sm font-medium text-gray-600">Revenue Managed</div>
+                <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
+                  <div className="text-3xl font-bold text-macri-primary mb-2">$900M</div>
+                  <div className="text-sm font-medium text-gray-600">Risk Reduction</div>
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-macri-primary mb-1">95%</div>
-                  <div className="text-sm font-medium text-gray-600">Client Satisfaction</div>
+                <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
+                  <div className="text-3xl font-bold text-macri-primary mb-2">83</div>
+                  <div className="text-sm font-medium text-gray-600">NPS Score</div>
                 </div>
               </div>
 

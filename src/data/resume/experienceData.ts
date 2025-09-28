@@ -4,39 +4,39 @@ export const staticExperienceData = [
     title: "Sr. Manager, Solution Advisory – Legal Ethics & Compliance",
     organization: "ServiceNow",
     location: "Remote",
-    start_date: "2021-11-01",
-    end_date: null,
-    description: "Led cross-functional solution advisory and engineering initiatives across ServiceNow, aligning Legal, Ethics & Compliance, Security, Product, Sales, Finance, and Engineering teams to deliver impactful solutions that secured stakeholder investment through compelling value propositions that accelerated workflow adoption.\nIntegrated AI/ML governance into enterprise frameworks, serving as SME for ServiceNow's inaugural AI risk policies & requirements.\nDrove senior executives initiatives that streamlined compliance design to secure budget, that protected against a $900M annual security / compliance risk.\nCreated and managed PolicyHub 1.0, a new ServiceNow module for customers and internal teams that simplified enterprise policy access & accelerated cross-functional enablement servicenow.",
+    start_date: "Dec 2021",
+    end_date: "May 2025",
+    description: "Directed cross-functional solution advisory initiatives across Sales, Security, Legal, and Product to accelerate adoption through cross departmental solutions that reduce enterprise risk, while enhancing process.\n• Streamlined cross departmental processes and shaped product roadmap internally and with customers; led Solution Advisors to resolve complex compliance challenges across Security, ESG, Legal, Product, Sales and customers.\n• Sold the value of ServiceNow internally to departmental leaders and teams to gain budget commit and integrate workflows into ServiceNow across environments and regulatory domains.\n• Integrated AI/ML governance into enterprise frameworks; SME for ServiceNow's inaugural AI risk policies and requirements.",
     display_order: 1
   },
   {
-    id: "2", 
-    title: "Partner Business & Technical Alliance Director - Americas",
+    id: "2",
+    title: "Partner Business & Technical Alliance Director – Americas",
     organization: "VMware",
     location: "San Francisco, CA",
-    start_date: "2019-10-01",
-    end_date: "2021-11-01",
-    description: "Led GTM and presales efforts with GSI and SI partners such including DXC, Capgemini, and Accenture.\nDeveloped scalable embedded partner programs and re-platformed solutions (e.g., DXC VMware Cloud on AWS), aligning go-to-market strategy with partner goals.\nDefined and executed joint business plans that led to repeated achievements above 450% of target.\nCollaborated across matrixed SC, ProServ, and specialist teams to support technical sales cycles for strategic system integrator offerings.",
+    start_date: "Nov 2019",
+    end_date: "Dec 2021",
+    description: "Designed partner joint business plans and managed co-selling motions, resulting in two record-setting $50M+ deals.\n• Developed embedded partner programs and re-platformed solutions aligned to partner goals.\n• Executed GTM with consulting/implementation partners, exceeding sales targets by 450%.\n• Aligned product and engineering on partner-led integrations, driving go to market product development, joint business plans to align partners to VMware account teams. (e.g., VMware on AWS with DXC).",
     display_order: 2
   },
   {
     id: "3",
     title: "Partner Staff Solutions Engineer Leader",
     organization: "VMware",
-    location: "Chicago, IL", 
-    start_date: "2017-11-01",
-    end_date: "2019-11-01",
-    description: "Solution Enablement Frameworks development- Built scalable internal demo labs and frameworks for partner-SCs (Zones, CDW, En Pointe, HP), enabling consistent technical presales execution.\nCoached partner architects to identify and execute targeted SaaS and hybrid cloud campaigns, resulting in a 21% increase in pipeline capture, 20% growth in renewals, and driving $440M in sell-through revenue.",
+    location: "Chicago, IL",
+    start_date: "Dec 2017",
+    end_date: "Dec 2019",
+    description: "Partnered with CDW to drive $440M through multi-tiered routes-to-market; increased pipeline capture by 20%, certifications by 200%, and solution adoption by 20%.\n• Delivered partner training, workshops, and roadmap sessions; coached architects leading to increase partner-driven pipeline by 21%.",
     display_order: 3
   },
   {
     id: "4",
     title: "Sr Manager, Customer Success, TAMs & Product Specialists – West Coast Regional Practice",
-    organization: "VMware",
+    organization: "VMware", 
     location: "Seattle, WA",
-    start_date: "2014-10-01", 
-    end_date: "2017-11-01",
-    description: "Hired, mentored, and developed customer success teams to deliver a trusted brand increasing product adoption by 44% and improved NPS by 30 points (20 points above goal).\nDeveloped and delivered engagement frameworks that aligned technical outcomes with business value metrics, driving operational efficiency and consistent expansion.",
+    start_date: "Nov 2014",
+    end_date: "Dec 2017",
+    description: "Program development growing and mentoring 3 teams of TAMs, customer success, and product specialist across the US West Coast; improving NPS by 30 points (20 above company standard).\n• Built engagement framework and program deliverables aligning technical outcomes with business metrics; drove expansion and efficiency through partnerships with sales, post sales, and partners.\n• Sales Specialist delivering solution services evangelism with sales leaders to target new revenue growth and joint business plan development.",
     display_order: 4
   },
   {
@@ -44,9 +44,9 @@ export const staticExperienceData = [
     title: "Staff Technical Account Manager",
     organization: "VMware",
     location: "Seattle, WA",
-    start_date: "2011-11-01",
-    end_date: "2014-10-01", 
-    description: "Created engagement deliverables aligning customer metrics and enhancing operational efficiency, leading to services attach on all deals.\nCreative solutions that drove product adoption and roadmap expansions. (E.G 500 Costco storefronts in 10 minutes, eliminating on-site visits to free budget for value growth product purchases.",
+    start_date: "Dec 2011",
+    end_date: "Nov 2014",
+    description: "Created engagement deliverables aligning customer metrics and enhancing operational efficiency; led services attach on all deals.\n• Delivered solutions driving adoption and roadmap expansions (e.g., 500 Costco storefronts deployed in 10 minutes).",
     display_order: 5
   },
   {
@@ -54,49 +54,9 @@ export const staticExperienceData = [
     title: "Technical Partner Lead – Channel Partner Strategy (North America)",
     organization: "VMware",
     location: "Seattle, WA",
-    start_date: "2010-12-01",
-    end_date: "2011-11-01",
-    description: "Served as the technical SME and lead for 3 of VMware's top 10 North American partners, enabling C-level alignment and driving partner adoption of VMware jointly created services.\nDesigned and implemented scalable self-service demo labs initiatives with cloud for partners (Zones, CDW, En Pointe, HP, PCMall) enabling partner-SC enablement and solution delivery.",
+    start_date: "Jan 2011",
+    end_date: "Dec 2011",
+    description: "Technical SME for top NA partners; C-level alignment and self-service demo labs for adoption.",
     display_order: 6
-  },
-  {
-    id: "7",
-    title: "Managing Consultant",
-    organization: "ISOutsource.com",
-    location: "Seattle, WA",
-    start_date: "2007-06-01",
-    end_date: "2010-12-01",
-    description: "Provided strategic consulting services for IT outsourcing initiatives.",
-    display_order: 7
-  },
-  {
-    id: "8",
-    title: "Entrepreneur",
-    organization: "Connecting Point",
-    location: "South Bend, IN",
-    start_date: "2003-02-01",
-    end_date: "2007-06-01",
-    description: "Founded and operated technology consulting business.",
-    display_order: 8
-  },
-  {
-    id: "9",
-    title: "Program Manager",
-    organization: "IOIPay.Com",
-    location: "Elkhart, IN",
-    start_date: "2002-01-01",
-    end_date: "2003-02-01",
-    description: "Managed technology programs and initiatives.",
-    display_order: 9
-  },
-  {
-    id: "10",
-    title: "Network Administrator",
-    organization: "Xavier University",
-    location: "Cincinnati, OH",
-    start_date: "1999-12-01",
-    end_date: "2002-01-01",
-    description: "Administered university network infrastructure and systems.",
-    display_order: 10
   }
 ];

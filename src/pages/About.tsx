@@ -16,75 +16,63 @@ const About: React.FC = () => {
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-macri-primary/5 via-white to-macri-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Profile Image */}
-            <div className="order-2 lg:order-1 flex justify-center">
-              <div className="relative">
-                <img
-                  src="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-                  alt="Mike Macri - Professional headshot"
-                  className="w-80 h-80 rounded-full border-8 border-white shadow-2xl object-cover"
-                />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-macri-primary/20 to-transparent"></div>
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="font-saira font-bold text-5xl lg:text-6xl text-macri-primary mb-6">
+              About Mike Macri
+            </h1>
+            
+            <div className="space-y-6 text-lg text-gray-700 mb-8">
+              <p>
+                <strong>Experienced Strategic Solution Engineering Leader</strong> with a proven record of aligning technical solutions to business priorities, accelerating adoption, and mitigating enterprise risk. At ServiceNow, delivered $900M in risk reduction through customer zero solution advisory and technical governance initiatives.
+              </p>
+              
+              <p>
+                At VMware, grew advisory teams across the US West and delivered partner joint business planning that secured two $50M+ landmark deals. Recognized for driving brand growth with an NPS of 83 (20 points above company target of 63) and 100% deal attach rate, scaling partner ecosystems to go-to-market jointly and resolving complex global compliance challenges that strengthened enterprise resilience.
+              </p>
+            </div>
+
+            {/* Key Stats */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
+                <div className="text-3xl font-bold text-macri-primary mb-2">$900M+</div>
+                <div className="text-sm font-medium text-gray-600">Risk Reduction Delivered</div>
+              </div>
+              <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
+                <div className="text-3xl font-bold text-macri-primary mb-2">450%</div>
+                <div className="text-sm font-medium text-gray-600">Sales Target Achievement</div>
+              </div>
+              <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
+                <div className="text-3xl font-bold text-macri-primary mb-2">83</div>
+                <div className="text-sm font-medium text-gray-600">Net Promoter Score</div>
+              </div>
+              <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
+                <div className="text-3xl font-bold text-macri-primary mb-2">$100M+</div>
+                <div className="text-sm font-medium text-gray-600">Landmark Deals Secured</div>
               </div>
             </div>
 
-            {/* Content */}
-            <div className="order-1 lg:order-2 text-center lg:text-left">
-              <h1 className="font-saira font-bold text-5xl lg:text-6xl text-macri-primary mb-6">
-                About Mike Macri
-              </h1>
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-3"
+                asChild
+              >
+                <a href="/resume">
+                  View Full Resume
+                  <ExternalLink className="ml-2 w-4 h-4" />
+                </a>
+              </Button>
               
-              <div className="space-y-4 text-lg text-gray-700 mb-8">
-                <p>
-                  <strong>Experienced Business Professional</strong> with over 15 years specializing in 
-                  solution consulting, governance frameworks, and strategic technology implementations. 
-                  I help organizations navigate complex business challenges through innovative solutions 
-                  and strategic thinking.
-                </p>
-                
-                <p>
-                  My expertise spans across multiple domains including risk management, compliance frameworks, 
-                  partner ecosystem development, and customer success optimization. I'm passionate about 
-                  driving measurable business growth through technology-enabled solutions.
-                </p>
-              </div>
-
-              {/* Key Stats */}
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
-                  <div className="text-3xl font-bold text-macri-primary mb-2">15+</div>
-                  <div className="text-sm font-medium text-gray-600">Years Experience</div>
-                </div>
-                <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
-                  <div className="text-3xl font-bold text-macri-primary mb-2">$50M+</div>
-                  <div className="text-sm font-medium text-gray-600">Revenue Managed</div>
-                </div>
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button 
-                  className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-3"
-                  asChild
-                >
-                  <a href="/resume">
-                    View Full Resume
-                    <ExternalLink className="ml-2 w-4 h-4" />
-                  </a>
-                </Button>
-                
-                <Button 
-                  variant="outline" 
-                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-8 py-3"
-                  asChild
-                >
-                  <a href="/resume.pdf" download>
-                    <Download className="mr-2 w-4 h-4" />
-                    Download Resume
-                  </a>
-                </Button>
-              </div>
+              <Button 
+                variant="outline" 
+                className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-8 py-3"
+                asChild
+              >
+                <a href="/resume.pdf" download>
+                  <Download className="mr-2 w-4 h-4" />
+                  Download Resume
+                </a>
+              </Button>
             </div>
           </div>
         </div>
