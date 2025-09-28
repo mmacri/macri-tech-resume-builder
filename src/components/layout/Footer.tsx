@@ -73,16 +73,6 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="/resume.pdf"
-                  download
-                  className="text-gray-300 hover:text-macri-primary transition-colors flex items-center"
-                >
-                  Download Resume
-                  <ExternalLink className="w-4 h-4 ml-1" />
-                </a>
-              </li>
-              <li>
-                <a
                   href="https://linkedin.com/in/mikemacri"
                   target="_blank"
                   rel="noopener noreferrer"

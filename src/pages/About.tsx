@@ -69,9 +69,9 @@ const About: React.FC = () => {
                 className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-8 py-3"
                 asChild
               >
-                <a href="/resume.pdf" download>
-                  <Download className="mr-2 w-4 h-4" />
-                  Download Resume
+                <a href="/contact">
+                  <Mail className="mr-2 w-4 h-4" />
+                  Contact Me
                 </a>
               </Button>
             </div>
