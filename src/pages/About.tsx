@@ -30,46 +30,25 @@ const About: React.FC = () => {
                 At VMware, grew advisory teams across the US West and delivered partner joint business planning that secured two $50M+ landmark deals. Recognized for driving brand growth with an NPS of 83 (20 points above company target of 63) and 100% deal attach rate, scaling partner ecosystems to go-to-market jointly and resolving complex global compliance challenges that strengthened enterprise resilience.
               </p>
 
-              <div className="bg-macri-primary/5 p-6 rounded-lg">
-                <h3 className="font-semibold text-lg text-macri-primary mb-3">Available Locations</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-base">
-                  <div className="flex items-center">
-                    <span className="w-2 h-2 bg-macri-primary rounded-full mr-3"></span>
-                    San Francisco Bay Area, CA
-                  </div>
-                  <div className="flex items-center">
-                    <span className="w-2 h-2 bg-macri-primary rounded-full mr-3"></span>
-                    Remote (Nationwide)
-                  </div>
-                  <div className="flex items-center">
-                    <span className="w-2 h-2 bg-macri-primary rounded-full mr-3"></span>
-                    On-site Consulting Available
-                  </div>
-                  <div className="flex items-center">
-                    <span className="w-2 h-2 bg-macri-primary rounded-full mr-3"></span>
-                    International Projects Welcome
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Key Stats */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
-                <div className="text-3xl font-bold text-macri-primary mb-2">$900M+</div>
-                <div className="text-sm font-medium text-gray-600">Risk Reduction Delivered</div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+              <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
+                <div className="text-2xl font-bold text-macri-primary mb-1">$900M+</div>
+                <div className="text-xs font-medium text-gray-600">Risk Reduction Delivered</div>
               </div>
-              <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
-                <div className="text-3xl font-bold text-macri-primary mb-2">450%</div>
-                <div className="text-sm font-medium text-gray-600">Sales Target Achievement</div>
+              <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
+                <div className="text-2xl font-bold text-macri-primary mb-1">450%</div>
+                <div className="text-xs font-medium text-gray-600">Sales Target Achievement</div>
               </div>
-              <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
-                <div className="text-3xl font-bold text-macri-primary mb-2">83</div>
-                <div className="text-sm font-medium text-gray-600">Net Promoter Score</div>
+              <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
+                <div className="text-2xl font-bold text-macri-primary mb-1">83</div>
+                <div className="text-xs font-medium text-gray-600">Net Promoter Score</div>
               </div>
-              <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
-                <div className="text-3xl font-bold text-macri-primary mb-2">$100M+</div>
-                <div className="text-sm font-medium text-gray-600">Landmark Deals Secured</div>
+              <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
+                <div className="text-2xl font-bold text-macri-primary mb-1">$100M+</div>
+                <div className="text-xs font-medium text-gray-600">Landmark Deals Secured</div>
               </div>
             </div>
 
@@ -133,8 +112,10 @@ const About: React.FC = () => {
                 </div>
                 <div className="md:w-96 md:pl-8">
                   <p className="text-gray-700">
-                    Built foundational expertise in business analysis, project management, and client relations. 
-                    Developed strong analytical skills and understanding of business process optimization.
+                    Built technical expertise developing online payroll systems using mainframe and web technologies. 
+                    Founded and successfully merged my own consulting firm, then expanded into CIO consulting, 
+                    V-Dash implementations for Microsoft, and serving customers across the US of all sizes with 
+                    strategic technology solutions.
                   </p>
                 </div>
               </div>
@@ -177,8 +158,10 @@ const About: React.FC = () => {
                 </div>
                 <div className="md:w-96 md:pl-8">
                   <p className="text-gray-700">
-                    Advanced to strategic roles managing large-scale initiatives, partner ecosystems, 
-                    and customer success programs. Consistently delivering measurable business impact.
+                    Advanced to strategic leadership roles, building trusted brands that sales teams and customers 
+                    rely upon. Led internal compliance technology solutions and cross-departmental projects, 
+                    collaborating with product teams to influence roadmaps across all organizations within 
+                    a rapidly growing PaaS company while consistently delivering measurable business impact.
                   </p>
                 </div>
               </div>
