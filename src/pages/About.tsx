@@ -161,8 +161,9 @@ const About: React.FC = () => {
                 <div className="md:w-96 md:pl-8">
                   <p className="text-gray-700">
                     Elevated to Partner Business & Technical Alliance Director, designing joint business plans that secured 
-                    two record-setting $50M+ deals while exceeding sales targets by 450%. Currently Sr Manager of Solution 
-                    Advisory for Legal Ethics & Compliance at ServiceNow, delivering $900M in risk reduction through 
+                    two record-setting $50M+ deals while exceeding sales targets by 450%. As Sr Manager of Solution 
+                    Advisory for Legal Ethics & Compliance at ServiceNow, I bridged departmental solutions across 
+                    ServiceNow orgs, sales, customers and legal, delivering $900M in risk reduction through 
                     cross-functional initiatives, shaping product roadmaps, and establishing AI/ML governance frameworks 
                     as SME for inaugural AI risk policies.
                   </p>
