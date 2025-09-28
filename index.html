@@ -30,7 +30,6 @@
     </script>
     
     <!-- Preload critical resources with high priority -->
-    <link rel="preload" href="/src/modern-entry.js" as="script" />
     <link rel="preload" href="/src/index.css" as="style" />
     
     <!-- Optimized Font Loading with font-display:swap -->
@@ -46,10 +45,7 @@
     <link rel="preload" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet';this.setAttribute('media','all')">
     <noscript><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css"></noscript>
     
-    <!-- Modern browsers get the optimized bundle with differential loading -->
-    <script type="module" src="/src/modern-entry.js" defer></script>
-    <!-- Legacy browsers fallback - will be ignored by modern browsers -->
-    <script nomodule src="/src/legacy-entry.js" defer></script>
+    <!-- App entry -->
     
     <!-- Preloaded analytics for improved performance -->
     <link rel="dns-prefetch" href="https://cdn.gpteng.co">
