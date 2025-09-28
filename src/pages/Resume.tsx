@@ -336,8 +336,8 @@ const Resume: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg"
-              variant="secondary"
-              className="bg-white text-macri-primary hover:bg-gray-100 px-8 py-3"
+              variant="collaboration"
+              className="px-8 py-3"
               asChild
             >
               <a href="/contact">
@@ -348,8 +348,8 @@ const Resume: React.FC = () => {
             
             <Button 
               size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-macri-primary px-8 py-3"
+              variant="collaborationOutline"
+              className="px-8 py-3"
               asChild
             >
               <a href="/portfolio">

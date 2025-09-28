@@ -8,8 +8,6 @@ export const initialAboutData = {
   location: "📍 Available in: Edmonds, WA • San Diego, CA • Chicago, IL • Denver, CO • Remote/Hybrid",
   
   contact: {
-    email: "mike@mikemacri.com",
-    phone: "+1 (555) 123-4567",
     location: "📍 Available in: Edmonds, WA • San Diego, CA • Chicago, IL • Denver, CO • Remote/Hybrid",
     linkedin: "https://www.linkedin.com/in/mikemacri/"
   },

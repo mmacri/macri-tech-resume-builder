@@ -10,7 +10,6 @@ interface AboutHeaderProps {
   linkedinUrl: string;
   githubUrl: string;
   websiteUrl: string;
-  emailUrl: string;
 }
 
 const AboutHeader: React.FC<AboutHeaderProps> = ({

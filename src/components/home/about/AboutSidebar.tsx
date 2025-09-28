@@ -16,14 +16,12 @@ interface AboutSidebarProps {
   linkedinUrl: string;
   githubUrl: string;
   websiteUrl: string;
-  emailUrl: string;
 }
 
 const AboutSidebar: React.FC<AboutSidebarProps> = ({
   linkedinUrl,
   githubUrl,
-  websiteUrl,
-  emailUrl
+  websiteUrl
 }) => {
   const isMobile = useIsMobile();
   
@@ -35,23 +33,6 @@ const AboutSidebar: React.FC<AboutSidebarProps> = ({
         </CardHeader>
         <CardContent>
           <div className="flex justify-center gap-4 mb-2">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <a 
-                    href={emailUrl} 
-                    className="flex items-center justify-center h-10 w-10 rounded-full bg-macri-primary hover:bg-black text-white transition-colors duration-200"
-                    aria-label="Email"
-                  >
-                    <Mail className="h-5 w-5" />
-                  </a>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Send me an email</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>

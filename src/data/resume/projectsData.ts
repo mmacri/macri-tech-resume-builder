@@ -45,14 +45,5 @@ export const staticProjectsData = [
     link: "https://mikemacri.com/portfolio",
     image_url: "/lovable-uploads/1734d6e1-fc92-4f70-949c-192bdebc6d72.png",
     display_order: 5
-  },
-  {
-    id: "6",
-    title: "Security Compliance Framework",
-    description: "Developed a comprehensive security and compliance framework for enterprise customers that mapped to NIST, CIS, and other security standards to meet strict audit requirements.",
-    technologies: ["NIST", "CIS", "Security Operations", "Audit & Compliance"],
-    link: "https://mikemacri.com/portfolio",
-    image_url: "/lovable-uploads/0b2077d6-0d8a-4913-9ba7-1001cb320d19.png",
-    display_order: 6
   }
 ];

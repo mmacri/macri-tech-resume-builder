@@ -245,24 +245,26 @@ const About: React.FC = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              variant="secondary"
-              className="bg-white text-macri-primary hover:bg-gray-100 px-8 py-3"
+              size="lg"
+              variant="collaboration"
+              className="px-8 py-3"
               asChild
             >
               <a href="/contact">
                 Get In Touch
-                <ExternalLink className="ml-2 w-4 h-4" />
+                <ExternalLink className="ml-2 w-5 h-5" />
               </a>
             </Button>
             
             <Button 
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-macri-primary px-8 py-3"
+              size="lg"
+              variant="collaborationOutline"
+              className="px-8 py-3"
               asChild
             >
               <a href="/portfolio">
                 View My Work
-                <ExternalLink className="ml-2 w-4 h-4" />
+                <ExternalLink className="ml-2 w-5 h-5" />
               </a>
             </Button>
           </div>
