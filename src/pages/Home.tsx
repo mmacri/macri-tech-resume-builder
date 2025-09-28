@@ -8,23 +8,23 @@ const Home: React.FC = () => {
     {
       title: 'Policy Hub Framework',
       description: 'Comprehensive governance and compliance platform streamlining organizational policies and procedures.',
-      image: '/assets/policy-hub-screenshot.jpg',
+      image: '/lovable-uploads/75ecce5a-4c43-44e1-9825-63545cfb5ab8.png',
       category: 'GRC Solutions',
       link: '/portfolio#1'
     },
     {
-      title: 'Framework Fusion',
-      description: 'Integrated business framework combining multiple methodologies for enhanced organizational efficiency.',
-      image: '/assets/framework-fusion-screenshot.jpg',
+      title: 'Framework Fusion Engine',
+      description: 'Community-driven cross-compliance framework mapping tool with AI-powered control mapping and gap analysis.',
+      image: '/lovable-uploads/e001dd85-f8b8-4c6e-9d04-e8b316bbebcb.png',
       category: 'Business Solutions',
       link: '/portfolio#2'
     },
     {
-      title: 'ServiceNow Advisor',
-      description: 'AI-powered advisory system for optimizing ServiceNow implementations and workflows.',
-      image: '/assets/servicenow-advisor-screenshot.jpg',
-      category: 'AI Tools',
-      link: '/portfolio#3'
+      title: 'Customer Success Dashboard',
+      description: 'Analytics dashboard that improved product adoption by 21% and increased NPS scores through better customer metrics tracking.',
+      image: '/lovable-uploads/eb90f300-90d1-4c77-86ec-2814b17e1be4.png',
+      category: 'Analytics Tools',
+      link: '/portfolio#4'
     }
   ];
 
@@ -42,29 +42,25 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Content */}
             <div className="order-2 lg:order-1">
-              <h1 className="font-saira font-bold text-5xl lg:text-7xl text-macri-primary mb-6 leading-tight">
-                Mike Macri
-                <span className="block text-3xl lg:text-4xl text-gray-700 font-medium mt-2">
-                  M.B.A.
-                </span>
-              </h1>
-              
-              <p className="text-xl lg:text-2xl text-gray-600 mb-6 leading-relaxed">
-                Strategic Business Consultant & Solution Architect
-              </p>
-              
-              <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-                Transforming business challenges into growth opportunities through innovative solutions, 
-                governance frameworks, and strategic technology implementations. Over 15 years of proven 
-                success driving measurable results for organizations worldwide.
-              </p>
+            <h1 className="font-saira font-bold text-5xl lg:text-7xl text-macri-primary mb-6 leading-tight">
+              Mike Macri
+              <span className="block text-3xl lg:text-4xl text-gray-700 font-medium mt-2">
+                M.B.A.
+              </span>
+            </h1>
+            
+            <p className="text-xl lg:text-2xl text-gray-600 mb-6 leading-relaxed">
+              Strategic Business Consultant & Solution Architect
+            </p>
+            
+            <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+              Transforming business challenges into growth opportunities through innovative solutions, 
+              governance frameworks, and strategic technology implementations. Proven success in Sales, 
+              Post Sales and Professional Services solutions globally, driving measurable results for organizations worldwide.
+            </p>
 
               {/* Key Stats */}
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-macri-primary mb-1">15+</div>
-                  <div className="text-sm font-medium text-gray-600">Years Experience</div>
-                </div>
+              <div className="grid grid-cols-2 gap-4 mb-8">
                 <div className="text-center p-4 bg-white rounded-lg shadow-md border border-gray-100">
                   <div className="text-3xl font-bold text-macri-primary mb-2">$900M</div>
                   <div className="text-sm font-medium text-gray-600">Risk Reduction</div>
@@ -141,10 +137,10 @@ const Home: React.FC = () => {
                 <div className="bg-gray-50 p-6 rounded-lg mb-6">
                   <h3 className="font-semibold text-lg text-macri-primary mb-3">Available for Consulting</h3>
                   <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
-                    <div>• San Francisco Bay Area</div>
-                    <div>• Remote Nationwide</div>
-                    <div>• On-site Available</div>
-                    <div>• International Projects</div>
+                    <div>• Seattle, WA</div>
+                    <div>• San Diego, CA</div>
+                    <div>• Chicago Metro Area</div>
+                    <div>• Available Nationwide - Onsite or Remote</div>
                   </div>
                 </div>
 
