@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ExternalLink, Globe, TrendingUp, Users, BarChart3, Award, CheckCircle } from 'lucide-react';
 import momentumEdgeScreenshot from '@/assets/momentum-edge-screenshot.png';
 import homeFitScreenshot from '@/assets/homefit-recovery-screenshot.png';
+import hoaCommunityScreenshot from '@/assets/hoa-community-screenshot.png';
 
 interface WebsiteProject {
   id: string;
@@ -65,6 +66,27 @@ const MyWebsites: React.FC = () => {
       metrics: {
         description: 'Trusted by thousands of users with verified reviews',
         focus: 'Recovery Products & Expert Analysis'
+      }
+    },
+    {
+      id: 'hoa-community',
+      title: 'HOA Community Forums',
+      description: 'Community engagement platform connecting HOA residents through private forums, community reviews, and transparent communication. Enables neighbors to share experiences, discuss community matters, and build stronger residential communities.',
+      url: 'https://mmacri.github.io/hoa-spotlight',
+      image: hoaCommunityScreenshot,
+      category: 'Community Platform',
+      status: 'live',
+      technologies: ['React', 'Community Management', 'Forum System'],
+      highlights: [
+        'Private community forums and discussions',
+        'Authentic resident reviews and experiences',
+        'Featured community showcases',
+        'Transparent communication tools',
+        'Neighborhood connection platform'
+      ],
+      metrics: {
+        description: 'Connecting residents for stronger communities',
+        focus: 'HOA Community Engagement'
       }
     }
   ];
@@ -209,12 +231,12 @@ const MyWebsites: React.FC = () => {
               Website Portfolio Overview
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Two distinct business platforms showcasing different aspects of my expertise in 
-              technology consulting and e-commerce innovation.
+              Three distinct platforms showcasing my expertise in technology consulting, 
+              e-commerce innovation, and community engagement solutions.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {websites.map((website) => (
               <div 
                 key={website.id} 
@@ -285,7 +307,7 @@ const MyWebsites: React.FC = () => {
           </h2>
           <p className="text-xl text-gray-600 mb-8">
             Whether you need strategic IT consulting, e-commerce platform development, 
-            or want to explore partnership opportunities, I'd love to discuss your project.
+            community engagement solutions, or want to explore partnership opportunities, I'd love to discuss your project.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
