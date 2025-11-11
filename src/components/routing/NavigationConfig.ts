@@ -20,27 +20,27 @@ export const useNavigationItems = () => {
       { label: "Portfolio", href: "/portfolio" },
       { label: "Blog", href: "/blog" },
       { label: "Resume", href: "/resume" },
-      { label: "Contact", href: "/contact" },
+      { label: "Let's Connect", href: "/contact" },
     ];
   }, []);
 
   const getPortfolioNavItems = React.useCallback((): NavItem[] => {
     return [
       { label: "Index of Projects", href: "#index-of-projects" },
-      { label: "Home", href: "/" },
+      { label: "Overview", href: "/" },
       { label: "Blog", href: "/blog" },
       { label: "Resume", href: "/resume" },
-      { label: "Contact", href: "/contact" },
+      { label: "Let's Connect", href: "/contact" },
     ];
   }, []);
 
   const getBlogNavItems = React.useCallback((): NavItem[] => {
     return [
       { label: "Recent Posts", href: "#recent-posts" },
-      { label: "Home", href: "/" },
+      { label: "Overview", href: "/" },
       { label: "Portfolio", href: "/portfolio" },
       { label: "Resume", href: "/resume" },
-      { label: "Contact", href: "/contact" },
+      { label: "Let's Connect", href: "/contact" },
     ];
   }, []);
 
@@ -52,10 +52,10 @@ export const useNavigationItems = () => {
       { label: "Skills", href: "#skills" },
       { label: "Interests", href: "#interests" },
       { label: "Awards", href: "#awards" },
-      { label: "Home", href: "/" },
+      { label: "Overview", href: "/" },
       { label: "Portfolio", href: "/portfolio" },
       { label: "Blog", href: "/blog" },
-      { label: "Contact", href: "/contact" },
+      { label: "Let's Connect", href: "/contact" },
     ];
   }, []);
 

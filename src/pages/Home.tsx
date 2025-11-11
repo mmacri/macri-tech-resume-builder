@@ -147,7 +147,9 @@ const Home: React.FC = () => {
                   <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
                     <div>• Seattle, WA</div>
                     <div>• San Diego, CA</div>
+                    <div>• Southern Michigan</div>
                     <div>• Chicago Metro Area</div>
+                    <div>• Denver, CO</div>
                     <div>• Available Nationwide - Onsite or Remote</div>
                   </div>
                 </div>
@@ -186,7 +188,7 @@ const Home: React.FC = () => {
                     </li>
                     <li className="flex items-center">
                       <Star className="w-5 h-5 text-macri-primary mr-3" />
-                      Compliance Manager (Policy & regulatory compliance technical solutions)
+                      Compliance Management & Policy Solutions
                     </li>
                   </ul>
                 </div>
