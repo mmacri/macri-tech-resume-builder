@@ -12,7 +12,7 @@ export const UseCasesSection = () => {
       context: "Multiple compliance frameworks (NIST, SOC 2, PCI, SOX) managed separately caused duplication of control testing and audit fatigue.",
       challenge: "Redundant controls and manual evidence tracking made scaling impossible.",
       action: "Architected and deployed a Common Control Framework in ServiceNow IRM — enabling inheritance across policies, entities, and assessments.",
-      outcome: "Achieved 90%+ control reuse, 50% faster audit cycles, and created a reusable blueprint now adopted by enterprise GRC programs globally."
+      outcome: "Achieved 45% share process identification, 50% faster audit cycles, and created a reusable blueprint now adopted by enterprise GRC programs globally."
     },
     {
       icon: FileText,
