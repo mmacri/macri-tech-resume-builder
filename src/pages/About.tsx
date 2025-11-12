@@ -23,11 +23,11 @@ const About: React.FC = () => {
             
             <div className="space-y-6 text-lg text-gray-700 mb-8">
               <p>
-                <strong>Experienced Strategic Solution Engineering Leader</strong> with a proven record of aligning technical solutions to business priorities, accelerating adoption, and mitigating enterprise risk. At ServiceNow, delivered $900M in risk reduction through customer zero solution advisory and technical governance initiatives.
+                <strong>Cross-Functional Strategic Leader</strong> excelling at the nexus of <strong>Solution Engineering</strong>, <strong>Customer Success</strong>, <strong>Partner Ecosystem Development</strong>, and <strong>Compliance & Risk Leadership</strong>. My unique value lies in bridging these disciplines to drive measurable business outcomes—from architecting GRC solutions and AI governance frameworks to scaling partner ecosystems and delivering exceptional customer experiences.
               </p>
               
               <p>
-                At VMware, grew advisory teams across the US West and delivered partner joint business planning that secured two $50M+ landmark deals. Recognized for driving brand growth with an NPS of 83 (20 points above company target of 63) and 100% deal attach rate, scaling partner ecosystems to go-to-market jointly and resolving complex global compliance challenges that strengthened enterprise resilience.
+                At ServiceNow, I delivered $900M in risk reduction through solution advisory and technical governance while creating the PolicyHub module and establishing inaugural AI/ML ethics policies. At VMware, I unified customer success with partner development, securing two $50M+ landmark deals through strategic joint business planning, growing advisory teams across the US West, and achieving an 83 NPS (20 points above target) with 450% sales attainment and $440M in partner-influenced revenue. This cross-domain expertise enables me to resolve complex enterprise challenges while accelerating adoption and strengthening organizational resilience.
               </p>
 
             </div>

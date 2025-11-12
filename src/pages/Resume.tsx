@@ -57,10 +57,10 @@ const Resume: React.FC = () => {
                    </h2>
                    <div className="prose prose-lg max-w-none text-gray-700">
                      <p className="text-base sm:text-lg leading-relaxed mb-4">
-                       Strategic Solution Engineering Leader with a proven record of aligning technical solutions to business priorities, accelerating adoption, and mitigating enterprise risk. At ServiceNow, delivered $900M in risk reduction through customer zero solution advisory and technical governance initiatives.
+                       <strong>Cross-Functional Strategic Leader</strong> integrating <strong>Solution Engineering</strong>, <strong>Customer Success</strong>, <strong>Partner Ecosystem Development</strong>, and <strong>Compliance & Risk Management</strong> to deliver enterprise-wide business impact. At ServiceNow, bridged technical innovation with governance expertise, delivering $900M in risk reduction through GRC solution advisory, PolicyHub module creation, and AI/ML ethics framework establishment while driving customer zero initiatives and influencing product roadmaps.
                      </p>
                      <p className="text-base sm:text-lg leading-relaxed">
-                       At VMware, grew advisory teams across the US West and delivered partner joint business planning that secured two $50M+ landmark deals. Recognized for driving brand growth with an NPS of 83 (20 points above company target of 63) and 100% deal attach rate, scaling partner ecosystems to go-to-market jointly and resolving complex global compliance challenges that strengthened enterprise resilience.
+                       At VMware, unified customer success strategies with partner ecosystem building, securing two $50M+ landmark deals through joint business planning while scaling advisory teams across the US West. Achieved 83 NPS (20 points above company target), 450% sales attainment, and $440M in partner-influenced revenue by integrating solution delivery excellence with strategic relationship management and compliance frameworks that accelerate adoption and strengthen enterprise resilience.
                      </p>
                    </div>
                  </div>

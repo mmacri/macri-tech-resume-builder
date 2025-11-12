@@ -54,9 +54,7 @@ const Home: React.FC = () => {
             </p>
             
             <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-              Transforming business challenges into growth opportunities through innovative solutions, 
-              governance frameworks, and strategic technology implementations. Proven success in Sales, 
-              Post Sales and Professional Services solutions globally, driving measurable results for organizations worldwide.
+              Cross-functional leader bridging <strong>Solution Engineering</strong>, <strong>Customer Success</strong>, <strong>Partner Ecosystems</strong>, and <strong>Compliance & Risk Management</strong> to transform business challenges into measurable growth. At ServiceNow, delivered $900M in risk reduction through GRC solution advisory while shaping AI governance frameworks. At VMware, secured $100M+ in landmark deals through partner ecosystem development, achieving 83 NPS and 450% sales target attainment. Proven expertise in scaling teams, architecting enterprise solutions, and driving cross-domain initiatives that accelerate adoption and mitigate enterprise risk globally.
             </p>
 
               {/* Key Stats */}
@@ -135,11 +133,11 @@ const Home: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div className="text-left">
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                  Experienced Strategic Solution Engineering Leader with a proven record of aligning technical solutions to business priorities, accelerating adoption, and mitigating enterprise risk. At ServiceNow, delivered $900M in risk reduction through customer zero solution advisory and technical governance initiatives.
+                  Cross-functional leader excelling at the intersection of <strong>Solution Engineering</strong>, <strong>Customer Success</strong>, <strong>Partner Development</strong>, and <strong>Compliance & Risk Management</strong>. At ServiceNow, I bridge technical innovation with governance, delivering $900M in risk reduction through GRC solution advisory, PolicyHub creation, and AI/ML ethics frameworks while driving customer zero initiatives and product roadmap influence.
                 </p>
                 
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                  At VMware, grew advisory teams across the US West and delivered partner joint business planning that secured two $50M+ landmark deals. Recognized for driving brand growth with an NPS of 83 (20 points above company target) and 100% deal attach rate.
+                  At VMware, I unified customer success strategies with partner ecosystem building, securing two $50M+ landmark deals through joint business planning while scaling advisory teams across the US West. Achieved 83 NPS (20 points above target), 450% sales attainment, and $440M in partner-influenced revenue by integrating technical solution delivery with strategic relationship management and compliance expertise that strengthens enterprise resilience.
                 </p>
 
                 <div className="bg-gray-50 p-6 rounded-lg mb-6">
