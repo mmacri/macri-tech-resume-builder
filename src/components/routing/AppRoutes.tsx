@@ -10,6 +10,7 @@ import Portfolio from '@/pages/Portfolio';
 import CustomerSuccess from '@/pages/portfolio/CustomerSuccess';
 import PartnerDevelopment from '@/pages/portfolio/PartnerDevelopment';
 import Compliance from '@/pages/portfolio/Compliance';
+import SolutionEngineering from '@/pages/portfolio/SolutionEngineering';
 import MyWebsites from '@/pages/MyWebsites';
 import Contact from '@/pages/Contact';
 import NotFound from '@/pages/NotFound';
@@ -26,6 +27,7 @@ export const AppRoutes: React.FC = () => {
         <Route path="/portfolio/customer-success" element={<CustomerSuccess />} />
         <Route path="/portfolio/partner-development" element={<PartnerDevelopment />} />
         <Route path="/portfolio/compliance" element={<Compliance />} />
+        <Route path="/portfolio/solution-engineering" element={<SolutionEngineering />} />
         <Route path="/my-websites" element={<MyWebsites />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
