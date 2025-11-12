@@ -18,7 +18,8 @@ export const Header: React.FC = () => {
   const professionalFocusItems = [
     { label: 'Customer Success', href: '/portfolio/customer-success' },
     { label: 'Partner Development', href: '/portfolio/partner-development' },
-    { label: 'Compliance & Risk', href: '/portfolio/compliance' },
+    { label: 'Compliance & Risk Leadership', href: '/portfolio/compliance' },
+    { label: 'Solution Engineering & Leadership', href: '/portfolio/solution-engineering' },
   ];
 
   const navItems = [
