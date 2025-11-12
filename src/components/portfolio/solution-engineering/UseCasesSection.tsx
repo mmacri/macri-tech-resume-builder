@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Shield, FileText, Server } from 'lucide-react';
+import { Shield, FileText, Server, Users, Target } from 'lucide-react';
 
 export const UseCasesSection = () => {
   const useCases = [
@@ -31,6 +31,24 @@ export const UseCasesSection = () => {
       challenge: "Each site demanded physical setup, making scaling and updates impractical.",
       action: "Advocated for and designed a remote, scriptable SDDC deployment capability integrated into the VMware roadmap.",
       outcome: "Reduced deployment time from days to 10 minutes, eliminating onsite visits and creating a repeatable remote provisioning model used company-wide. This became a key differentiator for enterprise modernization and cost reduction."
+    },
+    {
+      icon: Users,
+      title: "Building and Leading High-Performance Solution Engineering Teams",
+      tags: ["Leadership", "Team Development", "Enablement"],
+      context: "Solution engineering organizations needed to scale rapidly while maintaining technical excellence and customer satisfaction across multiple regions.",
+      challenge: "Inconsistent solution approaches, knowledge gaps, and varying demonstration quality across team members impacted deal cycles and customer confidence.",
+      action: "Established team development frameworks including technical training programs, solution playbooks, and mentorship initiatives. Created standardized discovery methodologies and demo best practices that elevated the entire organization.",
+      outcome: "Built cohesive, high-performing teams that consistently exceeded targets. Improved solution engineer effectiveness by 40%, reduced onboarding time by 50%, and established repeatable success patterns across customer engagements."
+    },
+    {
+      icon: Target,
+      title: "Leading Enterprise Customer Engagements from Discovery to Delivery",
+      tags: ["Engagement Leadership", "Customer Success", "Enterprise Solutions"],
+      context: "Complex enterprise deals required coordinated technical leadership across discovery, architecture design, proof of concept, and implementation phases.",
+      challenge: "Multi-stakeholder environments with competing priorities, technical complexity, and tight timelines demanded strategic orchestration and executive alignment.",
+      action: "Led end-to-end engagement delivery by conducting structured discovery sessions, designing tailored solution architectures, demonstrating value through executive storytelling, and coordinating cross-functional teams through implementation.",
+      outcome: "Successfully delivered $50M+ in influenced revenue through strategic engagements. Achieved 95% customer satisfaction scores and established long-term trusted advisor relationships that led to expansion opportunities and reference accounts."
     }
   ];
 
