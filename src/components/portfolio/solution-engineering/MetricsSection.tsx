@@ -16,7 +16,7 @@ export const MetricsSection = () => {
     },
     {
       icon: Shield,
-      title: "90%+ Control Reuse in IRM",
+      title: "45% Share Process Identification",
       description: "Engineered a common control architecture standardizing compliance automation"
     },
     {
