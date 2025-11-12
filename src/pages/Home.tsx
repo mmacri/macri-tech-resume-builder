@@ -79,16 +79,16 @@ const Home: React.FC = () => {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  size="lg" 
-                  className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-4 text-lg"
-                  asChild
-                >
-                  <a href="/portfolio">
-                  View My Portfolio
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                  </a>
-                </Button>
+              <Button 
+                size="lg" 
+                className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-4 text-lg"
+                asChild
+              >
+                <a href="#focus-areas">
+                Explore My Expertise
+                <ArrowRight className="ml-2 w-5 h-5" />
+                </a>
+              </Button>
                 
                 <Button 
                   size="lg"
@@ -197,7 +197,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Professional Focus Areas - Guide for Hiring Managers */}
-      <section className="py-16 bg-gradient-to-br from-macri-primary/5 to-accent/5">
+      <section id="focus-areas" className="py-16 bg-gradient-to-br from-macri-primary/5 to-accent/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-saira font-bold text-4xl text-macri-primary mb-6">
