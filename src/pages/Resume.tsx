@@ -37,16 +37,11 @@ const Resume: React.FC = () => {
                        Strategic Business Consultant & Solution Architect
                      </p>
                      
-                     <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center lg:justify-start text-gray-600">
-                       <div className="flex items-center justify-center lg:justify-start">
-                         <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
-                         <span className="text-sm sm:text-base text-center lg:text-left">Seattle, WA • San Diego, CA • Chicago Metro Area</span>
-                       </div>
-                       <div className="flex items-center justify-center lg:justify-start">
-                         <span className="w-4 h-4 mr-2 text-center flex-shrink-0">📍</span>
-                         <span className="text-sm sm:text-base text-center lg:text-left">Available Nationwide - Onsite or Remote</span>
-                       </div>
-                     </div>
+                      <div className="flex flex-col gap-2 justify-center lg:justify-start text-gray-600">
+                        <div className="flex items-center justify-center lg:justify-start">
+                          <span className="text-sm sm:text-base text-center lg:text-left">📍 Available in: Edmonds, WA • San Diego, CA • Chicago, IL • Denver, CO • Remote/Hybrid</span>
+                        </div>
+                      </div>
                    </div>
                 </div>
 
