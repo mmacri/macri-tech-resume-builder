@@ -379,6 +379,108 @@ const About: React.FC = () => {
         </div>
       </section>
 
+      {/* Methodologies Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-saira font-bold text-4xl text-macri-primary mb-4">
+              Proven Methodologies
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Structured frameworks I apply to deliver measurable outcomes across Solution Engineering, Customer Success, and Partner Development
+            </p>
+          </div>
+
+          {/* Solution Engineering Framework */}
+          <div className="mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-3 bg-macri-primary rounded-lg">
+                <Briefcase className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-saira text-2xl font-bold text-macri-primary">
+                Solution Engineering Framework
+              </h3>
+              <a href="/portfolio/solution-engineering" className="ml-auto text-sm text-macri-primary hover:underline flex items-center gap-1">
+                View Full Details <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+              {[
+                { title: 'Discover & Define', desc: 'Identify challenges, risks, and opportunities through structured discovery' },
+                { title: 'Architect & Design', desc: 'Design reference architectures using secure, modular patterns' },
+                { title: 'Demonstrate & Validate', desc: 'Deliver POCs, demos, and executive storytelling' },
+                { title: 'Automate & Operationalize', desc: 'Build automation and scalable workflows' },
+                { title: 'Enable & Expand', desc: 'Document, train, and empower teams to sustain value' }
+              ].map((step, idx) => (
+                <div key={idx} className="bg-gray-50 rounded-lg p-4 border-l-4 border-macri-primary">
+                  <div className="text-xs font-bold text-macri-primary mb-1">Step {idx + 1}</div>
+                  <h4 className="font-semibold text-gray-900 mb-2">{step.title}</h4>
+                  <p className="text-sm text-gray-600">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Customer Success Framework */}
+          <div className="mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-3 bg-macri-primary rounded-lg">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-saira text-2xl font-bold text-macri-primary">
+                Customer Success Framework
+              </h3>
+              <a href="/portfolio/customer-success" className="ml-auto text-sm text-macri-primary hover:underline flex items-center gap-1">
+                View Full Details <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {[
+                { title: 'Onboarding & Setup', desc: 'Align on outcomes, define joint success plans, establish baselines' },
+                { title: 'Adoption & Engagement', desc: 'Health scoring, structured touchpoints, proactive gap resolution' },
+                { title: 'Value Realization', desc: 'Executive storytelling, recurring reviews, strategic alignment' },
+                { title: 'Advocacy & Expansion', desc: 'Champion development, case studies, expansion planning' }
+              ].map((step, idx) => (
+                <div key={idx} className="bg-gray-50 rounded-lg p-4 border-l-4 border-macri-primary">
+                  <div className="text-xs font-bold text-macri-primary mb-1">Step {idx + 1}</div>
+                  <h4 className="font-semibold text-gray-900 mb-2">{step.title}</h4>
+                  <p className="text-sm text-gray-600">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Partner Development Framework */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-3 bg-macri-primary rounded-lg">
+                <TrendingUp className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-saira text-2xl font-bold text-macri-primary">
+                Partner Ecosystem Framework
+              </h3>
+              <a href="/portfolio/partner-development" className="ml-auto text-sm text-macri-primary hover:underline flex items-center gap-1">
+                View Full Details <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {[
+                { title: 'Strategy & Alignment', desc: 'Define partner value proposition, align stakeholders, prioritize partner types' },
+                { title: 'Enablement & Engagement', desc: 'Scalable onboarding, training programs, GTM resources' },
+                { title: 'Joint Execution & Co-Sell', desc: 'Pipeline generation, deal governance, performance dashboards' },
+                { title: 'Growth & Optimization', desc: 'Partner health evaluation, co-innovation, ecosystem champions' }
+              ].map((step, idx) => (
+                <div key={idx} className="bg-gray-50 rounded-lg p-4 border-l-4 border-macri-primary">
+                  <div className="text-xs font-bold text-macri-primary mb-1">Step {idx + 1}</div>
+                  <h4 className="font-semibold text-gray-900 mb-2">{step.title}</h4>
+                  <p className="text-sm text-gray-600">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Core Values */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
