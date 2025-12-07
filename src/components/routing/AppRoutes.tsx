@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
@@ -11,6 +10,7 @@ import CustomerSuccess from '@/pages/portfolio/CustomerSuccess';
 import PartnerDevelopment from '@/pages/portfolio/PartnerDevelopment';
 import Compliance from '@/pages/portfolio/Compliance';
 import SolutionEngineering from '@/pages/portfolio/SolutionEngineering';
+import MomentumEdge from '@/pages/portfolio/MomentumEdge';
 import MyWebsites from '@/pages/MyWebsites';
 import Contact from '@/pages/Contact';
 import NotFound from '@/pages/NotFound';
@@ -28,6 +28,7 @@ export const AppRoutes: React.FC = () => {
         <Route path="/portfolio/partner-development" element={<PartnerDevelopment />} />
         <Route path="/portfolio/compliance" element={<Compliance />} />
         <Route path="/portfolio/solution-engineering" element={<SolutionEngineering />} />
+        <Route path="/portfolio/momentum-edge" element={<MomentumEdge />} />
         <Route path="/my-websites" element={<MyWebsites />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
