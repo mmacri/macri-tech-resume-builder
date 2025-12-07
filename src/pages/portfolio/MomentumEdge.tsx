@@ -7,7 +7,7 @@ import {
   Shield, Target, Lightbulb, TrendingUp, Users, FileCheck, 
   ExternalLink, CheckCircle, ArrowRight, Briefcase, Award
 } from 'lucide-react';
-import momentumEdgeScreenshot from '@/assets/momentum-edge-screenshot.png';
+import mec2SkillsScreenshot from '@/assets/mec2-skills-screenshot.png';
 
 const MomentumEdge = () => {
   const services = [
@@ -142,7 +142,7 @@ const MomentumEdge = () => {
                     <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                   </div>
                   <img
-                    src={momentumEdgeScreenshot}
+                    src={mec2SkillsScreenshot}
                     alt="Momentum Edge Consulting website"
                     className="w-full h-auto"
                   />
