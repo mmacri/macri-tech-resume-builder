@@ -1,7 +1,8 @@
 import React from 'react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, MapPin, Calendar, Building, Mail, Users, TrendingUp, Shield, Briefcase } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { ExternalLink, MapPin, Calendar, Building, Mail, Users, TrendingUp, Shield, Briefcase, ArrowRight, Rocket } from 'lucide-react';
 
 const About: React.FC = () => {
   const focusAreas = [
@@ -35,6 +36,83 @@ const About: React.FC = () => {
     }
   ];
 
+  const journeyMilestones = [
+    {
+      period: 'Apr 2025 - Present',
+      title: 'Principal Consultant & Solution Engineer',
+      company: 'Momentum Edge Consulting',
+      location: 'United States - Hybrid',
+      isCurrent: true,
+      highlights: [
+        'Founded consulting practice delivering IT, compliance, governance, and AI-driven solutions',
+        'Advising healthcare practices, utilities, and municipal organizations on complex compliance initiatives',
+        'Strategic subcontracting partner for firms such as IDMA3',
+        'Virtual CIO/CISO guidance, AI enablement planning, and cross-functional alignment'
+      ],
+      areasOfFocus: ['NERC/CIP', 'HIPAA', 'AI Governance', 'Healthcare IT', 'ServiceNow GRC/IRM'],
+      link: '/portfolio/momentum-edge'
+    },
+    {
+      period: 'Dec 2021 - Jun 2025',
+      title: 'Sr. Manager, Solution Advisory – Legal Ethics & Compliance',
+      company: 'ServiceNow',
+      location: 'Remote',
+      isCurrent: false,
+      highlights: [
+        'Directed cross-functional solution advisory across Sales, Security, Legal, and Product',
+        'Delivered $900M in risk reduction through GRC solution advisory and PolicyHub creation',
+        'SME for ServiceNow\'s inaugural AI risk policies and requirements',
+        'Shaped product roadmap internally and with enterprise customers'
+      ],
+      areasOfFocus: ['GRC', 'AI/ML Ethics', 'PolicyHub', 'Risk Reduction'],
+      link: '/portfolio/compliance'
+    },
+    {
+      period: 'Nov 2019 - Dec 2021',
+      title: 'Partner Business & Technical Alliance Director – Americas',
+      company: 'VMware',
+      location: 'San Francisco, CA',
+      isCurrent: false,
+      highlights: [
+        'Designed partner joint business plans resulting in two record-setting $50M+ deals',
+        'Exceeded sales targets by 450% through GTM with consulting/implementation partners',
+        'Aligned product and engineering on partner-led integrations (e.g., VMware on AWS with DXC)'
+      ],
+      areasOfFocus: ['Partner Alliances', 'GTM Strategy', 'Deal Execution'],
+      link: '/portfolio/partner-development'
+    },
+    {
+      period: '2011 - 2019',
+      title: 'Progressive Leadership Roles',
+      company: 'VMware',
+      location: 'Seattle, WA → Chicago, IL',
+      isCurrent: false,
+      highlights: [
+        'Advanced from Staff TAM to Sr Manager, Customer Success to Partner Staff SE Leader',
+        'Drove $440M through multi-tiered routes-to-market with CDW partnership',
+        'Improved NPS by 30 points (20 above company standard)',
+        'Built engagement frameworks growing teams across US West Coast'
+      ],
+      areasOfFocus: ['Customer Success', 'Team Leadership', 'Partner Development'],
+      link: '/portfolio/customer-success'
+    },
+    {
+      period: '2000 - 2011',
+      title: 'Technical Foundation & Consulting Excellence',
+      company: 'Various / Own Consulting Firm',
+      location: 'Nationwide',
+      isCurrent: false,
+      highlights: [
+        'Founded and successfully merged own consulting firm',
+        'Delivered strategic technology solutions across healthcare and diverse industries',
+        'Established CIO consulting practice and V-Dash implementations for Microsoft',
+        'Built deep technical expertise with mainframe and web technologies'
+      ],
+      areasOfFocus: ['Healthcare IT', 'CIO Consulting', 'Microsoft'],
+      link: null
+    }
+  ];
+
   return (
     <>
       <SEOHead
@@ -47,146 +125,179 @@ const About: React.FC = () => {
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-macri-primary/5 via-white to-macri-primary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="font-saira font-bold text-5xl lg:text-6xl text-macri-primary mb-6">
-              About Mike Macri
-            </h1>
-            
-            <div className="space-y-6 text-lg text-gray-700 mb-8">
-              <p>
-                <strong>Cross-Functional Strategic Leader</strong> excelling at the nexus of <strong>Solution Engineering</strong>, <strong>Customer Success</strong>, <strong>Partner Ecosystem Development</strong>, and <strong>Compliance & Risk Leadership</strong>. My unique value lies in bridging these disciplines to drive measurable business outcomes—from architecting GRC solutions and AI governance frameworks to scaling partner ecosystems and delivering exceptional customer experiences.
-              </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <Badge className="mb-4 bg-green-100 text-green-800 border-green-200">
+                <Rocket className="w-3 h-3 mr-1" /> Now: Principal Consultant at Momentum Edge
+              </Badge>
               
-              <p>
-                At ServiceNow, I delivered $900M in risk reduction through solution advisory and technical governance while creating the PolicyHub module and establishing inaugural AI/ML ethics policies. At VMware, I unified customer success with partner development, securing two $50M+ landmark deals through strategic joint business planning, growing advisory teams across the US West, and achieving an 83 NPS (20 points above target) with 450% sales attainment and $440M in partner-influenced revenue.
-              </p>
+              <h1 className="font-saira font-bold text-5xl lg:text-6xl text-macri-primary mb-6">
+                About Mike Macri
+              </h1>
+              
+              <div className="space-y-4 text-lg text-gray-700 mb-8">
+                <p>
+                  <strong>Cross-Functional Strategic Leader</strong> excelling at the nexus of <strong>Solution Engineering</strong>, <strong>Customer Success</strong>, <strong>Partner Ecosystem Development</strong>, and <strong>Compliance & Risk Leadership</strong>.
+                </p>
+                
+                <p>
+                  Currently leading <strong>Momentum Edge Consulting</strong>, delivering practical IT, compliance, governance, and AI-driven solutions for regulated organizations including healthcare practices, utilities, and city agencies.
+                </p>
+              </div>
+
+              {/* Key Stats */}
+              <div className="grid grid-cols-2 gap-3 mb-8">
+                <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
+                  <div className="text-2xl font-bold text-macri-primary mb-1">$900M+</div>
+                  <div className="text-xs font-medium text-gray-600">Risk Reduction Delivered</div>
+                </div>
+                <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
+                  <div className="text-2xl font-bold text-macri-primary mb-1">450%</div>
+                  <div className="text-xs font-medium text-gray-600">Sales Target Achievement</div>
+                </div>
+                <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
+                  <div className="text-2xl font-bold text-macri-primary mb-1">83 NPS</div>
+                  <div className="text-xs font-medium text-gray-600">Net Promoter Score</div>
+                </div>
+                <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
+                  <div className="text-2xl font-bold text-macri-primary mb-1">$100M+</div>
+                  <div className="text-xs font-medium text-gray-600">Landmark Deals</div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button 
+                  className="bg-macri-primary hover:bg-macri-primary-dark text-white px-6"
+                  asChild
+                >
+                  <a href="/portfolio/momentum-edge">
+                    Learn About MEC
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </a>
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-6"
+                  asChild
+                >
+                  <a href="/contact">
+                    <Mail className="mr-2 w-4 h-4" />
+                    Contact Me
+                  </a>
+                </Button>
+              </div>
             </div>
 
-            {/* Key Stats */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
-              <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
-                <div className="text-2xl font-bold text-macri-primary mb-1">$900M+</div>
-                <div className="text-xs font-medium text-gray-600">Risk Reduction Delivered</div>
+            <div className="flex justify-center">
+              <div className="relative">
+                <img
+                  src="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+                  alt="Mike Macri - Professional headshot"
+                  className="w-80 h-80 rounded-full border-8 border-white shadow-2xl object-cover"
+                />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-macri-primary/20 to-transparent"></div>
               </div>
-              <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
-                <div className="text-2xl font-bold text-macri-primary mb-1">450%</div>
-                <div className="text-xs font-medium text-gray-600">Sales Target Achievement</div>
-              </div>
-              <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
-                <div className="text-2xl font-bold text-macri-primary mb-1">83</div>
-                <div className="text-xs font-medium text-gray-600">Net Promoter Score</div>
-              </div>
-              <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
-                <div className="text-2xl font-bold text-macri-primary mb-1">$100M+</div>
-                <div className="text-xs font-medium text-gray-600">Landmark Deals Secured</div>
-              </div>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-3"
-                asChild
-              >
-                <a href="/resume">
-                  View Full Resume
-                  <ExternalLink className="ml-2 w-4 h-4" />
-                </a>
-              </Button>
-              
-              <Button 
-                variant="outline" 
-                className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-8 py-3"
-                asChild
-              >
-                <a href="/contact">
-                  <Mail className="mr-2 w-4 h-4" />
-                  Contact Me
-                </a>
-              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Professional Journey */}
+      {/* Visual Professional Journey */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-saira font-bold text-4xl text-macri-primary mb-6">
+          <div className="text-center mb-12">
+            <h2 className="font-saira font-bold text-4xl text-macri-primary mb-4">
               Professional Journey
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              A career built on strategic thinking, innovative solutions, and measurable results
+              25+ years of progressive leadership across enterprise technology, compliance, and strategic consulting
             </p>
           </div>
 
-          <div className="space-y-8">
-            <div className="relative">
-              <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-                <div className="flex items-start space-x-4">
-                  <div className="flex items-center justify-center w-10 h-10 bg-macri-primary rounded-full text-white font-bold text-lg flex-shrink-0">
-                    1
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-xl text-macri-primary mb-2">Technical Foundation & Consulting Excellence</h3>
-                    <p className="text-gray-600 flex items-center mb-4">
-                      <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
-                      <span>2000-2008</span>
-                    </p>
-                    <p className="text-gray-700 leading-relaxed">
-                      Built deep technical expertise developing online payroll systems using mainframe and web technologies. 
-                      Founded and successfully merged my own consulting firm, delivering strategic technology solutions 
-                      across healthcare, dental, and diverse industries. Established CIO consulting practice and V-Dash 
-                      implementations for Microsoft, serving customers nationwide.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* Timeline */}
+          <div className="relative">
+            {/* Vertical line */}
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-macri-primary/20 transform md:-translate-x-1/2"></div>
 
-            <div className="relative">
-              <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-                <div className="flex items-start space-x-4">
-                  <div className="flex items-center justify-center w-10 h-10 bg-macri-primary rounded-full text-white font-bold text-lg flex-shrink-0">
-                    2
+            <div className="space-y-8">
+              {journeyMilestones.map((milestone, index) => (
+                <div 
+                  key={index} 
+                  className={`relative flex flex-col md:flex-row gap-4 md:gap-8 ${
+                    index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                  }`}
+                >
+                  {/* Timeline dot */}
+                  <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-white shadow transform -translate-x-1/2 z-10" 
+                    style={{ backgroundColor: milestone.isCurrent ? '#16a34a' : 'hsl(var(--macri-primary))' }}>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-xl text-macri-primary mb-2">Enterprise Scale & Team Leadership</h3>
-                    <p className="text-gray-600 flex items-center mb-4">
-                      <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
-                      <span>2008-2019</span>
-                    </p>
-                    <p className="text-gray-700 leading-relaxed">
-                      Transitioned to VMware, serving Fortune 500 clients including Boeing, Salesforce, Costco, and Intuit. 
-                      Advanced from Staff Technical Account Manager to Sr Manager, building engagement frameworks that improved 
-                      NPS by 30 points and drove $440M in partner revenue. Created scalable solutions and grew teams across the US West Coast.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div className="relative">
-              <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
-                <div className="flex items-start space-x-4">
-                  <div className="flex items-center justify-center w-10 h-10 bg-macri-primary rounded-full text-white font-bold text-lg flex-shrink-0">
-                    3
+                  {/* Content card */}
+                  <div className={`ml-12 md:ml-0 md:w-[calc(50%-2rem)] ${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'}`}>
+                    <div className={`bg-white rounded-lg shadow-lg border-2 p-6 hover:shadow-xl transition-shadow ${
+                      milestone.isCurrent ? 'border-green-500' : 'border-gray-200 hover:border-macri-primary/50'
+                    }`}>
+                      {milestone.isCurrent && (
+                        <Badge className="mb-3 bg-green-100 text-green-800 border-green-200">
+                          Current Role
+                        </Badge>
+                      )}
+                      
+                      <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                        <Calendar className="w-4 h-4" />
+                        {milestone.period}
+                      </div>
+                      
+                      <h3 className="font-semibold text-xl text-macri-primary mb-1">
+                        {milestone.title}
+                      </h3>
+                      
+                      <div className="flex items-center gap-2 text-gray-600 mb-3">
+                        <Building className="w-4 h-4" />
+                        <span className="font-medium">{milestone.company}</span>
+                        <span className="text-gray-400">•</span>
+                        <MapPin className="w-4 h-4" />
+                        <span>{milestone.location}</span>
+                      </div>
+
+                      <ul className="space-y-2 mb-4">
+                        {milestone.highlights.map((highlight, hIndex) => (
+                          <li key={hIndex} className="text-sm text-gray-700 flex items-start">
+                            <span className="w-1.5 h-1.5 bg-macri-primary rounded-full mr-2 mt-2 flex-shrink-0"></span>
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {milestone.areasOfFocus.map((area) => (
+                          <Badge key={area} variant="secondary" className="text-xs">
+                            {area}
+                          </Badge>
+                        ))}
+                      </div>
+
+                      {milestone.link && (
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
+                          asChild
+                        >
+                          <a href={milestone.link}>
+                            View Case Study
+                            <ArrowRight className="ml-2 w-3 h-3" />
+                          </a>
+                        </Button>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-xl text-macri-primary mb-2">Strategic Executive Leadership</h3>
-                    <p className="text-gray-600 flex items-center mb-4">
-                      <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
-                      <span>2019-Present</span>
-                    </p>
-                    <p className="text-gray-700 leading-relaxed">
-                      Elevated to Partner Business & Technical Alliance Director, designing joint business plans that secured 
-                      two record-setting $50M+ deals. As Sr Manager of Solution Advisory for Legal Ethics & Compliance at ServiceNow, 
-                      delivering $900M in risk reduction, shaping product roadmaps, and establishing AI/ML governance frameworks.
-                    </p>
-                  </div>
+
+                  {/* Spacer for alternating layout */}
+                  <div className="hidden md:block md:w-[calc(50%-2rem)]"></div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -230,7 +341,6 @@ const About: React.FC = () => {
             ))}
           </div>
 
-          {/* Resume & Portfolio CTAs */}
           <div className="bg-white rounded-lg shadow-lg p-8">
             <div className="text-center mb-6">
               <h3 className="font-saira text-2xl font-bold text-macri-primary mb-3">
