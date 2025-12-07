@@ -291,6 +291,104 @@ const MomentumEdge = () => {
           </div>
         </section>
 
+        {/* Training Resources Section */}
+        <section className="py-16 bg-macri-section-alt">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="font-saira font-bold text-3xl text-macri-primary mb-4">
+                Training & Enablement Platforms
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                Custom-built training platforms to help organizations build internal compliance capabilities and audit readiness.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="p-2 bg-macri-primary/10 rounded-lg">
+                      <Shield className="w-6 h-6 text-macri-primary" />
+                    </div>
+                    <Badge className="bg-green-100 text-green-800 border-0">Live Platform</Badge>
+                  </div>
+                  <CardTitle className="text-xl">CIP Audit Ready Training</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground mb-4">
+                    A complete training program for power utilities preparing for NERC CIP audits. 
+                    Learn the standards, build your evidence system, and practice before auditors arrive.
+                  </p>
+                  <ul className="space-y-2 mb-6">
+                    <li className="flex items-start text-sm">
+                      <CheckCircle className="w-4 h-4 text-macri-primary mr-2 mt-0.5 flex-shrink-0" />
+                      <span>Role-based learning paths tailored to CIP responsibilities</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <CheckCircle className="w-4 h-4 text-macri-primary mr-2 mt-0.5 flex-shrink-0" />
+                      <span>Evidence collection and documentation best practices</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <CheckCircle className="w-4 h-4 text-macri-primary mr-2 mt-0.5 flex-shrink-0" />
+                      <span>Interactive audit simulation exercises</span>
+                    </li>
+                  </ul>
+                  <Button className="w-full bg-macri-primary hover:bg-macri-primary-dark text-white" asChild>
+                    <a href="https://mmacri.github.io/cip-audit-ready/" target="_blank" rel="noopener noreferrer">
+                      Explore CIP Training <ExternalLink className="ml-2 w-4 h-4" />
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="p-2 bg-macri-primary/10 rounded-lg">
+                      <Award className="w-6 h-6 text-macri-primary" />
+                    </div>
+                    <Badge className="bg-green-100 text-green-800 border-0">Live Platform</Badge>
+                  </div>
+                  <CardTitle className="text-xl">Audit 101 - Common Controls Framework</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground mb-4">
+                    Master compliance frameworks and audit readiness with structured, role-specific learning paths. 
+                    Choose your framework or role, follow 7 proven steps, and build real-world expertise.
+                  </p>
+                  <ul className="space-y-2 mb-6">
+                    <li className="flex items-start text-sm">
+                      <CheckCircle className="w-4 h-4 text-macri-primary mr-2 mt-0.5 flex-shrink-0" />
+                      <span>Multi-framework common controls mapping (NERC CIP, ISO 27001, etc.)</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <CheckCircle className="w-4 h-4 text-macri-primary mr-2 mt-0.5 flex-shrink-0" />
+                      <span>Enablement paths and certification preparation</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <CheckCircle className="w-4 h-4 text-macri-primary mr-2 mt-0.5 flex-shrink-0" />
+                      <span>Progress tracking with badges and completion certificates</span>
+                    </li>
+                  </ul>
+                  <Button className="w-full bg-macri-primary hover:bg-macri-primary-dark text-white" asChild>
+                    <a href="https://mmacri.github.io/audit101/" target="_blank" rel="noopener noreferrer">
+                      Explore Audit 101 <ExternalLink className="ml-2 w-4 h-4" />
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="text-center mt-8">
+              <Button variant="outline" className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white" asChild>
+                <a href="/my-websites">
+                  View All Platforms <ArrowRight className="ml-2 w-4 h-4" />
+                </a>
+              </Button>
+            </div>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="py-16 bg-macri-primary text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
