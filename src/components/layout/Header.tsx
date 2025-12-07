@@ -15,11 +15,13 @@ export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  const professionalFocusItems = [
-    { label: 'Customer Success', href: '/portfolio/customer-success' },
-    { label: 'Partner Development', href: '/portfolio/partner-development' },
-    { label: 'Compliance & Risk Leadership', href: '/portfolio/compliance' },
-    { label: 'Solution Engineering & Leadership', href: '/portfolio/solution-engineering' },
+  const portfolioItems = [
+    { label: 'All Projects', href: '/portfolio', description: 'View complete portfolio' },
+    { label: 'Momentum Edge Consulting', href: '/portfolio/momentum-edge', description: 'IT compliance & governance consulting' },
+    { label: 'Customer Success', href: '/portfolio/customer-success', description: 'Customer retention & growth strategies' },
+    { label: 'Partner Development', href: '/portfolio/partner-development', description: 'Channel & partner enablement' },
+    { label: 'Compliance & Risk', href: '/portfolio/compliance', description: 'GRC automation & policy management' },
+    { label: 'Solution Engineering', href: '/portfolio/solution-engineering', description: 'Technical sales & pre-sales leadership' },
   ];
 
   const navItems = [
@@ -87,23 +89,28 @@ export const Header: React.FC = () => {
               Resume
             </Link>
             
-            {/* Professional Focus Dropdown */}
+            {/* Portfolio Dropdown */}
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="font-medium bg-transparent hover:bg-transparent data-[state=open]:bg-transparent">
-                    Professional Focus
+                  <NavigationMenuTrigger 
+                    className={`font-medium bg-transparent hover:bg-transparent data-[state=open]:bg-transparent ${
+                      isActive('/portfolio') ? 'text-macri-primary' : 'text-gray-700'
+                    }`}
+                  >
+                    Portfolio
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 bg-white">
-                      {professionalFocusItems.map((item) => (
+                    <ul className="grid w-[420px] gap-2 p-4 bg-white shadow-lg border border-gray-200 rounded-lg z-50">
+                      {portfolioItems.map((item) => (
                         <li key={item.href}>
                           <NavigationMenuLink asChild>
                             <Link
                               to={item.href}
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                              className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-macri-primary/10 focus:bg-macri-primary/10"
                             >
-                              <div className="font-medium leading-none">{item.label}</div>
+                              <div className="font-medium leading-none text-macri-primary mb-1">{item.label}</div>
+                              <p className="text-sm text-muted-foreground">{item.description}</p>
                             </Link>
                           </NavigationMenuLink>
                         </li>
@@ -114,16 +121,6 @@ export const Header: React.FC = () => {
               </NavigationMenuList>
             </NavigationMenu>
 
-            <Link
-              to="/portfolio"
-              className={`font-medium transition-colors hover:text-macri-primary ${
-                isActive('/portfolio')
-                  ? 'text-macri-primary border-b-2 border-macri-primary'
-                  : 'text-gray-700'
-              }`}
-            >
-              Portfolio
-            </Link>
             <Link
               to="/my-websites"
               className={`font-medium transition-colors hover:text-macri-primary ${
@@ -190,9 +187,9 @@ export const Header: React.FC = () => {
                 </Link>
               ))}
               
-              {/* Professional Focus Items */}
-              <div className="px-3 py-2 text-sm font-semibold text-gray-500">Professional Focus</div>
-              {professionalFocusItems.map((item) => (
+              {/* Portfolio Items */}
+              <div className="px-3 py-2 text-sm font-semibold text-gray-500">Portfolio</div>
+              {portfolioItems.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
