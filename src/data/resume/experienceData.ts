@@ -1,11 +1,21 @@
 export const staticExperienceData = [
   {
+    id: "0",
+    title: "Principal Consultant & Solution Engineer",
+    organization: "Momentum Edge Consulting",
+    location: "United States - Hybrid - CA, WA, MI, IL",
+    start_date: "Apr 2025",
+    end_date: null,
+    description: "Momentum Edge Consulting (MEC) delivers practical IT, compliance, governance, and AI-driven solutions for regulated organizations, including healthcare practices, utilities, and city agencies. Leading complex transformation, assessment, and compliance initiatives as a senior technologist and trusted advisor for clients across high-stakes operational environments.\n• Architect and deliver end-to-end solution designs for IT governance, compliance frameworks, controlled documentation, and process optimization — advising clients across healthcare, public utilities, and municipal organizations, and serving as a strategic subcontracting partner for firms such as IDMA3.\n• Lead assessments, roadmaps, and implementation programs that strengthen cybersecurity posture, reduce audit exposure (e.g., NERC/CIP, HIPAA, PCI, AI governance), and modernize how clients design policies, controls, service workflows, and technology portfolios.\n• Provide executive-level solution engineering and technical advisory, including virtual CIO/CISO guidance, systems architecture reviews, AI enablement planning, and cross-functional alignment across operations, IT, legal, compliance, and city leadership teams.\n\nFocus Areas: IT Governance • Compliance & Controls • Cyber Risk • Utility & Critical Infrastructure Advisory • Healthcare IT • Audit Readiness • Policy Design • Process Optimization • AI Governance • ServiceNow GRC/IRM • Strategic Roadmaps • Executive Advisory",
+    display_order: 0
+  },
+  {
     id: "1",
     title: "Sr. Manager, Solution Advisory – Legal Ethics & Compliance",
     organization: "ServiceNow",
     location: "Remote",
     start_date: "Dec 2021",
-    end_date: "May 2025",
+    end_date: "Jun 2025",
     description: "Directed cross-functional solution advisory initiatives across Sales, Security, Legal, and Product to accelerate adoption through cross departmental solutions that reduce enterprise risk, while enhancing process.\n• Streamlined cross departmental processes and shaped product roadmap internally and with customers; led Solution Advisors to resolve complex compliance challenges across Security, ESG, Legal, Product, Sales and customers.\n• Sold the value of ServiceNow internally to departmental leaders and teams to gain budget commit and integrate workflows into ServiceNow across environments and regulatory domains.\n• Integrated AI/ML governance into enterprise frameworks; SME for ServiceNow's inaugural AI risk policies and requirements.",
     display_order: 1
   },
