@@ -391,6 +391,132 @@ const About: React.FC = () => {
             </p>
           </div>
 
+          {/* Integration Flowchart */}
+          <div className="mb-16 bg-gradient-to-r from-macri-primary/5 via-macri-primary/10 to-macri-primary/5 rounded-2xl p-8 border border-macri-primary/20">
+            <h3 className="font-saira text-xl font-bold text-center text-macri-primary mb-8">
+              End-to-End Customer Value Delivery
+            </h3>
+            
+            {/* Desktop Flowchart */}
+            <div className="hidden lg:block">
+              <div className="relative">
+                {/* Connection Lines */}
+                <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none">
+                  <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                      <polygon points="0 0, 10 3.5, 0 7" fill="hsl(var(--macri-primary))" />
+                    </marker>
+                  </defs>
+                  {/* SE to CS arrow */}
+                  <line x1="32%" y1="50%" x2="43%" y2="50%" stroke="hsl(var(--macri-primary))" strokeWidth="2" markerEnd="url(#arrowhead)" className="opacity-60" />
+                  {/* CS to PD arrow */}
+                  <line x1="57%" y1="50%" x2="68%" y2="50%" stroke="hsl(var(--macri-primary))" strokeWidth="2" markerEnd="url(#arrowhead)" className="opacity-60" />
+                  {/* Feedback loop - curved line from PD back to SE */}
+                  <path d="M 85% 75% Q 50% 120%, 15% 75%" fill="none" stroke="hsl(var(--macri-primary))" strokeWidth="2" strokeDasharray="5,5" className="opacity-40" />
+                </svg>
+
+                <div className="grid grid-cols-3 gap-8 relative z-10">
+                  {/* Solution Engineering */}
+                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-macri-primary/30 hover:border-macri-primary transition-colors group">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-macri-primary rounded-lg group-hover:scale-110 transition-transform">
+                        <Briefcase className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-semibold text-macri-primary/60 uppercase tracking-wide">Phase 1</div>
+                        <h4 className="font-saira font-bold text-lg text-macri-primary">Solution Engineering</h4>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">Design & validate technical solutions aligned to business outcomes</p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="text-xs bg-macri-primary/10 text-macri-primary px-2 py-1 rounded">Discovery</span>
+                      <span className="text-xs bg-macri-primary/10 text-macri-primary px-2 py-1 rounded">Architecture</span>
+                      <span className="text-xs bg-macri-primary/10 text-macri-primary px-2 py-1 rounded">POC</span>
+                    </div>
+                  </div>
+
+                  {/* Customer Success */}
+                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-macri-primary/30 hover:border-macri-primary transition-colors group">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-macri-primary rounded-lg group-hover:scale-110 transition-transform">
+                        <Users className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-semibold text-macri-primary/60 uppercase tracking-wide">Phase 2</div>
+                        <h4 className="font-saira font-bold text-lg text-macri-primary">Customer Success</h4>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">Drive adoption, value realization & advocacy through structured engagement</p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="text-xs bg-macri-primary/10 text-macri-primary px-2 py-1 rounded">Onboarding</span>
+                      <span className="text-xs bg-macri-primary/10 text-macri-primary px-2 py-1 rounded">Adoption</span>
+                      <span className="text-xs bg-macri-primary/10 text-macri-primary px-2 py-1 rounded">Expansion</span>
+                    </div>
+                  </div>
+
+                  {/* Partner Development */}
+                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-macri-primary/30 hover:border-macri-primary transition-colors group">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-macri-primary rounded-lg group-hover:scale-110 transition-transform">
+                        <TrendingUp className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-semibold text-macri-primary/60 uppercase tracking-wide">Phase 3</div>
+                        <h4 className="font-saira font-bold text-lg text-macri-primary">Partner Ecosystem</h4>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">Scale through strategic alliances, co-sell motions & ecosystem growth</p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="text-xs bg-macri-primary/10 text-macri-primary px-2 py-1 rounded">Enablement</span>
+                      <span className="text-xs bg-macri-primary/10 text-macri-primary px-2 py-1 rounded">Co-Sell</span>
+                      <span className="text-xs bg-macri-primary/10 text-macri-primary px-2 py-1 rounded">Growth</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Feedback Loop Label */}
+                <div className="text-center mt-6">
+                  <span className="inline-flex items-center gap-2 text-sm text-macri-primary/70 bg-white px-4 py-2 rounded-full border border-macri-primary/20">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Continuous Feedback Loop — Partner insights inform solution improvements
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile/Tablet Flowchart */}
+            <div className="lg:hidden space-y-4">
+              {[
+                { icon: Briefcase, phase: '1', title: 'Solution Engineering', desc: 'Design & validate technical solutions' },
+                { icon: Users, phase: '2', title: 'Customer Success', desc: 'Drive adoption & value realization' },
+                { icon: TrendingUp, phase: '3', title: 'Partner Ecosystem', desc: 'Scale through strategic alliances' }
+              ].map((item, idx) => (
+                <div key={idx} className="relative">
+                  <div className="bg-white rounded-lg p-4 shadow-md border-l-4 border-macri-primary flex items-center gap-4">
+                    <div className="p-2 bg-macri-primary rounded-lg flex-shrink-0">
+                      <item.icon className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-macri-primary/60">Phase {item.phase}</div>
+                      <h4 className="font-saira font-bold text-macri-primary">{item.title}</h4>
+                      <p className="text-sm text-gray-600">{item.desc}</p>
+                    </div>
+                  </div>
+                  {idx < 2 && (
+                    <div className="flex justify-center py-2">
+                      <ArrowRight className="w-5 h-5 text-macri-primary/50 rotate-90" />
+                    </div>
+                  )}
+                </div>
+              ))}
+              <div className="text-center pt-2">
+                <span className="text-xs text-macri-primary/60">↻ Continuous feedback loop</span>
+              </div>
+            </div>
+          </div>
+
           {/* Solution Engineering Framework */}
           <div className="mb-12">
             <div className="flex items-center gap-3 mb-6">
