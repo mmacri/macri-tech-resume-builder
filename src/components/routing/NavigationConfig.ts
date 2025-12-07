@@ -18,6 +18,8 @@ export const useNavigationItems = () => {
       { label: "Interests", href: "#interests" },
       { label: "Awards & Certs", href: "#awards" },
       { label: "Portfolio", href: "/portfolio" },
+      { label: "MEC", href: "/portfolio/momentum-edge" },
+      { label: "My Websites", href: "/my-websites" },
       { label: "Blog", href: "/blog" },
       { label: "Resume", href: "/resume" },
       { label: "Let's Connect", href: "/contact" },
@@ -27,6 +29,8 @@ export const useNavigationItems = () => {
   const getPortfolioNavItems = React.useCallback((): NavItem[] => {
     return [
       { label: "Index of Projects", href: "#index-of-projects" },
+      { label: "MEC", href: "/portfolio/momentum-edge" },
+      { label: "My Websites", href: "/my-websites" },
       { label: "Overview", href: "/" },
       { label: "Blog", href: "/blog" },
       { label: "Resume", href: "/resume" },
