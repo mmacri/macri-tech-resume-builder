@@ -1,7 +1,7 @@
 import React from 'react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Button } from '@/components/ui/button';
-import { Download, ExternalLink, ArrowRight, Star, Users, TrendingUp } from 'lucide-react';
+import { ExternalLink, ArrowRight, Star, Users, TrendingUp, Shield, Briefcase } from 'lucide-react';
 
 const Home: React.FC = () => {
   const featuredProjects = [
@@ -28,6 +28,13 @@ const Home: React.FC = () => {
     }
   ];
 
+  const expertiseAreas = [
+    { icon: Users, label: 'Customer Success', description: '83 NPS, 21% adoption increase' },
+    { icon: TrendingUp, label: 'Partner Development', description: '$440M partner-influenced revenue' },
+    { icon: Shield, label: 'Compliance & Risk', description: '$900M risk reduction' },
+    { icon: Briefcase, label: 'Solution Engineering', description: 'PolicyHub creation, AI governance' },
+  ];
+
   return (
     <>
       <SEOHead
@@ -42,53 +49,53 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Content */}
             <div className="order-2 lg:order-1">
-            <h1 className="font-saira font-bold text-5xl lg:text-7xl text-macri-primary mb-6 leading-tight">
-              Mike Macri
-              <span className="block text-3xl lg:text-4xl text-gray-700 font-medium mt-2">
-                M.B.A.
-              </span>
-            </h1>
-            
-            <p className="text-xl lg:text-2xl text-gray-600 mb-6 leading-relaxed">
-              Strategic Business Consultant & Solution Architect
-            </p>
-            
-            <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-              Cross-functional leader bridging <strong>Solution Engineering</strong>, <strong>Customer Success</strong>, <strong>Partner Ecosystems</strong>, and <strong>Compliance & Risk Management</strong> to transform business challenges into measurable growth. At ServiceNow, delivered $900M in risk reduction through GRC solution advisory while shaping AI governance frameworks. At VMware, secured $100M+ in landmark deals through partner ecosystem development, achieving 83 NPS and 450% sales target attainment. Proven expertise in scaling teams, architecting enterprise solutions, and driving cross-domain initiatives that accelerate adoption and mitigate enterprise risk globally.
-            </p>
+              <h1 className="font-saira font-bold text-5xl lg:text-7xl text-macri-primary mb-6 leading-tight">
+                Mike Macri
+                <span className="block text-3xl lg:text-4xl text-gray-700 font-medium mt-2">
+                  M.B.A.
+                </span>
+              </h1>
+              
+              <p className="text-xl lg:text-2xl text-gray-600 mb-6 leading-relaxed">
+                Strategic Business Consultant & Solution Architect
+              </p>
+              
+              <p className="text-lg text-gray-700 mb-8 leading-relaxed">
+                Cross-functional leader bridging <strong>Solution Engineering</strong>, <strong>Customer Success</strong>, <strong>Partner Ecosystems</strong>, and <strong>Compliance & Risk Management</strong> to transform business challenges into measurable growth. Proven expertise in scaling teams, architecting enterprise solutions, and driving cross-domain initiatives that accelerate adoption and mitigate enterprise risk globally.
+              </p>
 
               {/* Key Stats */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
                 <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
-                  <div className="text-lg font-bold text-macri-primary mb-1">Solution</div>
-                  <div className="text-xs font-medium text-gray-600">Advisory</div>
+                  <div className="text-xl font-bold text-macri-primary mb-1">$900M+</div>
+                  <div className="text-xs font-medium text-gray-600">Risk Reduction</div>
                 </div>
                 <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
-                  <div className="text-lg font-bold text-macri-primary mb-1">Partner</div>
-                  <div className="text-xs font-medium text-gray-600">Development</div>
+                  <div className="text-xl font-bold text-macri-primary mb-1">450%</div>
+                  <div className="text-xs font-medium text-gray-600">Sales Target</div>
                 </div>
                 <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
-                  <div className="text-lg font-bold text-macri-primary mb-1">Compliance</div>
-                  <div className="text-xs font-medium text-gray-600">& AI Ethics</div>
+                  <div className="text-xl font-bold text-macri-primary mb-1">83 NPS</div>
+                  <div className="text-xs font-medium text-gray-600">Customer Score</div>
                 </div>
                 <div className="text-center p-3 bg-white rounded-lg shadow-md border border-gray-100">
-                  <div className="text-lg font-bold text-macri-primary mb-1">Brand & KPI</div>
-                  <div className="text-xs font-medium text-gray-600">Builder</div>
+                  <div className="text-xl font-bold text-macri-primary mb-1">$100M+</div>
+                  <div className="text-xs font-medium text-gray-600">Deals Secured</div>
                 </div>
               </div>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                size="lg" 
-                className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-4 text-lg"
-                asChild
-              >
-                <a href="#focus-areas">
-                Explore My Expertise
-                <ArrowRight className="ml-2 w-5 h-5" />
-                </a>
-              </Button>
+                <Button 
+                  size="lg" 
+                  className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8 py-4 text-lg"
+                  asChild
+                >
+                  <a href="/about">
+                    Learn More About Me
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </a>
+                </Button>
                 
                 <Button 
                   size="lg"
@@ -113,7 +120,6 @@ const Home: React.FC = () => {
                   className="w-96 h-96 rounded-full border-8 border-white shadow-2xl object-cover"
                 />
                 <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-macri-primary/20 to-transparent"></div>
-                {/* Floating Elements */}
                 <div className="absolute -top-4 -right-4 w-8 h-8 bg-macri-primary rounded-full animate-bounce"></div>
                 <div className="absolute -bottom-6 -left-6 w-6 h-6 bg-macri-primary/60 rounded-full animate-pulse"></div>
               </div>
@@ -122,221 +128,41 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* About Me Preview */}
+      {/* Expertise Areas - Quick Overview */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="font-saira font-bold text-4xl text-macri-primary mb-8">
-              About Me
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div className="text-left">
-                <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                  Cross-functional leader excelling at the intersection of <strong>Solution Engineering</strong>, <strong>Customer Success</strong>, <strong>Partner Development</strong>, and <strong>Compliance & Risk Management</strong>. At ServiceNow, I bridge technical innovation with governance, delivering $900M in risk reduction through GRC solution advisory, PolicyHub creation, and AI/ML ethics frameworks while driving customer zero initiatives and product roadmap influence.
-                </p>
-                
-                <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                  At VMware, I unified customer success strategies with partner ecosystem building, securing two $50M+ landmark deals through joint business planning while scaling advisory teams across the US West. Achieved 83 NPS (20 points above target), 450% sales attainment, and $440M in partner-influenced revenue by integrating technical solution delivery with strategic relationship management and compliance expertise that strengthens enterprise resilience.
-                </p>
-
-                <div className="bg-gray-50 p-6 rounded-lg mb-6">
-                  <h3 className="font-semibold text-lg text-macri-primary mb-3">Available</h3>
-                  <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
-                    <div>• Seattle, WA</div>
-                    <div>• San Diego, CA</div>
-                    <div>• Southern Michigan</div>
-                    <div>• Chicago Metro Area</div>
-                    <div>• Denver, CO</div>
-                    <div>• Available Nationwide - Onsite or Remote</div>
-                  </div>
-                </div>
-
-                <Button 
-                  className="bg-macri-primary hover:bg-macri-primary-dark text-white"
-                  asChild
-                >
-                  <a href="/about">
-                    Learn More About Me
-                    <ExternalLink className="ml-2 w-4 h-4" />
-                  </a>
-                </Button>
-              </div>
-
-              <div className="space-y-6">
-                {/* Expertise Areas */}
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="font-semibold text-xl text-macri-primary mb-4">Core Expertise</h3>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-center">
-                      <Star className="w-5 h-5 text-macri-primary mr-3" />
-                      Solution Consulting & Strategy
-                    </li>
-                    <li className="flex items-center">
-                      <Star className="w-5 h-5 text-macri-primary mr-3" />
-                      Governance & Risk Management
-                    </li>
-                    <li className="flex items-center">
-                      <Star className="w-5 h-5 text-macri-primary mr-3" />
-                      Technology Implementation
-                    </li>
-                    <li className="flex items-center">
-                      <Star className="w-5 h-5 text-macri-primary mr-3" />
-                      Partner Ecosystem Development
-                    </li>
-                    <li className="flex items-center">
-                      <Star className="w-5 h-5 text-macri-primary mr-3" />
-                      Compliance Management & Policy Solutions
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Professional Focus Areas - Guide for Hiring Managers */}
-      <section id="focus-areas" className="py-16 bg-gradient-to-br from-macri-primary/5 to-accent/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-saira font-bold text-4xl text-macri-primary mb-6">
-              Explore My Professional Focus Areas
+            <h2 className="font-saira font-bold text-4xl text-macri-primary mb-4">
+              Areas of Expertise
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Dive deep into my specialized expertise across four key domains where I drive measurable business impact.
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Four specialized domains where I drive measurable business impact
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            {/* Customer Success */}
-            <a 
-              href="/portfolio/customer-success"
-              className="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-6 border-2 border-transparent hover:border-macri-primary"
-            >
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-macri-primary/10 rounded-lg group-hover:bg-macri-primary group-hover:text-white transition-colors">
-                  <Users className="w-6 h-6 text-macri-primary group-hover:text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {expertiseAreas.map((area, index) => (
+              <div key={index} className="text-center p-6 bg-gray-50 rounded-lg hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 bg-macri-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <area.icon className="w-6 h-6 text-macri-primary" />
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-saira text-xl font-bold text-macri-primary mb-2 group-hover:text-macri-primary-dark">
-                    Customer Success Leadership
-                  </h3>
-                  <p className="text-gray-600 mb-3">
-                    Strategic leadership in customer engagement, retention, and value delivery with proven NPS improvements and adoption metrics.
-                  </p>
-                  <span className="text-sm font-medium text-macri-primary group-hover:underline">
-                    Explore Customer Success →
-                  </span>
-                </div>
+                <h3 className="font-semibold text-lg text-macri-primary mb-2">{area.label}</h3>
+                <p className="text-sm text-gray-600">{area.description}</p>
               </div>
-            </a>
-
-            {/* Partner Development */}
-            <a 
-              href="/portfolio/partner-development"
-              className="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-6 border-2 border-transparent hover:border-macri-primary"
-            >
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-macri-primary/10 rounded-lg group-hover:bg-macri-primary group-hover:text-white transition-colors">
-                  <TrendingUp className="w-6 h-6 text-macri-primary group-hover:text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-saira text-xl font-bold text-macri-primary mb-2 group-hover:text-macri-primary-dark">
-                    Partner Development & Ecosystems
-                  </h3>
-                  <p className="text-gray-600 mb-3">
-                    Building and scaling strategic partner ecosystems that drive $440M+ in revenue and secure landmark deals.
-                  </p>
-                  <span className="text-sm font-medium text-macri-primary group-hover:underline">
-                    Explore Partner Development →
-                  </span>
-                </div>
-              </div>
-            </a>
-
-            {/* Compliance & Risk */}
-            <a 
-              href="/portfolio/compliance"
-              className="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-6 border-2 border-transparent hover:border-macri-primary"
-            >
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-macri-primary/10 rounded-lg group-hover:bg-macri-primary group-hover:text-white transition-colors">
-                  <Star className="w-6 h-6 text-macri-primary group-hover:text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-saira text-xl font-bold text-macri-primary mb-2 group-hover:text-macri-primary-dark">
-                    Compliance & Risk Leadership
-                  </h3>
-                  <p className="text-gray-600 mb-3">
-                    Transforming compliance into competitive advantage through ServiceNow GRC, AI governance, and $900M risk reduction.
-                  </p>
-                  <span className="text-sm font-medium text-macri-primary group-hover:underline">
-                    Explore Compliance Leadership →
-                  </span>
-                </div>
-              </div>
-            </a>
-
-            {/* Solution Engineering */}
-            <a 
-              href="/portfolio/solution-engineering"
-              className="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-6 border-2 border-transparent hover:border-macri-primary"
-            >
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-macri-primary/10 rounded-lg group-hover:bg-macri-primary group-hover:text-white transition-colors">
-                  <Star className="w-6 h-6 text-macri-primary group-hover:text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-saira text-xl font-bold text-macri-primary mb-2 group-hover:text-macri-primary-dark">
-                    Solution Engineering & Leadership
-                  </h3>
-                  <p className="text-gray-600 mb-3">
-                    Innovating at the intersection of technology and strategy with PolicyHub creation, common controls architecture, and team enablement.
-                  </p>
-                  <span className="text-sm font-medium text-macri-primary group-hover:underline">
-                    Explore Solution Engineering →
-                  </span>
-                </div>
-              </div>
-            </a>
+            ))}
           </div>
 
-          {/* Resume & Portfolio CTAs */}
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <div className="text-center mb-6">
-              <h3 className="font-saira text-2xl font-bold text-macri-primary mb-3">
-                Learn More About My Experience
-              </h3>
-              <p className="text-gray-600">
-                Explore my complete professional background and project portfolio
-              </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg"
-                className="bg-macri-primary hover:bg-macri-primary-dark text-white px-8"
-                asChild
-              >
-                <a href="/resume">
-                  View Full Resume
-                  <ExternalLink className="ml-2 w-5 h-5" />
-                </a>
-              </Button>
-              
-              <Button 
-                size="lg"
-                variant="outline"
-                className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-8"
-                asChild
-              >
-                <a href="/portfolio">
-                  Browse Complete Portfolio
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </a>
-              </Button>
-            </div>
+          <div className="text-center">
+            <Button 
+              variant="outline"
+              className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
+              asChild
+            >
+              <a href="/about">
+                Explore My Professional Focus Areas
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </a>
+            </Button>
           </div>
         </div>
       </section>
@@ -349,8 +175,7 @@ const Home: React.FC = () => {
               Featured Projects
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Discover some of my most impactful work, showcasing innovative solutions 
-              that have driven measurable business results for clients.
+              Innovative solutions that have driven measurable business results
             </p>
           </div>
 
@@ -397,7 +222,7 @@ const Home: React.FC = () => {
               asChild
             >
               <a href="/portfolio">
-                View My Portfolio
+                View Full Portfolio
                 <ArrowRight className="ml-2 w-5 h-5" />
               </a>
             </Button>
@@ -405,15 +230,14 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Resume CTA Section */}
+      {/* CTA Section */}
       <section className="py-16 bg-macri-primary text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-saira font-bold text-4xl mb-6">
             Ready to Collaborate?
           </h2>
           <p className="text-xl mb-8 text-white/90">
-            Let's discuss how my expertise in solution consulting and strategic implementation 
-            can help drive your business forward.
+            Let's discuss how my expertise can help drive your business forward.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
