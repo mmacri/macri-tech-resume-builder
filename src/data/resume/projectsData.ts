@@ -2,6 +2,15 @@
 
 export const staticProjectsData = [
   {
+    id: "0",
+    title: "Momentum Edge Consulting",
+    description: "Principal Consultant practice delivering practical IT, compliance, governance, and AI-driven solutions for regulated organizations including healthcare practices, utilities, and city agencies. Specializes in NERC/CIP, HIPAA, PCI compliance, AI governance, and ServiceNow GRC/IRM implementations.",
+    technologies: ["Compliance & GRC", "NERC/CIP", "HIPAA", "AI Governance", "ServiceNow IRM", "Healthcare IT", "Virtual CIO/CISO"],
+    link: "/portfolio/momentum-edge",
+    image_url: "/lovable-uploads/85b0b79e-240c-4fdc-9841-cd0d889d496b.png",
+    display_order: 0
+  },
+  {
     id: "1",
     title: "Policy Hub 1.0",
     description: "A comprehensive ServiceNow-based policy management platform that centralizes over 400 enterprise policies across security, compliance, and operational domains. Features advanced categorization, search functionality, and automated compliance tracking with integrated document management workflows.",

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Globe, TrendingUp, Users, BarChart3, Award, CheckCircle } from 'lucide-react';
+import { ExternalLink, Globe, CheckCircle, BookOpen, Shield, GraduationCap } from 'lucide-react';
 import momentumEdgeScreenshot from '@/assets/momentum-edge-screenshot.png';
 import homeFitScreenshot from '@/assets/homefit-recovery-screenshot.png';
 import hoaCommunityScreenshot from '@/assets/hoa-community-screenshot.png';
@@ -45,6 +45,69 @@ const MyWebsites: React.FC = () => {
       metrics: {
         description: 'Enterprise expertise with startup agility',
         focus: 'Virtual CIO Strategy & Healthcare IT'
+      }
+    },
+    {
+      id: 'mec-skills-portfolio',
+      title: 'MEC Skills Portfolio',
+      description: 'Interactive portfolio showcasing comprehensive skillsets from Momentum Edge Consulting. Demonstrates expertise in compliance, governance, AI enablement, and technical advisory across regulated industries.',
+      url: 'https://mmacri.github.io/mec2',
+      image: momentumEdgeScreenshot,
+      category: 'Skills Showcase',
+      status: 'live',
+      technologies: ['React', 'TypeScript', 'GitHub Pages'],
+      highlights: [
+        'Interactive skills visualization',
+        'Compliance and governance expertise',
+        'AI governance frameworks',
+        'Healthcare IT specialization',
+        'Executive advisory capabilities'
+      ],
+      metrics: {
+        description: 'Visual representation of consulting expertise',
+        focus: 'Skills & Capabilities Portfolio'
+      }
+    },
+    {
+      id: 'cip-audit-ready',
+      title: 'CIP Audit Ready Training',
+      description: 'Custom training platform designed to prepare utility professionals for NERC/CIP compliance audits. Provides structured learning paths, assessment tools, and practical guidance for achieving audit readiness.',
+      url: 'https://mmacri.github.io/cip-audit-ready/',
+      image: momentumEdgeScreenshot,
+      category: 'Compliance Training',
+      status: 'live',
+      technologies: ['React', 'Training Platform', 'GitHub Pages'],
+      highlights: [
+        'NERC/CIP audit preparation curriculum',
+        'Interactive compliance assessments',
+        'Evidence collection best practices',
+        'Control documentation guidance',
+        'Audit simulation exercises'
+      ],
+      metrics: {
+        description: 'Comprehensive NERC/CIP audit preparation',
+        focus: 'Utility Compliance Training'
+      }
+    },
+    {
+      id: 'audit101',
+      title: 'Audit 101 - Common Controls Framework',
+      description: 'Expanded training platform covering common controls across multiple compliance frameworks. A lighter-depth introduction to compliance training showing all areas that could be deeply trained upon with enablement paths and certifications for internal organizations.',
+      url: 'https://mmacri.github.io/audit101/',
+      image: momentumEdgeScreenshot,
+      category: 'Framework Training',
+      status: 'live',
+      technologies: ['React', 'Training Platform', 'GitHub Pages'],
+      highlights: [
+        'Multi-framework common controls mapping',
+        'Enablement paths for organizations',
+        'Certification preparation guidance',
+        'Cross-framework compliance training',
+        'Internal team development resources'
+      ],
+      metrics: {
+        description: 'Foundation-level compliance training across frameworks',
+        focus: 'Common Controls & Multi-Framework Training'
       }
     },
     {
@@ -93,12 +156,25 @@ const MyWebsites: React.FC = () => {
 
   const activeWebsiteData = websites.find(w => w.id === activeWebsite) || websites[0];
 
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'Compliance Training':
+        return <Shield className="w-4 h-4" />;
+      case 'Framework Training':
+        return <GraduationCap className="w-4 h-4" />;
+      case 'Skills Showcase':
+        return <BookOpen className="w-4 h-4" />;
+      default:
+        return <Globe className="w-4 h-4" />;
+    }
+  };
+
   return (
     <>
       <SEOHead
         title="My Websites - Mike Macri's Business Platforms"
-        description="Explore Mike Macri's business websites including Momentum Edge Consulting for IT solutions and HomeFit Recovery for fitness product reviews and recommendations."
-        keywords="Mike Macri websites, Momentum Edge Consulting, HomeFit Recovery, IT consulting, fitness recovery products"
+        description="Explore Mike Macri's business websites including Momentum Edge Consulting for IT solutions, compliance training platforms, and HomeFit Recovery for fitness product reviews."
+        keywords="Mike Macri websites, Momentum Edge Consulting, HomeFit Recovery, IT consulting, NERC/CIP training, compliance training, fitness recovery products"
         url="https://mikemacri.com/my-websites"
       />
 
@@ -110,19 +186,20 @@ const MyWebsites: React.FC = () => {
               My Business Websites
             </h1>
             
-            {/* Website Tabs */}
-            <div className="flex space-x-2 bg-gray-100 p-1 rounded-lg">
+            {/* Website Tabs - Scrollable on mobile */}
+            <div className="flex overflow-x-auto space-x-2 bg-gray-100 p-1 rounded-lg">
               {websites.map((website) => (
                 <button
                   key={website.id}
                   onClick={() => setActiveWebsite(website.id)}
-                  className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  className={`px-3 py-2 rounded-md font-medium transition-colors whitespace-nowrap text-sm ${
                     activeWebsite === website.id
                       ? 'bg-macri-primary text-white'
                       : 'text-gray-600 hover:text-macri-primary hover:bg-white'
                   }`}
                 >
-                  {website.title.split(' ')[0]} {website.title.split(' ')[1]}
+                  {getCategoryIcon(website.category)}
+                  <span className="ml-1">{website.title.split(' ').slice(0, 2).join(' ')}</span>
                 </button>
               ))}
             </div>
@@ -141,7 +218,7 @@ const MyWebsites: React.FC = () => {
                   <div className="w-3 h-3 bg-red-400 rounded-full"></div>
                   <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
                   <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                  <div className="ml-4 text-xs text-gray-600 bg-white px-2 py-1 rounded">
+                  <div className="ml-4 text-xs text-gray-600 bg-white px-2 py-1 rounded truncate max-w-[200px]">
                     {activeWebsiteData.url}
                   </div>
                 </div>
@@ -231,8 +308,8 @@ const MyWebsites: React.FC = () => {
               Website Portfolio Overview
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Three distinct platforms showcasing my expertise in technology consulting, 
-              e-commerce innovation, and community engagement solutions.
+              Six distinct platforms showcasing expertise in technology consulting, 
+              compliance training, e-commerce innovation, and community engagement solutions.
             </p>
           </div>
 
@@ -255,7 +332,7 @@ const MyWebsites: React.FC = () => {
 
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-xl text-macri-primary">
+                    <h3 className="font-semibold text-lg text-macri-primary">
                       {website.title}
                     </h3>
                     <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
@@ -306,8 +383,8 @@ const MyWebsites: React.FC = () => {
             Interested in Similar Solutions?
           </h2>
           <p className="text-xl text-gray-600 mb-8">
-            Whether you need strategic IT consulting, e-commerce platform development, 
-            community engagement solutions, or want to explore partnership opportunities, I'd love to discuss your project.
+            Whether you need strategic IT consulting, compliance training platforms, e-commerce solutions, 
+            or want to explore partnership opportunities, I'd love to discuss your project.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
