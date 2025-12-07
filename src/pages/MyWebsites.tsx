@@ -5,6 +5,9 @@ import { ExternalLink, Globe, CheckCircle, BookOpen, Shield, GraduationCap } fro
 import momentumEdgeScreenshot from '@/assets/momentum-edge-screenshot.png';
 import homeFitScreenshot from '@/assets/homefit-recovery-screenshot.png';
 import hoaCommunityScreenshot from '@/assets/hoa-community-screenshot.png';
+import mec2SkillsScreenshot from '@/assets/mec2-skills-screenshot.png';
+import cipAuditReadyScreenshot from '@/assets/cip-audit-ready-screenshot.png';
+import audit101Screenshot from '@/assets/audit101-screenshot.png';
 
 interface WebsiteProject {
   id: string;
@@ -52,7 +55,7 @@ const MyWebsites: React.FC = () => {
       title: 'MEC Skills Portfolio',
       description: 'Interactive portfolio showcasing comprehensive skillsets from Momentum Edge Consulting. Demonstrates expertise in compliance, governance, AI enablement, and technical advisory across regulated industries.',
       url: 'https://mmacri.github.io/mec2',
-      image: momentumEdgeScreenshot,
+      image: mec2SkillsScreenshot,
       category: 'Skills Showcase',
       status: 'live',
       technologies: ['React', 'TypeScript', 'GitHub Pages'],
@@ -73,7 +76,7 @@ const MyWebsites: React.FC = () => {
       title: 'CIP Audit Ready Training',
       description: 'Custom training platform designed to prepare utility professionals for NERC/CIP compliance audits. Provides structured learning paths, assessment tools, and practical guidance for achieving audit readiness.',
       url: 'https://mmacri.github.io/cip-audit-ready/',
-      image: momentumEdgeScreenshot,
+      image: cipAuditReadyScreenshot,
       category: 'Compliance Training',
       status: 'live',
       technologies: ['React', 'Training Platform', 'GitHub Pages'],
@@ -94,7 +97,7 @@ const MyWebsites: React.FC = () => {
       title: 'Audit 101 - Common Controls Framework',
       description: 'Expanded training platform covering common controls across multiple compliance frameworks. A lighter-depth introduction to compliance training showing all areas that could be deeply trained upon with enablement paths and certifications for internal organizations.',
       url: 'https://mmacri.github.io/audit101/',
-      image: momentumEdgeScreenshot,
+      image: audit101Screenshot,
       category: 'Framework Training',
       status: 'live',
       technologies: ['React', 'Training Platform', 'GitHub Pages'],
