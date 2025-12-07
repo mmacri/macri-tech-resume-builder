@@ -3,8 +3,10 @@ import { SEOHead } from '@/components/layout/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, MapPin, Calendar, Building, Mail, Users, TrendingUp, Shield, Briefcase, ArrowRight, Rocket } from 'lucide-react';
+import { useInView } from '@/hooks/useInView';
 
 const About: React.FC = () => {
+  const flowchartInView = useInView({ threshold: 0.2 });
   const focusAreas = [
     {
       icon: Users,
@@ -398,7 +400,7 @@ const About: React.FC = () => {
             </h3>
             
             {/* Desktop Flowchart */}
-            <div className="hidden lg:block">
+            <div className="hidden lg:block" ref={flowchartInView.ref}>
               <div className="relative">
                 {/* Connection Lines */}
                 <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none">
@@ -408,16 +410,37 @@ const About: React.FC = () => {
                     </marker>
                   </defs>
                   {/* SE to CS arrow */}
-                  <line x1="32%" y1="50%" x2="43%" y2="50%" stroke="hsl(var(--macri-primary))" strokeWidth="2" markerEnd="url(#arrowhead)" className="opacity-60" />
+                  <line 
+                    x1="32%" y1="50%" x2="43%" y2="50%" 
+                    stroke="hsl(var(--macri-primary))" 
+                    strokeWidth="2" 
+                    markerEnd="url(#arrowhead)" 
+                    className={`transition-all duration-700 delay-500 ${flowchartInView.isInView ? 'opacity-60' : 'opacity-0'}`}
+                    style={{ strokeDasharray: 100, strokeDashoffset: flowchartInView.isInView ? 0 : 100, transition: 'stroke-dashoffset 0.8s ease-out 0.5s, opacity 0.5s ease-out 0.5s' }}
+                  />
                   {/* CS to PD arrow */}
-                  <line x1="57%" y1="50%" x2="68%" y2="50%" stroke="hsl(var(--macri-primary))" strokeWidth="2" markerEnd="url(#arrowhead)" className="opacity-60" />
+                  <line 
+                    x1="57%" y1="50%" x2="68%" y2="50%" 
+                    stroke="hsl(var(--macri-primary))" 
+                    strokeWidth="2" 
+                    markerEnd="url(#arrowhead)" 
+                    className={`transition-all duration-700 delay-700 ${flowchartInView.isInView ? 'opacity-60' : 'opacity-0'}`}
+                    style={{ strokeDasharray: 100, strokeDashoffset: flowchartInView.isInView ? 0 : 100, transition: 'stroke-dashoffset 0.8s ease-out 0.7s, opacity 0.5s ease-out 0.7s' }}
+                  />
                   {/* Feedback loop - curved line from PD back to SE */}
-                  <path d="M 85% 75% Q 50% 120%, 15% 75%" fill="none" stroke="hsl(var(--macri-primary))" strokeWidth="2" strokeDasharray="5,5" className="opacity-40" />
+                  <path 
+                    d="M 85% 75% Q 50% 120%, 15% 75%" 
+                    fill="none" 
+                    stroke="hsl(var(--macri-primary))" 
+                    strokeWidth="2" 
+                    strokeDasharray="5,5" 
+                    className={`transition-opacity duration-1000 delay-1000 ${flowchartInView.isInView ? 'opacity-40' : 'opacity-0'}`}
+                  />
                 </svg>
 
                 <div className="grid grid-cols-3 gap-8 relative z-10">
                   {/* Solution Engineering */}
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-macri-primary/30 hover:border-macri-primary transition-colors group">
+                  <div className={`bg-white rounded-xl p-6 shadow-lg border-2 border-macri-primary/30 hover:border-macri-primary transition-all duration-500 group ${flowchartInView.isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '0ms' }}>
                     <div className="flex items-center gap-3 mb-4">
                       <div className="p-3 bg-macri-primary rounded-lg group-hover:scale-110 transition-transform">
                         <Briefcase className="w-6 h-6 text-white" />
@@ -436,7 +459,7 @@ const About: React.FC = () => {
                   </div>
 
                   {/* Customer Success */}
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-macri-primary/30 hover:border-macri-primary transition-colors group">
+                  <div className={`bg-white rounded-xl p-6 shadow-lg border-2 border-macri-primary/30 hover:border-macri-primary transition-all duration-500 group ${flowchartInView.isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '200ms' }}>
                     <div className="flex items-center gap-3 mb-4">
                       <div className="p-3 bg-macri-primary rounded-lg group-hover:scale-110 transition-transform">
                         <Users className="w-6 h-6 text-white" />
@@ -455,7 +478,7 @@ const About: React.FC = () => {
                   </div>
 
                   {/* Partner Development */}
-                  <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-macri-primary/30 hover:border-macri-primary transition-colors group">
+                  <div className={`bg-white rounded-xl p-6 shadow-lg border-2 border-macri-primary/30 hover:border-macri-primary transition-all duration-500 group ${flowchartInView.isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '400ms' }}>
                     <div className="flex items-center gap-3 mb-4">
                       <div className="p-3 bg-macri-primary rounded-lg group-hover:scale-110 transition-transform">
                         <TrendingUp className="w-6 h-6 text-white" />
