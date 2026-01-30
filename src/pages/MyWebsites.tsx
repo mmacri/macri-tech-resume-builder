@@ -158,7 +158,7 @@ const MyWebsites: React.FC = () => {
     },
     {
       id: 'gitlab-csm-dashboard',
-      title: 'GitLab CSM Dashboard',
+      title: 'CSM Dashboard',
       description: 'Customer Success Manager dashboard prototype demonstrating enterprise account health tracking using GitLab\'s PROVE methodology. Features executive snapshots, platform adoption metrics, license utilization trends, and renewal planning tools aligned with GitLab customer success best practices.',
       url: 'https://mmacri.github.io/GitLAB-Health/',
       image: gitlabCsmScreenshot,
