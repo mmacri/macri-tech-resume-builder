@@ -73,7 +73,7 @@ const MyWebsites: React.FC = () => {
     },
     {
       id: 'mec-skills-portfolio',
-      title: 'MEC Skills Portfolio',
+      title: 'MEC GRC',
       description: 'Interactive portfolio showcasing comprehensive skillsets from Momentum Edge Consulting. Demonstrates expertise in compliance, governance, AI enablement, and technical advisory across regulated industries.',
       url: 'https://mmacri.github.io/mec2',
       image: mec2SkillsScreenshot,
