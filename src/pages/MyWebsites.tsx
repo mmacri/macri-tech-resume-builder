@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Globe, CheckCircle, BookOpen, Shield, GraduationCap } from 'lucide-react';
+import { ExternalLink, Globe, CheckCircle, BookOpen, Shield, GraduationCap, Users } from 'lucide-react';
 import momentumEdgeScreenshot from '@/assets/momentum-edge-screenshot.png';
 import homeFitScreenshot from '@/assets/homefit-recovery-screenshot.png';
 import hoaCommunityScreenshot from '@/assets/hoa-community-screenshot.png';
 import mec2SkillsScreenshot from '@/assets/mec2-skills-screenshot.png';
 import cipAuditReadyScreenshot from '@/assets/cip-audit-ready-screenshot.png';
 import audit101Screenshot from '@/assets/audit101-screenshot.png';
+import gitlabCsmScreenshot from '@/assets/gitlab-csm-dashboard-screenshot.png';
 
 interface WebsiteProject {
   id: string;
@@ -154,6 +155,28 @@ const MyWebsites: React.FC = () => {
         description: 'Connecting residents for stronger communities',
         focus: 'HOA Community Engagement'
       }
+    },
+    {
+      id: 'gitlab-csm-dashboard',
+      title: 'GitLab CSM Dashboard',
+      description: 'Customer Success Manager dashboard prototype demonstrating enterprise account health tracking using GitLab\'s PROVE methodology. Features executive snapshots, platform adoption metrics, license utilization trends, and renewal planning tools aligned with GitLab customer success best practices.',
+      url: 'https://mmacri.github.io/GitLAB-Health/',
+      image: gitlabCsmScreenshot,
+      category: 'Customer Success',
+      status: 'live',
+      technologies: ['React', 'TypeScript', 'GitHub Pages', 'Data Visualization'],
+      highlights: [
+        'PROVE health scoring methodology (Product, Risk, Outcomes, Voice, Engagement)',
+        'Platform adoption tracking across SCM, CI, DevSecOps, and CD use cases',
+        'License utilization trend analysis and forecasting',
+        'Renewal countdown with readiness checklists',
+        'Multi-audience views (Executive, DevOps Leader, CSM, Customer)',
+        'Success plan tracking and next actions management'
+      ],
+      metrics: {
+        description: 'Enterprise customer health and adoption tracking',
+        focus: 'Customer Success Management'
+      }
     }
   ];
 
@@ -167,6 +190,8 @@ const MyWebsites: React.FC = () => {
         return <GraduationCap className="w-4 h-4" />;
       case 'Skills Showcase':
         return <BookOpen className="w-4 h-4" />;
+      case 'Customer Success':
+        return <Users className="w-4 h-4" />;
       default:
         return <Globe className="w-4 h-4" />;
     }
