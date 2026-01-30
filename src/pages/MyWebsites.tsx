@@ -77,7 +77,7 @@ const MyWebsites: React.FC = () => {
       description: 'Interactive portfolio showcasing comprehensive skillsets from Momentum Edge Consulting. Demonstrates expertise in compliance, governance, AI enablement, and technical advisory across regulated industries.',
       url: 'https://mmacri.github.io/mec2',
       image: mec2SkillsScreenshot,
-      category: 'Skills Showcase',
+      category: 'IT Consulting',
       status: 'live',
       technologies: ['React', 'TypeScript', 'GitHub Pages'],
       highlights: [
