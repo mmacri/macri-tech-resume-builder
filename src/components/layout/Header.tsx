@@ -1,35 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Linkedin, ChevronDown } from 'lucide-react';
+import { Menu, X, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu';
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  const portfolioItems = [
-    { label: 'All Projects', href: '/portfolio', description: 'View complete portfolio' },
-    { label: 'Momentum Edge Consulting', href: '/portfolio/momentum-edge', description: 'IT compliance & governance consulting' },
-    { label: 'Customer Success', href: '/portfolio/customer-success', description: 'Customer retention & growth strategies' },
-    { label: 'Partner Development', href: '/portfolio/partner-development', description: 'Channel & partner enablement' },
-    { label: 'Compliance & Risk', href: '/portfolio/compliance', description: 'GRC automation & policy management' },
-    { label: 'Solution Engineering', href: '/portfolio/solution-engineering', description: 'Technical sales & pre-sales leadership' },
-  ];
-
+  // Streamlined navigation per spec: Home, Experience & Impact, Selected Work, Resume, Contact
   const navItems = [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '/about' },
+    { label: 'Experience & Impact', href: '/experience' },
+    { label: 'Selected Work', href: '/selected-work' },
     { label: 'Resume', href: '/resume' },
-    { label: 'My Websites', href: '/my-websites' },
-    { label: 'Let\'s Connect', href: '/contact' }
+    { label: 'Contact', href: '/contact' },
   ];
 
   const isActive = (href: string) => {
@@ -44,7 +28,7 @@ export const Header: React.FC = () => {
   }, [location]);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo/Name */}
@@ -56,98 +40,28 @@ export const Header: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link
-              to="/"
-              className={`font-medium transition-colors hover:text-macri-primary ${
-                isActive('/')
-                  ? 'text-macri-primary border-b-2 border-macri-primary'
-                  : 'text-gray-700'
-              }`}
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className={`font-medium transition-colors hover:text-macri-primary ${
-                isActive('/about')
-                  ? 'text-macri-primary border-b-2 border-macri-primary'
-                  : 'text-gray-700'
-              }`}
-            >
-              About
-            </Link>
-            <Link
-              to="/resume"
-              className={`font-medium transition-colors hover:text-macri-primary ${
-                isActive('/resume')
-                  ? 'text-macri-primary border-b-2 border-macri-primary'
-                  : 'text-gray-700'
-              }`}
-            >
-              Resume
-            </Link>
-            
-            {/* Portfolio Dropdown */}
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger 
-                    className={`font-medium bg-transparent hover:bg-transparent data-[state=open]:bg-transparent ${
-                      isActive('/portfolio') ? 'text-macri-primary' : 'text-gray-700'
-                    }`}
-                  >
-                    Portfolio
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[420px] gap-2 p-4 bg-white shadow-lg border border-gray-200 rounded-lg z-50">
-                      {portfolioItems.map((item) => (
-                        <li key={item.href}>
-                          <NavigationMenuLink asChild>
-                            <Link
-                              to={item.href}
-                              className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-macri-primary/10 focus:bg-macri-primary/10"
-                            >
-                              <div className="font-medium leading-none text-macri-primary mb-1">{item.label}</div>
-                              <p className="text-sm text-muted-foreground">{item.description}</p>
-                            </Link>
-                          </NavigationMenuLink>
-                        </li>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-
-            <Link
-              to="/my-websites"
-              className={`font-medium transition-colors hover:text-macri-primary ${
-                isActive('/my-websites')
-                  ? 'text-macri-primary border-b-2 border-macri-primary'
-                  : 'text-gray-700'
-              }`}
-            >
-              My Websites
-            </Link>
-            <Link
-              to="/contact"
-              className={`font-medium transition-colors hover:text-macri-primary ${
-                isActive('/contact')
-                  ? 'text-macri-primary border-b-2 border-macri-primary'
-                  : 'text-gray-700'
-              }`}
-            >
-              Let's Connect
-            </Link>
+          <nav className="hidden md:flex items-center space-x-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  isActive(item.href)
+                    ? 'text-macri-primary bg-macri-primary/10'
+                    : 'text-gray-700 hover:text-macri-primary hover:bg-gray-100'
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
             
             {/* Social Links */}
-            <div className="flex items-center space-x-3 ml-6 border-l border-gray-300 pl-6">
+            <div className="flex items-center ml-4 pl-4 border-l border-gray-300">
               <a
                 href="https://linkedin.com/in/mikemacri"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-macri-primary transition-colors"
+                className="p-2 text-gray-600 hover:text-macri-primary transition-colors"
                 aria-label="LinkedIn Profile"
               >
                 <Linkedin className="w-5 h-5" />
@@ -169,45 +83,13 @@ export const Header: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 py-4">
-            <div className="flex flex-col space-y-2">
-              {navItems.slice(0, 3).map((item) => (
+          <div className="md:hidden border-t border-border py-4">
+            <div className="flex flex-col space-y-1">
+              {navItems.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`px-3 py-2 rounded-md font-medium transition-colors ${
-                    isActive(item.href)
-                      ? 'bg-macri-primary text-white'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-              
-              {/* Portfolio Items */}
-              <div className="px-3 py-2 text-sm font-semibold text-gray-500">Portfolio</div>
-              {portfolioItems.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={`px-6 py-2 rounded-md font-medium transition-colors ${
-                    isActive(item.href)
-                      ? 'bg-macri-primary text-white'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-              
-              {navItems.slice(3).map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={`px-3 py-2 rounded-md font-medium transition-colors ${
+                  className={`px-4 py-3 rounded-md font-medium transition-colors ${
                     isActive(item.href)
                       ? 'bg-macri-primary text-white'
                       : 'text-gray-700 hover:bg-gray-100'
@@ -219,7 +101,7 @@ export const Header: React.FC = () => {
               ))}
               
               {/* Mobile Social Links */}
-              <div className="flex items-center justify-center space-x-4 pt-4 border-t border-gray-200 mt-4">
+              <div className="flex items-center justify-center pt-4 mt-4 border-t border-border">
                 <a
                   href="https://linkedin.com/in/mikemacri"
                   target="_blank"
