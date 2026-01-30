@@ -7,64 +7,64 @@ import { ArrowRight, Users, TrendingUp, Shield, Briefcase, CheckCircle, External
 const ExperienceImpact: React.FC = () => {
   const roleLenses = [
     {
+      id: 'customer-success',
+      icon: Users,
+      title: 'Customer Success Engineering',
+      description: 'Led and supported technical success motions across a pooled book of business, delivering high-signal guidance that improved customer outcomes. Built engagement frameworks and program deliverables aligned to customer business metrics.',
+      outcomes: [
+        'NPS of 83 (20 points above target)',
+        '20% renewal growth through adoption programs',
+        'Built three dispersed post-sales teams (TAMs, CSMs, Product Specialists)',
+        'Improved NPS by 20 points through engagement frameworks',
+        'Aligned technical success with expansion and retention objectives'
+      ],
+      caseStudyLink: '/portfolio/customer-success',
+      color: 'bg-orange-50 border-orange-200'
+    },
+    {
       id: 'solution-engineering',
       icon: Briefcase,
       title: 'Solution Engineering & Technical Enablement',
-      description: 'Led distributed technical teams supporting enterprise and regulated customers. Built scalable onboarding, maturity models, and enablement frameworks that reduced adoption friction and accelerated platform value realization.',
+      description: 'Built standardized onboarding playbooks, maturity checkpoints, and KPI frameworks that removed adoption barriers and accelerated customer progression. Designed scalable technical enablement programs across partner and customer ecosystems.',
       outcomes: [
-        '20%+ adoption and renewal growth',
-        '250% pipeline influence through technical advisory',
-        'NPS 83 (20 points above target)',
-        'PolicyHub module creation for ServiceNow',
-        'AI/ML governance framework establishment'
+        '250% pipeline growth through enablement frameworks',
+        'Consistent services and solution attach',
+        'Reusable enablement assets (workshops, checklists, playbooks)',
+        'Executive-ready assessments and roadmaps',
+        'Scalable execution across regulated industries'
       ],
       caseStudyLink: '/portfolio/solution-engineering',
       color: 'bg-blue-50 border-blue-200'
     },
     {
-      id: 'security-compliance',
-      icon: Shield,
-      title: 'Security, Compliance & Governance Leadership',
-      description: 'Led governance and compliance advisory across ServiceNow. Built policy-to-process operating models and AI governance guidance. Focus on decision quality, not compliance theater.',
-      outcomes: [
-        '~$900M in enterprise risk reduction',
-        'SME for ServiceNow inaugural AI risk policies',
-        'Cross-departmental compliance framework integration',
-        'Common controls architecture development',
-        'Structured governance for product roadmaps'
-      ],
-      caseStudyLink: '/portfolio/compliance',
-      color: 'bg-green-50 border-green-200'
-    },
-    {
       id: 'partner-ecosystem',
       icon: TrendingUp,
-      title: 'Partner & Ecosystem Development',
-      description: 'Led GSI and strategic partner motions across the Americas. Built joint business plans, co-sell motions, and partner enablement. Aligned technical capability to commercial execution.',
+      title: 'Partner Ecosystems',
+      description: 'Led GSI and strategic partner motions across the Americas, aligning technical enablement, solution strategy, and customer outcomes with commercial execution. Built joint business plans and managed co-sell execution.',
       outcomes: [
-        '$50M+ partner-led landmark deals (2x)',
-        '$440M in routed pipeline through partners',
-        '450% sales target achievement',
-        'Joint business planning with DXC, CDW',
-        'Partner enablement program development'
+        'Two record-setting $50M+ partner-led deals',
+        '$440M through multi-tiered routes-to-market',
+        '20% increase in pipeline capture',
+        '200% increase in certifications',
+        '21% increase in partner-driven pipeline'
       ],
       caseStudyLink: '/portfolio/partner-development',
       color: 'bg-purple-50 border-purple-200'
     },
     {
-      id: 'customer-success',
-      icon: Users,
-      title: 'Customer Success & Post-Sales Strategy',
-      description: 'Built and led TAM, CSM, and specialist teams. Designed engagement frameworks tied to customer business metrics. Improved retention, expansion, and executive trust.',
+      id: 'risk-governance',
+      icon: Shield,
+      title: 'Risk, Governance & DevSecOps',
+      description: 'Delivered cloud-native, security, and compliance advisory that reduced enterprise risk while strengthening platform trust, governance adoption, and long-term value realization. Owned AI/ML governance enablement as SME.',
       outcomes: [
-        '83 NPS score (20 points above company target)',
-        '21% adoption increase through engagement frameworks',
-        'Regional team leadership across US West Coast',
-        'Customer success operating model development',
-        'Executive alignment and value realization programs'
+        '$900M in enterprise risk reduction',
+        'SME for ServiceNow inaugural AI usage policies',
+        'Standardized policy-to-process workflows',
+        'Improved consistency across compliance frameworks',
+        'Governance maturity for regulated customers'
       ],
-      caseStudyLink: '/portfolio/customer-success',
-      color: 'bg-orange-50 border-orange-200'
+      caseStudyLink: '/portfolio/compliance',
+      color: 'bg-green-50 border-green-200'
     }
   ];
 
@@ -72,8 +72,8 @@ const ExperienceImpact: React.FC = () => {
     <>
       <SEOHead
         title="Experience & Impact - Mike Macri"
-        description="Cross-functional leadership across Solution Engineering, Security Governance, Partner Development, and Customer Success with measurable outcomes at scale."
-        keywords="Mike Macri experience, solution engineering, security compliance, partner development, customer success, GRC leadership"
+        description="Cross-functional leadership across Customer Success Engineering, Solution Engineering, Partner Ecosystems, and Risk-Driven Platforms with measurable outcomes at scale."
+        keywords="Mike Macri experience, customer success engineering, solution engineering, partner development, risk governance, DevSecOps"
         url="https://mikemacri.com/experience"
       />
 
@@ -85,27 +85,27 @@ const ExperienceImpact: React.FC = () => {
               Experience & Impact
             </h1>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-              A cross-functional leader who builds repeatable frameworks and insight-driven platforms that translate complex security, compliance, and technical systems into measurable business outcomes.
+              Cross-functional leader with experience spanning Customer Success Engineering, Solution Engineering, partner ecosystems, and risk-driven platforms. Driving adoption, renewal growth, and measurable customer value at scale.
             </p>
           </div>
 
           {/* Quick Stats */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
             <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 text-center">
-              <div className="text-2xl font-bold text-macri-primary">$900M</div>
-              <div className="text-sm text-gray-600">Risk Reduction</div>
+              <div className="text-2xl font-bold text-macri-primary">20%</div>
+              <div className="text-sm text-gray-600">Renewal Growth</div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 text-center">
-              <div className="text-2xl font-bold text-macri-primary">450%</div>
-              <div className="text-sm text-gray-600">Sales Target</div>
+              <div className="text-2xl font-bold text-macri-primary">250%</div>
+              <div className="text-sm text-gray-600">Pipeline Growth</div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 text-center">
               <div className="text-2xl font-bold text-macri-primary">83 NPS</div>
               <div className="text-sm text-gray-600">Customer Score</div>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 text-center">
-              <div className="text-2xl font-bold text-macri-primary">$100M+</div>
-              <div className="text-sm text-gray-600">Landmark Deals</div>
+              <div className="text-2xl font-bold text-macri-primary">$900M</div>
+              <div className="text-sm text-gray-600">Risk Reduction</div>
             </div>
           </div>
         </div>
@@ -179,30 +179,30 @@ const ExperienceImpact: React.FC = () => {
             {/* Momentum Edge */}
             <div className="bg-white rounded-lg p-6 border-l-4 border-green-500 shadow-sm">
               <Badge className="mb-2 bg-green-100 text-green-800 border-green-200">Current</Badge>
-              <h3 className="font-semibold text-xl text-macri-primary">Principal Consultant & Solution Engineer</h3>
-              <p className="text-gray-600 font-medium">Momentum Edge Consulting • Apr 2025 - Present</p>
-              <p className="text-gray-700 mt-2">IT governance, compliance frameworks, AI-driven solutions for healthcare, utilities, and municipal organizations.</p>
+              <h3 className="font-semibold text-xl text-macri-primary">Principal Consultant</h3>
+              <p className="text-gray-600 font-medium">Momentum Edge Consulting • May 2025 - Present</p>
+              <p className="text-gray-700 mt-2">Technical advisor for regulated public sector and enterprise customers. Post-sale adoption readiness, operating model alignment, and technical value realization.</p>
             </div>
             
             {/* ServiceNow */}
             <div className="bg-white rounded-lg p-6 border-l-4 border-macri-primary shadow-sm">
-              <h3 className="font-semibold text-xl text-macri-primary">Sr. Manager, Solution Advisory – Legal Ethics & Compliance</h3>
-              <p className="text-gray-600 font-medium">ServiceNow • Dec 2021 - Jun 2025</p>
-              <p className="text-gray-700 mt-2">$900M risk reduction through GRC solution advisory. SME for AI risk policies. PolicyHub creation.</p>
+              <h3 className="font-semibold text-xl text-macri-primary">Manager, Solution Advisory – Legal Ethics & Compliance</h3>
+              <p className="text-gray-600 font-medium">ServiceNow • Dec 2021 - May 2025</p>
+              <p className="text-gray-700 mt-2">Post-sales solution advisory driving platform adoption, governance maturity, and enterprise risk reduction. SME for AI/ML governance enablement.</p>
             </div>
             
             {/* VMware Director */}
             <div className="bg-white rounded-lg p-6 border-l-4 border-macri-primary shadow-sm">
               <h3 className="font-semibold text-xl text-macri-primary">Partner Business & Technical Alliance Director – Americas</h3>
               <p className="text-gray-600 font-medium">VMware • Nov 2019 - Dec 2021</p>
-              <p className="text-gray-700 mt-2">Two $50M+ landmark deals. 450% sales target achievement. Partner-led integrations with DXC.</p>
+              <p className="text-gray-700 mt-2">GSI and strategic partner motions. Two $50M+ landmark deals. Partner playbooks and go-to-market alignment.</p>
             </div>
             
             {/* VMware Progressive */}
             <div className="bg-white rounded-lg p-6 border-l-4 border-gray-300 shadow-sm">
               <h3 className="font-semibold text-xl text-macri-primary">Progressive Leadership Roles</h3>
               <p className="text-gray-600 font-medium">VMware • 2011 - 2019</p>
-              <p className="text-gray-700 mt-2">Staff TAM → Sr Manager Customer Success → Partner SE Leader. $440M partner revenue. 83 NPS.</p>
+              <p className="text-gray-700 mt-2">Staff TAM → Sr Manager Customer Success → Partner SE Leader. $440M partner revenue. 83 NPS. Three dispersed post-sales teams.</p>
             </div>
           </div>
           

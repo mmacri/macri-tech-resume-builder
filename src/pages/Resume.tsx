@@ -1,16 +1,35 @@
 import React from 'react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Button } from '@/components/ui/button';
-import { Download, ExternalLink, Linkedin, Award, GraduationCap, MapPin } from 'lucide-react';
+import { Download, ExternalLink, Linkedin, Award, GraduationCap, MapPin, Phone, Mail } from 'lucide-react';
 import { staticExperienceData, staticEducationData, staticSkillsData, staticAwardsData } from '@/data/staticResumeData';
 
 const Resume: React.FC = () => {
+  const keyAchievements = [
+    {
+      title: 'Scaled Adoption & Value Realization',
+      description: 'Designed and led scalable technical enablement and onboarding programs across partner and customer ecosystems, driving measurable adoption, renewal growth (20%), and sustained platform usage across VMware\'s Americas region.'
+    },
+    {
+      title: 'Repeatable Enablement Frameworks',
+      description: 'Built standardized onboarding playbooks, maturity checkpoints, and KPI frameworks that removed adoption barriers and accelerated customer progression, contributing to 250% pipeline growth and consistent services and solution attach.'
+    },
+    {
+      title: 'Customer Success Impact at Scale',
+      description: 'Led and supported technical success motions across a pooled book of business, delivering high-signal guidance that improved customer outcomes and resulted in NPS of 83 (20 points above target).'
+    },
+    {
+      title: 'Risk, Governance & DevSecOps Outcomes',
+      description: 'Delivered cloud-native, security, and compliance advisory that reduced $900M in enterprise risk, while strengthening platform trust, governance adoption, and long-term value realization.'
+    }
+  ];
+
   return (
     <>
       <SEOHead
-        title="Resume - Mike Macri | Security, Platform & Customer Outcomes Leader"
-        description="Professional resume for Mike Macri - Cross-functional leader in Solution Engineering, Security Governance, Partner Development, and Customer Success."
-        keywords="Mike Macri resume, solution engineering, security compliance, partner development, customer success, GRC, MBA"
+        title="Resume - Mike Macri MBA | Customer Success & Solution Engineering Leader"
+        description="Professional resume for Mike Macri MBA - Cross-functional leader in Customer Success Engineering, Solution Engineering, Partner Ecosystems, and Risk-Driven Platforms."
+        keywords="Mike Macri resume, customer success engineering, solution engineering, partner development, DevSecOps, MBA"
         url="https://mikemacri.com/resume"
       />
 
@@ -27,14 +46,20 @@ const Resume: React.FC = () => {
               
               <div className="flex-1 text-center lg:text-left">
                 <h1 className="font-saira font-bold text-3xl lg:text-4xl text-macri-primary mb-2">
-                  Mike Macri, M.B.A.
+                  Michael Macri MBA
                 </h1>
                 <p className="text-xl text-gray-700 mb-3">
-                  Security, Platform & Customer Outcomes Leader
+                  Customer Success Engineering & Solution Engineering Leader
                 </p>
-                <div className="flex items-center justify-center lg:justify-start text-gray-600 text-sm">
-                  <MapPin className="w-4 h-4 mr-1" />
-                  <span>Edmonds, WA • San Diego, CA • Chicago, IL • Remote</span>
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-gray-600 text-sm">
+                  <a href="mailto:MikeMacri@gmail.com" className="flex items-center hover:text-macri-primary">
+                    <Mail className="w-4 h-4 mr-1" />
+                    MikeMacri@gmail.com
+                  </a>
+                  <span className="flex items-center">
+                    <Phone className="w-4 h-4 mr-1" />
+                    650-308-4071
+                  </span>
                 </div>
               </div>
             </div>
@@ -42,7 +67,7 @@ const Resume: React.FC = () => {
             {/* Professional Summary */}
             <div className="mb-6 pb-6 border-b border-gray-200">
               <p className="text-gray-700 leading-relaxed">
-                Cross-functional leader who builds repeatable frameworks and insight-driven platforms that translate complex security, compliance, and technical systems into measurable business outcomes. Experience operating at scale across VMware and ServiceNow with a strong bias toward outcomes, adoption, and executive clarity.
+                Cross-functional leader with experience spanning Customer Success Engineering, Solution Engineering, partner ecosystems, and risk-driven platforms. Led distributed technical teams and scalable enablement programs across VMware and ServiceNow, driving adoption, renewal growth, and measurable customer value at scale. Proven track record building repeatable frameworks that remove adoption barriers, translate DevSecOps and governance capabilities into business outcomes, and align technical success with commercial impact through close partnership with Sales, Renewals, Product, and Engineering.
               </p>
             </div>
 
@@ -75,41 +100,32 @@ const Resume: React.FC = () => {
         </div>
       </section>
 
-      {/* Key Metrics */}
-      <section className="py-8 bg-macri-primary text-white">
+      {/* Key Achievements */}
+      <section className="py-12 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-            <div>
-              <div className="text-3xl font-bold">$900M</div>
-              <div className="text-white/80 text-sm">Risk Reduction</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold">450%</div>
-              <div className="text-white/80 text-sm">Target Achievement</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold">83</div>
-              <div className="text-white/80 text-sm">NPS Score</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold">$100M+</div>
-              <div className="text-white/80 text-sm">Landmark Deals</div>
-            </div>
+          <h2 className="font-saira font-bold text-2xl text-macri-primary mb-6">
+            Key Achievements
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {keyAchievements.map((achievement, index) => (
+              <div key={index} className="bg-gray-50 p-5 rounded-lg border border-gray-200">
+                <h3 className="font-semibold text-macri-primary mb-2">{achievement.title}</h3>
+                <p className="text-gray-700 text-sm">{achievement.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-12 bg-white">
+      <section id="experience" className="py-12 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-saira font-bold text-2xl text-macri-primary mb-6">
             Professional Experience
           </h2>
           <div className="space-y-6">
             {staticExperienceData.map((experience) => (
-              <div key={experience.id} className="border-l-4 border-macri-primary/30 pl-6 relative">
-                <div className="absolute w-3 h-3 bg-macri-primary rounded-full -left-[7px] top-2"></div>
-                
+              <div key={experience.id} className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
                   <h3 className="font-semibold text-lg text-macri-primary">
                     {experience.title}
@@ -123,30 +139,17 @@ const Resume: React.FC = () => {
                 <div className="text-gray-600 text-sm mb-3">{experience.location}</div>
                 
                 <div className="text-gray-700 text-sm space-y-1">
-                  {experience.description.split('\n').filter(line => line.trim().startsWith('•')).slice(0, 3).map((item, index) => (
-                    <div key={index} className="flex items-start">
-                      <span className="w-1.5 h-1.5 bg-macri-primary rounded-full mt-2 mr-2 flex-shrink-0"></span>
-                      <span>{item.replace('•', '').trim()}</span>
-                    </div>
-                  ))}
+                  {experience.description.split('\n').filter(line => line.trim()).map((item, index) => {
+                    const cleanItem = item.replace('•', '').trim();
+                    if (!cleanItem) return null;
+                    return (
+                      <div key={index} className="flex items-start">
+                        <span className="w-1.5 h-1.5 bg-macri-primary rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                        <span>{cleanItem}</span>
+                      </div>
+                    );
+                  })}
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="py-12 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-saira font-bold text-2xl text-macri-primary mb-6">
-            Core Competencies
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {staticSkillsData.slice(0, 6).map((skill) => (
-              <div key={skill.id} className="bg-white p-4 rounded-lg border border-gray-200">
-                <h3 className="font-semibold text-macri-primary mb-2">{skill.title}</h3>
-                <p className="text-gray-700 text-sm">{skill.description}</p>
               </div>
             ))}
           </div>
@@ -163,34 +166,28 @@ const Resume: React.FC = () => {
           <div className="space-y-4">
             {staticEducationData.map((education) => (
               <div key={education.id} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                  <div>
-                    <h3 className="font-semibold text-macri-primary">{education.title}</h3>
-                    <p className="text-gray-900">{education.organization}</p>
-                    <p className="text-gray-600 text-sm">{education.location}</p>
-                  </div>
-                  <span className="text-sm text-gray-600 mt-2 md:mt-0">{education.end_date}</span>
-                </div>
+                <h3 className="font-semibold text-macri-primary">{education.title}</h3>
+                <p className="text-gray-900">{education.organization}</p>
+                <p className="text-gray-600 text-sm">{education.location}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Certifications */}
-      <section id="certifications" className="py-12 bg-gray-50">
+      {/* Awards & Recognition */}
+      <section id="awards" className="py-12 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-saira font-bold text-2xl text-macri-primary mb-6 flex items-center">
             <Award className="w-6 h-6 mr-2" />
-            Certifications & Awards
+            Awards & Recognition
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {staticAwardsData.map((award) => (
               <div key={award.id} className="bg-white p-4 rounded-lg border border-gray-200 flex items-start">
                 <Award className="w-5 h-5 text-macri-primary mr-3 mt-0.5 flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold text-gray-900">{award.title}</h3>
-                  <p className="text-gray-600 text-sm">{award.description}</p>
+                  <h3 className="font-semibold text-gray-900 text-sm">{award.title}</h3>
                 </div>
               </div>
             ))}

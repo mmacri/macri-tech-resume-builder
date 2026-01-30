@@ -1,22 +1,22 @@
 export const staticExperienceData = [
   {
     id: "0",
-    title: "Principal Consultant & Solution Engineer",
+    title: "Principal Consultant",
     organization: "Momentum Edge Consulting",
-    location: "United States - Hybrid - CA, WA, MI, IL",
-    start_date: "Apr 2025",
+    location: "Remote",
+    start_date: "May 2025",
     end_date: null,
-    description: "Momentum Edge Consulting (MEC) delivers practical IT, compliance, governance, and AI-driven solutions for regulated organizations, including healthcare practices, utilities, and city agencies. As Principal Consultant, I lead complex transformation, assessment, and compliance initiatives as a senior technologist and trusted advisor for clients across high-stakes operational environments.\n\nKey Contributions:\n• Architect and deliver end-to-end solution designs for IT governance, compliance frameworks, controlled documentation, and process optimization — advising clients across healthcare, public utilities, and municipal organizations, and serving as a strategic subcontracting partner for firms such as IDMA3.\n• Lead assessments, roadmaps, and implementation programs that strengthen cybersecurity posture, reduce audit exposure (e.g., NERC/CIP, HIPAA, PCI, AI governance), and modernize how clients design policies, controls, service workflows, and technology portfolios.\n• Provide executive-level solution engineering and technical advisory, including virtual CIO/CISO guidance, systems architecture reviews, AI enablement planning, and cross-functional alignment across operations, IT, legal, compliance, and city leadership teams.\n• Drive business development and growth initiatives through strategic client engagement, proposal development, and partnership cultivation with consulting firms and technology vendors.\n\nAreas of Focus:\n• Compliance & Controls\n• Cyber Risk\n• Business Development\n• Utility & Critical Infrastructure Advisory\n• Healthcare IT\n• Audit Readiness\n• Policy Design\n• Process Optimization\n• AI Governance\n• ServiceNow GRC/IRM\n• Strategic Roadmaps\n• Executive Advisory\n• Partnership Development",
+    description: "Technical advisor supporting regulated public sector and enterprise customers, focused on post-sale adoption readiness, operating model alignment, and technical value realization for critical platforms.\n• Deliver executive-ready assessments and roadmaps (current state, target state, risk, prioritized remediation) that accelerate adoption and decision-making across utilities, government, and regulated industries.\n• Create reusable enablement assets (workshops, evaluation checklists, implementation playbooks) that remove adoption barriers and support scalable execution.\n• Build and manage partner relationships to support co-delivery, customer success outcomes, and expansion aligned to customer needs.",
     display_order: 0
   },
   {
     id: "1",
-    title: "Sr. Manager, Solution Advisory – Legal Ethics & Compliance",
+    title: "Manager, Solution Advisory – Legal Ethics & Compliance",
     organization: "ServiceNow",
     location: "Remote",
     start_date: "Dec 2021",
-    end_date: "Jun 2025",
-    description: "Directed cross-functional solution advisory initiatives across Sales, Security, Legal, and Product to accelerate adoption through cross departmental solutions that reduce enterprise risk, while enhancing process.\n• Streamlined cross departmental processes and shaped product roadmap internally and with customers; led Solution Advisors to resolve complex compliance challenges across Security, ESG, Legal, Product, Sales and customers.\n• Sold the value of ServiceNow internally to departmental leaders and teams to gain budget commit and integrate workflows into ServiceNow across environments and regulatory domains.\n• Integrated AI/ML governance into enterprise frameworks; SME for ServiceNow's inaugural AI risk policies and requirements.",
+    end_date: "May 2025",
+    description: "Led post-sales solution advisory across Sales, Security, Legal, and Product to drive platform adoption, governance maturity, and enterprise risk reduction for regulated customers.\n• Standardized policy-to-process workflows across compliance frameworks, improving consistency and adoption across customer and internal teams.\n• Owned AI/ML governance enablement as an SME; defined requirements and guidance used for ServiceNow's first enterprise AI usage policies.",
     display_order: 1
   },
   {
@@ -26,7 +26,7 @@ export const staticExperienceData = [
     location: "San Francisco, CA",
     start_date: "Nov 2019",
     end_date: "Dec 2021",
-    description: "Designed partner joint business plans and managed co-selling motions, resulting in two record-setting $50M+ deals.\n• Developed embedded partner programs and re-platformed solutions aligned to partner goals.\n• Executed GTM with consulting/implementation partners, exceeding sales targets by 450%.\n• Aligned product and engineering on partner-led integrations, driving go to market product development, joint business plans to align partners to VMware account teams. (e.g., VMware on AWS with DXC).",
+    description: "Led GSI and strategic partner motions across the Americas, aligning technical enablement, solution strategy, and customer outcomes with commercial execution.\n• Built joint business plans and managed co-sell execution, contributing to two record-setting $50M+ partner-led deals and sustained target overperformance.\n• Aligned Product and Engineering on partner-led integrations and go-to-market plans; enabled field teams with repeatable partner playbooks (e.g., VMware on AWS with DXC).",
     display_order: 2
   },
   {
@@ -36,7 +36,7 @@ export const staticExperienceData = [
     location: "Chicago, IL",
     start_date: "Dec 2017",
     end_date: "Dec 2019",
-    description: "Partnered with CDW to drive $440M through multi-tiered routes-to-market; increased pipeline capture by 20%, certifications by 200%, and solution adoption by 20%.\n• Delivered partner training, workshops, and roadmap sessions; coached architects leading to increase partner-driven pipeline by 21%.",
+    description: "Led partner solutions engineering for VMware's largest channel partnership (CDW), focused on scalable enablement, adoption, and pipeline acceleration.\n• Partnered with CDW to drive $440M through multi-tiered routes-to-market, increasing pipeline capture by 20%, certifications by 200%, and solution adoption by 20% in the first year.\n• Designed partner training, workshops, and roadmap sessions; coached architects, increasing partner-driven pipeline by 21%.",
     display_order: 3
   },
   {
@@ -46,27 +46,17 @@ export const staticExperienceData = [
     location: "Seattle, WA",
     start_date: "Nov 2014",
     end_date: "Dec 2017",
-    description: "Program development growing and mentoring 3 teams of TAMs, customer success, and product specialist across the US West Coast; improving NPS by 30 points (20 above company standard).\n• Built engagement framework and program deliverables aligning technical outcomes with business metrics; drove expansion and efficiency through partnerships with sales, post sales, and partners.\n• Sales Specialist delivering solution services evangelism with sales leaders to target new revenue growth and joint business plan development.",
+    description: "Built and led three dispersed post-sales teams (TAMs, Customer Success, Product Specialists) delivering adoption, expansion, and customer value across a regional book of business.\n• Built engagement frameworks and program deliverables aligned to customer business metrics, improving NPS by 20 points and driving operational efficiency.\n• Partnered with Sales and Post-Sales leadership to align technical success with expansion and retention objectives.",
     display_order: 4
   },
   {
     id: "5",
-    title: "Staff Technical Account Manager",
+    title: "Staff Technical Account Manager/Customer Success Manager",
     organization: "VMware",
     location: "Seattle, WA",
     start_date: "Dec 2011",
     end_date: "Nov 2014",
-    description: "Created engagement deliverables aligning customer metrics and enhancing operational efficiency; led services attach on all deals.\n• Delivered solutions driving adoption and roadmap expansions (e.g., 500 Costco storefronts deployed in 10 minutes).",
+    description: "Created customer engagement deliverables aligning technical outcomes to business metrics; consistently led services attach across accounts.\n• Delivered solutions that accelerated adoption and roadmap execution, attracting interest in common customer trends by addressing common pitfalls that impacted value realization.",
     display_order: 5
-  },
-  {
-    id: "6",
-    title: "Technical Partner Lead – Channel Partner Strategy (North America)",
-    organization: "VMware",
-    location: "Seattle, WA",
-    start_date: "Jan 2011",
-    end_date: "Dec 2011",
-    description: "Technical SME for top NA partners; C-level alignment and self-service demo labs for adoption.",
-    display_order: 6
   }
 ];

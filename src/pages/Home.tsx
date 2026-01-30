@@ -1,7 +1,7 @@
 import React from 'react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Download, FileText, Users, TrendingUp, Shield, Briefcase, Building, ExternalLink } from 'lucide-react';
+import { ArrowRight, Download, FileText, Users, TrendingUp, Shield, Briefcase } from 'lucide-react';
 
 const Home: React.FC = () => {
   const credibilityLogos = [
@@ -11,11 +11,18 @@ const Home: React.FC = () => {
     { name: 'Partner Ecosystems (GSI, Channel, ISV)', years: '' },
   ];
 
+  const keyAchievements = [
+    { metric: '20%', label: 'Renewal Growth', description: 'Adoption & value realization at scale' },
+    { metric: '250%', label: 'Pipeline Growth', description: 'Repeatable enablement frameworks' },
+    { metric: '83', label: 'NPS Score', description: '20 points above target' },
+    { metric: '$900M', label: 'Risk Reduction', description: 'Governance & DevSecOps outcomes' },
+  ];
+
   return (
     <>
       <SEOHead
-        title="Mike Macri - Security, Platform & Customer Outcomes Leader"
-        description="I design governance, security, and enablement frameworks that help enterprises turn complex technical systems into defensible decisions, measurable adoption, and sustained business value."
+        title="Mike Macri - Customer Success Engineering & Solution Engineering Leader"
+        description="Cross-functional leader spanning Customer Success Engineering, Solution Engineering, partner ecosystems, and risk-driven platforms. Driving adoption, renewal growth, and measurable customer value at scale."
         url="https://mikemacri.com"
       />
 
@@ -27,12 +34,12 @@ const Home: React.FC = () => {
             <div className="lg:col-span-8 order-2 lg:order-1">
               {/* Executive Headline */}
               <h1 className="font-saira font-bold text-4xl lg:text-5xl xl:text-6xl text-macri-primary mb-4 leading-tight">
-                Security, Platform & Customer Outcomes Leader
+                Customer Success Engineering & Solution Engineering Leader
               </h1>
               
               {/* Value Thesis */}
               <p className="text-xl lg:text-2xl text-gray-700 mb-8 leading-relaxed max-w-3xl">
-                I design governance, security, and enablement frameworks that help enterprises turn complex technical systems into <strong>defensible decisions</strong>, <strong>measurable adoption</strong>, and <strong>sustained business value</strong>.
+                I build <strong>repeatable frameworks</strong> that remove adoption barriers, translate DevSecOps and governance capabilities into <strong>business outcomes</strong>, and align technical success with <strong>commercial impact</strong>.
               </p>
 
               {/* Credibility Strip */}
@@ -90,6 +97,21 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Key Achievements Strip */}
+      <section className="py-12 bg-macri-primary text-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+            {keyAchievements.map((achievement, index) => (
+              <div key={index}>
+                <div className="text-4xl lg:text-5xl font-bold mb-2">{achievement.metric}</div>
+                <div className="text-white font-medium mb-1">{achievement.label}</div>
+                <div className="text-white/70 text-sm">{achievement.description}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Summary Section */}
       <section className="py-16 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -98,31 +120,35 @@ const Home: React.FC = () => {
               Cross-Functional Leadership at Scale
             </h2>
             
+            <p className="text-gray-700 text-lg mb-8 leading-relaxed">
+              Led distributed technical teams and scalable enablement programs across VMware and ServiceNow, driving adoption, renewal growth, and measurable customer value at scale. Strong track record building repeatable frameworks that align technical success with commercial impact through close partnership with Sales, Renewals, Product, and Engineering.
+            </p>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                 <div className="flex items-center mb-3">
-                  <Briefcase className="w-6 h-6 text-macri-primary mr-3" />
-                  <h3 className="font-semibold text-lg text-gray-900 m-0">Solution Engineering & Security</h3>
+                  <Users className="w-6 h-6 text-macri-primary mr-3" />
+                  <h3 className="font-semibold text-lg text-gray-900 m-0">Customer Success Engineering</h3>
                 </div>
                 <p className="text-gray-700 m-0 text-base">
-                  Experience operating at scale across VMware and ServiceNow, building repeatable frameworks—not one-off solutions.
+                  Led technical success motions across pooled book of business, delivering high-signal guidance that improved customer outcomes.
                 </p>
               </div>
               
               <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                 <div className="flex items-center mb-3">
-                  <Users className="w-6 h-6 text-macri-primary mr-3" />
-                  <h3 className="font-semibold text-lg text-gray-900 m-0">Customer Success</h3>
+                  <Briefcase className="w-6 h-6 text-macri-primary mr-3" />
+                  <h3 className="font-semibold text-lg text-gray-900 m-0">Solution Engineering</h3>
                 </div>
                 <p className="text-gray-700 m-0 text-base">
-                  Strong bias toward outcomes, adoption, and executive clarity—not just delivery.
+                  Built standardized onboarding playbooks, maturity checkpoints, and KPI frameworks that removed adoption barriers.
                 </p>
               </div>
               
               <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                 <div className="flex items-center mb-3">
                   <TrendingUp className="w-6 h-6 text-macri-primary mr-3" />
-                  <h3 className="font-semibold text-lg text-gray-900 m-0">Partner Development</h3>
+                  <h3 className="font-semibold text-lg text-gray-900 m-0">Partner Ecosystems</h3>
                 </div>
                 <p className="text-gray-700 m-0 text-base">
                   GSI and strategic partner motions enabling $50M+ deals and $440M in routed pipeline.
@@ -132,36 +158,12 @@ const Home: React.FC = () => {
               <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                 <div className="flex items-center mb-3">
                   <Shield className="w-6 h-6 text-macri-primary mr-3" />
-                  <h3 className="font-semibold text-lg text-gray-900 m-0">Governance Leadership</h3>
+                  <h3 className="font-semibold text-lg text-gray-900 m-0">Risk & DevSecOps</h3>
                 </div>
                 <p className="text-gray-700 m-0 text-base">
-                  Built policy-to-process operating models helping reduce ~$900M in enterprise risk.
+                  Delivered cloud-native, security, and compliance advisory strengthening platform trust and governance adoption.
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Metrics Strip */}
-      <section className="py-12 bg-macri-primary text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-            <div>
-              <div className="text-4xl lg:text-5xl font-bold mb-2">$900M</div>
-              <div className="text-white/80 text-sm lg:text-base">Risk Reduction</div>
-            </div>
-            <div>
-              <div className="text-4xl lg:text-5xl font-bold mb-2">450%</div>
-              <div className="text-white/80 text-sm lg:text-base">Target Achievement</div>
-            </div>
-            <div>
-              <div className="text-4xl lg:text-5xl font-bold mb-2">83</div>
-              <div className="text-white/80 text-sm lg:text-base">NPS Score</div>
-            </div>
-            <div>
-              <div className="text-4xl lg:text-5xl font-bold mb-2">$100M+</div>
-              <div className="text-white/80 text-sm lg:text-base">Landmark Deals</div>
             </div>
           </div>
         </div>
@@ -174,7 +176,7 @@ const Home: React.FC = () => {
             Explore My Work
           </h2>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            See detailed case studies and measurable outcomes across Solution Engineering, Security Governance, Partner Development, and Customer Success.
+            See detailed case studies and measurable outcomes across Customer Success Engineering, Solution Engineering, Partner Development, and Risk & Governance.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
