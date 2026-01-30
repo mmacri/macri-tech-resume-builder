@@ -9,6 +9,7 @@ import mec2SkillsScreenshot from '@/assets/mec2-skills-screenshot.png';
 import cipAuditReadyScreenshot from '@/assets/cip-audit-ready-screenshot.png';
 import audit101Screenshot from '@/assets/audit101-screenshot.png';
 import gitlabCsmScreenshot from '@/assets/gitlab-csm-dashboard-screenshot.png';
+import frameworkFusionScreenshot from '@/assets/framework-fusion-screenshot.png';
 
 interface WebsiteProject {
   id: string;
@@ -173,6 +174,28 @@ const MyWebsites: React.FC = () => {
       metrics: {
         description: 'Connecting residents for stronger communities',
         focus: 'HOA Community Engagement'
+      }
+    },
+    {
+      id: 'framework-fusion',
+      title: 'Framework Fusion Engine',
+      description: 'Centralized Compliance Framework Library serving as the authoritative source for control mapping across multiple regulatory frameworks. Features master framework management, correlation views, Q&A assessments, auditor assessments, and analytics for comprehensive compliance program management.',
+      url: 'https://mmacri.github.io/framework-fusion-engine/',
+      image: frameworkFusionScreenshot,
+      category: 'Community Platform',
+      status: 'live',
+      technologies: ['React', 'TypeScript', 'Control Framework Management', 'GitHub Pages'],
+      highlights: [
+        'Centralized master framework with 46+ control records',
+        'Cross-framework correlation mapping (CIP, NIST, ISO, etc.)',
+        'Q&A and auditor assessment modules',
+        'Advanced filtering by domain, frequency, and status',
+        'Excel import/export for control management',
+        'Real-time analytics and reporting dashboard'
+      ],
+      metrics: {
+        description: 'Unified control framework management platform',
+        focus: 'Control Framework Community'
       }
     },
     {
@@ -390,7 +413,7 @@ const MyWebsites: React.FC = () => {
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               {activeCategory === 'all' 
-                ? 'Seven distinct platforms showcasing expertise in technology consulting, compliance training, e-commerce innovation, customer success, and community engagement solutions.'
+                ? 'Eight distinct platforms showcasing expertise in technology consulting, compliance training, e-commerce innovation, customer success, and community engagement solutions.'
                 : `Showing ${websites.filter(matchesCategory).length} ${activeCategory === 'training' ? 'training' : activeCategory.toLowerCase()} platform${websites.filter(matchesCategory).length !== 1 ? 's' : ''}.`
               }
             </p>
