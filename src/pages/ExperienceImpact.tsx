@@ -10,14 +10,19 @@ const ExperienceImpact: React.FC = () => {
       id: 'customer-success',
       icon: Users,
       title: 'Customer Success Engineering',
-      description: 'Led and supported technical success motions across a pooled book of business, delivering high-signal guidance that improved customer outcomes. Built engagement frameworks and program deliverables aligned to customer business metrics.',
+      tagline: 'Driving adoption and retention at scale',
+      keyPoints: [
+        'Led technical success motions across pooled book of business',
+        'Built engagement frameworks aligned to customer business metrics',
+        'Designed scalable operating models for TAM, CSM, and Product teams'
+      ],
       outcomes: [
         'NPS of 83 (20 points above target)',
         '20% renewal growth through adoption programs',
-        'Built three dispersed post-sales teams (TAMs, CSMs, Product Specialists)',
-        'Improved NPS by 20 points through engagement frameworks',
-        'Aligned technical success with expansion and retention objectives'
+        'Built three dispersed post-sales teams',
+        'Aligned technical success with expansion objectives'
       ],
+      decisionImpact: 'Gave leadership consistent visibility into customer health, enabling confident renewal and expansion decisions.',
       caseStudyLink: '/portfolio/customer-success',
       color: 'bg-orange-50 border-orange-200'
     },
@@ -25,14 +30,19 @@ const ExperienceImpact: React.FC = () => {
       id: 'solution-engineering',
       icon: Briefcase,
       title: 'Solution Engineering & Technical Enablement',
-      description: 'Built standardized onboarding playbooks, maturity checkpoints, and KPI frameworks that removed adoption barriers and accelerated customer progression. Designed scalable technical enablement programs across partner and customer ecosystems.',
+      tagline: 'Removing adoption barriers through repeatable frameworks',
+      keyPoints: [
+        'Built standardized onboarding playbooks and maturity checkpoints',
+        'Created KPI frameworks that accelerate customer progression',
+        'Designed scalable enablement across partner and customer ecosystems'
+      ],
       outcomes: [
         '250% pipeline growth through enablement frameworks',
         'Consistent services and solution attach',
-        'Reusable enablement assets (workshops, checklists, playbooks)',
-        'Executive-ready assessments and roadmaps',
+        'Reusable assets (workshops, checklists, playbooks)',
         'Scalable execution across regulated industries'
       ],
+      decisionImpact: 'Enabled sales and delivery leaders to prioritize accounts and allocate resources based on clear adoption signals.',
       caseStudyLink: '/portfolio/solution-engineering',
       color: 'bg-blue-50 border-blue-200'
     },
@@ -40,14 +50,19 @@ const ExperienceImpact: React.FC = () => {
       id: 'partner-ecosystem',
       icon: TrendingUp,
       title: 'Partner Ecosystems',
-      description: 'Led GSI and strategic partner motions across the Americas, aligning technical enablement, solution strategy, and customer outcomes with commercial execution. Built joint business plans and managed co-sell execution.',
+      tagline: 'Building high-yield co-sell motions',
+      keyPoints: [
+        'Led GSI and strategic partner motions across the Americas',
+        'Aligned technical enablement with commercial execution',
+        'Built joint business plans and managed co-sell delivery'
+      ],
       outcomes: [
         'Two record-setting $50M+ partner-led deals',
         '$440M through multi-tiered routes-to-market',
-        '20% increase in pipeline capture',
         '200% increase in certifications',
         '21% increase in partner-driven pipeline'
       ],
+      decisionImpact: 'Clarified partner investment decisions by providing leadership with predictable, measurable co-sell outcomes.',
       caseStudyLink: '/portfolio/partner-development',
       color: 'bg-purple-50 border-purple-200'
     },
@@ -55,14 +70,19 @@ const ExperienceImpact: React.FC = () => {
       id: 'risk-governance',
       icon: Shield,
       title: 'Risk, Governance & DevSecOps',
-      description: 'Delivered cloud-native, security, and compliance advisory that reduced enterprise risk while strengthening platform trust, governance adoption, and long-term value realization. Owned AI/ML governance enablement as SME.',
+      tagline: 'Turning compliance complexity into executive clarity',
+      keyPoints: [
+        'Delivered cloud-native security and compliance advisory',
+        'Reduced enterprise risk while strengthening platform trust',
+        'Owned AI/ML governance enablement as internal SME'
+      ],
       outcomes: [
         '$900M in enterprise risk reduction',
         'SME for ServiceNow inaugural AI usage policies',
         'Standardized policy-to-process workflows',
-        'Improved consistency across compliance frameworks',
         'Governance maturity for regulated customers'
       ],
+      decisionImpact: 'Allowed executives to confidently approve technology investments with clear risk visibility and accountability.',
       caseStudyLink: '/portfolio/compliance',
       color: 'bg-green-50 border-green-200'
     }
@@ -124,18 +144,33 @@ const ExperienceImpact: React.FC = () => {
                 <div className="flex flex-col lg:flex-row gap-8">
                   {/* Content */}
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-center gap-3 mb-2">
                       <div className="p-3 bg-white rounded-lg shadow-sm">
                         <role.icon className="w-6 h-6 text-macri-primary" />
                       </div>
-                      <h2 className="font-saira font-bold text-2xl text-macri-primary">
-                        {role.title}
-                      </h2>
+                      <div>
+                        <h2 className="font-saira font-bold text-2xl text-macri-primary">
+                          {role.title}
+                        </h2>
+                        <p className="text-gray-600 text-sm italic">{role.tagline}</p>
+                      </div>
                     </div>
                     
-                    <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                      {role.description}
-                    </p>
+                    {/* Key Points - Scannable bullets */}
+                    <ul className="space-y-2 my-4">
+                      {role.keyPoints.map((point, index) => (
+                        <li key={index} className="flex items-start gap-2 text-gray-700">
+                          <span className="w-1.5 h-1.5 rounded-full bg-macri-primary mt-2 flex-shrink-0" />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    {/* Decision Impact Callout */}
+                    <div className="p-4 bg-white/70 border-l-4 border-macri-primary rounded-r-lg mb-4">
+                      <p className="text-sm font-semibold text-macri-primary mb-1">Decision Impact</p>
+                      <p className="text-gray-700 text-sm">{role.decisionImpact}</p>
+                    </div>
                     
                     <Button
                       variant="outline"
@@ -150,13 +185,13 @@ const ExperienceImpact: React.FC = () => {
                   </div>
                   
                   {/* Outcomes */}
-                  <div className="lg:w-96">
+                  <div className="lg:w-80">
                     <h3 className="font-semibold text-lg text-gray-900 mb-4">Key Outcomes</h3>
                     <ul className="space-y-3">
                       {role.outcomes.map((outcome, index) => (
                         <li key={index} className="flex items-start gap-3">
                           <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">{outcome}</span>
+                          <span className="text-gray-700 text-sm">{outcome}</span>
                         </li>
                       ))}
                     </ul>
