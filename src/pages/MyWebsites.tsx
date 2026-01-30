@@ -28,6 +28,25 @@ interface WebsiteProject {
 
 const MyWebsites: React.FC = () => {
   const [activeWebsite, setActiveWebsite] = useState<string>('momentum-edge');
+  const [activeCategory, setActiveCategory] = useState<string>('all');
+
+  const categories = [
+    { id: 'all', label: 'All Sites', icon: Globe },
+    { id: 'IT Consulting', label: 'IT Consulting', icon: Globe },
+    { id: 'training', label: 'Training', icon: GraduationCap },
+    { id: 'Health & Wellness E-commerce', label: 'E-commerce', icon: Globe },
+    { id: 'Community Platform', label: 'Community', icon: Globe },
+    { id: 'Customer Success', label: 'Customer Success', icon: Users },
+  ];
+
+  // Helper to check if a website matches the active category
+  const matchesCategory = (website: WebsiteProject) => {
+    if (activeCategory === 'all') return true;
+    if (activeCategory === 'training') {
+      return ['Compliance Training', 'Framework Training', 'Skills Showcase'].includes(website.category);
+    }
+    return website.category === activeCategory;
+  };
 
   const websites: WebsiteProject[] = [
     {
@@ -207,23 +226,57 @@ const MyWebsites: React.FC = () => {
       />
 
       {/* Website Navigation */}
-      <section className="py-8 bg-white border-b border-gray-200">
+      <section className="py-8 bg-white border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-            <h1 className="font-saira font-bold text-3xl text-macri-primary mb-4 md:mb-0">
-              My Business Websites
-            </h1>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+              <h1 className="font-saira font-bold text-3xl text-macri-primary mb-4 md:mb-0">
+                My Business Websites
+              </h1>
+              
+              {/* Category Filter */}
+              <div className="flex overflow-x-auto space-x-2 bg-muted p-1 rounded-lg">
+                {categories.map((cat) => {
+                  const Icon = cat.icon;
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => {
+                        setActiveCategory(cat.id);
+                        // Reset active website to first in filtered list
+                        const filtered = websites.filter(w => 
+                          cat.id === 'all' ? true : 
+                          cat.id === 'training' ? ['Compliance Training', 'Framework Training', 'Skills Showcase'].includes(w.category) :
+                          w.category === cat.id
+                        );
+                        if (filtered.length > 0 && !filtered.find(w => w.id === activeWebsite)) {
+                          setActiveWebsite(filtered[0].id);
+                        }
+                      }}
+                      className={`flex items-center px-3 py-2 rounded-md font-medium transition-colors whitespace-nowrap text-sm ${
+                        activeCategory === cat.id
+                          ? 'bg-macri-primary text-white'
+                          : 'text-muted-foreground hover:text-macri-primary hover:bg-background'
+                      }`}
+                    >
+                      <Icon className="w-4 h-4 mr-1.5" />
+                      {cat.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
             
             {/* Website Tabs - Scrollable on mobile */}
-            <div className="flex overflow-x-auto space-x-2 bg-gray-100 p-1 rounded-lg">
-              {websites.map((website) => (
+            <div className="flex overflow-x-auto space-x-2 bg-muted/50 p-1 rounded-lg">
+              {websites.filter(matchesCategory).map((website) => (
                 <button
                   key={website.id}
                   onClick={() => setActiveWebsite(website.id)}
-                  className={`px-3 py-2 rounded-md font-medium transition-colors whitespace-nowrap text-sm ${
+                  className={`flex items-center px-3 py-2 rounded-md font-medium transition-colors whitespace-nowrap text-sm ${
                     activeWebsite === website.id
                       ? 'bg-macri-primary text-white'
-                      : 'text-gray-600 hover:text-macri-primary hover:bg-white'
+                      : 'text-muted-foreground hover:text-macri-primary hover:bg-background'
                   }`}
                 >
                   {getCategoryIcon(website.category)}
@@ -329,20 +382,22 @@ const MyWebsites: React.FC = () => {
       </section>
 
       {/* All Websites Overview */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-saira font-bold text-4xl text-macri-primary mb-6">
               Website Portfolio Overview
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Six distinct platforms showcasing expertise in technology consulting, 
-              compliance training, e-commerce innovation, and community engagement solutions.
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              {activeCategory === 'all' 
+                ? 'Seven distinct platforms showcasing expertise in technology consulting, compliance training, e-commerce innovation, customer success, and community engagement solutions.'
+                : `Showing ${websites.filter(matchesCategory).length} ${activeCategory === 'training' ? 'training' : activeCategory.toLowerCase()} platform${websites.filter(matchesCategory).length !== 1 ? 's' : ''}.`
+              }
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {websites.map((website) => (
+            {websites.filter(matchesCategory).map((website) => (
               <div 
                 key={website.id} 
                 className={`bg-white rounded-lg shadow-lg border-2 overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer ${
