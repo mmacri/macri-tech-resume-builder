@@ -1,26 +1,44 @@
-// Debug: Temporary logging to confirm export
-console.log('aboutData.ts loaded and exporting data');
-
 export const initialAboutData = {
-  intro_text: "Driving Solutions and Unlocking Business Value with a proven track record of building high-performing Solution Engineering and Customer Success teams in the enterprise cloud ecosystem. Expert in coaching Solution Consultants, developing scalable technical sales strategies, and delivering measurable growth with SIs, MSPs, and ISVs.",
+  intro_text: "Cross-functional leader with experience spanning Customer Success Engineering, Solution Engineering, partner ecosystems, and risk-driven platforms. Led distributed technical teams and scalable enablement programs across VMware and ServiceNow, driving adoption, renewal growth, and measurable customer value at scale.",
   
-  title: "Driving Solutions and Unlocking Business Value",
-  location: "📍 Available in: Edmonds, WA • San Diego, CA • Chicago, IL • Denver, CO • Remote/Hybrid",
+  title: "Customer Success Engineering & Solution Engineering Leader",
+  location: "📍 Available in: Seattle, WA • San Diego, CA • Chicago Metro • Denver, CO • Southern Michigan • Remote/Hybrid",
   
   contact: {
-    location: "📍 Available in: Edmonds, WA • San Diego, CA • Chicago, IL • Denver, CO • Remote/Hybrid",
+    email: "MikeMacri@gmail.com",
+    phone: "650-308-4071",
+    location: "📍 Available in: Seattle, WA • San Diego, CA • Chicago Metro • Denver, CO • Southern Michigan • Remote/Hybrid",
     linkedin: "https://www.linkedin.com/in/mikemacri/"
   },
   
+  keyAchievements: [
+    {
+      metric: "20%",
+      label: "Renewal Growth",
+      description: "Scaled adoption and value realization through technical enablement programs"
+    },
+    {
+      metric: "250%",
+      label: "Pipeline Growth",
+      description: "Built repeatable enablement frameworks with standardized playbooks"
+    },
+    {
+      metric: "83",
+      label: "NPS Score",
+      description: "Led technical success motions, 20 points above target"
+    },
+    {
+      metric: "$900M",
+      label: "Risk Reduction",
+      description: "Delivered cloud-native, security, and compliance advisory"
+    }
+  ],
+  
   references: [
-    "I have worked with Mike for the past 5 years during my time as an Enterprise Sales Exec at VMware. From Day 1 Mike has been a tremendous business partner (not only to me but most importantly, to my customers). Mike leads by example in holding himself and his team accountable resulting in the highest levels of customer satisfaction and building long-term, trusted, customer relationships. Working with Mike has been a pleasure; his attention to detail, work ethic, and unyielding commitment to delivering customer business goals & outcomes has been invaluable.",
+    "I have worked with Mike for the past 5 years during my time as an Enterprise Sales Exec at VMware. From Day 1 Mike has been a tremendous business partner (not only to me but most importantly, to my customers). Mike leads by example in holding himself and his team accountable resulting in the highest levels of customer satisfaction and building long-term, trusted, customer relationships.",
     
     "I find Mike to be a manager that is a true mentor, coach, and leader. Mike not only guides but listens. When I found myself in a quandary his 'Next Step' has always got me further in my endeavors, from customer maturity to conversations with Directors and above we always moved the needle."
   ]
 };
 
-// Export both for compatibility - this should fix the import error
 export const aboutData = initialAboutData;
-
-// Debug: Log the export to confirm it's available
-console.log('aboutData exported:', aboutData);
