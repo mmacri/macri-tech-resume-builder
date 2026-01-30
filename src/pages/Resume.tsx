@@ -1,7 +1,7 @@
 import React from 'react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Button } from '@/components/ui/button';
-import { Download, ExternalLink, Linkedin, Award, GraduationCap, MapPin, Phone, Mail } from 'lucide-react';
+import { Download, ExternalLink, Linkedin, Award, GraduationCap } from 'lucide-react';
 import { staticExperienceData, staticEducationData, staticSkillsData, staticAwardsData } from '@/data/staticResumeData';
 
 const Resume: React.FC = () => {
@@ -51,16 +51,6 @@ const Resume: React.FC = () => {
                 <p className="text-xl text-gray-700 mb-3">
                   Customer Success Engineering & Solution Engineering Leader
                 </p>
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-gray-600 text-sm">
-                  <a href="mailto:MikeMacri@gmail.com" className="flex items-center hover:text-macri-primary">
-                    <Mail className="w-4 h-4 mr-1" />
-                    MikeMacri@gmail.com
-                  </a>
-                  <span className="flex items-center">
-                    <Phone className="w-4 h-4 mr-1" />
-                    650-308-4071
-                  </span>
-                </div>
               </div>
             </div>
 

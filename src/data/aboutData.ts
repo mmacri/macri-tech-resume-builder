@@ -5,8 +5,6 @@ export const initialAboutData = {
   location: "📍 Available in: Seattle, WA • San Diego, CA • Chicago Metro • Denver, CO • Southern Michigan • Remote/Hybrid",
   
   contact: {
-    email: "MikeMacri@gmail.com",
-    phone: "650-308-4071",
     location: "📍 Available in: Seattle, WA • San Diego, CA • Chicago Metro • Denver, CO • Southern Michigan • Remote/Hybrid",
     linkedin: "https://www.linkedin.com/in/mikemacri/"
   },
