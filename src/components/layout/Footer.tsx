@@ -86,8 +86,15 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
+        {/* Role Anchoring Statement */}
+        <div className="border-t border-gray-800 mt-8 pt-8">
+          <p className="text-gray-300 text-center mb-4 italic">
+            Open to senior individual contributor, manager, and advisory roles where platform adoption, governance, and customer outcomes intersect.
+          </p>
+        </div>
+
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center">
+        <div className="border-t border-gray-800 pt-6 text-center">
           <p className="text-gray-400">
             © {currentYear} Mike Macri. All rights reserved. 
             Built with React, TypeScript, and Tailwind CSS.

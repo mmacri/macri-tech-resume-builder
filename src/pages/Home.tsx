@@ -37,6 +37,11 @@ const Home: React.FC = () => {
                 Customer Success Engineering & Solution Engineering Leader
               </h1>
               
+              {/* Differentiating Statement */}
+              <p className="text-lg text-macri-primary/80 mb-4 font-medium italic max-w-3xl">
+                I specialize in roles where product, security, partner ecosystems, and customer outcomes collide—and where organizations struggle to turn complexity into clear, defensible decisions.
+              </p>
+              
               {/* Value Thesis */}
               <p className="text-xl lg:text-2xl text-gray-700 mb-8 leading-relaxed max-w-3xl">
                 I build <strong>repeatable frameworks</strong> that remove adoption barriers, translate DevSecOps and governance capabilities into <strong>business outcomes</strong>, and align technical success with <strong>commercial impact</strong>.
@@ -108,6 +113,33 @@ const Home: React.FC = () => {
                 <div className="text-white/70 text-sm">{achievement.description}</div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What I'm Known For Section */}
+      <section className="py-12 bg-white border-b border-gray-200">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="font-saira font-bold text-2xl text-macri-primary mb-6 text-center">
+            What I'm Known For
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="w-2 h-2 rounded-full bg-macri-primary mt-2 flex-shrink-0" />
+              <p className="text-gray-700">Brought in when platforms are <strong>powerful but under-adopted</strong></p>
+            </div>
+            <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="w-2 h-2 rounded-full bg-macri-primary mt-2 flex-shrink-0" />
+              <p className="text-gray-700">Build <strong>repeatable frameworks</strong>, not hero solutions</p>
+            </div>
+            <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="w-2 h-2 rounded-full bg-macri-primary mt-2 flex-shrink-0" />
+              <p className="text-gray-700">Translate technical, regulatory, and operational complexity into <strong>executive clarity</strong></p>
+            </div>
+            <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="w-2 h-2 rounded-full bg-macri-primary mt-2 flex-shrink-0" />
+              <p className="text-gray-700">Focus on <strong>decisions enabled</strong>, not artifacts produced</p>
+            </div>
           </div>
         </div>
       </section>
