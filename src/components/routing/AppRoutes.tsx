@@ -6,6 +6,7 @@ import Home from '@/pages/Home';
 import ExperienceImpact from '@/pages/ExperienceImpact';
 import SelectedWork from '@/pages/SelectedWork';
 import Resume from '@/pages/Resume';
+import MyWebsites from '@/pages/MyWebsites';
 import Contact from '@/pages/Contact';
 import NotFound from '@/pages/NotFound';
 import Layout from '@/components/Layout';
@@ -26,6 +27,7 @@ export const AppRoutes: React.FC = () => {
         <Route path="/experience" element={<ExperienceImpact />} />
         <Route path="/selected-work" element={<SelectedWork />} />
         <Route path="/resume" element={<Resume />} />
+        <Route path="/my-websites" element={<MyWebsites />} />
         <Route path="/contact" element={<Contact />} />
         
         {/* Portfolio detail pages (linked from Experience & Selected Work) */}
@@ -38,7 +40,6 @@ export const AppRoutes: React.FC = () => {
         {/* Redirects for old routes */}
         <Route path="/about" element={<Navigate to="/experience" replace />} />
         <Route path="/portfolio" element={<Navigate to="/selected-work" replace />} />
-        <Route path="/my-websites" element={<Navigate to="/selected-work" replace />} />
         
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -7,12 +7,12 @@ export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  // Streamlined navigation per spec: Home, Experience & Impact, Selected Work, Resume, Contact
   const navItems = [
     { label: 'Home', href: '/' },
     { label: 'Experience & Impact', href: '/experience' },
     { label: 'Selected Work', href: '/selected-work' },
     { label: 'Resume', href: '/resume' },
+    { label: 'My Websites', href: '/my-websites' },
     { label: 'Contact', href: '/contact' },
   ];
 
