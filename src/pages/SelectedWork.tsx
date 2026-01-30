@@ -20,6 +20,7 @@ interface CaseStudy {
   environment: string;
   solution: string;
   outcomes: string[];
+  decisionImpact: string;
   detailLink?: string;
 }
 
@@ -47,6 +48,7 @@ const SelectedWork: React.FC = () => {
         'Reduced audit preparation time by streamlining documentation',
         'Integrated compliance workflows into existing ServiceNow ecosystem'
       ],
+      decisionImpact: 'Enabled executives to confidently prioritize remediation investment and approve governance changes with full visibility into downstream risk.',
       detailLink: '/portfolio/compliance'
     },
     {
@@ -62,6 +64,7 @@ const SelectedWork: React.FC = () => {
         'Reduced AI deployment risk through structured review processes',
         'Enabled responsible AI adoption at enterprise scale'
       ],
+      decisionImpact: 'Allowed leadership to confidently approve AI deployments with clear risk criteria and accountability structures in place.',
       detailLink: '/portfolio/compliance'
     },
     {
@@ -77,6 +80,7 @@ const SelectedWork: React.FC = () => {
         '450% sales target achievement',
         '200% increase in partner certifications'
       ],
+      decisionImpact: 'Clarified expansion and investment decisions for partner leadership, enabling confident allocation of resources to high-yield co-sell motions.',
       detailLink: '/portfolio/partner-development'
     },
     {
@@ -92,6 +96,7 @@ const SelectedWork: React.FC = () => {
         '30-point NPS improvement over baseline',
         'Scalable model adopted across regions'
       ],
+      decisionImpact: 'Reduced uncertainty in expansion and renewal decisions by providing leadership with consistent, data-driven customer health visibility.',
       detailLink: '/portfolio/customer-success'
     }
   ];
@@ -238,6 +243,12 @@ const SelectedWork: React.FC = () => {
                           </li>
                         ))}
                       </ul>
+                      
+                      {/* Decision Impact Callout */}
+                      <div className="mt-6 p-4 bg-macri-primary/5 border-l-4 border-macri-primary rounded-r-lg">
+                        <h5 className="font-semibold text-macri-primary text-sm mb-1">Decision Impact</h5>
+                        <p className="text-gray-700 text-sm">{study.decisionImpact}</p>
+                      </div>
                       
                       {study.detailLink && (
                         <Button
