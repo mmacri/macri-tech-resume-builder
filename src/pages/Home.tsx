@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { careerCompanies, careerProgression, capabilities, metrics, profile, seoDefaults } from '@/data/careerData';
 
 const Home: React.FC = () => {
+  const assetBase = import.meta.env.BASE_URL;
+
   return (
     <>
       <SEOHead title={seoDefaults.title} description={seoDefaults.description} url="https://mikemacri.com" />
@@ -46,7 +48,7 @@ const Home: React.FC = () => {
                 <Link to="/experience">View Experience</Link>
               </Button>
               <Button size="lg" variant="outline" className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white" asChild>
-                <a href="/resume.pdf" download>
+                <a href={`${assetBase}resume.pdf`} download>
                   <Download className="mr-2 h-5 w-5" /> Resume
                 </a>
               </Button>
@@ -61,7 +63,7 @@ const Home: React.FC = () => {
           <div className="order-1 flex justify-center lg:order-2 lg:col-span-4">
             <div className="relative">
               <img
-                src="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+                src={`${assetBase}lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png`}
                 alt="Michael Macri professional headshot"
                 className="h-64 w-64 rounded-full border-8 border-white object-cover shadow-2xl lg:h-80 lg:w-80"
               />

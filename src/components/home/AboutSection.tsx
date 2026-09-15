@@ -6,6 +6,8 @@ interface AboutSectionProps {
 }
 
 const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {
+  const assetBase = import.meta.env.BASE_URL;
+
   return (
     <section className="py-16 bg-white" id="about">
       <div className="max-w-4xl mx-auto px-4 md:px-8">
@@ -14,7 +16,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             <div className="flex-shrink-0">
               <img
-                src="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+                src={`${assetBase}lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png`}
                 alt="Mike Macri M.B.A. profile"
                 className="w-32 h-32 rounded-full object-cover border-4 border-orange-200 shadow-lg"
               />

@@ -7,6 +7,8 @@ import { staticAwardsData, staticEducationData } from '@/data/staticResumeData';
 import { capabilities, experiences, metrics, profile } from '@/data/careerData';
 
 const Resume: React.FC = () => {
+  const assetBase = import.meta.env.BASE_URL;
+
   return (
     <>
       <SEOHead
@@ -21,7 +23,7 @@ const Resume: React.FC = () => {
           <div className="rounded-lg border border-gray-200 bg-white p-8 shadow-md">
             <div className="mb-6 flex flex-col items-center gap-6 lg:flex-row">
               <img
-                src="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
+                src={`${assetBase}lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png`}
                 alt="Michael Macri professional headshot"
                 className="h-28 w-28 rounded-full border-4 border-macri-primary/20 object-cover"
               />
@@ -36,7 +38,7 @@ const Resume: React.FC = () => {
             </div>
             <div className="flex flex-col justify-center gap-3 sm:flex-row">
               <Button size="lg" className="bg-macri-primary text-white hover:bg-macri-primary-dark" asChild>
-                <a href="/resume.pdf" download><Download className="mr-2 h-5 w-5" /> Download Resume</a>
+                <a href={`${assetBase}resume.pdf`} download><Download className="mr-2 h-5 w-5" /> Download Resume</a>
               </Button>
               <Button size="lg" variant="outline" className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white" asChild>
                 <a href={profile.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin className="mr-2 h-5 w-5" /> LinkedIn Profile</a>
