@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { toast } from 'sonner';
 import { Send, Mail, Linkedin, MapPin } from 'lucide-react';
+import { profile } from '@/data/careerData';
 
 const contactFormSchema = z.object({
   name: z.string()
@@ -53,7 +54,7 @@ const Contact = () => {
     <>
       <SEOHead
         title="Contact - Mike Macri"
-        description="Get in touch with Mike Macri to discuss technology challenges, business opportunities, or potential collaboration."
+        description="Connect with Mike Macri to discuss Customer Success Engineering, DevSecOps adoption, AI governance, partner ecosystems, and enterprise technology leadership."
         url="https://mikemacri.com/contact"
       />
 
@@ -65,7 +66,7 @@ const Contact = () => {
               Contact
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Ready to discuss your challenges and opportunities? Let's connect.
+              Connect to discuss Customer Success Engineering, DevSecOps adoption, AI governance, partner ecosystems, and enterprise technology leadership.
             </p>
           </div>
 
@@ -77,7 +78,7 @@ const Contact = () => {
                 
                 <div className="space-y-4">
                   <a 
-                    href="https://linkedin.com/in/mikemacri"
+                    href={profile.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center text-gray-700 hover:text-macri-primary transition-colors"
@@ -89,10 +90,7 @@ const Contact = () => {
                   <div className="flex items-start text-gray-700">
                     <MapPin className="w-5 h-5 mr-3 text-macri-primary mt-0.5" />
                     <div className="text-sm">
-                      <p>Edmonds, WA</p>
-                      <p>San Diego, CA</p>
-                      <p>Chicago, IL</p>
-                      <p className="text-gray-500">Remote / Hybrid available</p>
+                      <p>United States / Remote</p>
                     </div>
                   </div>
                 </div>
@@ -100,8 +98,8 @@ const Contact = () => {
 
               <div className="bg-macri-primary/5 rounded-lg p-6 border border-macri-primary/20">
                 <p className="text-sm text-gray-700">
-                  <strong className="text-macri-primary">Open to:</strong><br />
-                  Senior IC, Leadership, and Advisory roles in Solution Engineering, Security/GRC, Partner Development, and Customer Success.
+                  <strong className="text-macri-primary">Current focus:</strong><br />
+                  Customer Success Engineering leadership, scalable technical engagement, DevSecOps adoption, AI governance, security, and enterprise platform value realization.
                 </p>
               </div>
             </div>

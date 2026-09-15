@@ -7,10 +7,11 @@ export const Footer: React.FC = () => {
 
   const quickLinks = [
     { label: 'Home', href: '/' },
+    { label: 'Experience', href: '/experience' },
+    { label: 'Selected Work', href: '/selected-work' },
+    { label: 'Projects', href: '/projects' },
     { label: 'About', href: '/about' },
     { label: 'Resume', href: '/resume' },
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'My Websites', href: '/my-websites' },
     { label: 'Contact', href: '/contact' }
   ];
 
@@ -21,18 +22,16 @@ export const Footer: React.FC = () => {
           {/* Brand Section */}
           <div className="md:col-span-2">
             <h3 className="font-saira font-bold text-xl mb-4 text-macri-primary">
-              Mike Macri M.B.A.
+              Michael Macri, MBA
             </h3>
             <p className="text-gray-300 mb-4 max-w-md">
-              Experienced business professional specializing in solution consulting, 
-              governance frameworks, and strategic technology implementations. 
-              Passionate about driving business growth through innovative solutions.
+              Customer Success Engineering and technology leader at GitLab, with experience across DevSecOps, cloud, security, AI governance, solution engineering, partner ecosystems, and enterprise technology adoption.
             </p>
             
             {/* Social Links */}
             <div className="flex space-x-4">
               <a
-                href="https://linkedin.com/in/mikemacri"
+                href="https://www.linkedin.com/in/mikemacri"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-10 h-10 bg-macri-primary hover:bg-macri-primary-dark rounded-full transition-colors"
@@ -73,7 +72,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="https://linkedin.com/in/mikemacri"
+                  href="https://www.linkedin.com/in/mikemacri"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-300 hover:text-macri-primary transition-colors flex items-center"
@@ -89,7 +88,7 @@ export const Footer: React.FC = () => {
         {/* Role Anchoring Statement */}
         <div className="border-t border-gray-800 mt-8 pt-8">
           <p className="text-gray-300 text-center mb-4 italic">
-            Open to senior individual contributor, manager, and advisory roles where platform adoption, governance, and customer outcomes intersect.
+            Building technical teams, programs, operating models, and platforms that connect complex technology with customer and business outcomes.
           </p>
         </div>
 

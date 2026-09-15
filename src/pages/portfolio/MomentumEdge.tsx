@@ -381,7 +381,7 @@ const MomentumEdge = () => {
 
             <div className="text-center mt-8">
               <Button variant="outline" className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white" asChild>
-                <a href="/my-websites">
+                <a href="/projects">
                   View All Platforms <ArrowRight className="ml-2 w-4 h-4" />
                 </a>
               </Button>

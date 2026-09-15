@@ -11,9 +11,9 @@ interface SEOHeadProps {
 
 // Lightweight SEO head manager without external providers
 export const SEOHead: React.FC<SEOHeadProps> = ({
-  title = 'Mike Macri - Professional Portfolio & Resume',
-  description = 'Experienced business professional specializing in solution consulting, governance frameworks, and strategic technology implementations. View portfolio, resume, and professional achievements.',
-  keywords = 'Mike Macri, business consultant, solution consulting, governance frameworks, technology implementation, portfolio, resume, MBA',
+  title = 'Mike Macri MBA | Customer Success Engineering & Technology Leader',
+  description = 'Technology and Customer Success Engineering leader at GitLab with experience spanning DevSecOps, solution engineering, customer success, partner ecosystems, AI governance, security, and enterprise technology adoption.',
+  keywords = 'Mike Macri, GitLab, customer success engineering, DevSecOps, solution engineering, customer success, AI governance, security, enterprise technology adoption, MBA',
   image = '/og-image.jpg',
   url = typeof window !== 'undefined' ? window.location.href : 'https://mikemacri.com',
   type = 'website',
@@ -78,18 +78,20 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       '@context': 'https://schema.org',
       '@type': 'Person',
       name: 'Mike Macri',
-      jobTitle: 'Business Consultant & Solution Architect',
+      jobTitle: 'Sr. Manager, Customer Success Engineering',
       description,
       url,
       image,
-      sameAs: ['https://linkedin.com/in/mikemacri'],
-      worksFor: { '@type': 'Organization', name: 'Independent Consultant' },
+      sameAs: ['https://www.linkedin.com/in/mikemacri'],
+      worksFor: { '@type': 'Organization', name: 'GitLab' },
       knowsAbout: [
-        'Solution Consulting',
-        'Governance Frameworks',
-        'Technology Implementation',
-        'Business Strategy',
-        'Risk Management',
+        'Customer Success Engineering',
+        'DevSecOps',
+        'Solution Engineering',
+        'Partner Ecosystems',
+        'AI Governance',
+        'Security',
+        'Enterprise Technology Adoption',
       ],
     };
     (scriptEl as HTMLScriptElement).textContent = JSON.stringify(jsonLd);

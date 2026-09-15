@@ -7,7 +7,12 @@ import { Book, ExternalLink, Code, Award, TrendingUp } from 'lucide-react';
 import { staticProjectsData } from '@/data/staticResumeData';
 
 interface ProjectsSectionProps {
-  items?: any[];
+  items?: Array<{
+    title: string;
+    description: string;
+    technologies?: string[];
+    link?: string;
+  }>;
 }
 
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({ items }) => {

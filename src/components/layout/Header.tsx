@@ -9,10 +9,11 @@ export const Header: React.FC = () => {
 
   const navItems = [
     { label: 'Home', href: '/' },
-    { label: 'Experience & Impact', href: '/experience' },
+    { label: 'Experience', href: '/experience' },
     { label: 'Selected Work', href: '/selected-work' },
+    { label: 'Projects', href: '/projects' },
     { label: 'Resume', href: '/resume' },
-    { label: 'My Websites', href: '/my-websites' },
+    { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
   ];
 
@@ -58,7 +59,7 @@ export const Header: React.FC = () => {
             {/* Social Links */}
             <div className="flex items-center ml-4 pl-4 border-l border-gray-300">
               <a
-                href="https://linkedin.com/in/mikemacri"
+                href="https://www.linkedin.com/in/mikemacri"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-gray-600 hover:text-macri-primary transition-colors"
@@ -103,7 +104,7 @@ export const Header: React.FC = () => {
               {/* Mobile Social Links */}
               <div className="flex items-center justify-center pt-4 mt-4 border-t border-border">
                 <a
-                  href="https://linkedin.com/in/mikemacri"
+                  href="https://www.linkedin.com/in/mikemacri"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center text-gray-600 hover:text-macri-primary transition-colors"

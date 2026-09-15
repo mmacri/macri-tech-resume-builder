@@ -2,7 +2,7 @@ import React from 'react';
 import { aboutData } from '@/data/aboutData';
 
 interface AboutSectionProps {
-  data?: any;
+  data?: typeof aboutData;
 }
 
 const AboutSection: React.FC<AboutSectionProps> = ({ data }) => {

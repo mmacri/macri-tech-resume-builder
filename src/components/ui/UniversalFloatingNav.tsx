@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 interface FloatingNavItem {
   id: string;
   label: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
   href?: string;
   isRoute?: boolean;
 }

@@ -1,201 +1,96 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, CheckCircle, ExternalLink } from 'lucide-react';
 import { SEOHead } from '@/components/layout/SEOHead';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Users, TrendingUp, Shield, Briefcase, CheckCircle, ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { capabilities, careerProgression, experiences, metrics, profile } from '@/data/careerData';
 
 const ExperienceImpact: React.FC = () => {
-  const roleLenses = [
-    {
-      id: 'customer-success',
-      icon: Users,
-      title: 'Customer Success Engineering',
-      tagline: 'Driving adoption and retention at scale',
-      keyPoints: [
-        'Led technical success motions across pooled book of business',
-        'Built engagement frameworks aligned to customer business metrics',
-        'Designed scalable operating models for TAM, CSM, and Product teams'
-      ],
-      outcomes: [
-        'NPS of 83 (20 points above target)',
-        '20% renewal growth through adoption programs',
-        'Built three dispersed post-sales teams',
-        'Aligned technical success with expansion objectives'
-      ],
-      decisionImpact: 'Gave leadership consistent visibility into customer health, enabling confident renewal and expansion decisions.',
-      caseStudyLink: '/portfolio/customer-success',
-      color: 'bg-orange-50 border-orange-200'
-    },
-    {
-      id: 'solution-engineering',
-      icon: Briefcase,
-      title: 'Solution Engineering & Technical Enablement',
-      tagline: 'Removing adoption barriers through repeatable frameworks',
-      keyPoints: [
-        'Built standardized onboarding playbooks and maturity checkpoints',
-        'Created KPI frameworks that accelerate customer progression',
-        'Designed scalable enablement across partner and customer ecosystems'
-      ],
-      outcomes: [
-        '250% pipeline growth through enablement frameworks',
-        'Consistent services and solution attach',
-        'Reusable assets (workshops, checklists, playbooks)',
-        'Scalable execution across regulated industries'
-      ],
-      decisionImpact: 'Enabled sales and delivery leaders to prioritize accounts and allocate resources based on clear adoption signals.',
-      caseStudyLink: '/portfolio/solution-engineering',
-      color: 'bg-blue-50 border-blue-200'
-    },
-    {
-      id: 'partner-ecosystem',
-      icon: TrendingUp,
-      title: 'Partner Ecosystems',
-      tagline: 'Building high-yield co-sell motions',
-      keyPoints: [
-        'Led GSI and strategic partner motions across the Americas',
-        'Aligned technical enablement with commercial execution',
-        'Built joint business plans and managed co-sell delivery'
-      ],
-      outcomes: [
-        'Two record-setting $50M+ partner-led deals',
-        '$440M through multi-tiered routes-to-market',
-        '200% increase in certifications',
-        '21% increase in partner-driven pipeline'
-      ],
-      decisionImpact: 'Clarified partner investment decisions by providing leadership with predictable, measurable co-sell outcomes.',
-      caseStudyLink: '/portfolio/partner-development',
-      color: 'bg-purple-50 border-purple-200'
-    },
-    {
-      id: 'risk-governance',
-      icon: Shield,
-      title: 'Risk, Governance & DevSecOps',
-      tagline: 'Turning compliance complexity into executive clarity',
-      keyPoints: [
-        'Delivered cloud-native security and compliance advisory',
-        'Reduced enterprise risk while strengthening platform trust',
-        'Owned AI/ML governance enablement as internal SME'
-      ],
-      outcomes: [
-        '$900M in enterprise risk reduction',
-        'SME for ServiceNow inaugural AI usage policies',
-        'Standardized policy-to-process workflows',
-        'Governance maturity for regulated customers'
-      ],
-      decisionImpact: 'Allowed executives to confidently approve technology investments with clear risk visibility and accountability.',
-      caseStudyLink: '/portfolio/compliance',
-      color: 'bg-green-50 border-green-200'
-    }
-  ];
-
   return (
     <>
       <SEOHead
-        title="Experience & Impact - Mike Macri"
-        description="Cross-functional leadership across Customer Success Engineering, Solution Engineering, Partner Ecosystems, and Risk-Driven Platforms with measurable outcomes at scale."
-        keywords="Mike Macri experience, customer success engineering, solution engineering, partner development, risk governance, DevSecOps"
+        title="Experience | Mike Macri MBA"
+        description="Career progression across GitLab, ServiceNow, VMware, and independent advisory work, focused on customer success engineering, DevSecOps, solution engineering, partner ecosystems, AI governance, and enterprise technology adoption."
+        keywords="Mike Macri experience, GitLab, customer success engineering, DevSecOps, ServiceNow, VMware, solution engineering"
         url="https://mikemacri.com/experience"
       />
 
-      {/* Hero Section */}
-      <section className="py-16 bg-gradient-to-br from-macri-primary/5 via-white to-macri-primary/10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="font-saira font-bold text-4xl lg:text-5xl text-macri-primary mb-6">
-              Experience & Impact
-            </h1>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-              Cross-functional leader with experience spanning Customer Success Engineering, Solution Engineering, partner ecosystems, and risk-driven platforms. Driving adoption, renewal growth, and measurable customer value at scale.
-            </p>
-          </div>
+      <section className="bg-gradient-to-br from-macri-primary/5 via-white to-macri-primary/10 py-16">
+        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
+          <Badge className="mb-4 bg-macri-primary text-white">Current: {profile.currentRole} at {profile.currentCompany}</Badge>
+          <h1 className="mb-6 font-saira text-4xl font-bold text-macri-primary lg:text-5xl">Experience & Impact</h1>
+          <p className="mx-auto max-w-3xl text-xl leading-8 text-gray-700">
+            Technology and customer success engineering leadership across GitLab, ServiceNow, VMware, and independent advisory work. The common thread: building teams, programs, operating models, and technical solutions that turn complex technology into measurable customer and business outcomes.
+          </p>
+        </div>
+      </section>
 
-          {/* Quick Stats */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 text-center">
-              <div className="text-2xl font-bold text-macri-primary">20%</div>
-              <div className="text-sm text-gray-600">Renewal Growth</div>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 text-center">
-              <div className="text-2xl font-bold text-macri-primary">250%</div>
-              <div className="text-sm text-gray-600">Pipeline Growth</div>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 text-center">
-              <div className="text-2xl font-bold text-macri-primary">83 NPS</div>
-              <div className="text-sm text-gray-600">Customer Score</div>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 text-center">
-              <div className="text-2xl font-bold text-macri-primary">$900M</div>
-              <div className="text-sm text-gray-600">Risk Reduction</div>
-            </div>
+      <section className="bg-white py-12">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-8 text-center font-saira text-3xl font-bold text-macri-primary">Career Story</h2>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-6">
+            {careerProgression.map((step, index) => (
+              <div key={step} className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-center">
+                <p className="text-sm font-semibold text-gray-800">{step}</p>
+                {index < careerProgression.length - 1 && <ArrowRight className="mx-auto mt-3 hidden h-4 w-4 text-macri-primary md:block" aria-hidden="true" />}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Role Lenses */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-8">
-            {roleLenses.map((role) => (
-              <div 
+      <section className="bg-gray-50 py-14">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-8 font-saira text-3xl font-bold text-macri-primary">Professional Timeline</h2>
+          <div className="space-y-6">
+            {experiences.map((role) => (
+              <article
                 key={role.id}
-                id={role.id}
-                className={`rounded-xl border-2 p-8 ${role.color} transition-shadow hover:shadow-lg`}
+                className={`rounded-lg border bg-white p-6 shadow-sm ${role.id === 'gitlab' ? 'border-macri-primary border-l-4' : role.advisory ? 'border-l-4 border-l-gray-300' : 'border-gray-200 border-l-4 border-l-macri-primary/50'}`}
               >
-                <div className="flex flex-col lg:flex-row gap-8">
-                  {/* Content */}
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="p-3 bg-white rounded-lg shadow-sm">
-                        <role.icon className="w-6 h-6 text-macri-primary" />
-                      </div>
-                      <div>
-                        <h2 className="font-saira font-bold text-2xl text-macri-primary">
-                          {role.title}
-                        </h2>
-                        <p className="text-gray-600 text-sm italic">{role.tagline}</p>
-                      </div>
+                <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                  <div>
+                    <div className="mb-2 flex flex-wrap items-center gap-2">
+                      {role.id === 'gitlab' && <Badge className="bg-macri-primary text-white">CURRENT</Badge>}
+                      {role.advisory && <Badge variant="secondary">Independent Consulting / Advisory</Badge>}
+                      <span className="text-sm font-semibold uppercase tracking-wide text-gray-500">{role.theme}</span>
                     </div>
-                    
-                    {/* Key Points - Scannable bullets */}
-                    <ul className="space-y-2 my-4">
-                      {role.keyPoints.map((point, index) => (
-                        <li key={index} className="flex items-start gap-2 text-gray-700">
-                          <span className="w-1.5 h-1.5 rounded-full bg-macri-primary mt-2 flex-shrink-0" />
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                    
-                    {/* Decision Impact Callout */}
-                    <div className="p-4 bg-white/70 border-l-4 border-macri-primary rounded-r-lg mb-4">
-                      <p className="text-sm font-semibold text-macri-primary mb-1">Decision Impact</p>
-                      <p className="text-gray-700 text-sm">{role.decisionImpact}</p>
-                    </div>
-                    
-                    <Button
-                      variant="outline"
-                      className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white"
-                      asChild
-                    >
-                      <a href={role.caseStudyLink}>
-                        View Case Studies
-                        <ArrowRight className="ml-2 w-4 h-4" />
-                      </a>
-                    </Button>
+                    <h3 className="text-xl font-semibold text-macri-primary">{role.title}</h3>
+                    <p className="font-medium text-gray-900">{role.organization}</p>
+                    <p className="text-sm text-gray-600">{role.location}</p>
                   </div>
-                  
-                  {/* Outcomes */}
-                  <div className="lg:w-80">
-                    <h3 className="font-semibold text-lg text-gray-900 mb-4">Key Outcomes</h3>
-                    <ul className="space-y-3">
-                      {role.outcomes.map((outcome, index) => (
-                        <li key={index} className="flex items-start gap-3">
-                          <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">{outcome}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <p className="text-sm font-semibold text-gray-700 md:text-right">{role.period}</p>
+                </div>
+                <p className="mb-4 leading-7 text-gray-700">{role.summary}</p>
+                <ul className="space-y-2">
+                  {role.bullets.map((bullet) => (
+                    <li key={bullet} className="flex gap-3 text-sm leading-6 text-gray-700">
+                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-14">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-4 font-saira text-3xl font-bold text-macri-primary">Capability Areas</h2>
+          <p className="mb-8 max-w-3xl text-gray-700">
+            These are not separate identities. They are connected ways Mike has applied the same leadership pattern: technology, customers, people, and business outcomes.
+          </p>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {capabilities.map((capability) => (
+              <div key={capability.title} className="rounded-lg border border-gray-200 bg-gray-50 p-5">
+                <h3 className="mb-3 text-lg font-semibold text-macri-primary">{capability.title}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {capability.topics.map((topic) => (
+                    <span key={topic} className="rounded-full bg-white px-3 py-1 text-xs font-medium text-gray-700 ring-1 ring-gray-200">{topic}</span>
+                  ))}
                 </div>
               </div>
             ))}
@@ -203,79 +98,40 @@ const ExperienceImpact: React.FC = () => {
         </div>
       </section>
 
-      {/* Career Timeline - Condensed */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-saira font-bold text-3xl text-macri-primary mb-8 text-center">
-            Career Timeline
-          </h2>
-          
-          <div className="space-y-6">
-            {/* Momentum Edge */}
-            <div className="bg-white rounded-lg p-6 border-l-4 border-green-500 shadow-sm">
-              <Badge className="mb-2 bg-green-100 text-green-800 border-green-200">Current</Badge>
-              <h3 className="font-semibold text-xl text-macri-primary">Principal Consultant</h3>
-              <p className="text-gray-600 font-medium">Momentum Edge Consulting • May 2025 - Present</p>
-              <p className="text-gray-700 mt-2">Technical advisor for regulated public sector and enterprise customers. Post-sale adoption readiness, operating model alignment, and technical value realization.</p>
-            </div>
-            
-            {/* ServiceNow */}
-            <div className="bg-white rounded-lg p-6 border-l-4 border-macri-primary shadow-sm">
-              <h3 className="font-semibold text-xl text-macri-primary">Manager, Solution Advisory – Legal Ethics & Compliance</h3>
-              <p className="text-gray-600 font-medium">ServiceNow • Dec 2021 - May 2025</p>
-              <p className="text-gray-700 mt-2">Post-sales solution advisory driving platform adoption, governance maturity, and enterprise risk reduction. SME for AI/ML governance enablement.</p>
-            </div>
-            
-            {/* VMware Director */}
-            <div className="bg-white rounded-lg p-6 border-l-4 border-macri-primary shadow-sm">
-              <h3 className="font-semibold text-xl text-macri-primary">Partner Business & Technical Alliance Director – Americas</h3>
-              <p className="text-gray-600 font-medium">VMware • Nov 2019 - Dec 2021</p>
-              <p className="text-gray-700 mt-2">GSI and strategic partner motions. Two $50M+ landmark deals. Partner playbooks and go-to-market alignment.</p>
-            </div>
-            
-            {/* VMware Progressive */}
-            <div className="bg-white rounded-lg p-6 border-l-4 border-gray-300 shadow-sm">
-              <h3 className="font-semibold text-xl text-macri-primary">Progressive Leadership Roles</h3>
-              <p className="text-gray-600 font-medium">VMware • 2011 - 2019</p>
-              <p className="text-gray-700 mt-2">Staff TAM → Sr Manager Customer Success → Partner SE Leader. $440M partner revenue. 83 NPS. Three dispersed post-sales teams.</p>
-            </div>
-          </div>
-          
-          <div className="text-center mt-8">
-            <Button 
-              className="bg-macri-primary hover:bg-macri-primary-dark text-white"
-              asChild
-            >
-              <a href="/resume">
-                View Full Resume
-                <ExternalLink className="ml-2 w-4 h-4" />
-              </a>
-            </Button>
+      <section className="bg-gray-50 py-14">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-8 font-saira text-3xl font-bold text-macri-primary">Validated Impact Metrics</h2>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {metrics.map((item) => (
+              <details key={item.label} className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm open:ring-2 open:ring-macri-primary/20">
+                <summary className="cursor-pointer list-none focus:outline-none focus-visible:ring-2 focus-visible:ring-macri-primary">
+                  <span className="block text-3xl font-bold text-macri-primary">{item.metric}</span>
+                  <span className="block font-semibold text-gray-900">{item.label}</span>
+                  <span className="block text-sm text-gray-600">{item.organization}</span>
+                </summary>
+                <div className="mt-4 space-y-2 text-sm leading-6 text-gray-700">
+                  <p><strong>Context:</strong> {item.context}</p>
+                  <p><strong>Contribution:</strong> {item.contribution}</p>
+                  <p><strong>Outcome:</strong> {item.outcome}</p>
+                </div>
+              </details>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-macri-primary text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-saira font-bold text-3xl mb-4">
-            Explore Detailed Case Studies
-          </h2>
-          <p className="text-xl mb-8 text-white/90">
-            See specific examples of frameworks, solutions, and measurable outcomes.
-          </p>
-          
-          <Button 
-            size="lg"
-            variant="collaboration"
-            className="px-8"
-            asChild
-          >
-            <a href="/selected-work">
-              View Selected Work
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </a>
-          </Button>
+      <section className="bg-macri-primary py-14 text-white">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="mb-4 font-saira text-3xl font-bold">Explore The Evidence</h2>
+          <p className="mb-8 text-lg text-white/90">Case studies show how these leadership patterns were applied across customer success, DevSecOps, solution engineering, partner ecosystems, and governance.</p>
+          <div className="flex flex-col justify-center gap-3 sm:flex-row">
+            <Button size="lg" variant="collaboration" asChild>
+              <Link to="/selected-work">Selected Work <ArrowRight className="ml-2 h-5 w-5" /></Link>
+            </Button>
+            <Button size="lg" variant="collaborationOutline" asChild>
+              <Link to="/resume">Full Resume <ExternalLink className="ml-2 h-5 w-5" /></Link>
+            </Button>
+          </div>
         </div>
       </section>
     </>

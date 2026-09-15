@@ -5,7 +5,10 @@ import { staticSkillsData } from '@/data/staticResumeData';
 import { Cloud, Server, Globe, Layers, Zap } from 'lucide-react';
 
 interface SkillsSectionProps {
-  items?: any[];
+  items?: Array<{
+    title?: string;
+    description: string;
+  }>;
 }
 
 const SkillsSection: React.FC<SkillsSectionProps> = ({ items }) => {

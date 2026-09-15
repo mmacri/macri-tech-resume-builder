@@ -15,7 +15,7 @@ export const SocialIcons: React.FC = () => {
           <TooltipTrigger asChild>
             <a 
               className="social-icon rounded-full border border-white p-2 hover:bg-white/20 transition-colors" 
-              href="https://linkedin.com/in/mikemacri" 
+              href="https://www.linkedin.com/in/mikemacri" 
               target="_blank" 
               rel="noopener noreferrer"
               aria-label="LinkedIn"

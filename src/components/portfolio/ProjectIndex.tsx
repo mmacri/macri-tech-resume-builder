@@ -16,7 +16,7 @@ interface Project {
 interface ProjectIndexProps {
   projects: Project[];
   loading: boolean;
-  user: any;
+  user: unknown;
   seedProjects: () => Promise<void>;
 }
 

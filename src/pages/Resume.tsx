@@ -1,209 +1,149 @@
 import React from 'react';
+import { Download, Linkedin, Award, GraduationCap, CheckCircle } from 'lucide-react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Button } from '@/components/ui/button';
-import { Download, ExternalLink, Linkedin, Award, GraduationCap } from 'lucide-react';
-import { staticExperienceData, staticEducationData, staticSkillsData, staticAwardsData } from '@/data/staticResumeData';
+import { Badge } from '@/components/ui/badge';
+import { staticAwardsData, staticEducationData } from '@/data/staticResumeData';
+import { capabilities, experiences, metrics, profile } from '@/data/careerData';
 
 const Resume: React.FC = () => {
-  const keyAchievements = [
-    {
-      title: 'Scaled Adoption & Value Realization',
-      description: 'Designed and led scalable technical enablement and onboarding programs across partner and customer ecosystems, driving measurable adoption, renewal growth (20%), and sustained platform usage across VMware\'s Americas region.'
-    },
-    {
-      title: 'Repeatable Enablement Frameworks',
-      description: 'Built standardized onboarding playbooks, maturity checkpoints, and KPI frameworks that removed adoption barriers and accelerated customer progression, contributing to 250% pipeline growth and consistent services and solution attach.'
-    },
-    {
-      title: 'Customer Success Impact at Scale',
-      description: 'Led and supported technical success motions across a pooled book of business, delivering high-signal guidance that improved customer outcomes and resulted in NPS of 83 (20 points above target).'
-    },
-    {
-      title: 'Risk, Governance & DevSecOps Outcomes',
-      description: 'Delivered cloud-native, security, and compliance advisory that reduced $900M in enterprise risk, while strengthening platform trust, governance adoption, and long-term value realization.'
-    }
-  ];
-
   return (
     <>
       <SEOHead
-        title="Resume - Mike Macri MBA | Customer Success & Solution Engineering Leader"
-        description="Professional resume for Mike Macri MBA - Cross-functional leader in Customer Success Engineering, Solution Engineering, Partner Ecosystems, and Risk-Driven Platforms."
-        keywords="Mike Macri resume, customer success engineering, solution engineering, partner development, DevSecOps, MBA"
+        title="Resume | Mike Macri MBA"
+        description="Interactive resume for Michael Macri, MBA, Customer Success Engineering and Technology Leader currently leading Customer Success Engineering at GitLab."
+        keywords="Michael Macri resume, GitLab Customer Success Engineering, DevSecOps, ServiceNow, VMware, MBA"
         url="https://mikemacri.com/resume"
       />
 
-      {/* Header Section */}
-      <section className="py-12 bg-gradient-to-br from-macri-primary/5 via-white to-macri-primary/10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-lg shadow-md p-8 border border-gray-200">
-            <div className="flex flex-col lg:flex-row items-center gap-6 mb-6">
+      <section className="bg-gradient-to-br from-macri-primary/5 via-white to-macri-primary/10 py-12">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-lg border border-gray-200 bg-white p-8 shadow-md">
+            <div className="mb-6 flex flex-col items-center gap-6 lg:flex-row">
               <img
                 src="/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png"
-                alt="Mike Macri - Professional headshot"
-                className="w-28 h-28 rounded-full border-4 border-macri-primary/20 object-cover"
+                alt="Michael Macri professional headshot"
+                className="h-28 w-28 rounded-full border-4 border-macri-primary/20 object-cover"
               />
-              
               <div className="flex-1 text-center lg:text-left">
-                <h1 className="font-saira font-bold text-3xl lg:text-4xl text-macri-primary mb-2">
-                  Michael Macri MBA
-                </h1>
-                <p className="text-xl text-gray-700 mb-3">
-                  Customer Success Engineering & Solution Engineering Leader
-                </p>
+                <h1 className="mb-2 font-saira text-3xl font-bold text-macri-primary lg:text-4xl">{profile.name}</h1>
+                <p className="mb-2 text-xl text-gray-700">{profile.headline}</p>
+                <p className="text-sm font-medium text-macri-primary">{profile.currentRole} | {profile.currentCompany} | {profile.currentDates}</p>
               </div>
             </div>
-
-            {/* Professional Summary */}
-            <div className="mb-6 pb-6 border-b border-gray-200">
-              <p className="text-gray-700 leading-relaxed">
-                Cross-functional leader with experience spanning Customer Success Engineering, Solution Engineering, partner ecosystems, and risk-driven platforms. Led distributed technical teams and scalable enablement programs across VMware and ServiceNow, driving adoption, renewal growth, and measurable customer value at scale. Proven track record building repeatable frameworks that remove adoption barriers, translate DevSecOps and governance capabilities into business outcomes, and align technical success with commercial impact through close partnership with Sales, Renewals, Product, and Engineering.
-              </p>
+            <div className="mb-6 border-b border-gray-200 pb-6">
+              <p className="leading-7 text-gray-700">{profile.summary}</p>
             </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg"
-                className="bg-macri-primary hover:bg-macri-primary-dark text-white px-6"
-                asChild
-              >
-                <a href="/resume.pdf" download>
-                  <Download className="mr-2 w-5 h-5" />
-                  Download Resume
-                </a>
+            <div className="flex flex-col justify-center gap-3 sm:flex-row">
+              <Button size="lg" className="bg-macri-primary text-white hover:bg-macri-primary-dark" asChild>
+                <a href="/resume.pdf" download><Download className="mr-2 h-5 w-5" /> Download Resume</a>
               </Button>
-              
-              <Button 
-                size="lg"
-                variant="outline"
-                className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white px-6"
-                asChild
-              >
-                <a href="https://linkedin.com/in/mikemacri" target="_blank" rel="noopener noreferrer">
-                  <Linkedin className="mr-2 w-5 h-5" />
-                  LinkedIn Profile
-                </a>
+              <Button size="lg" variant="outline" className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white" asChild>
+                <a href={profile.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin className="mr-2 h-5 w-5" /> LinkedIn Profile</a>
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Key Achievements */}
-      <section className="py-12 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-saira font-bold text-2xl text-macri-primary mb-6">
-            Key Achievements
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {keyAchievements.map((achievement, index) => (
-              <div key={index} className="bg-gray-50 p-5 rounded-lg border border-gray-200">
-                <h3 className="font-semibold text-macri-primary mb-2">{achievement.title}</h3>
-                <p className="text-gray-700 text-sm">{achievement.description}</p>
+      <section className="bg-white py-12">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-6 font-saira text-2xl font-bold text-macri-primary">Selected Impact</h2>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {metrics.map((metric) => (
+              <div key={metric.label} className="rounded-lg border border-gray-200 bg-gray-50 p-5">
+                <p className="text-3xl font-bold text-macri-primary">{metric.metric}</p>
+                <h3 className="mb-1 font-semibold text-gray-900">{metric.label}</h3>
+                <p className="mb-2 text-sm font-medium text-gray-600">{metric.organization}</p>
+                <p className="text-sm leading-6 text-gray-700">{metric.outcome}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Experience Section */}
-      <section id="experience" className="py-12 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-saira font-bold text-2xl text-macri-primary mb-6">
-            Professional Experience
-          </h2>
+      <section id="experience" className="bg-gray-50 py-12">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-6 font-saira text-2xl font-bold text-macri-primary">Professional Experience</h2>
           <div className="space-y-6">
-            {staticExperienceData.map((experience) => (
-              <div key={experience.id} className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                  <h3 className="font-semibold text-lg text-macri-primary">
-                    {experience.title}
-                  </h3>
-                  <span className="text-sm text-gray-600">
-                    {experience.start_date} - {experience.end_date || 'Present'}
-                  </span>
+            {experiences.map((experience) => (
+              <article key={experience.id} className={`rounded-lg border bg-white p-6 shadow-sm ${experience.id === 'gitlab' ? 'border-macri-primary border-l-4' : 'border-gray-200'}`}>
+                <div className="mb-3 flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+                  <div>
+                    <div className="mb-2 flex flex-wrap gap-2">
+                      {experience.id === 'gitlab' && <Badge className="bg-macri-primary text-white">CURRENT</Badge>}
+                      {experience.advisory && <Badge variant="secondary">Independent Consulting / Advisory</Badge>}
+                    </div>
+                    <h3 className="text-lg font-semibold text-macri-primary">{experience.title}</h3>
+                    <p className="font-medium text-gray-900">{experience.organization}</p>
+                    <p className="text-sm text-gray-600">{experience.location}</p>
+                  </div>
+                  <span className="text-sm font-semibold text-gray-600">{experience.period}</span>
                 </div>
-                
-                <div className="text-gray-900 font-medium">{experience.organization}</div>
-                <div className="text-gray-600 text-sm mb-3">{experience.location}</div>
-                
-                <div className="text-gray-700 text-sm space-y-1">
-                  {experience.description.split('\n').filter(line => line.trim()).map((item, index) => {
-                    const cleanItem = item.replace('•', '').trim();
-                    if (!cleanItem) return null;
-                    return (
-                      <div key={index} className="flex items-start">
-                        <span className="w-1.5 h-1.5 bg-macri-primary rounded-full mt-2 mr-2 flex-shrink-0"></span>
-                        <span>{cleanItem}</span>
-                      </div>
-                    );
-                  })}
-                </div>
+                <p className="mb-3 text-sm leading-6 text-gray-700">{experience.summary}</p>
+                <ul className="space-y-2">
+                  {experience.bullets.map((bullet) => (
+                    <li key={bullet} className="flex gap-2 text-sm leading-6 text-gray-700">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-green-600" />
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" className="bg-white py-12">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-6 font-saira text-2xl font-bold text-macri-primary">Capability Areas</h2>
+          <div className="space-y-4">
+            {capabilities.map((capability) => (
+              <div key={capability.title} className="rounded-lg border border-gray-200 bg-gray-50 p-5">
+                <h3 className="mb-3 font-semibold text-macri-primary">{capability.title}</h3>
+                <p className="text-sm leading-6 text-gray-700">{capability.topics.join(' | ')}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Education Section */}
-      <section id="education" className="py-12 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-saira font-bold text-2xl text-macri-primary mb-6 flex items-center">
-            <GraduationCap className="w-6 h-6 mr-2" />
-            Education
-          </h2>
+      <section id="education" className="bg-gray-50 py-12">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-6 flex items-center font-saira text-2xl font-bold text-macri-primary"><GraduationCap className="mr-2 h-6 w-6" /> Education</h2>
           <div className="space-y-4">
             {staticEducationData.map((education) => (
-              <div key={education.id} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <div key={education.id} className="rounded-lg border border-gray-200 bg-white p-4">
                 <h3 className="font-semibold text-macri-primary">{education.title}</h3>
                 <p className="text-gray-900">{education.organization}</p>
-                <p className="text-gray-600 text-sm">{education.location}</p>
+                <p className="text-sm text-gray-600">{education.location}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Awards & Recognition */}
-      <section id="awards" className="py-12 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-saira font-bold text-2xl text-macri-primary mb-6 flex items-center">
-            <Award className="w-6 h-6 mr-2" />
-            Awards & Recognition
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <section id="awards" className="bg-white py-12">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-6 flex items-center font-saira text-2xl font-bold text-macri-primary"><Award className="mr-2 h-6 w-6" /> Awards & Recognition</h2>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {staticAwardsData.map((award) => (
-              <div key={award.id} className="bg-white p-4 rounded-lg border border-gray-200 flex items-start">
-                <Award className="w-5 h-5 text-macri-primary mr-3 mt-0.5 flex-shrink-0" />
-                <div>
-                  <h3 className="font-semibold text-gray-900 text-sm">{award.title}</h3>
-                </div>
+              <div key={award.id} className="flex items-start rounded-lg border border-gray-200 bg-gray-50 p-4">
+                <Award className="mr-3 mt-0.5 h-5 w-5 flex-shrink-0 text-macri-primary" />
+                <h3 className="text-sm font-semibold text-gray-900">{award.title}</h3>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-12 bg-macri-primary text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-saira font-bold text-2xl mb-4">
-            Open to Senior IC, Leadership, and Advisory Roles
-          </h2>
-          <p className="text-white/90 mb-6">
-            Available for remote, hybrid, or on-site opportunities across North America.
-          </p>
-          
-          <Button 
-            size="lg"
-            variant="collaboration"
-            className="px-8"
-            asChild
-          >
-            <a href="/contact">
-              Get In Touch
-            </a>
+      <section className="bg-macri-primary py-12 text-white">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="mb-4 font-saira text-2xl font-bold">Professional Profile</h2>
+          <p className="mb-6 text-white/90">Connect with Mike to discuss Customer Success Engineering, DevSecOps adoption, AI governance, partner ecosystems, and enterprise technology leadership.</p>
+          <Button size="lg" variant="collaboration" asChild>
+            <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
           </Button>
         </div>
       </section>

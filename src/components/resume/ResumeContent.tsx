@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/accordion';
 
 interface ResumeContentProps {
-  resumeSections: any[];
+  resumeSections: unknown[];
 }
 
 /**
@@ -31,11 +31,11 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
   
   // Since we're using static data, these will be empty arrays
   // The individual components will use their static data instead
-  const experienceItems: any[] = [];
-  const educationItems: any[] = [];
-  const skillsItems: any[] = [];
-  const interestsItems: any[] = [];
-  const awardsItems: any[] = [];
+  const experienceItems: never[] = [];
+  const educationItems: never[] = [];
+  const skillsItems: never[] = [];
+  const interestsItems: never[] = [];
+  const awardsItems: never[] = [];
 
   const handlePrint = () => {
     window.print();
@@ -132,7 +132,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
           <h1 className="text-2xl font-bold text-macri-primary">Resume</h1>
           <div className="flex gap-3">
             <a 
-              href="https://linkedin.com/in/mikemacri" 
+              href="https://www.linkedin.com/in/mikemacri" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 text-blue-600 hover:text-blue-800 transition-colors"
@@ -163,7 +163,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
           <p className="mb-6 text-gray-700">Find me on these platforms or reach out directly.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a 
-              href="https://linkedin.com/in/mikemacri" 
+              href="https://www.linkedin.com/in/mikemacri" 
               target="_blank" 
               rel="noopener noreferrer"
               className="bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-md font-semibold text-lg flex items-center gap-3 w-full sm:w-auto transition-colors"

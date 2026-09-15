@@ -1,34 +1,34 @@
 export const initialAboutData = {
-  intro_text: "Cross-functional leader with experience spanning Customer Success Engineering, Solution Engineering, partner ecosystems, and risk-driven platforms. Led distributed technical teams and scalable enablement programs across VMware and ServiceNow, driving adoption, renewal growth, and measurable customer value at scale.",
+  intro_text: "Technology and customer success engineering leader with 25+ years of experience building technical teams, customer success programs, solution engineering motions, partner ecosystems, and enterprise governance initiatives. Currently leading Customer Success Engineering at GitLab, focused on scalable technical engagement and helping customers achieve measurable value from modern DevSecOps platforms.",
   
-  title: "Customer Success Engineering & Solution Engineering Leader",
-  location: "📍 Available in: Seattle, WA • San Diego, CA • Chicago Metro • Denver, CO • Southern Michigan • Remote/Hybrid",
+  title: "Customer Success Engineering & Technology Leader",
+  location: "United States / Remote",
   
   contact: {
-    location: "📍 Available in: Seattle, WA • San Diego, CA • Chicago Metro • Denver, CO • Southern Michigan • Remote/Hybrid",
-    linkedin: "https://www.linkedin.com/in/mikemacri/"
+    location: "United States / Remote",
+    linkedin: "https://www.linkedin.com/in/mikemacri"
   },
   
   keyAchievements: [
     {
       metric: "20%",
       label: "Renewal Growth",
-      description: "Scaled adoption and value realization through technical enablement programs"
+      description: "VMware customer success and adoption programs"
     },
     {
       metric: "250%",
       label: "Pipeline Growth",
-      description: "Built repeatable enablement frameworks with standardized playbooks"
+      description: "VMware partner and technical enablement frameworks"
     },
     {
       metric: "83",
       label: "NPS Score",
-      description: "Led technical success motions, 20 points above target"
+      description: "VMware post-sales technical engagement"
     },
     {
       metric: "$900M",
       label: "Risk Reduction",
-      description: "Delivered cloud-native, security, and compliance advisory"
+      description: "ServiceNow governance and compliance advisory"
     }
   ],
   

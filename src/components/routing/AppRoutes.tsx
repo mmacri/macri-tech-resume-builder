@@ -8,6 +8,7 @@ import SelectedWork from '@/pages/SelectedWork';
 import Resume from '@/pages/Resume';
 import MyWebsites from '@/pages/MyWebsites';
 import Contact from '@/pages/Contact';
+import About from '@/pages/About';
 import NotFound from '@/pages/NotFound';
 import Layout from '@/components/Layout';
 
@@ -26,9 +27,13 @@ export const AppRoutes: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/experience" element={<ExperienceImpact />} />
         <Route path="/selected-work" element={<SelectedWork />} />
+        <Route path="/portfolio" element={<SelectedWork />} />
         <Route path="/resume" element={<Resume />} />
-        <Route path="/my-websites" element={<MyWebsites />} />
+        <Route path="/projects" element={<MyWebsites />} />
+        <Route path="/my-websites" element={<Navigate to="/projects" replace />} />
+        <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/index.html" element={<Navigate to="/" replace />} />
         
         {/* Portfolio detail pages (linked from Experience & Selected Work) */}
         <Route path="/portfolio/customer-success" element={<CustomerSuccess />} />
@@ -38,8 +43,7 @@ export const AppRoutes: React.FC = () => {
         <Route path="/portfolio/momentum-edge" element={<MomentumEdge />} />
         
         {/* Redirects for old routes */}
-        <Route path="/about" element={<Navigate to="/experience" replace />} />
-        <Route path="/portfolio" element={<Navigate to="/selected-work" replace />} />
+        <Route path="/selected-work/*" element={<Navigate to="/selected-work" replace />} />
         
         <Route path="*" element={<NotFound />} />
       </Routes>

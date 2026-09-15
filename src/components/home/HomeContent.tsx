@@ -109,7 +109,7 @@ const HomeContent: React.FC = () => {
           
           <div className="mt-8 pt-8 border-t border-white/20">
             <p className="text-sm opacity-75">
-              Available for remote, hybrid, or on-site opportunities across North America
+              Current focus: Customer Success Engineering leadership, scalable technical engagement, DevSecOps adoption, AI governance, security, and enterprise platform value realization.
             </p>
           </div>
         </div>

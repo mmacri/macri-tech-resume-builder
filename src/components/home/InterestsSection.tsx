@@ -4,7 +4,7 @@ import ResumeSection from './ResumeSection';
 import { staticInterestsData } from '@/data/staticResumeData';
 
 interface InterestsSectionProps {
-  items?: any[];
+  items?: Array<{ description?: string }>;
 }
 
 const InterestsSection: React.FC<InterestsSectionProps> = ({ items }) => {

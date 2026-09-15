@@ -17,10 +17,9 @@ export const useNavigationItems = () => {
       { label: "Skills & Methods", href: "#skills" },
       { label: "Interests", href: "#interests" },
       { label: "Awards & Certs", href: "#awards" },
-      { label: "Portfolio", href: "/portfolio" },
+      { label: "Selected Work", href: "/selected-work" },
       { label: "MEC", href: "/portfolio/momentum-edge" },
-      { label: "My Websites", href: "/my-websites" },
-      { label: "Blog", href: "/blog" },
+      { label: "Projects", href: "/projects" },
       { label: "Resume", href: "/resume" },
       { label: "Let's Connect", href: "/contact" },
     ];
@@ -30,9 +29,8 @@ export const useNavigationItems = () => {
     return [
       { label: "Index of Projects", href: "#index-of-projects" },
       { label: "MEC", href: "/portfolio/momentum-edge" },
-      { label: "My Websites", href: "/my-websites" },
+      { label: "Projects", href: "/projects" },
       { label: "Overview", href: "/" },
-      { label: "Blog", href: "/blog" },
       { label: "Resume", href: "/resume" },
       { label: "Let's Connect", href: "/contact" },
     ];
@@ -42,7 +40,7 @@ export const useNavigationItems = () => {
     return [
       { label: "Recent Posts", href: "#recent-posts" },
       { label: "Overview", href: "/" },
-      { label: "Portfolio", href: "/portfolio" },
+      { label: "Selected Work", href: "/selected-work" },
       { label: "Resume", href: "/resume" },
       { label: "Let's Connect", href: "/contact" },
     ];
@@ -57,8 +55,7 @@ export const useNavigationItems = () => {
       { label: "Interests", href: "#interests" },
       { label: "Awards", href: "#awards" },
       { label: "Overview", href: "/" },
-      { label: "Portfolio", href: "/portfolio" },
-      { label: "Blog", href: "/blog" },
+      { label: "Selected Work", href: "/selected-work" },
       { label: "Let's Connect", href: "/contact" },
     ];
   }, []);
