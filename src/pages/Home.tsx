@@ -67,10 +67,6 @@ const Home: React.FC = () => {
                 alt="Michael Macri professional headshot"
                 className="h-64 w-64 rounded-full border-8 border-white object-cover shadow-2xl lg:h-80 lg:w-80"
               />
-              <div className="absolute -bottom-2 left-4 right-4 rounded-lg border border-gray-200 bg-white px-4 py-3 text-center shadow-lg">
-                <p className="text-sm font-semibold text-macri-primary">{profile.currentRole}</p>
-                <p className="text-xs text-gray-600">{profile.currentCompany} | {profile.currentDates}</p>
-              </div>
             </div>
           </div>
         </div>
