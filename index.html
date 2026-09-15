@@ -64,20 +64,5 @@
     <div id="root"></div>
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
-    
-    <!-- Deferred non-critical scripts -->
-    <script>
-      // Add timestamp to bypass cache for development only
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        const links = document.querySelectorAll('link[rel="stylesheet"], script[src]');
-        links.forEach(link => {
-          if (link.href && !link.href.includes('?')) {
-            link.href = `${link.href}?_=${Date.now()}`;
-          } else if (link.src && !link.src.includes('?')) {
-            link.src = `${link.src}?_=${Date.now()}`;
-          }
-        });
-      }
-    </script>
   </body>
 </html>
