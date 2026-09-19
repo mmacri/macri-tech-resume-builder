@@ -139,14 +139,6 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
             >
               <i className="fab fa-linkedin-in"></i> LinkedIn
             </a>
-            <a 
-              href="https://github.com/mmacri/my-portfolio" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors"
-            >
-              <i className="fab fa-github"></i> GitHub
-            </a>
           </div>
         </div>
       </div>
@@ -160,7 +152,7 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
       <section className="resume-section py-10" id="connect">
         <div className="resume-section-content px-4 md:px-8 text-center max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold mb-4 text-macri-primary">Let's Connect</h2>
-          <p className="mb-6 text-gray-700">Find me on these platforms or reach out directly.</p>
+          <p className="mb-6 text-gray-700">Connect with me on LinkedIn.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a 
               href="https://www.linkedin.com/in/mikemacri" 
@@ -170,15 +162,6 @@ const ResumeContent: React.FC<ResumeContentProps> = ({ resumeSections }) => {
             >
               <i className="fab fa-linkedin-in text-xl"></i>
               Connect on LinkedIn
-            </a>
-            <a 
-              href="https://github.com/mmacri/my-portfolio" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-gray-800 hover:bg-gray-900 text-white py-4 px-8 rounded-md font-semibold text-lg flex items-center gap-3 w-full sm:w-auto transition-colors"
-            >
-              <i className="fab fa-github text-xl"></i>
-              View GitHub
             </a>
           </div>
         </div>

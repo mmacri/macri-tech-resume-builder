@@ -32,25 +32,6 @@ export const SocialIcons: React.FC = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <a 
-              className="social-icon rounded-full border border-white p-2 hover:bg-white/20 transition-colors" 
-              href="https://github.com/mmacri/my-portfolio" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-            >
-              <i className="fab fa-github"></i>
-            </a>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Check out my GitHub</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
               <a 
                 className="social-icon rounded-full border border-white p-2 hover:bg-white/20 transition-colors" 
                 href="/contact" 
@@ -65,24 +46,6 @@ export const SocialIcons: React.FC = () => {
         </Tooltip>
       </TooltipProvider>
       
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <a 
-              className="social-icon rounded-full border border-white p-2 hover:bg-white/20 transition-colors" 
-              href="https://mikemacri.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              aria-label="Website"
-            >
-              <span className="text-lg font-bold">M</span>
-            </a>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Visit my website</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
     </div>
   );
 };

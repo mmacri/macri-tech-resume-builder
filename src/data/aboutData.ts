@@ -1,11 +1,11 @@
 export const initialAboutData = {
-  intro_text: "Technology and customer success engineering leader with 25+ years of experience building technical teams, customer success programs, solution engineering motions, partner ecosystems, and enterprise governance initiatives. Currently leading Customer Success Engineering at GitLab, focused on scalable technical engagement and helping customers achieve measurable value from modern DevSecOps platforms.",
+  intro_text: "Senior Customer Success Engineering leader with experience scaling post-sales technical organizations, operating models, and enablement across GitLab, VMware, and ServiceNow. Leads distributed teams and cross-functional programs that connect product adoption, customer health, early risk identification, expansion signals, and renewals to measurable business outcomes.",
   
-  title: "Customer Success Engineering & Technology Leader",
-  location: "United States / Remote",
+  title: "Senior Customer Success Engineering Leader",
+  location: "Remote",
   
   contact: {
-    location: "United States / Remote",
+    location: "Remote",
     linkedin: "https://www.linkedin.com/in/mikemacri"
   },
   

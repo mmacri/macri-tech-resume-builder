@@ -21,7 +21,6 @@ const colors = {
   text: '0.13 0.15 0.18',
   muted: '0.38 0.42 0.48',
   rule: '0.76 0.81 0.88',
-  pale: '0.94 0.97 0.98',
   white: '1 1 1',
 };
 
@@ -53,20 +52,21 @@ const wrapText = (text, size, maxWidth) => {
   return lines;
 };
 
-// The public resume intentionally contains no personal contact details. Keep this
-// guard here as well as in the source so a future source edit cannot leak them.
-const contactLine = /^(email|phone|mobile|linkedin|website|web|address)\s*:/i;
+// LinkedIn is the only personal contact channel permitted in the public resume.
+// Filter common contact fields so a future source edit cannot leak them.
+const contactLine = /^(email|phone|mobile|website|web|address)\s*:/i;
 const rawLines = source.split('\n').map((line) => line.trim()).filter((line) => !contactLine.test(line));
 const [name, headline, currentRoleLine] = rawLines;
+const linkedinLine = rawLines.find((line) => line.startsWith('LinkedIn:')) ?? '';
 const summaryStart = rawLines.findIndex((line, index) => index > 2 && line.length > 0);
-const experienceIndex = rawLines.indexOf('Experience');
-const summary = rawLines.slice(summaryStart, experienceIndex).filter(Boolean).join(' ');
+const firstSectionIndex = rawLines.indexOf('Key Achievements');
+const summary = rawLines.slice(summaryStart, firstSectionIndex).filter((line) => line && !line.startsWith('LinkedIn:')).join(' ');
 
 const sections = [];
 let currentSection = null;
-for (const line of rawLines.slice(experienceIndex)) {
+for (const line of rawLines.slice(firstSectionIndex)) {
   if (!line) continue;
-  if (['Experience', 'Capability Areas', 'Selected Historical Impact'].includes(line)) {
+  if (['Key Achievements', 'Professional Experience', 'Education'].includes(line)) {
     currentSection = { title: line, lines: [] };
     sections.push(currentSection);
   } else if (currentSection) {
@@ -138,12 +138,21 @@ const splitMeta = (line) => {
   };
 };
 
-const drawRole = (title, metaLine, bullets) => {
-  ensureSpace(62);
+const drawRole = (title, metaLine, roleSummary, bullets) => {
+  ensureSpace(82);
   const meta = splitMeta(metaLine);
   drawText({ text: title, size: 10.7, font: 'F2', color: colors.navy, leading: 14 });
   drawText({ text: meta.company, size: 9.3, font: 'F2', color: colors.blue, leading: 13 });
   drawRightText({ text: [meta.dates, meta.location].filter(Boolean).join('  |  '), baseline: y + 13, size: 8.7 });
+  if (roleSummary) {
+    drawWrapped({
+      text: roleSummary,
+      size: 9.1,
+      color: colors.muted,
+      leading: 11.8,
+    });
+    y -= 2;
+  }
   bullets.forEach((bullet) => {
     drawWrapped({
       text: bullet.replace(/^- /, ''),
@@ -177,25 +186,6 @@ const drawStandardBullets = (lines) => {
   });
 };
 
-const drawCapabilities = (lines) => {
-  lines.forEach((line) => {
-    const [label, rest] = line.replace(/^- /, '').split(': ');
-    ensureSpace(37);
-    setColor(colors.pale);
-    add(`${page.marginX} ${y - 25} ${page.width - page.marginX * 2} 31 re f`);
-    drawText({ text: label.toUpperCase(), x: page.marginX + 10, size: 8.2, font: 'F2', color: colors.blue, leading: 11 });
-    drawWrapped({
-      text: rest ?? '',
-      x: page.marginX + 10,
-      size: 8.8,
-      font: 'F1',
-      maxWidth: page.width - page.marginX * 2 - 20,
-      leading: 10.5,
-    });
-    y -= 5;
-  });
-};
-
 setColor(colors.navy);
 add(`0 ${page.height - 126} ${page.width} 126 re f`);
 setColor(colors.accent);
@@ -203,9 +193,12 @@ add(`0 ${page.height - 132} ${page.width} 6 re f`);
 drawText({ text: name, x: page.marginX, size: 23, font: 'F2', color: colors.white, leading: 29 });
 drawText({ text: headline.toUpperCase(), x: page.marginX, size: 10.5, font: 'F2', color: '0.45 0.84 0.91', leading: 19 });
 drawText({ text: currentRoleLine, x: page.marginX, size: 9.2, font: 'F1', color: '0.84 0.88 0.92', leading: 13 });
-y -= 27;
+if (linkedinLine) {
+  drawText({ text: linkedinLine, x: page.marginX, size: 8.7, font: 'F1', color: '0.45 0.84 0.91', leading: 13 });
+}
+y -= 14;
 
-drawText({ text: 'EXECUTIVE PROFILE', size: 9.5, font: 'F2', color: colors.blue, leading: 16 });
+drawText({ text: 'PROFESSIONAL SUMMARY', size: 9.5, font: 'F2', color: colors.blue, leading: 16 });
 
 drawWrapped({
   text: summary,
@@ -218,21 +211,24 @@ drawWrapped({
 
 for (const section of sections) {
   sectionHeading(section.title);
-  if (section.title === 'Experience') {
+  if (section.title === 'Professional Experience') {
     let index = 0;
     while (index < section.lines.length) {
       const title = section.lines[index];
       const meta = section.lines[index + 1];
       index += 2;
+      let roleSummary = '';
+      if (index < section.lines.length && !section.lines[index].startsWith('- ')) {
+        roleSummary = section.lines[index];
+        index += 1;
+      }
       const bullets = [];
       while (index < section.lines.length && section.lines[index].startsWith('- ')) {
         bullets.push(section.lines[index]);
         index += 1;
       }
-      drawRole(title, meta, bullets);
+      drawRole(title, meta, roleSummary, bullets);
     }
-  } else if (section.title === 'Capability Areas') {
-    drawCapabilities(section.lines);
   } else {
     drawStandardBullets(section.lines);
   }
@@ -277,9 +273,9 @@ objects.forEach((body, index) => {
 });
 
 const xrefOffset = Buffer.byteLength(pdf, 'utf8');
-pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f\n`;
+pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
 for (let i = 1; i < offsets.length; i += 1) {
-  pdf += `${String(offsets[i]).padStart(10, '0')} 00000 n\n`;
+  pdf += `${String(offsets[i]).padStart(10, '0')} 00000 n \n`;
 }
 pdf += `trailer\n<< /Size ${objects.length + 1} /Root ${catalogId} 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`;
 

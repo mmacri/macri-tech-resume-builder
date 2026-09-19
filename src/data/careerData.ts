@@ -13,19 +13,18 @@ import customerSuccessScreenshot from '@/assets/customer-success-dashboard.jpg';
 export const profile = {
   name: 'Michael Macri, MBA',
   shortName: 'Mike Macri',
-  headline: 'Customer Success Engineering & Technology Leader',
-  currentRole: 'Sr. Manager, Customer Success Engineering',
+  headline: 'Senior Customer Success Engineering Leader',
+  currentRole: 'Senior Manager, Customer Success Engineering - AMER',
   currentCompany: 'GitLab',
-  currentDates: 'March 2026 - Present',
-  location: 'United States / Remote',
+  currentDates: '2026 - Present',
+  location: 'Remote',
   linkedin: 'https://www.linkedin.com/in/mikemacri',
-  github: 'https://github.com/mmacri',
   summary:
-    'Technology and customer success engineering leader with 25+ years of experience building technical teams, customer success programs, solution engineering motions, partner ecosystems, and enterprise governance initiatives. Currently leading Customer Success Engineering at GitLab, focused on scalable technical engagement and helping customers achieve measurable value from modern DevSecOps platforms. Proven history connecting technical adoption with customer outcomes across GitLab, ServiceNow, and VMware.',
+    'Senior Customer Success Engineering leader with experience scaling post-sales technical organizations, operating models, and enablement across GitLab, VMware, and ServiceNow. Leads distributed teams and cross-functional programs that connect product adoption, customer health, early risk identification, expansion signals, and renewals to measurable business outcomes. Proven track record building data-driven frameworks and repeatable motions across DevSecOps, AI, cloud, security, and governance environments.',
   positioning:
-    'Building high-performing technical teams and scalable customer experiences across DevSecOps, cloud, security, AI, governance, and enterprise platforms.',
+    'Scaling post-sales technical organizations and operating models that connect adoption, customer health, risk, expansion, and renewals.',
   secondary:
-    'Mike combines technical depth, customer leadership, operating-model design, and commercial alignment to turn complex technologies into measurable adoption and business outcomes.',
+    'Mike builds data-driven frameworks and repeatable customer and partner motions across DevSecOps, AI, cloud, security, and governance environments.',
 };
 
 export const careerCompanies = [
@@ -69,22 +68,20 @@ export const capabilities = [
 export const experiences = [
   {
     id: 'gitlab',
-    title: 'Sr. Manager, Customer Success Engineering',
+    title: 'Senior Manager, Customer Success Engineering - AMER',
     organization: 'GitLab',
-    location: 'United States / Remote',
-    startDate: 'March 2026',
+    location: 'Remote',
+    startDate: '2026',
     endDate: 'Present',
-    period: 'March 2026 - Present',
+    period: '2026 - Present',
     current: true,
     theme: 'Customer Success Engineering Leadership',
     summary:
-      "Lead Customer Success Engineering focused on helping customers achieve measurable technical and business value from GitLab's DevSecOps platform.",
+      'Lead Customer Success Engineering across AMER regions, owning the post-sales technical operating model for scaled motions and aligning CSE execution to product adoption, early risk identification, expansion signals, and renewal outcomes.',
     bullets: [
-      'Lead and develop Customer Success Engineers who provide technical expertise, best-practice guidance, workshops, webinars, hands-on labs, and strategic guidance throughout the customer lifecycle.',
-      'Focus on scaling technical customer success through high-value human engagement, repeatable technical programs, digital enablement, customer segmentation, and one-to-many delivery models.',
-      'Partner across Customer Success, Sales, Renewals, Product, Engineering, Support, and other organizations to connect customer technical outcomes with adoption, retention, expansion, and long-term value realization.',
-      'Advance scalable Customer Success Engineering operating models that allow CSE resources to focus on technical engagements where their expertise creates the greatest customer impact.',
-      "Support customer adoption of modern DevSecOps practices and GitLab's unified DevSecOps platform across CI/CD, security, platform adoption, technical enablement, customer maturity, and value realization.",
+      'Defined and scaled the CSE Assigned Motion, establishing standards for customer engagements, quarterly health assessments, account documentation, and technical engagement to improve consistency and visibility across the customer lifecycle.',
+      'Built data-driven operating and reporting frameworks for account coverage, engagement, renewal runway, customer health, and pooled CSE activity, giving teams and leadership clearer visibility into execution, risk, and technical customer needs.',
+      'Drive cross-functional customer success and GitLab AI adoption initiatives with Sales, Renewals, and regional leadership, aligning technical engagement to at-risk accounts, expansion opportunities, product adoption, and long-term customer value.',
     ],
   },
   {
@@ -99,16 +96,15 @@ export const experiences = [
     advisory: true,
     theme: 'Independent Consulting / Advisory',
     summary:
-      'Independent consulting and advisory work supporting regulated public sector and enterprise customers with adoption readiness, operating-model alignment, and technical value realization.',
+      'Technical advisor to regulated public sector and enterprise customers, focused on post-sale adoption readiness, operating models, and technical value realization.',
     bullets: [
-      'Deliver executive-ready assessments and roadmaps that clarify current state, target state, risk, and prioritized remediation.',
-      'Create reusable enablement assets including workshops, evaluation checklists, and implementation playbooks that remove adoption barriers.',
-      'Support practical advisory work across GRC, AI governance, cybersecurity compliance, ServiceNow IRM, and technology operating models.',
+      'Deliver executive-ready assessments and roadmaps that accelerate adoption and decision-making across utilities, government, and regulated industries.',
+      'Create reusable workshops, evaluation checklists, and implementation playbooks that remove adoption barriers and support scalable execution.',
     ],
   },
   {
     id: 'servicenow',
-    title: 'Manager, Solution Advisory - Legal Ethics & Compliance',
+    title: 'Senior Manager, Solution Advisory - Legal Ethics & Compliance',
     organization: 'ServiceNow',
     location: 'Remote',
     startDate: 'Dec 2021',
@@ -119,26 +115,82 @@ export const experiences = [
       'Led post-sales solution advisory across Sales, Security, Legal, and Product to drive platform adoption, governance maturity, and enterprise risk reduction for regulated customers.',
     bullets: [
       'Standardized policy-to-process workflows across compliance frameworks, improving consistency and adoption across customer and internal teams.',
-      "Owned AI/ML governance enablement as an SME and defined guidance used for ServiceNow's first enterprise AI usage policies.",
-      'Connected governance, automation, and platform adoption work with executive risk visibility and long-term customer value realization.',
+      "Owned AI/ML governance enablement as an SME; defined requirements and guidance used for ServiceNow's first enterprise AI usage policies.",
+      'Partnered with stakeholders to translate regulatory obligations into scalable operating models, templates, and enablement playbooks.',
     ],
   },
   {
-    id: 'vmware',
-    title: 'Progressive Customer Success, Solution Engineering & Partner Leadership Roles',
+    id: 'vmware-alliance',
+    title: 'Partner Business & Technical Alliance Director - Americas',
     organization: 'VMware',
-    location: 'Seattle, Chicago, San Francisco',
-    startDate: 'Dec 2011',
+    location: 'San Francisco, CA',
+    startDate: 'Nov 2019',
     endDate: 'Dec 2021',
-    period: '2011 - 2021',
-    theme: 'Customer Success -> Solution Engineering -> Alliances',
+    period: 'Nov 2019 - Dec 2021',
+    theme: 'Partner & Alliance Leadership',
     summary:
-      'Progressed through TAM, Customer Success, Product Specialist, Partner Solution Engineering, and Americas alliance leadership roles focused on adoption, expansion, technical enablement, and partner-led customer outcomes.',
+      'Led GSI and strategic partner motions across the Americas, aligning technical enablement, solution strategy, and customer outcomes with commercial execution.',
     bullets: [
-      'Built and led dispersed post-sales teams across TAM, Customer Success, and Product Specialist functions, aligning technical success with retention and expansion objectives.',
-      'Led partner solutions engineering for a major channel partnership and created repeatable enablement, workshops, roadmap sessions, and solution playbooks.',
-      'Led GSI and strategic partner motions across the Americas, aligning technical enablement, solution strategy, product collaboration, and commercial execution.',
+      'Built joint business plans and managed co-sell execution, contributing to two record-setting $50M+ partner-led deals and sustained target overperformance.',
+      'Aligned Product and Engineering on partner-led integrations and go-to-market plans; enabled field teams with repeatable partner playbooks (e.g., VMware on AWS with DXC).',
     ],
+  },
+  {
+    id: 'vmware-partner-se',
+    title: 'Partner Staff Solutions Engineer Leader',
+    organization: 'VMware',
+    location: 'Chicago, IL',
+    startDate: 'Dec 2017',
+    endDate: 'Dec 2019',
+    period: 'Dec 2017 - Dec 2019',
+    theme: 'Partner Solutions Engineering',
+    summary: "Led partner solutions engineering for VMware's largest channel partnership (CDW), focused on scalable enablement, adoption, and pipeline acceleration.",
+    bullets: [
+      'Partnered with CDW to drive $440M through multi-tiered routes-to-market, increasing pipeline capture by 20%, certifications by 200%, and solution adoption by 20% in the first year.',
+      'Designed partner training, workshops, and roadmap sessions; coached architects, increasing partner-driven pipeline by 21%.',
+    ],
+  },
+  {
+    id: 'vmware-customer-success',
+    title: 'Senior Manager, Customer Success, TAMs & Product Specialists - West Coast Regional Practice',
+    organization: 'VMware',
+    location: 'Seattle, WA',
+    startDate: 'Nov 2014',
+    endDate: 'Dec 2017',
+    period: 'Nov 2014 - Dec 2017',
+    theme: 'Customer Success Leadership',
+    summary: 'Built and led three dispersed post-sales teams (TAMs, Customer Success, Product Specialists) delivering adoption, expansion, and customer value across a regional book of business.',
+    bullets: [
+      'Built engagement frameworks and program deliverables aligned to customer business metrics, improving NPS by 20 points and driving operational efficiency.',
+      'Partnered with Sales and Post-Sales leadership to align technical success with expansion and retention objectives.',
+    ],
+  },
+  {
+    id: 'vmware-tam',
+    title: 'Staff Technical Account Manager / Customer Success Manager',
+    organization: 'VMware',
+    location: 'Seattle, WA',
+    startDate: 'Dec 2011',
+    endDate: 'Nov 2014',
+    period: 'Dec 2011 - Nov 2014',
+    theme: 'Strategic Account Leadership',
+    summary: 'Managed strategic enterprise accounts, aligning technical outcomes to business metrics, accelerating adoption and roadmap execution, and consistently leading services attach.',
+    bullets: [],
+  },
+];
+
+export const keyAchievements = [
+  {
+    title: 'Customer Success Engineering at Scale',
+    description: "Lead GitLab's AMER Customer Success Engineering scaled motions, defining operating standards and data-driven frameworks that connect technical engagement to adoption, customer health, risk, expansion, and renewal outcomes.",
+  },
+  {
+    title: 'Scalable Adoption & Commercial Impact',
+    description: 'Built repeatable enablement, onboarding, and KPI frameworks across customer and partner ecosystems, contributing to 20% renewal growth, 250% pipeline growth, and sustained platform adoption at VMware.',
+  },
+  {
+    title: 'Risk, Governance & DevSecOps Outcomes',
+    description: 'Delivered cloud-native, security, AI governance, and compliance programs that reduced $900M in enterprise risk while strengthening platform trust, governance adoption, and long-term value realization.',
   },
 ];
 
@@ -342,7 +394,7 @@ export const projects = [
 export const projectCategories = ['All', 'Customer Success & DevSecOps', 'Security, GRC & Training', 'Consulting & Business', 'Technical Experiments'];
 
 export const seoDefaults = {
-  title: 'Mike Macri MBA | Customer Success Engineering & Technology Leader',
+  title: 'Mike Macri MBA | Senior Customer Success Engineering Leader',
   description:
-    'Technology and Customer Success Engineering leader at GitLab with experience spanning DevSecOps, solution engineering, customer success, partner ecosystems, AI governance, security, and enterprise technology adoption.',
+    'Senior Customer Success Engineering leader scaling post-sales technical organizations, operating models, and enablement across GitLab, VMware, and ServiceNow.',
 };

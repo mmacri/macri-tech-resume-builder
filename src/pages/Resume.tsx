@@ -4,7 +4,7 @@ import { SEOHead } from '@/components/layout/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { staticAwardsData, staticEducationData } from '@/data/staticResumeData';
-import { capabilities, experiences, metrics, profile } from '@/data/careerData';
+import { capabilities, experiences, keyAchievements, profile } from '@/data/careerData';
 
 const Resume: React.FC = () => {
   const assetBase = import.meta.env.BASE_URL;
@@ -13,7 +13,7 @@ const Resume: React.FC = () => {
     <>
       <SEOHead
         title="Resume | Mike Macri MBA"
-        description="Interactive resume for Michael Macri, MBA, Customer Success Engineering and Technology Leader currently leading Customer Success Engineering at GitLab."
+        description="Resume for Michael Macri, MBA, a Senior Customer Success Engineering leader scaling post-sales technical organizations and AMER customer success motions at GitLab."
         keywords="Michael Macri resume, GitLab Customer Success Engineering, DevSecOps, ServiceNow, VMware, MBA"
         url="https://mikemacri.com/resume"
       />
@@ -50,14 +50,12 @@ const Resume: React.FC = () => {
 
       <section className="bg-white py-12">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-6 font-saira text-2xl font-bold text-macri-primary">Selected Impact</h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {metrics.map((metric) => (
-              <div key={metric.label} className="rounded-lg border border-gray-200 bg-gray-50 p-5">
-                <p className="text-3xl font-bold text-macri-primary">{metric.metric}</p>
-                <h3 className="mb-1 font-semibold text-gray-900">{metric.label}</h3>
-                <p className="mb-2 text-sm font-medium text-gray-600">{metric.organization}</p>
-                <p className="text-sm leading-6 text-gray-700">{metric.outcome}</p>
+          <h2 className="mb-6 font-saira text-2xl font-bold text-macri-primary">Key Achievements</h2>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {keyAchievements.map((achievement) => (
+              <div key={achievement.title} className="rounded-lg border border-gray-200 bg-gray-50 p-5">
+                <h3 className="mb-2 font-semibold text-macri-primary">{achievement.title}</h3>
+                <p className="text-sm leading-6 text-gray-700">{achievement.description}</p>
               </div>
             ))}
           </div>

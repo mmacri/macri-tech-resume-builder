@@ -27,10 +27,10 @@ const About: React.FC = () => {
           <div className="lg:col-span-2">
             <div className="space-y-6 text-lg leading-8 text-gray-700">
               <p>
-                Mike's career started with a technical foundation and grew through Technical Account Management, Customer Success leadership, Solution Engineering, partner and GSI leadership, enterprise governance, AI, and now Customer Success Engineering leadership at GitLab.
+                Mike's career started with a technical foundation and grew through Technical Account Management, Customer Success leadership, Solution Engineering, partner and GSI leadership, enterprise governance, AI, and now AMER Customer Success Engineering leadership at GitLab.
               </p>
               <p>
-                Across GitLab, ServiceNow, VMware, and independent advisory work, the pattern has stayed consistent: build technical teams, programs, operating models, and reusable assets that help customers adopt complex platforms and connect that adoption to business value.
+                Across GitLab, ServiceNow, VMware, and independent advisory work, the pattern has stayed consistent: build distributed technical teams, data-driven operating models, and repeatable enablement that connect adoption and customer health to risk, expansion, renewals, and measurable business value.
               </p>
               <p>
                 His work spans DevSecOps, cloud platforms, security, GRC, AI governance, solution engineering, scaled customer success, partner ecosystems, and commercial alignment. Those are the arenas; the through-line is helping organizations turn technical complexity into clearer decisions, stronger adoption, and better customer outcomes.
