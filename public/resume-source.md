@@ -3,21 +3,21 @@ Senior Customer Success Engineering Leader
 Senior Manager, Customer Success Engineering - AMER | GitLab | 2026 - Present | Remote
 LinkedIn: https://www.linkedin.com/in/mikemacri
 
-Senior Customer Success Engineering leader with experience scaling post-sales technical organizations, operating models, and enablement across GitLab, VMware, and ServiceNow. Leads distributed teams and cross-functional programs that connect product adoption, customer health, early risk identification, expansion signals, and renewals to measurable business outcomes. Proven track record building data-driven frameworks and repeatable motions across DevSecOps, AI, cloud, security, and governance environments.
+Senior Customer Success leader building and leading post-sales technical teams across GitLab, VMware, and ServiceNow. Drive enterprise adoption, consumption, customer health, expansion, retention, and value realization through data-driven operating models and partnership with Sales, Renewals, Product, and Engineering. Experienced leading teams and strategic customers across DevSecOps, AI/ML, cloud, security, and governance, translating complex technology into measurable customer and business outcomes.
 
 Key Achievements
-- Customer Success Engineering at Scale - Lead GitLab's AMER Customer Success Engineering scaled motions, defining operating standards and data-driven frameworks that connect technical engagement to adoption, customer health, risk, expansion, and renewal outcomes.
-- Scalable Adoption & Commercial Impact - Built repeatable enablement, onboarding, and KPI frameworks across customer and partner ecosystems, contributing to 20% renewal growth, 250% pipeline growth, and sustained platform adoption at VMware.
-- Risk, Governance & DevSecOps Outcomes - Delivered cloud-native, security, AI governance, and compliance programs that reduced $900M in enterprise risk while strengthening platform trust, governance adoption, and long-term value realization.
+- Customer Success Leadership at Scale - Lead and develop a 7-person AMER CSE team supporting multi-million-dollar ARR customers from SMB through Key accounts, connecting adoption, consumption, customer health, expansion, and renewal outcomes.
+- Adoption, Expansion & Retention - Built scalable customer and partner success motions contributing to 20% renewal growth, 250% pipeline growth, sustained platform adoption, and a 20-point NPS improvement at VMware.
+- AI, DevSecOps & Enterprise Transformation - Lead GitLab AI adoption initiatives and previously owned enterprise AI/ML governance enablement at ServiceNow, combining technical adoption with responsible AI, security, governance, and measurable customer value.
 
 Professional Experience
 
 Senior Manager, Customer Success Engineering - AMER
 GitLab | 2026 - Present | Remote
-Lead Customer Success Engineering across AMER regions, owning the post-sales technical operating model for scaled motions and aligning CSE execution to product adoption, early risk identification, expansion signals, and renewal outcomes.
-- Defined and scaled the CSE Assigned Motion, establishing standards for customer engagements, quarterly health assessments, account documentation, and technical engagement to improve consistency and visibility across the customer lifecycle.
-- Built data-driven operating and reporting frameworks for account coverage, engagement, renewal runway, customer health, and pooled CSE activity, giving teams and leadership clearer visibility into execution, risk, and technical customer needs.
-- Drive cross-functional customer success and GitLab AI adoption initiatives with Sales, Renewals, and regional leadership, aligning technical engagement to at-risk accounts, expansion opportunities, product adoption, and long-term customer value.
+Lead a Customer Success Engineering team across AMER supporting private-sector customers across SMB, Mid-Market, Enterprise, Financial Services, and Key accounts. Own post-sales technical engagement across GitLab's subscription and usage-based offerings, aligning product and AI consumption, adoption, customer health, risk, expansion, and renewal outcomes.
+- Lead, coach, and develop 7 Customer Success Engineers through performance reviews, ongoing coaching, and operating standards for CTAs, quarterly health assessments, account documentation, and engagement across the customer lifecycle.
+- Built data-driven portfolio operating frameworks across ARR, product and AI consumption, customer health, engagement, renewal runway, risk, and expansion signals, enabling leadership to prioritize accounts, mitigate renewal risk, and surface growth opportunities.
+- Drive GitLab Duo Agent Platform adoption, strategic account initiatives, and executive escalations with customer and internal executives; partner with Sales, Renewals, and regional leadership on value realization, expansion, renewal risk, and long-term retention.
 
 Principal Consultant
 Momentum Edge Consulting | May 2025 - Present | Remote
@@ -27,10 +27,10 @@ Technical advisor to regulated public sector and enterprise customers, focused o
 
 Senior Manager, Solution Advisory - Legal Ethics & Compliance
 ServiceNow | Dec 2021 - May 2025 | Remote
-Led post-sales solution advisory across Sales, Security, Legal, and Product to drive platform adoption, governance maturity, and enterprise risk reduction for regulated customers.
+Led post-sales solution advisory across Sales, Security, Legal, and Product, driving platform adoption and governance programs that reduced $900M in enterprise risk for regulated environments.
 - Standardized policy-to-process workflows across compliance frameworks, improving consistency and adoption across customer and internal teams.
 - Owned AI/ML governance enablement as an SME; defined requirements and guidance used for ServiceNow's first enterprise AI usage policies.
-- Partnered with stakeholders to translate regulatory obligations into scalable operating models, templates, and enablement playbooks.
+- Translated regulatory and AI governance requirements into scalable operating models, dashboards, templates, and enablement playbooks used across enterprise stakeholders.
 
 Partner Business & Technical Alliance Director - Americas
 VMware | Nov 2019 - Dec 2021 | San Francisco, CA
@@ -57,3 +57,9 @@ Managed strategic enterprise accounts, aligning technical outcomes to business m
 Education
 - MBA | Xavier University | Cincinnati, OH
 - B.S. Industrial Organizational Psychology | Xavier University | Cincinnati, OH
+
+Recognition
+- VMware Partner Excellence - Rockstar MVP
+- Partner Solutions Engineer of the Quarter
+- Americas VP Award for Service Delivery Excellence
+- Technical Account Manager of the Half

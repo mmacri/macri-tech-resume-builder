@@ -7,7 +7,7 @@ export const staticAwardsData = [
   },
   {
     id: "2",
-    title: "Partner Excellence – Rockstar MVP of the Half",
+    title: "VMware Partner Excellence – Rockstar MVP",
     description: "Awarded for exceptional partner excellence and contribution (12/2020)",
     display_order: 2
   },
@@ -19,7 +19,7 @@ export const staticAwardsData = [
   },
   {
     id: "4",
-    title: "Americas VP Award for Service Excellence",
+    title: "Americas VP Award for Service Delivery Excellence",
     description: "VP-level recognition for outstanding service excellence (10/2017)",
     display_order: 4
   },

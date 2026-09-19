@@ -66,7 +66,7 @@ const sections = [];
 let currentSection = null;
 for (const line of rawLines.slice(firstSectionIndex)) {
   if (!line) continue;
-  if (['Key Achievements', 'Professional Experience', 'Education'].includes(line)) {
+  if (['Key Achievements', 'Professional Experience', 'Education', 'Recognition'].includes(line)) {
     currentSection = { title: line, lines: [] };
     sections.push(currentSection);
   } else if (currentSection) {

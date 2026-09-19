@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, ExternalLink } from 'lucide-react';
+import { ArrowRight, Award, CheckCircle, ExternalLink } from 'lucide-react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { capabilities, careerProgression, experiences, metrics, profile } from '@/data/careerData';
+import { staticAwardsData } from '@/data/staticResumeData';
 
 const ExperienceImpact: React.FC = () => {
   return (
@@ -21,7 +22,7 @@ const ExperienceImpact: React.FC = () => {
           <Badge className="mb-4 bg-macri-primary text-white">Current: {profile.currentRole} at {profile.currentCompany}</Badge>
           <h1 className="mb-6 font-saira text-4xl font-bold text-macri-primary lg:text-5xl">Experience & Impact</h1>
           <p className="mx-auto max-w-3xl text-xl leading-8 text-gray-700">
-            Technology and customer success engineering leadership across GitLab, ServiceNow, VMware, and independent advisory work. The common thread: building teams, programs, operating models, and technical solutions that turn complex technology into measurable customer and business outcomes.
+            Senior Customer Success leadership across GitLab, ServiceNow, VMware, and independent advisory work. The common thread: building and developing post-sales technical teams and data-driven operating models that connect adoption, consumption, customer health, expansion, retention, and value realization.
           </p>
         </div>
       </section>
@@ -77,7 +78,24 @@ const ExperienceImpact: React.FC = () => {
         </div>
       </section>
 
-      <section className="bg-white py-14">
+      <section className="bg-white py-12">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-6 font-saira text-3xl font-bold text-macri-primary">Recognition</h2>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {staticAwardsData.map((award) => (
+              <div key={award.id} className="flex items-start rounded-lg border border-gray-200 bg-gray-50 p-5">
+                <Award className="mr-3 mt-0.5 h-5 w-5 flex-shrink-0 text-macri-primary" />
+                <div>
+                  <h3 className="font-semibold text-gray-900">{award.title}</h3>
+                  <p className="mt-1 text-sm leading-6 text-gray-600">{award.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-gray-50 py-14">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-4 font-saira text-3xl font-bold text-macri-primary">Capability Areas</h2>
           <p className="mb-8 max-w-3xl text-gray-700">
@@ -85,7 +103,7 @@ const ExperienceImpact: React.FC = () => {
           </p>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {capabilities.map((capability) => (
-              <div key={capability.title} className="rounded-lg border border-gray-200 bg-gray-50 p-5">
+              <div key={capability.title} className="rounded-lg border border-gray-200 bg-white p-5">
                 <h3 className="mb-3 text-lg font-semibold text-macri-primary">{capability.title}</h3>
                 <div className="flex flex-wrap gap-2">
                   {capability.topics.map((topic) => (

@@ -1,5 +1,5 @@
 export const initialAboutData = {
-  intro_text: "Senior Customer Success Engineering leader with experience scaling post-sales technical organizations, operating models, and enablement across GitLab, VMware, and ServiceNow. Leads distributed teams and cross-functional programs that connect product adoption, customer health, early risk identification, expansion signals, and renewals to measurable business outcomes.",
+  intro_text: "Senior Customer Success leader building and leading post-sales technical teams across GitLab, VMware, and ServiceNow. Drives enterprise adoption, consumption, customer health, expansion, retention, and value realization through data-driven operating models and partnership with Sales, Renewals, Product, and Engineering.",
   
   title: "Senior Customer Success Engineering Leader",
   location: "Remote",

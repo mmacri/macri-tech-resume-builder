@@ -6,7 +6,7 @@ export const staticExperienceData = [
     location: "Remote",
     start_date: "2026",
     end_date: null,
-    description: "Lead Customer Success Engineering across AMER regions, owning the post-sales technical operating model for scaled motions and aligning CSE execution to product adoption, early risk identification, expansion signals, and renewal outcomes.\n• Defined and scaled the CSE Assigned Motion, establishing standards for customer engagements, quarterly health assessments, account documentation, and technical engagement to improve consistency and visibility across the customer lifecycle.\n• Built data-driven operating and reporting frameworks for account coverage, engagement, renewal runway, customer health, and pooled CSE activity.\n• Drive cross-functional customer success and GitLab AI adoption initiatives with Sales, Renewals, and regional leadership.",
+    description: "Lead a Customer Success Engineering team across AMER supporting private-sector customers across SMB, Mid-Market, Enterprise, Financial Services, and Key accounts. Own post-sales technical engagement across GitLab's subscription and usage-based offerings, aligning product and AI consumption, adoption, customer health, risk, expansion, and renewal outcomes.\n• Lead, coach, and develop 7 Customer Success Engineers through performance reviews, ongoing coaching, and operating standards for CTAs, quarterly health assessments, account documentation, and engagement across the customer lifecycle.\n• Built data-driven portfolio operating frameworks across ARR, product and AI consumption, customer health, engagement, renewal runway, risk, and expansion signals.\n• Drive GitLab Duo Agent Platform adoption, strategic account initiatives, and executive escalations with customer and internal executives.",
     display_order: 0
   },
   {
@@ -26,7 +26,7 @@ export const staticExperienceData = [
     location: "Remote",
     start_date: "Dec 2021",
     end_date: "May 2025",
-    description: "Led post-sales solution advisory across Sales, Security, Legal, and Product to drive platform adoption, governance maturity, and enterprise risk reduction for regulated customers.\n• Standardized policy-to-process workflows across compliance frameworks, improving consistency and adoption across customer and internal teams.\n• Owned AI/ML governance enablement as an SME; defined requirements and guidance used for ServiceNow's first enterprise AI usage policies.\n• Partnered with stakeholders to translate regulatory obligations into scalable operating models, templates, and enablement playbooks.",
+    description: "Led post-sales solution advisory across Sales, Security, Legal, and Product, driving platform adoption and governance programs that reduced $900M in enterprise risk for regulated environments.\n• Standardized policy-to-process workflows across compliance frameworks, improving consistency and adoption across customer and internal teams.\n• Owned AI/ML governance enablement as an SME; defined requirements and guidance used for ServiceNow's first enterprise AI usage policies.\n• Translated regulatory and AI governance requirements into scalable operating models, dashboards, templates, and enablement playbooks used across enterprise stakeholders.",
     display_order: 2
   },
   {
