@@ -44,5 +44,3 @@ Selected Historical Impact
 - 250% pipeline growth | VMware partner and technical enablement frameworks.
 - 20% renewal growth | VMware customer success and adoption programs.
 - 83 NPS | VMware post-sales technical engagement, 20 points above target.
-
-LinkedIn: https://www.linkedin.com/in/mikemacri

@@ -16,10 +16,13 @@ const page = {
 
 const colors = {
   navy: '0.06 0.13 0.24',
-  blue: '0.09 0.27 0.45',
+  blue: '0.05 0.35 0.55',
+  accent: '0.07 0.55 0.68',
   text: '0.13 0.15 0.18',
   muted: '0.38 0.42 0.48',
   rule: '0.76 0.81 0.88',
+  pale: '0.94 0.97 0.98',
+  white: '1 1 1',
 };
 
 const escapePdfText = (value) =>
@@ -50,9 +53,11 @@ const wrapText = (text, size, maxWidth) => {
   return lines;
 };
 
-const rawLines = source.split('\n').map((line) => line.trim());
+// The public resume intentionally contains no personal contact details. Keep this
+// guard here as well as in the source so a future source edit cannot leak them.
+const contactLine = /^(email|phone|mobile|linkedin|website|web|address)\s*:/i;
+const rawLines = source.split('\n').map((line) => line.trim()).filter((line) => !contactLine.test(line));
 const [name, headline, currentRoleLine] = rawLines;
-const linkedinLine = rawLines.find((line) => line.startsWith('LinkedIn:')) ?? 'LinkedIn: https://www.linkedin.com/in/mikemacri';
 const summaryStart = rawLines.findIndex((line, index) => index > 2 && line.length > 0);
 const experienceIndex = rawLines.indexOf('Experience');
 const summary = rawLines.slice(summaryStart, experienceIndex).filter(Boolean).join(' ');
@@ -64,7 +69,7 @@ for (const line of rawLines.slice(experienceIndex)) {
   if (['Experience', 'Capability Areas', 'Selected Historical Impact'].includes(line)) {
     currentSection = { title: line, lines: [] };
     sections.push(currentSection);
-  } else if (currentSection && !line.startsWith('LinkedIn:')) {
+  } else if (currentSection) {
     currentSection.lines.push(line);
   }
 }
@@ -109,12 +114,19 @@ const drawRule = (offset = 3) => {
   add(`0.7 w ${page.marginX} ${y + offset} m ${page.width - page.marginX} ${y + offset} l S`);
 };
 
+const drawRightText = ({ text, right = page.width - page.marginX, baseline = y, size = 9, font = 'F1', color = colors.muted }) => {
+  setColor(color);
+  add(`BT /${font} ${size} Tf ${right - textWidth(text, size)} ${baseline} Td (${escapePdfText(text)}) Tj ET`);
+};
+
 const sectionHeading = (title) => {
   ensureSpace(28);
-  y -= pages.length === 1 && y > 680 ? 4 : 8;
-  drawText({ text: title.toUpperCase(), size: 10, font: 'F2', color: colors.blue, leading: 14 });
-  drawRule(4);
-  y -= 4;
+  y -= pages.length === 1 && y > 680 ? 5 : 11;
+  setColor(colors.accent);
+  add(`${page.marginX} ${y - 2} 4 14 re f`);
+  drawText({ text: title.toUpperCase(), x: page.marginX + 11, size: 10, font: 'F2', color: colors.navy, leading: 17 });
+  drawRule(2);
+  y -= 5;
 };
 
 const splitMeta = (line) => {
@@ -129,27 +141,23 @@ const splitMeta = (line) => {
 const drawRole = (title, metaLine, bullets) => {
   ensureSpace(62);
   const meta = splitMeta(metaLine);
-  drawText({ text: title, size: 10.5, font: 'F2', color: colors.navy, leading: 13 });
-  drawText({
-    text: [meta.company, meta.dates, meta.location].filter(Boolean).join(' | '),
-    size: 9.2,
-    font: 'F1',
-    color: colors.muted,
-    leading: 12,
-  });
+  drawText({ text: title, size: 10.7, font: 'F2', color: colors.navy, leading: 14 });
+  drawText({ text: meta.company, size: 9.3, font: 'F2', color: colors.blue, leading: 13 });
+  drawRightText({ text: [meta.dates, meta.location].filter(Boolean).join('  |  '), baseline: y + 13, size: 8.7 });
   bullets.forEach((bullet) => {
     drawWrapped({
       text: bullet.replace(/^- /, ''),
-      x: page.marginX + 10,
+      x: page.marginX + 14,
       size: 9.3,
       font: 'F1',
       color: colors.text,
-      maxWidth: page.width - page.marginX * 2 - 10,
+      maxWidth: page.width - page.marginX * 2 - 14,
       leading: 12.2,
       firstIndent: 0,
       subsequentIndent: 10,
     });
-    add(`BT /F1 9 Tf ${page.marginX + 1} ${y + 12.2} Td (-) Tj ET`);
+    setColor(colors.accent);
+    add(`${page.marginX + 2} ${y + 15.2} 3 3 re f`);
   });
   y -= 4;
 };
@@ -172,27 +180,32 @@ const drawStandardBullets = (lines) => {
 const drawCapabilities = (lines) => {
   lines.forEach((line) => {
     const [label, rest] = line.replace(/^- /, '').split(': ');
+    ensureSpace(37);
+    setColor(colors.pale);
+    add(`${page.marginX} ${y - 25} ${page.width - page.marginX * 2} 31 re f`);
+    drawText({ text: label.toUpperCase(), x: page.marginX + 10, size: 8.2, font: 'F2', color: colors.blue, leading: 11 });
     drawWrapped({
-      text: `${label}: ${rest ?? ''}`,
-      x: page.marginX,
-      size: 9.1,
+      text: rest ?? '',
+      x: page.marginX + 10,
+      size: 8.8,
       font: 'F1',
-      maxWidth: page.width - page.marginX * 2,
-      leading: 11.5,
-      subsequentIndent: 14,
+      maxWidth: page.width - page.marginX * 2 - 20,
+      leading: 10.5,
     });
+    y -= 5;
   });
 };
 
-setColor('0.96 0.98 1');
-add(`0 ${page.height - 124} ${page.width} 124 re f`);
-drawText({ text: name, size: 22, font: 'F2', color: colors.navy, leading: 25 });
-drawText({ text: headline, size: 12.5, font: 'F2', color: colors.blue, leading: 17 });
-drawText({ text: currentRoleLine, size: 9.5, font: 'F1', color: colors.muted, leading: 13 });
-drawText({ text: linkedinLine.replace('LinkedIn: ', ''), size: 9.2, font: 'F1', color: colors.blue, leading: 13 });
-y -= 4;
-drawRule(0);
-y -= 14;
+setColor(colors.navy);
+add(`0 ${page.height - 126} ${page.width} 126 re f`);
+setColor(colors.accent);
+add(`0 ${page.height - 132} ${page.width} 6 re f`);
+drawText({ text: name, x: page.marginX, size: 23, font: 'F2', color: colors.white, leading: 29 });
+drawText({ text: headline.toUpperCase(), x: page.marginX, size: 10.5, font: 'F2', color: '0.45 0.84 0.91', leading: 19 });
+drawText({ text: currentRoleLine, x: page.marginX, size: 9.2, font: 'F1', color: '0.84 0.88 0.92', leading: 13 });
+y -= 27;
+
+drawText({ text: 'EXECUTIVE PROFILE', size: 9.5, font: 'F2', color: colors.blue, leading: 16 });
 
 drawWrapped({
   text: summary,
@@ -225,6 +238,16 @@ for (const section of sections) {
   }
 }
 
+// Consistent, restrained page furniture makes multi-page output feel intentional.
+pages.forEach((pageCommands, index) => {
+  pageCommands.push(`${colors.rule} RG`);
+  pageCommands.push(`0.5 w ${page.marginX} 28 m ${page.width - page.marginX} 28 l S`);
+  pageCommands.push(`${colors.muted} rg`);
+  pageCommands.push(`BT /F1 7.5 Tf ${page.marginX} 16 Td (MICHAEL MACRI, MBA  |  PROFESSIONAL RESUME) Tj ET`);
+  const pageLabel = `${index + 1} / ${pages.length}`;
+  pageCommands.push(`BT /F1 7.5 Tf ${page.width - page.marginX - textWidth(pageLabel, 7.5)} 16 Td (${pageLabel}) Tj ET`);
+});
+
 const objects = [];
 const addObject = (body) => {
   objects.push(body);
@@ -254,9 +277,9 @@ objects.forEach((body, index) => {
 });
 
 const xrefOffset = Buffer.byteLength(pdf, 'utf8');
-pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
+pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f\n`;
 for (let i = 1; i < offsets.length; i += 1) {
-  pdf += `${String(offsets[i]).padStart(10, '0')} 00000 n \n`;
+  pdf += `${String(offsets[i]).padStart(10, '0')} 00000 n\n`;
 }
 pdf += `trailer\n<< /Size ${objects.length + 1} /Root ${catalogId} 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`;
 
