@@ -56,17 +56,16 @@ const wrapText = (text, size, maxWidth) => {
 // Filter common contact fields so a future source edit cannot leak them.
 const contactLine = /^(email|phone|mobile|website|web|address)\s*:/i;
 const rawLines = source.split('\n').map((line) => line.trim()).filter((line) => !contactLine.test(line));
-const [name, headline, currentRoleLine] = rawLines;
-const linkedinLine = rawLines.find((line) => line.startsWith('LinkedIn:')) ?? '';
-const summaryStart = rawLines.findIndex((line, index) => index > 2 && line.length > 0);
-const firstSectionIndex = rawLines.indexOf('Key Achievements');
-const summary = rawLines.slice(summaryStart, firstSectionIndex).filter((line) => line && !line.startsWith('LinkedIn:')).join(' ');
+const [name, headline, currentRoleLine, contactInfoLine] = rawLines;
+const sectionTitles = ['Selected Career Impact', 'Professional Experience', 'Capabilities', 'Education & Recognition'];
+const firstSectionIndex = rawLines.findIndex((line) => sectionTitles.includes(line));
+const summary = rawLines.slice(4, firstSectionIndex).join(' ');
 
 const sections = [];
 let currentSection = null;
 for (const line of rawLines.slice(firstSectionIndex)) {
   if (!line) continue;
-  if (['Key Achievements', 'Professional Experience', 'Education', 'Recognition'].includes(line)) {
+  if (sectionTitles.includes(line)) {
     currentSection = { title: line, lines: [] };
     sections.push(currentSection);
   } else if (currentSection) {
@@ -86,6 +85,10 @@ const newPage = () => {
   pages.push([]);
   commands = pages[pages.length - 1];
   y = page.height - page.marginTop;
+};
+
+const forceNewPage = () => {
+  if (commands.length > 0) newPage();
 };
 
 const ensureSpace = (height) => {
@@ -121,7 +124,7 @@ const drawRightText = ({ text, right = page.width - page.marginX, baseline = y, 
 
 const sectionHeading = (title) => {
   ensureSpace(28);
-  y -= pages.length === 1 && y > 680 ? 5 : 11;
+  y -= pages.length === 1 && y > 680 ? 5 : 7;
   setColor(colors.accent);
   add(`${page.marginX} ${y - 2} 4 14 re f`);
   drawText({ text: title.toUpperCase(), x: page.marginX + 11, size: 10, font: 'F2', color: colors.navy, leading: 17 });
@@ -181,6 +184,7 @@ const drawRole = (title, metaLine, roleSummary, bullets) => {
 
 const drawStandardBullets = (lines) => {
   lines.forEach((line) => {
+    add(`BT /F1 9 Tf ${page.marginX + 1} ${y} Td (-) Tj ET`);
     drawWrapped({
       text: line.replace(/^- /, ''),
       x: page.marginX + 10,
@@ -190,7 +194,25 @@ const drawStandardBullets = (lines) => {
       leading: 12,
       subsequentIndent: 10,
     });
-    add(`BT /F1 9 Tf ${page.marginX + 1} ${y + 12} Td (-) Tj ET`);
+  });
+};
+
+const drawImpactBullets = (lines) => {
+  const metricWidth = 102;
+  const detailWidth = page.width - page.marginX * 2 - metricWidth;
+  lines.forEach((line) => {
+    const [metric = '', ...detailParts] = line.replace(/^- /, '').split('|');
+    const detail = detailParts.join('|').trim();
+    const detailLines = wrapText(detail, 8.9, detailWidth);
+    ensureSpace(Math.max(17, detailLines.length * 11.2 + 4));
+    const baseline = y;
+    setColor(colors.blue);
+    add(`BT /F2 11 Tf ${page.marginX} ${baseline} Td (${escapePdfText(metric.trim())}) Tj ET`);
+    detailLines.forEach((detailLine, index) => {
+      setColor(colors.text);
+      add(`BT /F1 8.9 Tf ${page.marginX + metricWidth} ${baseline - index * 11.2} Td (${escapePdfText(detailLine)}) Tj ET`);
+    });
+    y -= Math.max(17, detailLines.length * 11.2 + 4);
   });
 };
 
@@ -201,10 +223,10 @@ add(`0 ${page.height - 132} ${page.width} 6 re f`);
 drawText({ text: name, x: page.marginX, size: 23, font: 'F2', color: colors.white, leading: 29 });
 drawText({ text: headline.toUpperCase(), x: page.marginX, size: 10.5, font: 'F2', color: '0.45 0.84 0.91', leading: 19 });
 drawText({ text: currentRoleLine, x: page.marginX, size: 9.2, font: 'F1', color: '0.84 0.88 0.92', leading: 13 });
-if (linkedinLine) {
-  drawText({ text: linkedinLine, x: page.marginX, size: 8.7, font: 'F1', color: '0.45 0.84 0.91', leading: 13 });
+if (contactInfoLine) {
+  drawText({ text: contactInfoLine, x: page.marginX, size: 8.7, font: 'F1', color: '0.45 0.84 0.91', leading: 13 });
 }
-y -= 14;
+y -= 26;
 
 drawText({ text: 'PROFESSIONAL SUMMARY', size: 9.5, font: 'F2', color: colors.blue, leading: 16 });
 
@@ -219,10 +241,18 @@ drawWrapped({
 
 for (const section of sections) {
   sectionHeading(section.title);
-  if (section.title === 'Professional Experience') {
+  if (section.title === 'Selected Career Impact') {
+    drawImpactBullets(section.lines);
+  } else if (section.title === 'Professional Experience') {
     let index = 0;
     while (index < section.lines.length) {
       const title = section.lines[index];
+      if (title === '---PAGE BREAK---') {
+        forceNewPage();
+        sectionHeading('Professional Experience - Continued');
+        index += 1;
+        continue;
+      }
       const meta = section.lines[index + 1];
       index += 2;
       let roleSummary = '';
@@ -249,7 +279,7 @@ pages.forEach((pageCommands, index) => {
   pageCommands.push(`${colors.muted} rg`);
   pageCommands.push(`BT /F1 7.5 Tf ${page.marginX} 16 Td (MICHAEL MACRI, MBA  |  PROFESSIONAL RESUME) Tj ET`);
   const pageLabel = `${index + 1} / ${pages.length}`;
-  pageCommands.push(`BT /F1 7.5 Tf ${page.width - page.marginX - textWidth(pageLabel, 7.5)} 16 Td (${pageLabel}) Tj ET`);
+  pageCommands.push(`BT /F1 7.5 Tf ${page.width - page.marginX - 12 - textWidth(pageLabel, 7.5)} 16 Td (${pageLabel}) Tj ET`);
 });
 
 const objects = [];

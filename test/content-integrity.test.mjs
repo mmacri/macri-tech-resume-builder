@@ -109,7 +109,7 @@ test('person schema identifies the factual current role and verified profiles', 
 
 test('resume links share one cache-busted canonical artifact', () => {
   const career = read('src/data/careerData.ts');
-  assert.match(career, /resumeFile: 'resume\.pdf\?v=2026-09-20'/);
+  assert.match(career, /resumeFile: 'resume\.pdf\?v=2026-09-20-2'/);
   for (const page of ['src/pages/Home.tsx', 'src/pages/ExperienceImpact.tsx', 'src/pages/Resume.tsx']) {
     const source = read(page);
     assert.match(source, /profile\.resumeFile/);
@@ -148,6 +148,16 @@ test('downloadable resume bytes contain current role and permitted contact only'
   assert.match(pdf, /March 2026 - Present/);
   assert.match(pdf, /GitLab/);
   assert.match(pdf, /7 Customer Success Engineers/);
+  assert.match(pdf, /Limited Independent Advisory Work \/ Personal Consulting Practice/);
+  assert.match(pdf, /ServiceNow/);
+  assert.match(pdf, /VMware/);
+  assert.match(pdf, /\$900M/);
+  assert.match(pdf, /\$440M/);
+  assert.match(pdf, /\$50M\+/);
+  assert.match(pdf, /20% \+ 83 NPS/);
+  assert.match(pdf, /mikemacri\.com/);
   assert.match(pdf, /linkedin\.com\/in\/mikemacri/);
+  assert.doesNotMatch(pdf, /Experienced Strategic Solution Engineering Leader/i);
+  assert.doesNotMatch(pdf, /Open to (?:Senior IC|senior individual contributor|opportunities)/i);
   assert.doesNotMatch(pdf, /mailto:|tel:|Email:|Phone:|Address:/i);
 });
