@@ -76,14 +76,6 @@ const ExperienceImpact: React.FC = () => {
                     <p className="mb-0 whitespace-nowrap rounded-full bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700">{role.period}</p>
                   </div>
 
-                  {isCurrent && (
-                    <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                      {['Leads & develops 7 CSEs', 'AMER private sector', 'SMB → Key Accounts', 'DevSecOps + AI adoption'].map((scope) => (
-                        <div key={scope} className="rounded-lg border border-orange-200 bg-orange-50 px-3 py-3 text-center text-sm font-semibold text-slate-800">{scope}</div>
-                      ))}
-                    </div>
-                  )}
-
                   {role.id === 'servicenow' && (
                     <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
                       {[

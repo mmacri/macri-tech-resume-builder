@@ -3,13 +3,15 @@ import fs from 'node:fs';
 import test from 'node:test';
 
 const read = (path) => fs.readFileSync(path, 'utf8');
+const currentTeamHeadcount = /7\s*(?:-person|Customer Success Engineers|CSEs?)/i;
 
 test('current leadership facts remain consistent', () => {
   const career = read('src/data/careerData.ts');
   assert.match(career, /Senior Manager, Customer Success Engineering – AMER/);
   assert.match(career, /Technology & Customer Success Engineering Leader/);
   assert.match(career, /March 2026 – Present/);
-  assert.match(career, /7 Customer Success Engineers/);
+  assert.match(career, /AMER Customer Success Engineering team/);
+  assert.doesNotMatch(career, currentTeamHeadcount);
   assert.match(career, /Independent Advisory \/ Personal Consulting Practice/);
   const currentDateLines = career.split(/\r?\n/).filter((line) => /2026\s*[–-]\s*Present/.test(line));
   assert.ok(currentDateLines.length > 0);
@@ -54,7 +56,7 @@ test('homepage defines leadership scale beyond current headcount', () => {
   assert.match(home, /Leadership at Scale/);
   assert.match(home, /A Career Built Across Different Kinds of Scale/);
   assert.match(home, /How I Build Technical Organizations/);
-  assert.doesNotMatch(home, /7 CSEs|7-person/);
+  assert.doesNotMatch(home, currentTeamHeadcount);
 });
 
 test('leadership and project disclosure stay accurate', () => {
@@ -66,8 +68,12 @@ test('leadership and project disclosure stay accurate', () => {
   assert.match(career, /Clear the Path/);
   assert.match(leadership, /Conceptual operating model\./);
   assert.doesNotMatch(`${leadership}\n${career}\n${work}`, /performance (?:metrics are implied|result is claimed)/i);
-  assert.match(projects, /Personal prototype \/ portfolio project — not an official GitLab product/);
-  assert.match(work, /Why I Built This/);
+  assert.match(career, /Built independently with synthetic data\. Not affiliated with, endorsed by, or representative of any employer's internal systems\./);
+  assert.match(projects, /Built independently with synthetic data/);
+  assert.match(career, /id: 'scaling-cse'[\s\S]*title: 'Making Technical Coverage Decidable'/);
+  assert.match(career, /id: 'cse-assigned-motion'[\s\S]*title: 'Launching the CSE Assigned Motion'/);
+  assert.doesNotMatch(career.match(/id: 'scaling-cse'[\s\S]*?detailLink: '\/selected-work#scaling-cse'/)?.[0] ?? '', /Conceptual operating model/);
+  assert.match(work, /caseStudies\.map/);
 });
 
 test('contact page never simulates delivery', () => {
@@ -110,7 +116,7 @@ test('person schema identifies the factual current role and verified profiles', 
 
 test('resume links share one cache-busted canonical artifact', () => {
   const career = read('src/data/careerData.ts');
-  assert.match(career, /resumeFile: 'resume\.pdf\?v=2026-09-20-2'/);
+  assert.match(career, /resumeFile: 'resume\.pdf\?v=2026-09-20-3'/);
   for (const page of ['src/pages/Home.tsx', 'src/pages/ExperienceImpact.tsx', 'src/pages/Resume.tsx']) {
     const source = read(page);
     assert.match(source, /profile\.resumeFile/);
@@ -144,11 +150,12 @@ test('social preview is the intended 1200 by 630 image', () => {
 
 test('downloadable resume bytes contain current role and permitted contact only', () => {
   const pdf = read('public/resume.pdf');
-  assert.match(pdf, /Senior Manager, Customer Success Engineering - AMER/);
+  assert.match(pdf, /Senior Manager, Customer Success Engineering \\226 AMER/);
   assert.match(pdf, /TECHNOLOGY & CUSTOMER SUCCESS ENGINEERING LEADER/);
   assert.match(pdf, /March 2026 - Present/);
   assert.match(pdf, /GitLab/);
-  assert.match(pdf, /7 Customer Success Engineers/);
+  assert.match(pdf, /AMER Customer Success Engineering team/);
+  assert.doesNotMatch(pdf, currentTeamHeadcount);
   assert.match(pdf, /Limited Independent Advisory Work \/ Personal Consulting Practice/);
   assert.match(pdf, /ServiceNow/);
   assert.match(pdf, /VMware/);

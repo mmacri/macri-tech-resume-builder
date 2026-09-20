@@ -15,6 +15,24 @@ import {
 } from '@/data/careerData';
 
 const featuredIds = ['scaling-cse', 'customer-success-model', 'policy-hub'];
+const currentWork = [
+  {
+    title: 'CSE Assigned motion',
+    description: 'Proactive named technical coverage for accounts without a Customer Success Manager. Operating handbook, entry and exit processes, and a readiness framework gating launch.',
+  },
+  {
+    title: 'Book-of-business reporting layer',
+    description: "A live operational view of the team's accounts, engagement coverage, renewal runway and pool case work, replacing manual roll-ups.",
+  },
+  {
+    title: 'Measurement framework',
+    description: 'Three tiers separating execution, leading indicators and outcomes, with a rollout that establishes a baseline before setting any target.',
+  },
+  {
+    title: 'Territory coverage and pods',
+    description: 'Coverage mapping reconciled against live CRM data, and account reassignment executed through an organizational restructure.',
+  },
+];
 
 const Home: React.FC = () => {
   const assetBase = import.meta.env.BASE_URL;
@@ -26,7 +44,7 @@ const Home: React.FC = () => {
     <>
       <SEOHead
         title="Mike Macri | Technology & Customer Success Engineering Leader"
-        description="Mike Macri is a technology and Customer Success Engineering leader at GitLab with experience building technical teams, customer programs, and enterprise initiatives across DevSecOps, AI, cloud, and governance."
+        description="Mike Macri is a Customer Success Engineering leader at GitLab, building technical teams, coverage models, and the operating systems that make post-sales technical work visible and defensible."
         url="https://mikemacri.com/"
       />
 
@@ -36,7 +54,7 @@ const Home: React.FC = () => {
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-macri-primary">{profile.name}</p>
             <h1 className="mb-5 max-w-4xl font-saira text-4xl font-bold leading-tight text-slate-900 sm:text-5xl lg:text-6xl">Technology &amp; Customer Success Engineering Leader</h1>
             <p className="mb-6 max-w-3xl text-lg leading-8 text-gray-700 sm:text-xl">{profile.positioning}</p>
-            <p className="mb-8 text-base font-semibold text-macri-primary sm:text-lg">Currently: Sr. Manager, Customer Success Engineering – AMER · GitLab</p>
+            <p className="mb-8 text-base font-semibold text-macri-primary sm:text-lg">Currently: Senior Manager, Customer Success Engineering – AMER · GitLab</p>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <Button size="lg" className="bg-macri-primary text-white hover:bg-macri-primary-dark" asChild><Link to="/leadership">How I Lead <ArrowRight className="ml-2 h-5 w-5" /></Link></Button>
               <Button size="lg" variant="outline" className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white" asChild><Link to="/selected-work">Selected Work</Link></Button>
@@ -58,7 +76,7 @@ const Home: React.FC = () => {
           <div className="mb-8 max-w-4xl">
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-orange-300">Current role</p>
             <h2 id="current-focus-heading" className="mb-3 font-saira text-3xl font-bold sm:text-4xl">Leading Customer Success Engineering Today</h2>
-            <p className="mb-0 text-lg leading-8 text-slate-300">Leading technical Customer Success across an AMER private-sector portfolio, with responsibility spanning customer adoption, account signals, and coordinated technical engagement.</p>
+            <p className="mb-0 text-lg leading-8 text-slate-300">Leading technical Customer Success across an AMER private-sector portfolio — building the operating model, the coverage decisions, and the reporting that tells us where technical expertise changes the outcome.</p>
           </div>
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 border-y border-white/15 py-8 sm:grid-cols-2 lg:grid-cols-4">
             {currentFocus.map((item) => <div key={item.title}><h3 className="mb-2 text-lg font-semibold text-orange-300">{item.title}</h3><p className="mb-0 text-sm leading-6 text-slate-300">{item.detail}</p></div>)}
@@ -86,6 +104,23 @@ const Home: React.FC = () => {
             </React.Fragment>)}
           </div>
           <p className="mt-6 mb-0 text-sm text-gray-600">Momentum Edge continues alongside this progression as limited independent advisory work.</p>
+        </div>
+      </section>
+
+      <section className="bg-white py-14" aria-labelledby="current-work-heading">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-8 max-w-3xl">
+            <h2 id="current-work-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">What I'm Building Now</h2>
+            <p className="mb-0 text-gray-700">Current work at GitLab, described by what was built rather than by internal numbers.</p>
+          </div>
+          <div className="grid grid-cols-1 gap-x-8 gap-y-8 border-t border-gray-200 pt-8 md:grid-cols-2">
+            {currentWork.map((item) => (
+              <article key={item.title} className="border-l-4 border-macri-primary pl-5">
+                <h3 className="mb-2 text-xl font-semibold text-slate-900">{item.title}</h3>
+                <p className="mb-0 text-sm leading-6 text-gray-700">{item.description}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 

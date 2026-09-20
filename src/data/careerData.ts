@@ -20,9 +20,9 @@ export const profile = {
   location: 'Remote',
   linkedin: 'https://www.linkedin.com/in/mikemacri',
   github: 'https://github.com/mmacri',
-  resumeFile: 'resume.pdf?v=2026-09-20-2',
+  resumeFile: 'resume.pdf?v=2026-09-20-3',
   summary:
-    'Technology and Customer Success Engineering leader with experience building distributed post-sales teams, customer programs, partner ecosystems, and enterprise governance initiatives across GitLab, VMware, and ServiceNow. Connects technical adoption, customer priorities, and commercial context so teams can focus their expertise where it matters most.',
+    'Technology and Customer Success Engineering leader with experience building distributed post-sales teams, operating models, partner ecosystems, and enterprise governance initiatives across GitLab, VMware, and ServiceNow. Connects technical adoption, customer priorities, and commercial context so teams can focus their expertise where it matters most.',
   positioning:
     'I build and lead technical organizations and customer programs that help enterprises turn complex technology into adoption, customer value, and business results.',
   secondary:
@@ -85,7 +85,7 @@ export const leadershipScale = [
 ];
 
 export const currentFocus = [
-  { title: 'AMER Customer Success Engineering', detail: 'Private-sector coverage from SMB and Mid-Market through Enterprise, Financial Services, and Key Accounts.' },
+  { title: 'AMER Customer Success Engineering', detail: 'An AMER private-sector portfolio.' },
   { title: 'Customer Lifecycle', detail: 'Technical adoption · product and AI consumption · customer health · risk · renewal · expansion' },
   { title: 'Cross-Functional Leadership', detail: 'Sales · Customer Success · Renewals · Product · Engineering · Support · Regional Leadership' },
   { title: 'Platform', detail: 'DevSecOps · CI/CD · Security · AI · Software Delivery' },
@@ -107,8 +107,8 @@ export const careerEras = [
   {
     organization: 'GitLab',
     era: 'Modern Technical Customer Success',
-    themes: 'Customer Success Engineering · DevSecOps · AI Adoption · Customer Health · Scaled Engagement',
-    detail: 'Brings those perspectives together to lead modern technical Customer Success across DevSecOps and AI.',
+    themes: 'Customer Success Engineering · Operating Models · DevSecOps · AI Adoption · Customer Health',
+    detail: 'Brings those perspectives together to lead modern technical Customer Success — building the operating model, not just running it.',
   },
 ];
 
@@ -165,6 +165,8 @@ export const managementCadence = [
 export const healthSignals = ['Product usage', 'Engagement', 'Technical adoption', 'Support / escalation', 'Champion stability', 'Renewal timing', 'Business outcomes', 'Expansion potential'];
 
 export const experiences = [
+  // TODO(mike): confirm the accurate segment description for this team before publishing.
+  // Previous copy claimed SMB → Key Accounts; replaced with a neutral phrasing pending confirmation.
   {
     id: 'gitlab',
     title: 'Senior Manager, Customer Success Engineering – AMER',
@@ -176,11 +178,15 @@ export const experiences = [
     current: true,
     theme: 'Customer Success Engineering Leadership',
     summary:
-      "Lead a Customer Success Engineering team across AMER supporting private-sector customers across SMB, Mid-Market, Enterprise, Financial Services, and Key accounts. Own post-sales technical engagement across GitLab's subscription and usage-based offerings, aligning product and AI consumption, adoption, customer health, risk, expansion, and renewal outcomes.",
+      'Lead the AMER Customer Success Engineering team, owning the post-sales technical operating model across adoption, early risk identification, expansion signals, and renewal outcomes. My job is deciding where limited technical coverage goes and building the systems that make that decision repeatable rather than instinctive.',
     bullets: [
-      'Lead, coach, and develop 7 Customer Success Engineers through performance reviews, ongoing coaching, and operating standards for CTAs, quarterly health assessments, account documentation, and engagement across the customer lifecycle.',
-      'Built portfolio views across ARR, product and AI consumption, customer health, engagement, renewal runway, risk, and expansion signals so leaders can prioritize accounts and decide where technical engagement matters most.',
-      'Drive GitLab Duo Agent Platform adoption, strategic account initiatives, and executive escalations; partner with Sales, Customer Success, Renewals, Product, Engineering, Support, and regional leadership on adoption, risk, expansion, and retention.',
+      'Helped build and launch the CSE Assigned motion — proactive, named technical coverage for accounts that do not have a Customer Success Manager. Authored the operating handbook, the inbound-account and exit processes, and the readiness framework that gated go-live against defined capability criteria.',
+      'Lead, coach, and develop the AMER Customer Success Engineering team, and authored the Associate-to-Intermediate development path now used for career progression across the function: competency scorecard, evidence standards, and promotion preparation grounded in sustained performance rather than activity volume.',
+      'Rebuilt CSE territory coverage across the AMER book, reconciling pod and org mapping against live CRM data, correcting ownership errors across multiple territories, and executing account reassignment through an organizational restructure.',
+      "Built the team's book-of-business reporting layer, sourced live from the CS platform — focus accounts, engagement coverage, renewal runway, and pool case work — replacing manual roll-ups as the basis for weekly prioritization.",
+      'Designed the measurement framework for the CSE Assigned motion, separating execution metrics the team controls from leading indicators and renewal outcomes, with observed and derived figures labeled separately so the analysis holds up to scrutiny.',
+      'Moved escalation ownership to the assigned CSE, giving each account a named technical owner for escalation rather than routing every case through management.',
+      'Drive GitLab Duo Agent Platform adoption and partner with Regional Directors, Account Executives, and Renewal Managers in the account pod model on coverage and joint execution.',
     ],
   },
   {
@@ -280,16 +286,16 @@ export const experiences = [
 
 export const keyAchievements = [
   {
-    title: 'Customer Success Leadership at Scale',
-    description: 'Lead and develop a 7-person AMER CSE team supporting multi-million-dollar ARR customers from SMB through Key accounts, connecting adoption, consumption, customer health, expansion, and renewal outcomes.',
+    title: 'Customer Success Engineering Leadership',
+    description: 'Lead and develop the AMER Customer Success Engineering team, and helped build the CSE Assigned operating motion — the handbook, processes, and readiness criteria behind proactive technical coverage.',
   },
   {
     title: 'Adoption, Expansion & Retention',
     description: 'Built scalable customer and partner success motions contributing to 20% renewal growth, 250% pipeline growth, sustained platform adoption, and a 20-point NPS improvement at VMware.',
   },
   {
-    title: 'AI, DevSecOps & Enterprise Transformation',
-    description: 'Lead GitLab AI adoption initiatives and previously owned enterprise AI/ML governance enablement at ServiceNow, combining technical adoption with responsible AI, security, governance, and measurable customer value.',
+    title: 'Systems That Make Coverage Decidable',
+    description: 'Built the reporting and measurement systems the AMER segment uses to decide where technical coverage goes, and previously owned enterprise AI/ML governance enablement at ServiceNow.',
   },
 ];
 
@@ -347,18 +353,43 @@ export const metrics = [
 export const caseStudies = [
   {
     id: 'scaling-cse',
-    title: 'Scaling Customer Success Engineering',
-    subtitle: 'Designing technical engagement models that combine digital scale with high-value human expertise.',
+    title: 'Making Technical Coverage Decidable',
+    subtitle: 'Building the operating model, reporting, and measurement behind a Customer Success Engineering team.',
     category: 'Customer Success Engineering',
     problem:
-      'Technical customer success does not scale if every Customer Success Engineer manually contacts and engages every account for every technical activity. As portfolios grow, technical resources need an operating model that identifies where human expertise creates the greatest customer value.',
+      "A technical team's hardest decision is where not to spend time. The book was tracked through manual roll-ups that took real effort to assemble and were stale by the time anyone read them. One form of the team's work — pool case coverage — was structurally invisible, because it is owned at the case level rather than by account assignment, so every account-based view showed a fully utilized engineer with no book.",
     approach:
-      'Design customer engagement around complementary motions: digital-first engagement, customer-requested technical engagement, segmentation, health and adoption signals, targeted CSE intervention, one-to-many technical enablement, webinars, hands-on labs, reusable technical content, and pooled expertise where appropriate.',
+      'Define the motion before instrumenting it: what coverage means, who qualifies, how an account enters and exits, and what a good health assessment contains. Then build reporting from the system of record rather than from exports, cover both the assigned and pool motions in their own terms, and document what the data genuinely cannot answer instead of approximating.',
     solution:
-      'Create a signal-driven engagement model that moves from digital engagement to customer intent, technical need identification, CSE engagement, technical outcome, adoption/value/risk signal, and next best action.',
-    outcomes: ['Greater reach', 'Better resource focus', 'Repeatable engagement', 'Consistent technical guidance', 'Improved visibility into customer technical needs', 'Scalable customer experience'],
-    note: 'Conceptual operating model.',
+      'A documented operating model with published inbound and exit processes and a readiness framework gating go-live against defined capability criteria; a live book-of-business layer covering focus accounts, engagement coverage, renewal runway and pool cases; and a measurement framework separating what the team controls from what it merely influences.',
+    outcomes: [
+      'Weekly prioritization runs from one live view rather than manual roll-ups',
+      'Pool case work is visible and attributable for the first time',
+      'Coverage standards are published and explicit rather than implied',
+      'Accounts enter and leave the motion through a defined, auditable process',
+      'The measurement framework states its own limits, including questions the source systems cannot answer',
+    ],
     detailLink: '/selected-work#scaling-cse',
+  },
+  {
+    id: 'cse-assigned-motion',
+    title: 'Launching the CSE Assigned Motion',
+    subtitle: 'Turning a coverage idea into a documented, operable motion with defined entry, exit, and readiness criteria.',
+    category: 'Customer Success Engineering',
+    problem:
+      'Accounts above a defined revenue threshold without a named Customer Success Manager had no proactive technical owner. Help existed, but only if someone opened a case. The gap was not capability — it was that nothing defined who owned the account, what the recurring work was, or how an account entered and left coverage.',
+    approach:
+      'Treat it as an operating model rather than a staffing change. Define the motion boundaries — what it does and explicitly does not do — before assigning anyone. Write the processes down, publish them in the handbook as the authoritative version, and gate launch on capability readiness rather than on a date.',
+    solution:
+      'An operating handbook defining the motion, its cadence, and its boundaries against adjacent roles; documented inbound and exit processes covering eligibility, manager review, approve/hold/reject/exception outcomes, capacity limits, and system validation; a readiness framework scoring each required capability against exit criteria before go-live; and a change moving escalation ownership to the assigned engineer.',
+    outcomes: [
+      'Qualifying accounts have a named technical owner without needing to open a case',
+      'Entry and exit run through a defined process with recorded decisions and rationale',
+      'Escalations have a named owner at the account rather than routing through management',
+      'Role boundaries against adjacent functions are published rather than negotiated case by case',
+      'Launch gated on capability readiness, with unfinished capabilities named rather than assumed',
+    ],
+    detailLink: '/selected-work#cse-assigned-motion',
   },
   {
     id: 'policy-hub',
@@ -427,11 +458,18 @@ export const caseStudyDetails: Record<string, {
   lesson: string;
 }> = {
   'scaling-cse': {
-    environment: 'Large, segmented customer portfolios where CSE capacity must be directed by technical need rather than uniform activity.',
-    role: 'CSE leader and operating-model designer. This conceptual framework is informed by current leadership practice.',
-    changed: 'Defined complementary digital, pooled, one-to-many, and targeted human engagement motions around customer intent and product signals.',
-    partners: ['Sales', 'Renewals', 'Product', 'Engineering', 'Support', 'Regional leadership'],
-    lesson: 'Scale comes from making scarce technical expertise easier to focus, reuse, and coordinate—not from adding more meetings.',
+    environment: "A technical team's hardest decision is where not to spend time. The book was tracked through manual roll-ups that took real effort to assemble and were stale by the time anyone read them. One form of the team's work — pool case coverage — was structurally invisible, because it is owned at the case level rather than by account assignment, so every account-based view showed a fully utilized engineer with no book.",
+    role: 'Define the motion before instrumenting it: what coverage means, who qualifies, how an account enters and exits, and what a good health assessment contains.',
+    changed: 'A documented operating model with published inbound and exit processes and a readiness framework gating go-live against defined capability criteria; a live book-of-business layer covering focus accounts, engagement coverage, renewal runway and pool cases; and a measurement framework separating what the team controls from what it merely influences.',
+    partners: [],
+    lesson: 'A metric becomes a target the moment you publish it, so publish the standard before the number. Measurement that cannot survive a skeptical reader is not worth building.',
+  },
+  'cse-assigned-motion': {
+    environment: 'Accounts above a defined revenue threshold without a named Customer Success Manager had no proactive technical owner. Help existed, but only if someone opened a case. The gap was not capability — it was that nothing defined who owned the account, what the recurring work was, or how an account entered and left coverage.',
+    role: 'Treat it as an operating model rather than a staffing change.',
+    changed: 'An operating handbook defining the motion, its cadence, and its boundaries against adjacent roles; documented inbound and exit processes covering eligibility, manager review, approve/hold/reject/exception outcomes, capacity limits, and system validation; a readiness framework scoring each required capability against exit criteria before go-live; and a change moving escalation ownership to the assigned engineer.',
+    partners: [],
+    lesson: 'Writing the boundaries down — including what the motion will not do — prevented more scope problems than any amount of staffing would have.',
   },
   'policy-hub': {
     environment: 'Regulated enterprises with fragmented policy lifecycles, cross-functional ownership, and significant audit and risk exposure.',
@@ -466,8 +504,8 @@ export const caseStudyDetails: Record<string, {
 export const projects = [
   {
     id: 'gitlab-health',
-    name: 'GitLab Customer Health Prototype',
-    description: 'Personal portfolio prototype exploring account health, adoption, license utilization, renewal timing, and recommended CSE action. Not an official GitLab product.',
+    name: 'Customer Health Dashboard Prototype',
+    description: "Personal portfolio prototype exploring account health, adoption, license utilization, renewal timing, and recommended next action for a technical customer success team. Built independently with synthetic data. Not affiliated with, endorsed by, or representative of any employer's internal systems.",
     category: 'Customer Success & DevSecOps',
     technologies: ['React', 'TypeScript', 'Data Visualization', 'Customer Health'],
     image: gitlabCsmScreenshot,
@@ -477,7 +515,7 @@ export const projects = [
   {
     id: 'customer-success-dashboard',
     name: 'Customer Success Dashboard',
-    description: 'Analytics dashboard concept for customer engagement, adoption signals, and technical success planning.',
+    description: "Analytics dashboard concept for customer engagement, adoption signals, and technical success planning. Built independently with synthetic data. Not affiliated with, endorsed by, or representative of any employer's internal systems.",
     category: 'Customer Success & DevSecOps',
     technologies: ['Customer Success', 'Adoption', 'Health Scoring'],
     image: customerSuccessScreenshot,

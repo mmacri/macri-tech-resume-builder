@@ -29,6 +29,9 @@ const escapePdfText = (value) =>
     .replace(/\\/g, '\\\\')
     .replace(/\(/g, '\\(')
     .replace(/\)/g, '\\)')
+    .replace(/’/g, '\\222')
+    .replace(/–/g, '\\226')
+    .replace(/—/g, '\\227')
     .replace(/[^\x09\x0A\x0D\x20-\x7E]/g, '-');
 
 const textWidth = (text, size) => text.length * size * 0.48;
@@ -290,8 +293,8 @@ const addObject = (body) => {
 
 const catalogId = addObject('<< /Type /Catalog /Pages 2 0 R >>');
 const pagesId = addObject('');
-const fontRegularId = addObject('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
-const fontBoldId = addObject('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>');
+const fontRegularId = addObject('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>');
+const fontBoldId = addObject('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>');
 const pageIds = [];
 
 for (const pageCommands of pages) {

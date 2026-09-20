@@ -1,9 +1,9 @@
 Michael Macri, MBA
 Technology & Customer Success Engineering Leader
-Senior Manager, Customer Success Engineering - AMER | GitLab | March 2026 - Present | Remote
+Senior Manager, Customer Success Engineering – AMER | GitLab | March 2026 - Present | Remote
 mikemacri.com | linkedin.com/in/mikemacri
 
-Technology and Customer Success Engineering leader who builds technical teams, customer programs, and practical ways of working that turn complex platforms into adoption, customer value, and business results. Career spans technical Customer Success, TAM, solution engineering, partner alliances, DevSecOps and AI adoption, and enterprise governance across GitLab, VMware, and ServiceNow.
+Technology and Customer Success Engineering leader with experience building distributed post-sales teams, operating models, partner ecosystems, and enterprise governance initiatives across GitLab, VMware, and ServiceNow. Connects technical adoption, customer priorities, and commercial context so teams can focus their expertise where it matters most.
 
 Selected Career Impact
 - $50M+ | Two record-setting partner-led deals; VMware Americas alliance and co-sell leadership.
@@ -13,14 +13,14 @@ Selected Career Impact
 
 Professional Experience
 
-Senior Manager, Customer Success Engineering - AMER
+Senior Manager, Customer Success Engineering – AMER
 GitLab | March 2026 - Present | Remote
-Lead Customer Success Engineering across an AMER private-sector portfolio spanning SMB, Mid-Market, Enterprise, Financial Services, and Key Accounts across GitLab's subscription and usage-based offerings.
-- Lead, coach, and develop 7 Customer Success Engineers through performance management, ongoing coaching, and clear expectations for technical customer leadership.
-- Own post-sales technical engagement focused on DevSecOps platform adoption, product and AI consumption, customer health, technical risk, expansion signals, and renewal alignment.
-- Establish repeatable team standards for customer technical assessments, quarterly health reviews, account documentation, and lifecycle engagement; use portfolio views across ARR, consumption, health, engagement, renewal runway, risk, and expansion signals to focus technical expertise.
-- Drive GitLab Duo Agent Platform adoption, strategic account initiatives, and executive escalations with customer and internal leaders.
-- Partner across Sales, Customer Success, Renewals, Product, Engineering, Support, and regional leadership to coordinate customer action and long-term value.
+Lead the AMER Customer Success Engineering team, owning the post-sales technical operating model across adoption, early risk identification, expansion signals, and renewal outcomes. My job is deciding where limited technical coverage goes and building the systems that make that decision repeatable rather than instinctive. Scope: an AMER private-sector portfolio.
+- Helped build and launch the CSE Assigned motion — proactive, named technical coverage for accounts that do not have a Customer Success Manager. Authored the operating handbook, the inbound-account and exit processes, and the readiness framework that gated go-live against defined capability criteria.
+- Lead, coach, and develop the AMER Customer Success Engineering team, and authored the Associate-to-Intermediate development path now used for career progression across the function: competency scorecard, evidence standards, and promotion preparation grounded in sustained performance rather than activity volume.
+- Rebuilt CSE territory coverage across the AMER book, reconciling pod and org mapping against live CRM data, correcting ownership errors across multiple territories, and executing account reassignment through an organizational restructure.
+- Built the team's book-of-business reporting layer, sourced live from the CS platform — focus accounts, engagement coverage, renewal runway, and pool case work — replacing manual roll-ups as the basis for weekly prioritization.
+- Designed the measurement framework for the CSE Assigned motion, separating execution metrics the team controls from leading indicators and renewal outcomes, with observed and derived figures labeled separately so the analysis holds up to scrutiny.
 
 Principal Consultant
 Momentum Edge Consulting | May 2025 - Present | Remote

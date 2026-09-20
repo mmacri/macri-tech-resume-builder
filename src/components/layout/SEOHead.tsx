@@ -13,7 +13,7 @@ interface SEOHeadProps {
 // Lightweight SEO head manager without external providers
 export const SEOHead: React.FC<SEOHeadProps> = ({
   title = 'Mike Macri | Technology & Customer Success Engineering Leader',
-  description = 'Mike Macri is a technology and Customer Success Engineering leader at GitLab with experience building technical teams, customer programs, and enterprise initiatives across DevSecOps and AI.',
+  description = 'Mike Macri is a Customer Success Engineering leader at GitLab, building technical teams, coverage models, and the operating systems that make post-sales technical work visible and defensible.',
   keywords = 'Mike Macri, GitLab, customer success engineering, technical customer success, DevSecOps, AI adoption, technical leadership, MBA',
   image = 'https://mikemacri.com/og-image.png',
   url = typeof window !== 'undefined' ? window.location.href : 'https://mikemacri.com',
