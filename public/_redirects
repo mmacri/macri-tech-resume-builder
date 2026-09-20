@@ -1,1 +1,17 @@
+/my-websites /projects 301
+/my-websites/ /projects 301
+/index.html / 301
+/portfolio /selected-work 301
+/portfolio/ /selected-work 301
+/portfolio/customer-success /selected-work#customer-success-model 301
+/portfolio/customer-success/ /selected-work#customer-success-model 301
+/portfolio/partner-development /selected-work#partner-cosell 301
+/portfolio/partner-development/ /selected-work#partner-cosell 301
+/portfolio/compliance /selected-work#policy-hub 301
+/portfolio/compliance/ /selected-work#policy-hub 301
+/portfolio/solution-engineering /selected-work 301
+/portfolio/solution-engineering/ /selected-work 301
+/portfolio/momentum-edge /projects#momentum-edge 301
+/portfolio/momentum-edge/ /projects#momentum-edge 301
+/selected-work/* /selected-work 301
 /* /index.html 200

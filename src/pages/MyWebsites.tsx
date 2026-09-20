@@ -107,7 +107,7 @@ const MyWebsites: React.FC = () => {
       <section className="border-b border-gray-200 bg-gradient-to-br from-macri-primary/5 via-white to-slate-50 py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h1 className="mb-5 font-saira text-4xl font-bold text-slate-900 sm:text-5xl">Things I’ve Built</h1>
-          <p className="mb-0 max-w-4xl text-xl leading-8 text-gray-700">I build things when I want to understand a problem more deeply. Some of these tools explore problems from my professional work in Customer Success, DevSecOps, security, and governance. Others are experiments that give me an excuse to learn something new.</p>
+          <p className="mb-0 max-w-4xl text-xl leading-8 text-gray-700">I build things when I want to understand a problem more deeply. Building the first version usually exposes assumptions that a slide or document will not. Some of these tools explore problems from my professional work in Customer Success, DevSecOps, security, and governance. Others are experiments that give me an excuse to learn something new.</p>
         </div>
       </section>
 

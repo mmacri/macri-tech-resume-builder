@@ -34,7 +34,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     };
 
     // Title
-    const fullTitle = title.includes('Mike Macri') ? title : `${title} | Mike Macri`;
+    const fullTitle = title.includes('Mike Macri') || title.includes('Michael Macri') ? title : `${title} | Mike Macri`;
     document.title = fullTitle;
 
     // Basic Meta
@@ -58,6 +58,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     setMeta('meta[property="og:title"]', { property: 'og:title', content: fullTitle });
     setMeta('meta[property="og:description"]', { property: 'og:description', content: description });
     setMeta('meta[property="og:image"]', { property: 'og:image', content: image });
+    setMeta('meta[property="og:image:alt"]', { property: 'og:image:alt', content: 'Mike Macri — Technology and Customer Success Engineering Leader' });
     setMeta('meta[property="og:site_name"]', { property: 'og:site_name', content: 'Mike Macri Portfolio' });
 
     // Twitter
@@ -66,6 +67,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     setMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: fullTitle });
     setMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: description });
     setMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: image });
+    setMeta('meta[name="twitter:image:alt"]', { name: 'twitter:image:alt', content: 'Mike Macri — Technology and Customer Success Engineering Leader' });
 
     // JSON-LD Structured Data
     const scriptId = 'seo-json-ld';
@@ -76,6 +78,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       (scriptEl as HTMLScriptElement).type = 'application/ld+json';
       document.head.appendChild(scriptEl);
     }
+    const personDescription = 'Technology and Customer Success Engineering leader currently serving as Senior Manager, Customer Success Engineering – AMER at GitLab, with experience across technical teams, customer programs, partner ecosystems, and enterprise transformation.';
     const jsonLd = {
       '@context': 'https://schema.org',
       '@graph': [
@@ -93,10 +96,10 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
           alternateName: 'Mike Macri',
           honorificSuffix: 'MBA',
           jobTitle: 'Senior Manager, Customer Success Engineering – AMER',
-          description,
+          description: personDescription,
           url: 'https://mikemacri.com/',
-          image,
-          sameAs: ['https://www.linkedin.com/in/mikemacri'],
+          image: 'https://mikemacri.com/lovable-uploads/fcc7d1bc-80d5-4dba-b7fa-5199edff35ec.png',
+          sameAs: ['https://www.linkedin.com/in/mikemacri', 'https://github.com/mmacri'],
           worksFor: { '@type': 'Organization', name: 'GitLab', url: 'https://about.gitlab.com/' },
           alumniOf: { '@type': 'CollegeOrUniversity', name: 'Xavier University' },
           knowsAbout: ['Customer Success Engineering', 'Technical leadership', 'Technical Customer Success', 'DevSecOps', 'AI adoption', 'Solution Engineering', 'Partner ecosystems', 'Customer health'],

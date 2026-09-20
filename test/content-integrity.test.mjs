@@ -16,12 +16,37 @@ test('current leadership facts remain consistent', () => {
   assert.ok(currentDateLines.every((line) => /Mar(?:ch)? 2026\s*[–-]\s*Present/.test(line)));
 });
 
-test('primary routes include leadership and preserve indexed redirects', () => {
+test('primary routes include leadership and preserve legacy redirects', () => {
   const routes = read('src/components/routing/AppRoutes.tsx');
   assert.match(routes, /path="\/leadership"/);
   assert.match(routes, /path="\/experience"/);
   assert.match(routes, /path="\/selected-work"/);
   assert.match(routes, /path="\/portfolio\/customer-success"[\s\S]*Navigate/);
+  assert.match(routes, /path="\/portfolio" element={<Navigate to="\/selected-work"/);
+  assert.match(routes, /path="\/my-websites" element={<Navigate to="\/projects"/);
+});
+
+test('hosting redirects point directly to canonical destinations before the SPA fallback', () => {
+  const redirects = read('public/_redirects');
+  const catchAllIndex = redirects.indexOf('/* /index.html 200');
+  assert.ok(catchAllIndex > 0);
+  for (const rule of [
+    '/my-websites /projects 301',
+    '/index.html / 301',
+    '/portfolio /selected-work 301',
+    '/portfolio/customer-success /selected-work#customer-success-model 301',
+    '/portfolio/partner-development /selected-work#partner-cosell 301',
+    '/portfolio/compliance /selected-work#policy-hub 301',
+    '/portfolio/solution-engineering /selected-work 301',
+    '/portfolio/momentum-edge /projects#momentum-edge 301',
+  ]) {
+    assert.ok(redirects.includes(rule), `missing redirect rule: ${rule}`);
+    assert.ok(redirects.indexOf(rule) < catchAllIndex, `redirect follows SPA fallback: ${rule}`);
+  }
+  const generator = read('scripts/generate-legacy-redirects.mjs');
+  assert.match(generator, /noindex, follow/);
+  assert.match(generator, /rel="canonical"/);
+  assert.match(generator, /location\.replace/);
 });
 
 test('homepage defines leadership scale beyond current headcount', () => {
@@ -57,7 +82,42 @@ test('sitemap and robots expose canonical public routes', () => {
   for (const route of ['leadership', 'experience', 'selected-work', 'projects', 'resume', 'about', 'contact']) {
     assert.match(sitemap, new RegExp(`https://mikemacri\\.com/${route}`));
   }
+  assert.doesNotMatch(sitemap, /my-websites|index\.html|\/portfolio(?:\/|<)/);
   assert.match(robots, /Sitemap: https:\/\/mikemacri\.com\/sitemap\.xml/);
+});
+
+test('public recommendations are not rendered without verifiable attribution', () => {
+  assert.equal(fs.existsSync('src/data/aboutData.ts'), false);
+  for (const page of ['src/pages/Home.tsx', 'src/pages/Leadership.tsx']) {
+    const source = read(page);
+    assert.doesNotMatch(source, /recommendations\.slice|tremendous business partner|true mentor, coach, and leader/);
+    assert.match(source, /LinkedIn/);
+  }
+});
+
+test('person schema identifies the factual current role and verified profiles', () => {
+  const seo = read('src/components/layout/SEOHead.tsx');
+  const fallback = read('index.html');
+  for (const source of [seo, fallback]) {
+    assert.match(source, /Senior Manager, Customer Success Engineering – AMER/);
+    assert.match(source, /GitLab/);
+    assert.match(source, /linkedin\.com\/in\/mikemacri/);
+    assert.match(source, /github\.com\/mmacri/);
+  }
+  assert.doesNotMatch(seo, /jobTitle:\s*['"](?:Director|Executive|VP)/);
+});
+
+test('resume links share one cache-busted canonical artifact', () => {
+  const career = read('src/data/careerData.ts');
+  assert.match(career, /resumeFile: 'resume\.pdf\?v=2026-09-20'/);
+  for (const page of ['src/pages/Home.tsx', 'src/pages/ExperienceImpact.tsx', 'src/pages/Resume.tsx']) {
+    const source = read(page);
+    assert.match(source, /profile\.resumeFile/);
+    assert.doesNotMatch(source, /resume\.pdf\?v=/);
+  }
+  const headers = read('public/_headers');
+  assert.match(headers, /Cache-Control: public, max-age=0, must-revalidate/);
+  assert.match(headers, /<https:\/\/mikemacri\.com\/resume\.pdf>; rel="canonical"/);
 });
 
 test('major pages have unique canonical SEO titles', () => {
@@ -72,6 +132,7 @@ test('major pages have unique canonical SEO titles', () => {
     ['src/pages/Contact.tsx', 'Contact | Mike Macri'],
   ]);
   for (const [path, title] of expectations) assert.match(read(path), new RegExp(title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  assert.match(read('src/components/layout/SEOHead.tsx'), /title\.includes\('Michael Macri'\)/);
 });
 
 test('social preview is the intended 1200 by 630 image', () => {

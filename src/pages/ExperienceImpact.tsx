@@ -156,7 +156,7 @@ const ExperienceImpact: React.FC = () => {
           <div><h2 className="mb-2 font-saira text-3xl font-bold">Go deeper.</h2><p className="mb-0 text-white/90">Review Mike’s leadership approach, case studies, or current résumé.</p></div>
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button variant="collaboration" asChild><Link to="/leadership">Leadership <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
-            <Button variant="collaborationOutline" asChild><a href={`${assetBase}resume.pdf?v=2026-09`} download><Download className="mr-2 h-4 w-4" /> Resume</a></Button>
+            <Button variant="collaborationOutline" asChild><a href={`${assetBase}${profile.resumeFile}`} download><Download className="mr-2 h-4 w-4" /> Resume</a></Button>
           </div>
         </div>
       </section>

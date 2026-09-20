@@ -19,7 +19,7 @@ const SelectedWork: React.FC = () => (
     <section className="bg-gradient-to-br from-macri-primary/5 via-white to-macri-primary/10 py-16">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <h1 className="mb-5 font-saira text-4xl font-bold text-slate-900 sm:text-5xl">Selected Work</h1>
-        <p className="max-w-4xl text-xl leading-8 text-gray-700">Examples of Mike’s judgment and execution across technical Customer Success, people leadership, enterprise governance, and partner ecosystems. Each summary can be expanded for the full case study.</p>
+        <p className="max-w-4xl text-xl leading-8 text-gray-700">Examples of Mike’s judgment and execution across technical Customer Success, people leadership, enterprise governance, and partner ecosystems. I usually start with the decision we need to make, not the dashboard we could build. Each summary can be expanded for the full case study.</p>
       </div>
     </section>
 

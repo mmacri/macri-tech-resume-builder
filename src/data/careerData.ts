@@ -19,6 +19,8 @@ export const profile = {
   currentDates: 'March 2026 – Present',
   location: 'Remote',
   linkedin: 'https://www.linkedin.com/in/mikemacri',
+  github: 'https://github.com/mmacri',
+  resumeFile: 'resume.pdf?v=2026-09-20',
   summary:
     'Technology and Customer Success Engineering leader with experience building distributed post-sales teams, customer programs, partner ecosystems, and enterprise governance initiatives across GitLab, VMware, and ServiceNow. Connects technical adoption, customer priorities, and commercial context so teams can focus their expertise where it matters most.',
   positioning:
@@ -389,7 +391,7 @@ export const caseStudies = [
     problem: 'Partner ecosystem teams needed stronger technical enablement and joint go-to-market alignment to improve deal velocity and solution confidence.',
     approach: 'Designed joint business plans, demo labs, solution architectures, workshops, and field-ready enablement assets.',
     solution: 'Built partner enablement and co-selling motions for GSI, channel, and strategic ecosystem partners across the Americas.',
-    outcomes: ['Two record-setting $50M+ partner-led deals', '$440M in routed pipeline through partners', '200% increase in certifications', '21% increase in partner-driven pipeline'],
+    outcomes: ['Two record-setting $50M+ partner-led deals', 'Supported a $440M partner business through multiple routes to market', '200% increase in certifications', '21% increase in partner-driven pipeline'],
     image: partnerEnablementScreenshot,
     detailLink: '/selected-work#partner-cosell',
   },

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Linkedin, Quote } from 'lucide-react';
+import { ArrowRight, CheckCircle, Linkedin } from 'lucide-react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Flow, OrganizationFramework } from '@/components/leadership/LeadershipVisuals';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -14,7 +14,6 @@ import {
   scopeBeyondOrgChart,
   talentPath,
 } from '@/data/careerData';
-import { recommendations } from '@/data/aboutData';
 
 const Leadership: React.FC = () => (
   <>
@@ -68,7 +67,7 @@ const Leadership: React.FC = () => (
 
     <section className="bg-gray-50 py-14" aria-labelledby="build-heading">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 max-w-4xl"><h2 id="build-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">How I Build Technical Organizations</h2><p className="mb-0 text-lg leading-8 text-gray-700">Start with the outcome. Decide where expert attention matters. Give people the signals, relationships, and room to act—then keep improving the system.</p></div>
+        <div className="mb-8 max-w-4xl"><h2 id="build-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">How I Build Technical Organizations</h2><p className="mb-0 text-lg leading-8 text-gray-700">Start with the outcome. Decide where expert attention matters. Give people the signals, relationships, and room to act, then keep improving the system. If a process only works because the best person knows the workaround, it is not repeatable.</p></div>
         <OrganizationFramework />
       </div>
     </section>
@@ -102,7 +101,7 @@ const Leadership: React.FC = () => (
     </section>
 
     <section className="bg-white py-14" aria-labelledby="colleagues-heading">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8"><div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><h2 id="colleagues-heading" className="font-saira text-3xl font-bold text-slate-900 sm:text-4xl">What Colleagues Say</h2><a href={`${profile.linkedin}/details/recommendations/`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center font-semibold text-macri-primary hover:text-macri-primary-dark"><Linkedin className="mr-2 h-4 w-4" /> LinkedIn recommendations</a></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2">{recommendations.slice(0, 2).map((reference) => <blockquote key={reference} className="rounded-xl border border-gray-200 bg-gray-50 p-6"><Quote className="mb-4 h-6 w-6 text-macri-primary" aria-hidden="true" /><p className="mb-0 text-base leading-7 text-gray-700">“{reference}”</p></blockquote>)}</div></div>
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 sm:px-6 md:grid-cols-[1fr_auto] md:items-center lg:px-8"><div><h2 id="colleagues-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">What Colleagues Say</h2><p className="mb-0 max-w-3xl text-lg leading-8 text-gray-700">Read Mike’s published recommendations with the names, roles, and relationships provided by LinkedIn.</p></div><a href={`${profile.linkedin}/details/recommendations/`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-semibold text-macri-primary hover:text-macri-primary-dark"><Linkedin className="mr-2 h-4 w-4" /> View LinkedIn recommendations</a></div>
     </section>
 
     <section className="bg-macri-primary py-12 text-white"><div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8"><div><h2 className="mb-2 font-saira text-3xl font-bold">See the approach in practice.</h2><p className="mb-0 text-white/90">Case studies connect these ideas to teams, customer programs, ecosystems, and enterprise change.</p></div><Button size="lg" variant="collaboration" asChild><Link to="/selected-work">View selected work <ArrowRight className="ml-2 h-5 w-5" /></Link></Button></div></section>

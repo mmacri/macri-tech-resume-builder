@@ -39,7 +39,7 @@ const Resume: React.FC = () => {
             </div>
             <div className="flex flex-col justify-center gap-3 sm:flex-row">
               <Button size="lg" className="bg-macri-primary text-white hover:bg-macri-primary-dark" asChild>
-                <a href={`${assetBase}resume.pdf?v=2026-09`} download><Download className="mr-2 h-5 w-5" /> Download Resume</a>
+                <a href={`${assetBase}${profile.resumeFile}`} download><Download className="mr-2 h-5 w-5" /> Download Resume</a>
               </Button>
               <Button size="lg" variant="outline" className="border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white" asChild>
                 <a href={profile.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin className="mr-2 h-5 w-5" /> LinkedIn Profile</a>

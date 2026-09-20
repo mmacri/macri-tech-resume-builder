@@ -23,7 +23,7 @@ export const AppRoutes: React.FC = () => {
         <Route path="/experience" element={<ExperienceImpact />} />
         <Route path="/leadership" element={<Leadership />} />
         <Route path="/selected-work" element={<SelectedWork />} />
-        <Route path="/portfolio" element={<SelectedWork />} />
+        <Route path="/portfolio" element={<Navigate to="/selected-work" replace />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/projects" element={<MyWebsites />} />
         <Route path="/my-websites" element={<Navigate to="/projects" replace />} />
@@ -36,7 +36,7 @@ export const AppRoutes: React.FC = () => {
         <Route path="/portfolio/partner-development" element={<Navigate to="/selected-work#partner-cosell" replace />} />
         <Route path="/portfolio/compliance" element={<Navigate to="/selected-work#policy-hub" replace />} />
         <Route path="/portfolio/solution-engineering" element={<Navigate to="/selected-work" replace />} />
-        <Route path="/portfolio/momentum-edge" element={<Navigate to="/projects" replace />} />
+        <Route path="/portfolio/momentum-edge" element={<Navigate to="/projects#momentum-edge" replace />} />
         
         {/* Redirects for old routes */}
         <Route path="/selected-work/*" element={<Navigate to="/selected-work" replace />} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowDown, ArrowRight, Download, Linkedin, Quote } from 'lucide-react';
+import { ArrowDown, ArrowRight, Download, Linkedin } from 'lucide-react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { OrganizationFramework } from '@/components/leadership/LeadershipVisuals';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,6 @@ import {
   metrics,
   profile,
 } from '@/data/careerData';
-import { recommendations } from '@/data/aboutData';
 
 const featuredIds = ['scaling-cse', 'customer-success-model', 'policy-hub'];
 
@@ -44,7 +43,7 @@ const Home: React.FC = () => {
             </div>
             <nav className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-semibold" aria-label="Additional profile links">
               <Link to="/experience" className="text-gray-700 hover:text-macri-primary">Experience</Link>
-              <a href={`${assetBase}resume.pdf?v=2026-09`} download className="inline-flex items-center text-gray-700 hover:text-macri-primary"><Download className="mr-1.5 h-4 w-4" /> Resume</a>
+              <a href={`${assetBase}${profile.resumeFile}`} download className="inline-flex items-center text-gray-700 hover:text-macri-primary"><Download className="mr-1.5 h-4 w-4" /> Resume</a>
               <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-gray-700 hover:text-macri-primary"><Linkedin className="mr-1.5 h-4 w-4" /> LinkedIn</a>
             </nav>
           </div>
@@ -104,7 +103,7 @@ const Home: React.FC = () => {
 
       <section className="bg-slate-950 py-14 text-white" aria-labelledby="organizations-heading">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 max-w-4xl"><h2 id="organizations-heading" className="mb-3 font-saira text-3xl font-bold sm:text-4xl">How I Build Technical Organizations</h2><p className="mb-0 text-lg leading-8 text-slate-300">Strong technical organizations need more than talented people. They need clarity about outcomes, a way to focus expertise, useful signals, strong cross-functional relationships, and an operating model that improves as the organization learns.</p></div>
+          <div className="mb-8 max-w-4xl"><h2 id="organizations-heading" className="mb-3 font-saira text-3xl font-bold sm:text-4xl">How I Build Technical Organizations</h2><p className="mb-0 text-lg leading-8 text-slate-300">Strong technical organizations need more than talented people. They need clarity about outcomes, a way to focus expertise, useful signals, strong cross-functional relationships, and a way of working that improves as the organization learns. Good systems make the right work easier to do.</p></div>
           <div className="rounded-2xl bg-slate-100 p-5 text-slate-900 sm:p-7"><OrganizationFramework /></div>
         </div>
       </section>
@@ -120,8 +119,10 @@ const Home: React.FC = () => {
 
       <section className="bg-gray-50 py-14" aria-labelledby="recommendations-heading">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><div><h2 id="recommendations-heading" className="mb-2 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">What People Say</h2><p className="mb-0 text-gray-700">Published recommendations from a business partner and someone Mike managed and coached.</p></div><a href={`${profile.linkedin}/details/recommendations/`} target="_blank" rel="noopener noreferrer" className="font-semibold text-macri-primary hover:text-macri-primary-dark">View on LinkedIn</a></div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">{recommendations.slice(0, 2).map((reference) => <blockquote key={reference} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm"><Quote className="mb-4 h-6 w-6 text-macri-primary" aria-hidden="true" /><p className="mb-0 text-base leading-7 text-gray-700">“{reference}”</p></blockquote>)}</div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_auto] md:items-center">
+            <div><h2 id="recommendations-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">What People Say</h2><p className="mb-0 max-w-3xl text-lg leading-8 text-gray-700">Mike’s published recommendations are available on LinkedIn, where each comment appears with the author’s name, role, and professional relationship.</p></div>
+            <Button variant="outline" className="border-macri-primary text-macri-primary" asChild><a href={`${profile.linkedin}/details/recommendations/`} target="_blank" rel="noopener noreferrer"><Linkedin className="mr-2 h-4 w-4" /> View recommendations</a></Button>
+          </div>
         </div>
       </section>
 
