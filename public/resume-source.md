@@ -1,9 +1,9 @@
 Michael Macri, MBA
-Senior Customer Success Engineering Leader
+Technology & Customer Success Engineering Leader
 Senior Manager, Customer Success Engineering - AMER | GitLab | March 2026 - Present | Remote
 LinkedIn: https://www.linkedin.com/in/mikemacri
 
-Senior Customer Success leader building and leading post-sales technical teams across GitLab, VMware, and ServiceNow. Drive enterprise adoption, consumption, customer health, expansion, retention, and value realization through data-driven operating models and partnership with Sales, Renewals, Product, and Engineering. Experienced leading teams and strategic customers across DevSecOps, AI/ML, cloud, security, and governance, translating complex technology into measurable customer and business outcomes.
+Technology and Customer Success Engineering leader with experience building distributed post-sales teams, customer programs, partner ecosystems, and enterprise governance initiatives across GitLab, VMware, and ServiceNow. Connect technical adoption, customer priorities, and commercial context so teams can focus their expertise where it matters most. Experience spans DevSecOps, AI/ML, cloud, security, governance, and strategic enterprise customers.
 
 Key Achievements
 - Customer Success Leadership at Scale - Lead and develop a 7-person AMER CSE team supporting multi-million-dollar ARR customers from SMB through Key accounts, connecting adoption, consumption, customer health, expansion, and renewal outcomes.
@@ -16,8 +16,8 @@ Senior Manager, Customer Success Engineering - AMER
 GitLab | March 2026 - Present | Remote
 Lead a Customer Success Engineering team across AMER supporting private-sector customers across SMB, Mid-Market, Enterprise, Financial Services, and Key accounts. Own post-sales technical engagement across GitLab's subscription and usage-based offerings, aligning product and AI consumption, adoption, customer health, risk, expansion, and renewal outcomes.
 - Lead, coach, and develop 7 Customer Success Engineers through performance reviews, ongoing coaching, and operating standards for CTAs, quarterly health assessments, account documentation, and engagement across the customer lifecycle.
-- Built data-driven portfolio operating frameworks across ARR, product and AI consumption, customer health, engagement, renewal runway, risk, and expansion signals, enabling leadership to prioritize accounts, mitigate renewal risk, and surface growth opportunities.
-- Drive GitLab Duo Agent Platform adoption, strategic account initiatives, and executive escalations with customer and internal executives; partner with Sales, Renewals, and regional leadership on value realization, expansion, renewal risk, and long-term retention.
+- Built portfolio views across ARR, product and AI consumption, customer health, engagement, renewal runway, risk, and expansion signals so leaders can prioritize accounts and decide where technical engagement matters most.
+- Drive GitLab Duo Agent Platform adoption, strategic account initiatives, and executive escalations; partner with Sales, Customer Success, Renewals, Product, Engineering, Support, and regional leadership on adoption, risk, expansion, and retention.
 
 Principal Consultant
 Momentum Edge Consulting | May 2025 - Present | Remote
@@ -27,7 +27,7 @@ Limited independent advisory work through a personal consulting practice, suppor
 
 Senior Manager, Solution Advisory - Legal Ethics & Compliance
 ServiceNow | Dec 2021 - May 2025 | Remote
-Led post-sales solution advisory across Sales, Security, Legal, and Product, driving platform adoption and governance programs that reduced $900M in enterprise risk for regulated environments.
+Led post-sales solution advisory across Sales, Security, Legal, and Product, supporting platform adoption and governance work within a broader program addressing $900M in quantified enterprise risk exposure.
 - Standardized policy-to-process workflows across compliance frameworks, improving consistency and adoption across customer and internal teams.
 - Owned AI/ML governance enablement as an SME; defined requirements and guidance used for ServiceNow's first enterprise AI usage policies.
 - Translated regulatory and AI governance requirements into scalable operating models, dashboards, templates, and enablement playbooks used across enterprise stakeholders.

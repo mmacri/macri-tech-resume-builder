@@ -13,18 +13,18 @@ import customerSuccessScreenshot from '@/assets/customer-success-dashboard.jpg';
 export const profile = {
   name: 'Michael Macri, MBA',
   shortName: 'Mike Macri',
-  headline: 'Senior Customer Success Engineering Leader',
+  headline: 'Technology & Customer Success Engineering Leader',
   currentRole: 'Senior Manager, Customer Success Engineering – AMER',
   currentCompany: 'GitLab',
   currentDates: 'March 2026 – Present',
   location: 'Remote',
   linkedin: 'https://www.linkedin.com/in/mikemacri',
   summary:
-    'Senior Customer Success leader building and leading post-sales technical teams across GitLab, VMware, and ServiceNow. Drives enterprise adoption, consumption, customer health, expansion, retention, and value realization through data-driven operating models and partnership with Sales, Renewals, Product, and Engineering. Experienced leading teams and strategic customers across DevSecOps, AI/ML, cloud, security, and governance, translating complex technology into measurable customer and business outcomes.',
+    'Technology and Customer Success Engineering leader with experience building distributed post-sales teams, customer programs, partner ecosystems, and enterprise governance initiatives across GitLab, VMware, and ServiceNow. Connects technical adoption, customer priorities, and commercial context so teams can focus their expertise where it matters most.',
   positioning:
-    'Building and leading post-sales technical teams that connect adoption, consumption, customer health, expansion, retention, and value realization.',
+    'I build and lead technical organizations and customer programs that help enterprises turn complex technology into adoption, customer value, and business results.',
   secondary:
-    'Mike combines data-driven operating models with cross-functional leadership across DevSecOps, AI/ML, cloud, security, and governance environments.',
+    'Mike’s career spans direct people leadership, cross-functional programs, partner ecosystems, and enterprise transformation across DevSecOps, AI, cloud, security, and governance.',
 };
 
 export const careerProgression = [
@@ -59,10 +59,55 @@ export const capabilities = [
   },
 ];
 
-export const leadershipScope = [
-  { value: '7', label: 'Customer Success Engineers', detail: 'Lead, coach, and develop a distributed AMER team.' },
-  { value: 'AMER', label: 'Private-sector coverage', detail: 'SMB through Mid-Market, Enterprise, Financial Services, and Key Accounts.' },
-  { value: 'DevSecOps + AI', label: 'Platform adoption', detail: 'Subscription and usage-based offerings, including GitLab Duo and Agent Platform.' },
+export const leadershipScale = [
+  {
+    dimension: 'People',
+    title: 'Distributed Technical & Post-Sales Organizations',
+    detail: 'Built and led Customer Success, Technical Account Management, Product Specialist, Customer Success Engineering, and other technical customer-facing teams across different stages of his career.',
+  },
+  {
+    dimension: 'Customers',
+    title: 'SMB → Mid-Market → Enterprise → Strategic / Key Accounts',
+    detail: 'Leadership experience spans private-sector portfolios, financial services, enterprise customers, and strategic account environments.',
+  },
+  {
+    dimension: 'Ecosystems',
+    title: 'Cross-Functional & Partner Leadership',
+    detail: 'Led across Sales, Product, Engineering, Support, Renewals, GSIs, channel organizations, strategic partners, and customer executives.',
+  },
+  {
+    dimension: 'Enterprise Change',
+    title: 'DevSecOps · AI · Security · Governance · Cloud',
+    detail: 'Led or influenced platform adoption, AI governance, enterprise risk, partner GTM, cloud transformation, and technical Customer Success initiatives.',
+  },
+];
+
+export const currentFocus = [
+  { title: 'AMER Customer Success Engineering', detail: 'Private-sector coverage from SMB and Mid-Market through Enterprise, Financial Services, and Key Accounts.' },
+  { title: 'Customer Lifecycle', detail: 'Technical adoption · product and AI consumption · customer health · risk · renewal · expansion' },
+  { title: 'Cross-Functional Leadership', detail: 'Sales · Customer Success · Renewals · Product · Engineering · Support · Regional Leadership' },
+  { title: 'Platform', detail: 'DevSecOps · CI/CD · Security · AI · Software Delivery' },
+];
+
+export const careerEras = [
+  {
+    organization: 'VMware',
+    era: 'Build & Scale',
+    themes: 'Customer Success · TAM · Solution Engineering · Alliances · Ecosystem Leadership',
+    detail: 'Learned how customers adopt technology, how technical teams create value, and how partner ecosystems extend organizational reach.',
+  },
+  {
+    organization: 'ServiceNow',
+    era: 'Transform & Govern',
+    themes: 'Enterprise Governance · Security · Risk · AI · Automation',
+    detail: 'Expanded from customer and ecosystem leadership into enterprise transformation, governance, AI, risk, and organizational change.',
+  },
+  {
+    organization: 'GitLab',
+    era: 'Modern Technical Customer Success',
+    themes: 'Customer Success Engineering · DevSecOps · AI Adoption · Customer Health · Scaled Engagement',
+    detail: 'Brings those perspectives together to lead modern technical Customer Success across DevSecOps and AI.',
+  },
 ];
 
 export const operatingMission = [
@@ -80,9 +125,33 @@ export const leadershipPillars = [
 export const managementPrinciples = [
   { title: 'Clarity', description: 'Define the outcome, why it matters, how success is measured, and where people can exercise judgment.' },
   { title: 'Coaching', description: 'Use 1:1s to build judgment and capability, with status handled through the operating system.' },
-  { title: 'Air Cover', description: 'Remove organizational friction and help the team navigate dependencies across Sales, Product, Support, Engineering, and leadership.' },
-  { title: 'Accountability', description: 'Pair empowerment with explicit expectations, ownership, follow-through, and consistent operating standards.' },
-  { title: 'Opportunity', description: 'Give strong performers visibility, stretch work, and meaningful opportunities to lead.' },
+  { title: 'Clear the Path', description: 'Remove unnecessary organizational friction and help teams navigate dependencies so they can spend more time solving meaningful customer problems.' },
+  { title: 'Ownership & Opportunity', description: 'Set clear expectations, then give people the trust, visibility, stretch work, and opportunities to lead.' },
+];
+
+export const talentPath = [
+  { stage: 'Learn', detail: 'Understand the product, customer, business, and operating expectations.' },
+  { stage: 'Own', detail: 'Make decisions and take responsibility for outcomes.' },
+  { stage: 'Lead', detail: 'Run complex customer engagements, programs, or cross-functional initiatives.' },
+  { stage: 'Teach', detail: 'Raise the capability of the broader team.' },
+];
+
+export const organizationModel = [
+  { stage: 'Strategy', question: 'What outcomes are we responsible for?' },
+  { stage: 'Segmentation', question: 'Where does human technical expertise matter most?' },
+  { stage: 'Signals', question: 'What tells us where attention is needed?' },
+  { stage: 'Engagement Model', question: '1:1 · pooled · 1:many · digital' },
+  { stage: 'People', question: 'Skills · coaching · ownership · career growth' },
+  { stage: 'Cross-Functional System', question: 'Sales · Product · Engineering · Support · Renewals' },
+  { stage: 'Measurement', question: 'Adoption · health · outcomes · risk · retention · expansion' },
+  { stage: 'Improve', question: 'What should we stop, change, or scale?' },
+];
+
+export const scopeBeyondOrgChart = [
+  { title: 'Direct Leadership', detail: 'Customer Success Engineers, Technical Account Managers, Customer Success teams, Product Specialists, and technical customer-facing teams.' },
+  { title: 'Cross-Functional Leadership', detail: 'Sales, Product, Engineering, Support, Renewals, Security, Legal, and regional leadership.' },
+  { title: 'Ecosystem Leadership', detail: 'Global Systems Integrators, channel and technology partners, partner executives, solution architects, and field teams.' },
+  { title: 'Enterprise Influence', detail: 'AI governance, enterprise risk, compliance, security, platform adoption, technical transformation, and operating-model change.' },
 ];
 
 export const managementCadence = [
@@ -108,8 +177,8 @@ export const experiences = [
       "Lead a Customer Success Engineering team across AMER supporting private-sector customers across SMB, Mid-Market, Enterprise, Financial Services, and Key accounts. Own post-sales technical engagement across GitLab's subscription and usage-based offerings, aligning product and AI consumption, adoption, customer health, risk, expansion, and renewal outcomes.",
     bullets: [
       'Lead, coach, and develop 7 Customer Success Engineers through performance reviews, ongoing coaching, and operating standards for CTAs, quarterly health assessments, account documentation, and engagement across the customer lifecycle.',
-      'Built data-driven portfolio operating frameworks across ARR, product and AI consumption, customer health, engagement, renewal runway, risk, and expansion signals, enabling leadership to prioritize accounts, mitigate renewal risk, and surface growth opportunities.',
-      'Drive GitLab Duo Agent Platform adoption, strategic account initiatives, and executive escalations with customer and internal executives; partner with Sales, Renewals, and regional leadership on value realization, expansion, renewal risk, and long-term retention.',
+      'Built portfolio views across ARR, product and AI consumption, customer health, engagement, renewal runway, risk, and expansion signals so leaders can prioritize accounts and decide where technical engagement matters most.',
+      'Drive GitLab Duo Agent Platform adoption, strategic account initiatives, and executive escalations; partner with Sales, Customer Success, Renewals, Product, Engineering, Support, and regional leadership on adoption, risk, expansion, and retention.',
     ],
   },
   {
@@ -140,7 +209,7 @@ export const experiences = [
     period: 'Dec 2021 - May 2025',
     theme: 'Solution Advisory / Security / Governance / Automation',
     summary:
-      'Led post-sales solution advisory across Sales, Security, Legal, and Product, driving platform adoption and governance programs that reduced $900M in enterprise risk for regulated environments.',
+      'Led post-sales solution advisory across Sales, Security, Legal, and Product, supporting platform adoption and governance work within a broader program addressing $900M in quantified enterprise risk exposure.',
     bullets: [
       'Standardized policy-to-process workflows across compliance frameworks, improving consistency and adoption across customer and internal teams.',
       "Owned AI/ML governance enablement as an SME; defined requirements and guidance used for ServiceNow's first enterprise AI usage policies.",
@@ -230,6 +299,22 @@ export const metrics = [
     context: 'Governance and compliance programs in regulated enterprise environments.',
     contribution: 'Led solution advisory that connected policy, controls, workflow, evidence, and executive risk visibility.',
     outcome: 'The broader program addressed $900M in quantified enterprise risk exposure; the figure is program context, not personal revenue or savings.',
+  },
+  {
+    metric: '$50M+',
+    label: 'Partner-Led Deals',
+    organization: 'VMware',
+    context: 'Americas GSI and strategic-partner co-sell motions involving technical, field, and executive stakeholders.',
+    contribution: 'Built joint business plans and led technical enablement and co-sell execution across partner and VMware teams.',
+    outcome: 'Contributed to two record-setting partner-led deals valued above $50M each.',
+  },
+  {
+    metric: '$440M',
+    label: 'Partner Routes-to-Market',
+    organization: 'VMware',
+    context: 'VMware’s largest channel partnership, operating through multiple routes to market.',
+    contribution: 'Led partner solution engineering, training, workshops, roadmap sessions, and architect coaching.',
+    outcome: 'Supported a $440M partner business while improving pipeline capture, certifications, and solution adoption.',
   },
   {
     metric: '250%',
@@ -379,8 +464,8 @@ export const caseStudyDetails: Record<string, {
 export const projects = [
   {
     id: 'gitlab-health',
-    name: 'GitLab Health / CSM Dashboard',
-    description: "Customer success dashboard prototype using GitLab's PROVE methodology for account health, adoption, license utilization, and renewal planning.",
+    name: 'GitLab Customer Health Prototype',
+    description: 'Personal portfolio prototype exploring account health, adoption, license utilization, renewal timing, and recommended CSE action. Not an official GitLab product.',
     category: 'Customer Success & DevSecOps',
     technologies: ['React', 'TypeScript', 'Data Visualization', 'Customer Health'],
     image: gitlabCsmScreenshot,

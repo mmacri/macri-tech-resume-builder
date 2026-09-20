@@ -1,6 +1,6 @@
 # mikemacri.com
 
-Executive technical leadership portfolio for Michael “Mike” Macri, MBA. The application is built with React, TypeScript, Vite, Tailwind CSS, React Router, and Lucide icons.
+Technology and Customer Success Engineering leadership portfolio for Michael “Mike” Macri, MBA. The application is built with React, TypeScript, Vite, Tailwind CSS, React Router, and Lucide icons.
 
 ## Local development
 
@@ -50,7 +50,7 @@ To enable a form later:
 
 1. Deploy the production build and verify `https://mikemacri.com` is the canonical domain.
 2. Verify direct loading for `/leadership`, `/experience`, `/selected-work`, `/projects`, `/resume`, `/about`, and `/contact`.
-3. Verify `https://mikemacri.com/resume.pdf` contains GitLab as the current employer and March 2026 as the start date.
+3. Verify `https://mikemacri.com/resume.pdf` contains GitLab as the current employer, March 2026 as the start date, and the broader Technology & Customer Success Engineering positioning.
 4. Submit `https://mikemacri.com/sitemap.xml` in Google Search Console.
 5. Request re-indexing for the homepage, Leadership, Experience, Selected Work, Projects, Resume, and About pages.
 6. Request a re-crawl of the résumé PDF where available.

@@ -12,8 +12,8 @@ interface SEOHeadProps {
 
 // Lightweight SEO head manager without external providers
 export const SEOHead: React.FC<SEOHeadProps> = ({
-  title = 'Mike Macri | Customer Success Engineering & Technical Leadership',
-  description = 'Mike Macri leads Customer Success Engineering across AMER at GitLab, developing technical teams and scaling DevSecOps and AI adoption through signal-driven operating models.',
+  title = 'Mike Macri | Technology & Customer Success Engineering Leader',
+  description = 'Mike Macri is a technology and Customer Success Engineering leader at GitLab with experience building technical teams, customer programs, and enterprise initiatives across DevSecOps and AI.',
   keywords = 'Mike Macri, GitLab, customer success engineering, technical customer success, DevSecOps, AI adoption, technical leadership, MBA',
   image = 'https://mikemacri.com/og-image.png',
   url = typeof window !== 'undefined' ? window.location.href : 'https://mikemacri.com',
@@ -83,7 +83,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
           '@type': 'WebSite',
           '@id': 'https://mikemacri.com/#website',
           url: 'https://mikemacri.com/',
-          name: 'Mike Macri | Customer Success Engineering & Technical Leadership',
+          name: 'Mike Macri | Technology & Customer Success Engineering Leader',
           publisher: { '@id': 'https://mikemacri.com/#person' },
         },
         {
@@ -99,7 +99,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
           sameAs: ['https://www.linkedin.com/in/mikemacri'],
           worksFor: { '@type': 'Organization', name: 'GitLab', url: 'https://about.gitlab.com/' },
           alumniOf: { '@type': 'CollegeOrUniversity', name: 'Xavier University' },
-          knowsAbout: ['Customer Success Engineering', 'Technical Customer Success', 'DevSecOps', 'AI adoption', 'Solution Engineering', 'Customer health'],
+          knowsAbout: ['Customer Success Engineering', 'Technical leadership', 'Technical Customer Success', 'DevSecOps', 'AI adoption', 'Solution Engineering', 'Partner ecosystems', 'Customer health'],
         },
         {
           '@type': type === 'profile' ? 'ProfilePage' : 'WebPage',

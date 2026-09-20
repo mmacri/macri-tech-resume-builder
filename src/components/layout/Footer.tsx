@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
               Michael Macri, MBA
             </h3>
             <p className="text-gray-300 mb-4 max-w-md">
-              Senior Customer Success Engineering leader at GitLab. Mike builds technical teams and operating systems that turn customer and product signals into focused action.
+              Technology and Customer Success Engineering leader at GitLab. Mike builds technical teams, customer programs, and systems that help organizations turn complex technology into practical results.
             </p>
             
             {/* Social Links */}
