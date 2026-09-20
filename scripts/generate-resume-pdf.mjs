@@ -187,13 +187,12 @@ const drawRole = (title, metaLine, roleSummary, bullets) => {
 
 const drawStandardBullets = (lines) => {
   lines.forEach((line) => {
-    add(`BT /F1 9 Tf ${page.marginX + 1} ${y} Td (-) Tj ET`);
     drawWrapped({
-      text: line.replace(/^- /, ''),
-      x: page.marginX + 10,
+      text: `- ${line.replace(/^- /, '')}`,
+      x: page.marginX + 1,
       size: 9.2,
       font: 'F1',
-      maxWidth: page.width - page.marginX * 2 - 10,
+      maxWidth: page.width - page.marginX * 2 - 1,
       leading: 12,
       subsequentIndent: 10,
     });

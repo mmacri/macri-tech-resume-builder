@@ -51,9 +51,12 @@ test('hosting redirects point directly to canonical destinations before the SPA 
   assert.match(generator, /location\.replace/);
 });
 
-test('homepage defines leadership scale beyond current headcount', () => {
+test('homepage presents leadership scope without centering current headcount', () => {
   const home = read('src/pages/Home.tsx');
-  assert.match(home, /Leadership at Scale/);
+  assert.match(home, /Leadership Scope/);
+  assert.match(home, /Selected Outcomes/);
+  assert.doesNotMatch(home, /Leadership at Scale/);
+  assert.doesNotMatch(home, /Business Impact Across My Career/);
   assert.match(home, /A Career Built Across Different Kinds of Scale/);
   assert.match(home, /How I Build Technical Organizations/);
   assert.doesNotMatch(home, currentTeamHeadcount);
@@ -116,7 +119,7 @@ test('person schema identifies the factual current role and verified profiles', 
 
 test('resume links share one cache-busted canonical artifact', () => {
   const career = read('src/data/careerData.ts');
-  assert.match(career, /resumeFile: 'resume\.pdf\?v=2026-09-20-4'/);
+  assert.match(career, /resumeFile: 'resume\.pdf\?v=2026-09-20-5'/);
   for (const page of ['src/pages/Home.tsx', 'src/pages/ExperienceImpact.tsx', 'src/pages/Resume.tsx']) {
     const source = read(page);
     assert.match(source, /profile\.resumeFile/);

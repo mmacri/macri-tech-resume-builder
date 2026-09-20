@@ -20,7 +20,7 @@ export const profile = {
   location: 'Remote',
   linkedin: 'https://www.linkedin.com/in/mikemacri',
   github: 'https://github.com/mmacri',
-  resumeFile: 'resume.pdf?v=2026-09-20-4',
+  resumeFile: 'resume.pdf?v=2026-09-20-5',
   summary:
     'Technology and Customer Success Engineering leader with experience building distributed post-sales teams, operating models, partner ecosystems, and enterprise governance initiatives across GitLab, VMware, and ServiceNow. Connects technical adoption, customer priorities, and commercial context so teams can focus their expertise where it matters most.',
   positioning:
@@ -217,7 +217,7 @@ export const experiences = [
       'Led post-sales solution advisory across Sales, Security, Legal, and Product, supporting platform adoption and governance work within a broader program addressing $900M in quantified enterprise risk exposure.',
     bullets: [
       'Standardized policy-to-process workflows across compliance frameworks, improving consistency and adoption across customer and internal teams.',
-      "Owned AI/ML governance enablement as an SME; defined requirements and guidance used for ServiceNow's first enterprise AI usage policies.",
+      "Served as an AI/ML governance SME, defining requirements and guidance used for ServiceNow's first enterprise AI usage policies.",
       'Translated regulatory and AI governance requirements into scalable operating models, dashboards, templates, and enablement playbooks used across enterprise stakeholders.',
     ],
   },
@@ -248,7 +248,7 @@ export const experiences = [
     theme: 'Partner Solutions Engineering',
     summary: "Led partner solutions engineering for VMware's largest channel partnership (CDW), focused on scalable enablement, adoption, and pipeline acceleration.",
     bullets: [
-      'Partnered with CDW to drive $440M through multi-tiered routes-to-market, increasing pipeline capture by 20%, certifications by 200%, and solution adoption by 20% in the first year.',
+      'Supported a $440M partner business through multi-tiered routes to market, increasing pipeline capture by 20%, certifications by 200%, and solution adoption by 20% in the first year.',
       'Designed partner training, workshops, and roadmap sessions; coached architects, increasing partner-driven pipeline by 21%.',
     ],
   },
@@ -292,7 +292,7 @@ export const keyAchievements = [
   },
   {
     title: 'Systems That Make Coverage Decidable',
-    description: 'Built the reporting systems the AMER segment uses to decide where technical coverage goes, and previously owned enterprise AI/ML governance enablement at ServiceNow.',
+    description: 'Built the reporting systems the AMER segment uses to decide where technical coverage goes, and previously served as an enterprise AI/ML governance SME at ServiceNow.',
   },
 ];
 
@@ -335,7 +335,7 @@ export const metrics = [
     organization: 'VMware',
     context: 'Customer Success and TAM operating models across regional post-sales teams.',
     contribution: 'Aligned technical success planning, adoption programs, and customer health visibility.',
-    outcome: 'Improved renewal performance through more consistent technical engagement and value realization.',
+    outcome: 'Contributed to stronger renewal performance through consistent technical engagement and adoption practices.',
   },
   {
     metric: '83',

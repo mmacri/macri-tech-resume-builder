@@ -7,9 +7,9 @@ Technology and Customer Success Engineering leader with experience building dist
 
 Selected Career Impact
 - $50M+ | Two record-setting partner-led deals; VMware Americas alliance and co-sell leadership.
-- $440M | VMware's largest channel-partner business across multiple routes to market.
+- $440M | Supported VMware's largest channel-partner business across multiple routes to market.
 - 20% + 83 NPS | Renewal growth and customer experience under VMware regional Customer Success leadership.
-- $900M | Broader ServiceNow governance program's quantified enterprise risk exposure.
+- $900M | Broader ServiceNow governance program context involving quantified enterprise risk exposure.
 
 Professional Experience
 
@@ -30,7 +30,7 @@ ServiceNow | Dec 2021 - May 2025 | Remote
 Led post-sales solution advisory within Legal, Ethics & Compliance, connecting governance requirements to ServiceNow IRM, automation, policy workflows, controls, and dashboards.
 - Partnered across Sales, Legal, Ethics, Compliance, Information System Security, Automation Engineering, Security, and Product.
 - Contributed to a broader governance program addressing approximately $900M in quantified enterprise risk exposure; the figure represents program context, not personal savings or revenue.
-- Owned AI/ML governance enablement as an SME; shaped ServiceNow's first enterprise AI usage policies and translated regulatory, security, and risk requirements into reusable policy and control models.
+- Served as an AI/ML governance SME, defining requirements and guidance used for ServiceNow's first enterprise AI usage policies and translating regulatory, security, and risk requirements into reusable policy and control models.
 
 Partner Business & Technical Alliance Director - Americas
 VMware | Nov 2019 - Dec 2021 | San Francisco, CA

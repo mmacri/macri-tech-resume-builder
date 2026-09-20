@@ -12,7 +12,7 @@ endobj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
 endobj
 5 0 obj
-<< /Length 7392 >>
+<< /Length 7510 >>
 stream
 0.06 0.13 0.24 rg
 0 666 612 126 re f
@@ -49,7 +49,7 @@ BT /F1 8.9 Tf 146 553.8000000000002 Td (Two record-setting partner-led deals; VM
 0.05 0.35 0.55 rg
 BT /F2 11 Tf 44 536.8000000000002 Td ($440M) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 8.9 Tf 146 536.8000000000002 Td (VMware's largest channel-partner business across multiple routes to market.) Tj ET
+BT /F1 8.9 Tf 146 536.8000000000002 Td (Supported VMware's largest channel-partner business across multiple routes to market.) Tj ET
 0.05 0.35 0.55 rg
 BT /F2 11 Tf 44 519.8000000000002 Td (20% + 83 NPS) Tj ET
 0.13 0.15 0.18 rg
@@ -57,7 +57,7 @@ BT /F1 8.9 Tf 146 519.8000000000002 Td (Renewal growth and customer experience u
 0.05 0.35 0.55 rg
 BT /F2 11 Tf 44 502.8000000000002 Td ($900M) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 8.9 Tf 146 502.8000000000002 Td (Broader ServiceNow governance program's quantified enterprise risk exposure.) Tj ET
+BT /F1 8.9 Tf 146 502.8000000000002 Td (Broader ServiceNow governance program context involving quantified enterprise risk exposure.) Tj ET
 0.07 0.55 0.68 rg
 44 476.8000000000002 4 14 re f
 0.06 0.13 0.24 rg
@@ -137,11 +137,13 @@ BT /F1 9.3 Tf 68 120.60000000000024 Td (the figure represents program context, n
 0.07 0.55 0.68 rg
 46 123.60000000000024 3 3 re f
 0.13 0.15 0.18 rg
-BT /F1 9.3 Tf 58 108.40000000000023 Td (Owned AI/ML governance enablement as an SME; shaped ServiceNow's first enterprise AI usage policies and translated) Tj ET
+BT /F1 9.3 Tf 58 108.40000000000023 Td (Served as an AI/ML governance SME, defining requirements and guidance used for ServiceNow's first enterprise AI) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 9.3 Tf 68 96.20000000000023 Td (regulatory, security, and risk requirements into reusable policy and control models.) Tj ET
+BT /F1 9.3 Tf 68 96.20000000000023 Td (usage policies and translating regulatory, security, and risk requirements into reusable policy and control) Tj ET
+0.13 0.15 0.18 rg
+BT /F1 9.3 Tf 68 84.00000000000023 Td (models.) Tj ET
 0.07 0.55 0.68 rg
-46 99.20000000000023 3 3 re f
+46 87.00000000000023 3 3 re f
 0.76 0.81 0.88 RG
 0.5 w 44 28 m 568 28 l S
 0.38 0.42 0.48 rg
@@ -153,7 +155,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 5 0 R >>
 endobj
 7 0 obj
-<< /Length 6414 >>
+<< /Length 6106 >>
 stream
 0.06 0.13 0.24 rg
 BT /F2 10.7 Tf 44 750 Td (Partner Business & Technical Alliance Director - Americas) Tj ET
@@ -231,43 +233,36 @@ BT /F1 9.1 Tf 44 430.3999999999998 Td (services attach.) Tj ET
 BT /F2 10 Tf 55 405.5999999999998 Td (CAPABILITIES) Tj ET
 0.76 0.81 0.88 RG
 0.7 w 44 390.5999999999998 m 568 390.5999999999998 l S
-BT /F1 9 Tf 45 383.5999999999998 Td (-) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 9.2 Tf 54 383.5999999999998 Td (Customer & Technical Leadership | Customer Success Engineering, Technical Customer Success, TAM, Solution) Tj ET
+BT /F1 9.2 Tf 45 383.5999999999998 Td (- Customer & Technical Leadership | Customer Success Engineering, Technical Customer Success, TAM, Solution) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 9.2 Tf 64 371.5999999999998 Td (Engineering, customer health, adoption, retention, and expansion) Tj ET
-BT /F1 9 Tf 45 359.5999999999998 Td (-) Tj ET
+BT /F1 9.2 Tf 55 371.5999999999998 Td (Engineering, customer health, adoption, retention, and expansion) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 9.2 Tf 54 359.5999999999998 Td (Technical & Platform | DevSecOps, CI/CD, AI adoption, cloud, security, enterprise platforms, and technical) Tj ET
+BT /F1 9.2 Tf 45 359.5999999999998 Td (- Technical & Platform | DevSecOps, CI/CD, AI adoption, cloud, security, enterprise platforms, and technical) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 9.2 Tf 64 347.5999999999998 Td (transformation) Tj ET
-BT /F1 9 Tf 45 335.5999999999998 Td (-) Tj ET
+BT /F1 9.2 Tf 55 347.5999999999998 Td (transformation) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 9.2 Tf 54 335.5999999999998 Td (Organizational Leadership | People leadership, coaching, engagement models, cross-functional leadership, portfolio) Tj ET
+BT /F1 9.2 Tf 45 335.5999999999998 Td (- Organizational Leadership | People leadership, coaching, engagement models, cross-functional leadership, portfolio) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 9.2 Tf 64 323.5999999999998 Td (strategy, and repeatable execution) Tj ET
-BT /F1 9 Tf 45 311.5999999999998 Td (-) Tj ET
+BT /F1 9.2 Tf 55 323.5999999999998 Td (strategy, and repeatable execution) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 9.2 Tf 54 311.5999999999998 Td (Ecosystems & Enterprise | Partner alliances, GSI strategy, enterprise governance, risk, compliance, policy,) Tj ET
+BT /F1 9.2 Tf 45 311.5999999999998 Td (- Ecosystems & Enterprise | Partner alliances, GSI strategy, enterprise governance, risk, compliance, policy,) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 9.2 Tf 64 299.5999999999998 Td (controls, and AI governance) Tj ET
+BT /F1 9.2 Tf 55 299.5999999999998 Td (controls, and AI governance) Tj ET
 0.07 0.55 0.68 rg
 44 278.5999999999998 4 14 re f
 0.06 0.13 0.24 rg
 BT /F2 10 Tf 55 280.5999999999998 Td (EDUCATION & RECOGNITION) Tj ET
 0.76 0.81 0.88 RG
 0.7 w 44 265.5999999999998 m 568 265.5999999999998 l S
-BT /F1 9 Tf 45 258.5999999999998 Td (-) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 9.2 Tf 54 258.5999999999998 Td (MBA | Xavier University | Cincinnati, OH) Tj ET
-BT /F1 9 Tf 45 246.5999999999998 Td (-) Tj ET
+BT /F1 9.2 Tf 45 258.5999999999998 Td (- MBA | Xavier University | Cincinnati, OH) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 9.2 Tf 54 246.5999999999998 Td (B.S. Industrial Organizational Psychology | Xavier University | Cincinnati, OH) Tj ET
-BT /F1 9 Tf 45 234.5999999999998 Td (-) Tj ET
+BT /F1 9.2 Tf 45 246.5999999999998 Td (- B.S. Industrial Organizational Psychology | Xavier University | Cincinnati, OH) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 9.2 Tf 54 234.5999999999998 Td (Recognition | VMware Partner Excellence - Rockstar MVP; Partner Solutions Engineer of the Quarter; Americas VP Award) Tj ET
+BT /F1 9.2 Tf 45 234.5999999999998 Td (- Recognition | VMware Partner Excellence - Rockstar MVP; Partner Solutions Engineer of the Quarter; Americas VP Award) Tj ET
 0.13 0.15 0.18 rg
-BT /F1 9.2 Tf 64 222.5999999999998 Td (for Service Delivery Excellence; Technical Account Manager of the Half) Tj ET
+BT /F1 9.2 Tf 55 222.5999999999998 Td (for Service Delivery Excellence; Technical Account Manager of the Half) Tj ET
 0.76 0.81 0.88 RG
 0.5 w 44 28 m 568 28 l S
 0.38 0.42 0.48 rg
@@ -286,11 +281,11 @@ xref
 0000000121 00000 n 
 0000000218 00000 n 
 0000000320 00000 n 
-0000007764 00000 n 
-0000007900 00000 n 
-0000014366 00000 n 
+0000007882 00000 n 
+0000008018 00000 n 
+0000014176 00000 n 
 trailer
 << /Size 9 /Root 1 0 R >>
 startxref
-14502
+14312
 %%EOF

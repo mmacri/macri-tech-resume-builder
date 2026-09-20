@@ -61,11 +61,37 @@ const confidentialPatterns = [
 const missing = required.filter((phrase) => !normalizedText.toLowerCase().includes(phrase.toLowerCase()));
 const stale = forbidden.filter((phrase) => normalizedText.toLowerCase().includes(phrase.toLowerCase()));
 const confidential = confidentialPatterns.filter((pattern) => pattern.test(normalizedText));
+const extractedLines = text.split('\n').map((line) => line.trim()).filter(Boolean);
+const standaloneArtifacts = extractedLines.filter((line) => /^[-•]$/.test(line));
+
+const orderedMarkers = [
+  'Michael Macri, MBA',
+  'TECHNOLOGY & CUSTOMER SUCCESS ENGINEERING LEADER',
+  'Senior Manager, Customer Success Engineering – AMER',
+  'SELECTED CAREER IMPACT',
+  'PROFESSIONAL EXPERIENCE',
+  'Principal Consultant',
+  'Senior Manager, Solution Advisory - Legal Ethics & Compliance',
+  'Partner Business & Technical Alliance Director - Americas',
+  'CAPABILITIES',
+  'EDUCATION & RECOGNITION',
+];
+const markerPositions = orderedMarkers.map((marker) => normalizedText.indexOf(marker));
+const readingOrderIsValid = markerPositions.every((position, index) => position >= 0 && (index === 0 || position > markerPositions[index - 1]));
+
+if (process.argv.includes('--print-text')) {
+  console.log('--- Extracted resume text ---\n');
+  console.log(text);
+  console.log('\n--- Reading-order markers ---');
+  orderedMarkers.forEach((marker, index) => console.log(`${marker}: ${markerPositions[index]}`));
+}
 
 if (pageCount !== 2) throw new Error(`Expected a 2-page resume; generated ${pageCount} pages.`);
 if (missing.length) throw new Error(`Resume PDF is missing required text: ${missing.join(', ')}`);
 if (stale.length) throw new Error(`Resume PDF contains stale text: ${stale.join(', ')}`);
 if (confidential.length) throw new Error(`Resume PDF contains prohibited current-role figures: ${confidential.join(', ')}`);
+if (standaloneArtifacts.length) throw new Error(`Resume PDF contains standalone bullet artifacts in extracted text: ${standaloneArtifacts.join(', ')}`);
+if (!readingOrderIsValid) throw new Error('Resume PDF text extraction is not in the expected reading order.');
 if (!/BT \/F[12]/.test(pdf)) throw new Error('Resume PDF does not contain selectable text operators.');
 
 console.log(`Verified ${path.relative(root, pdfPath)}: ${pageCount} pages, selectable text, current GitLab role, and no stale positioning.`);

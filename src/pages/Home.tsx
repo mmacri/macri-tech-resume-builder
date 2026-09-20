@@ -68,7 +68,7 @@ const Home: React.FC = () => {
           <div className="mb-8 max-w-4xl">
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-orange-300">Current role</p>
             <h2 id="current-focus-heading" className="mb-3 font-saira text-3xl font-bold sm:text-4xl">Leading Customer Success Engineering Today</h2>
-            <p className="mb-0 text-lg leading-8 text-slate-300">Leading technical Customer Success across an AMER private-sector portfolio — building the operating model, the coverage decisions, and the reporting that tells us where technical expertise changes the outcome.</p>
+            <p className="mb-0 text-lg leading-8 text-slate-300">Leading technical Customer Success across an AMER private-sector portfolio, shaping coverage decisions and the reporting that shows where technical expertise changes the outcome.</p>
           </div>
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 border-y border-white/15 py-8 sm:grid-cols-2 lg:grid-cols-4">
             {currentFocus.map((item) => <div key={item.title}><h3 className="mb-2 text-lg font-semibold text-orange-300">{item.title}</h3><p className="mb-0 text-sm leading-6 text-slate-300">{item.detail}</p></div>)}
@@ -79,7 +79,7 @@ const Home: React.FC = () => {
 
       <section className="bg-white py-14" aria-labelledby="scale-heading">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-9 max-w-3xl"><h2 id="scale-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">Leadership at Scale</h2><p className="mb-0 text-lg leading-8 text-gray-700">Organizational scale is more than an org-chart number. Mike’s career spans direct leadership, complex customer portfolios, partner ecosystems, and enterprise change.</p></div>
+          <div className="mb-9 max-w-3xl"><h2 id="scale-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">Leadership Scope</h2><p className="mb-0 text-lg leading-8 text-gray-700">Mike’s career has spanned direct team leadership, complex customer portfolios, partner ecosystems, and enterprise change.</p></div>
           <div className="grid grid-cols-1 gap-x-8 gap-y-8 border-t border-gray-200 pt-8 md:grid-cols-2">
             {leadershipScale.map((item) => <article key={item.dimension} className="border-l-4 border-macri-primary pl-5"><p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-macri-primary">{item.dimension}</p><h3 className="mb-2 text-xl font-semibold text-slate-900">{item.title}</h3><p className="mb-0 text-sm leading-6 text-gray-700">{item.detail}</p></article>)}
           </div>
@@ -103,7 +103,7 @@ const Home: React.FC = () => {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-8 max-w-3xl">
             <h2 id="current-work-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">What I'm Building Now</h2>
-            <p className="mb-0 text-gray-700">Current work at GitLab, described by what was built rather than by internal numbers.</p>
+            <p className="mb-0 text-gray-700">Current work at GitLab, described through the systems and practices behind technical coverage.</p>
           </div>
           <div className="grid grid-cols-1 gap-x-8 gap-y-8 border-t border-gray-200 pt-8 md:grid-cols-2">
             {currentWork.map((item) => (
@@ -118,7 +118,7 @@ const Home: React.FC = () => {
 
       <section className="bg-white py-14" aria-labelledby="impact-heading">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 max-w-3xl"><h2 id="impact-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">Business Impact Across My Career</h2><p className="mb-0 text-gray-700">Historical ServiceNow and VMware results, with the role and program context behind each number.</p></div>
+          <div className="mb-8 max-w-3xl"><h2 id="impact-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">Selected Outcomes</h2><p className="mb-0 text-gray-700">Selected VMware and ServiceNow outcomes, with the context behind each number.</p></div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {metrics.map((item) => <details key={`${item.metric}-${item.label}`} className="group rounded-xl border border-gray-200 bg-gray-50 p-5 open:bg-white open:shadow-md">
               <summary className="cursor-pointer list-none rounded focus-visible:ring-2 focus-visible:ring-macri-primary"><span className="block text-3xl font-bold text-macri-primary">{item.metric}</span><span className="mt-1 block font-semibold text-gray-900">{item.label}</span><span className="mt-1 block text-sm text-gray-600">{item.organization} · View context</span></summary>
@@ -137,7 +137,7 @@ const Home: React.FC = () => {
 
       <section className="bg-white py-14" aria-labelledby="featured-work-heading">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div className="max-w-3xl"><h2 id="featured-work-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">Selected Leadership Work</h2><p className="mb-0 text-lg leading-8 text-gray-700">Three views of the same leadership pattern: focus expertise, build repeatable systems, and coordinate people around a clear outcome.</p></div><Link to="/selected-work" className="inline-flex items-center font-semibold text-macri-primary hover:text-macri-primary-dark">All selected work <ArrowRight className="ml-2 h-4 w-4" /></Link></div>
+          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div className="max-w-3xl"><h2 id="featured-work-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">Selected Leadership Work</h2><p className="mb-0 text-lg leading-8 text-gray-700">Examples of technical Customer Success, people leadership, and enterprise governance in practice.</p></div><Link to="/selected-work" className="inline-flex items-center font-semibold text-macri-primary hover:text-macri-primary-dark">All selected work <ArrowRight className="ml-2 h-4 w-4" /></Link></div>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {featuredWork.map((study) => { const detail = caseStudyDetails[study.id]; return <article key={study.id} className="flex h-full flex-col rounded-xl border border-gray-200 bg-gray-50 p-6"><p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-macri-primary">{study.category}</p><h3 className="mb-4 text-xl font-semibold text-slate-900">{study.title}</h3><dl className="space-y-4 text-sm leading-6 text-gray-700"><div><dt className="font-semibold text-slate-900">Challenge</dt><dd>{study.problem}</dd></div><div><dt className="font-semibold text-slate-900">My role</dt><dd>{detail.role}</dd></div><div><dt className="font-semibold text-slate-900">Why it matters</dt><dd>{detail.lesson}</dd></div></dl><Link to={`/selected-work#${study.id}`} className="mt-6 inline-flex items-center font-semibold text-macri-primary hover:text-macri-primary-dark">Explore case study <ArrowRight className="ml-2 h-4 w-4" /></Link></article>; })}
           </div>
@@ -147,7 +147,7 @@ const Home: React.FC = () => {
       <section className="bg-gray-50 py-14" aria-labelledby="recommendations-heading">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_auto] md:items-center">
-            <div><h2 id="recommendations-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">What People Say</h2><p className="mb-0 max-w-3xl text-lg leading-8 text-gray-700">Mike’s published recommendations are available on LinkedIn, where each comment appears with the author’s name, role, and professional relationship.</p></div>
+            <div><h2 id="recommendations-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">What People Say</h2><p className="mb-0 max-w-3xl text-lg leading-8 text-gray-700">Published recommendations are available on LinkedIn with verified attribution and professional context.</p></div>
             <Button variant="outline" className="border-macri-primary text-macri-primary" asChild><a href={`${profile.linkedin}/details/recommendations/`} target="_blank" rel="noopener noreferrer"><Linkedin className="mr-2 h-4 w-4" /> View recommendations</a></Button>
           </div>
         </div>
