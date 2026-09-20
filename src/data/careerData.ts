@@ -357,7 +357,7 @@ export const caseStudies = [
     solution:
       'Create a signal-driven engagement model that moves from digital engagement to customer intent, technical need identification, CSE engagement, technical outcome, adoption/value/risk signal, and next best action.',
     outcomes: ['Greater reach', 'Better resource focus', 'Repeatable engagement', 'Consistent technical guidance', 'Improved visibility into customer technical needs', 'Scalable customer experience'],
-    note: 'Conceptual operating model. No GitLab performance metrics are implied.',
+    note: 'Conceptual operating model.',
     detailLink: '/selected-work#scaling-cse',
   },
   {
@@ -428,7 +428,7 @@ export const caseStudyDetails: Record<string, {
 }> = {
   'scaling-cse': {
     environment: 'Large, segmented customer portfolios where CSE capacity must be directed by technical need rather than uniform activity.',
-    role: 'CSE leader and operating-model designer. This is a conceptual framework informed by current leadership practice; no GitLab performance result is claimed.',
+    role: 'CSE leader and operating-model designer. This conceptual framework is informed by current leadership practice.',
     changed: 'Defined complementary digital, pooled, one-to-many, and targeted human engagement motions around customer intent and product signals.',
     partners: ['Sales', 'Renewals', 'Product', 'Engineering', 'Support', 'Regional leadership'],
     lesson: 'Scale comes from making scarce technical expertise easier to focus, reuse, and coordinate—not from adding more meetings.',

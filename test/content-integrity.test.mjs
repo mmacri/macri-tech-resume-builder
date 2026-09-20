@@ -64,7 +64,8 @@ test('leadership and project disclosure stay accurate', () => {
   const work = read('src/pages/SelectedWork.tsx');
   assert.match(leadership, /Scope Beyond the Org Chart/);
   assert.match(career, /Clear the Path/);
-  assert.match(leadership, /Conceptual operating model\. No GitLab performance metrics are implied/);
+  assert.match(leadership, /Conceptual operating model\./);
+  assert.doesNotMatch(`${leadership}\n${career}\n${work}`, /performance (?:metrics are implied|result is claimed)/i);
   assert.match(projects, /Personal prototype \/ portfolio project — not an official GitLab product/);
   assert.match(work, /Why I Built This/);
 });

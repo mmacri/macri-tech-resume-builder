@@ -79,7 +79,7 @@ const Leadership: React.FC = () => (
           <p className="mb-7 text-lg font-medium text-macri-primary">Digital creates reach. Signals create focus. Human expertise creates leverage where it matters most.</p>
           <Flow steps={cseProcess} label="Scaling technical Customer Success flow" />
           <div className="mt-7 grid grid-cols-2 gap-3 text-sm text-gray-700 sm:grid-cols-4">{['Digital engagement', 'One-to-many', 'Technical workshops', 'Hands-on labs', 'Reusable content', 'Customer-requested engagement', 'Targeted 1:1 engagement', 'Pooled expertise'].map((motion) => <div key={motion} className="rounded-lg bg-gray-50 p-3">{motion}</div>)}</div>
-          <p className="mt-5 mb-0 text-sm leading-6 text-gray-600">Conceptual operating model. No GitLab performance metrics are implied.</p>
+          <p className="mt-5 mb-0 text-sm leading-6 text-gray-600">Conceptual operating model.</p>
         </article>
       </div>
     </section>
