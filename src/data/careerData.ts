@@ -20,7 +20,7 @@ export const profile = {
   location: 'Remote',
   linkedin: 'https://www.linkedin.com/in/mikemacri',
   github: 'https://github.com/mmacri',
-  resumeFile: 'resume.pdf?v=2026-09-20-3',
+  resumeFile: 'resume.pdf?v=2026-09-20-4',
   summary:
     'Technology and Customer Success Engineering leader with experience building distributed post-sales teams, operating models, partner ecosystems, and enterprise governance initiatives across GitLab, VMware, and ServiceNow. Connects technical adoption, customer priorities, and commercial context so teams can focus their expertise where it matters most.',
   positioning:
@@ -182,10 +182,7 @@ export const experiences = [
     bullets: [
       'Helped build and launch the CSE Assigned motion — proactive, named technical coverage for accounts that do not have a Customer Success Manager. Authored the operating handbook, the inbound-account and exit processes, and the readiness framework that gated go-live against defined capability criteria.',
       'Lead, coach, and develop the AMER Customer Success Engineering team, and authored the Associate-to-Intermediate development path now used for career progression across the function: competency scorecard, evidence standards, and promotion preparation grounded in sustained performance rather than activity volume.',
-      'Rebuilt CSE territory coverage across the AMER book, reconciling pod and org mapping against live CRM data, correcting ownership errors across multiple territories, and executing account reassignment through an organizational restructure.',
       "Built the team's book-of-business reporting layer, sourced live from the CS platform — focus accounts, engagement coverage, renewal runway, and pool case work — replacing manual roll-ups as the basis for weekly prioritization.",
-      'Designed the measurement framework for the CSE Assigned motion, separating execution metrics the team controls from leading indicators and renewal outcomes, with observed and derived figures labeled separately so the analysis holds up to scrutiny.',
-      'Moved escalation ownership to the assigned CSE, giving each account a named technical owner for escalation rather than routing every case through management.',
       'Drive GitLab Duo Agent Platform adoption and partner with Regional Directors, Account Executives, and Renewal Managers in the account pod model on coverage and joint execution.',
     ],
   },
@@ -295,7 +292,7 @@ export const keyAchievements = [
   },
   {
     title: 'Systems That Make Coverage Decidable',
-    description: 'Built the reporting and measurement systems the AMER segment uses to decide where technical coverage goes, and previously owned enterprise AI/ML governance enablement at ServiceNow.',
+    description: 'Built the reporting systems the AMER segment uses to decide where technical coverage goes, and previously owned enterprise AI/ML governance enablement at ServiceNow.',
   },
 ];
 
@@ -354,20 +351,19 @@ export const caseStudies = [
   {
     id: 'scaling-cse',
     title: 'Making Technical Coverage Decidable',
-    subtitle: 'Building the operating model, reporting, and measurement behind a Customer Success Engineering team.',
+    subtitle: 'Building the operating model and reporting behind a Customer Success Engineering team.',
     category: 'Customer Success Engineering',
     problem:
       "A technical team's hardest decision is where not to spend time. The book was tracked through manual roll-ups that took real effort to assemble and were stale by the time anyone read them. One form of the team's work — pool case coverage — was structurally invisible, because it is owned at the case level rather than by account assignment, so every account-based view showed a fully utilized engineer with no book.",
     approach:
       'Define the motion before instrumenting it: what coverage means, who qualifies, how an account enters and exits, and what a good health assessment contains. Then build reporting from the system of record rather than from exports, cover both the assigned and pool motions in their own terms, and document what the data genuinely cannot answer instead of approximating.',
     solution:
-      'A documented operating model with published inbound and exit processes and a readiness framework gating go-live against defined capability criteria; a live book-of-business layer covering focus accounts, engagement coverage, renewal runway and pool cases; and a measurement framework separating what the team controls from what it merely influences.',
+      'A documented operating model with published inbound and exit processes and a readiness framework gating go-live against defined capability criteria; and a live book-of-business layer covering focus accounts, engagement coverage, renewal runway and pool cases.',
     outcomes: [
       'Weekly prioritization runs from one live view rather than manual roll-ups',
       'Pool case work is visible and attributable for the first time',
       'Coverage standards are published and explicit rather than implied',
       'Accounts enter and leave the motion through a defined, auditable process',
-      'The measurement framework states its own limits, including questions the source systems cannot answer',
     ],
     detailLink: '/selected-work#scaling-cse',
   },
@@ -381,11 +377,10 @@ export const caseStudies = [
     approach:
       'Treat it as an operating model rather than a staffing change. Define the motion boundaries — what it does and explicitly does not do — before assigning anyone. Write the processes down, publish them in the handbook as the authoritative version, and gate launch on capability readiness rather than on a date.',
     solution:
-      'An operating handbook defining the motion, its cadence, and its boundaries against adjacent roles; documented inbound and exit processes covering eligibility, manager review, approve/hold/reject/exception outcomes, capacity limits, and system validation; a readiness framework scoring each required capability against exit criteria before go-live; and a change moving escalation ownership to the assigned engineer.',
+      'An operating handbook defining the motion, its cadence, and its boundaries against adjacent roles; documented inbound and exit processes covering eligibility, manager review, approve/hold/reject/exception outcomes, capacity limits, and system validation; and a readiness framework scoring each required capability against exit criteria before go-live.',
     outcomes: [
       'Qualifying accounts have a named technical owner without needing to open a case',
       'Entry and exit run through a defined process with recorded decisions and rationale',
-      'Escalations have a named owner at the account rather than routing through management',
       'Role boundaries against adjacent functions are published rather than negotiated case by case',
       'Launch gated on capability readiness, with unfinished capabilities named rather than assumed',
     ],
@@ -460,14 +455,14 @@ export const caseStudyDetails: Record<string, {
   'scaling-cse': {
     environment: "A technical team's hardest decision is where not to spend time. The book was tracked through manual roll-ups that took real effort to assemble and were stale by the time anyone read them. One form of the team's work — pool case coverage — was structurally invisible, because it is owned at the case level rather than by account assignment, so every account-based view showed a fully utilized engineer with no book.",
     role: 'Define the motion before instrumenting it: what coverage means, who qualifies, how an account enters and exits, and what a good health assessment contains.',
-    changed: 'A documented operating model with published inbound and exit processes and a readiness framework gating go-live against defined capability criteria; a live book-of-business layer covering focus accounts, engagement coverage, renewal runway and pool cases; and a measurement framework separating what the team controls from what it merely influences.',
+    changed: 'A documented operating model with published inbound and exit processes and a readiness framework gating go-live against defined capability criteria; and a live book-of-business layer covering focus accounts, engagement coverage, renewal runway and pool cases.',
     partners: [],
-    lesson: 'A metric becomes a target the moment you publish it, so publish the standard before the number. Measurement that cannot survive a skeptical reader is not worth building.',
+    lesson: "A technical team's hardest decision is where not to spend time.",
   },
   'cse-assigned-motion': {
     environment: 'Accounts above a defined revenue threshold without a named Customer Success Manager had no proactive technical owner. Help existed, but only if someone opened a case. The gap was not capability — it was that nothing defined who owned the account, what the recurring work was, or how an account entered and left coverage.',
     role: 'Treat it as an operating model rather than a staffing change.',
-    changed: 'An operating handbook defining the motion, its cadence, and its boundaries against adjacent roles; documented inbound and exit processes covering eligibility, manager review, approve/hold/reject/exception outcomes, capacity limits, and system validation; a readiness framework scoring each required capability against exit criteria before go-live; and a change moving escalation ownership to the assigned engineer.',
+    changed: 'An operating handbook defining the motion, its cadence, and its boundaries against adjacent roles; documented inbound and exit processes covering eligibility, manager review, approve/hold/reject/exception outcomes, capacity limits, and system validation; and a readiness framework scoring each required capability against exit criteria before go-live.',
     partners: [],
     lesson: 'Writing the boundaries down — including what the motion will not do — prevented more scope problems than any amount of staffing would have.',
   },

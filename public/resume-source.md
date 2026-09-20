@@ -18,9 +18,7 @@ GitLab | March 2026 - Present | Remote
 Lead the AMER Customer Success Engineering team, owning the post-sales technical operating model across adoption, early risk identification, expansion signals, and renewal outcomes. My job is deciding where limited technical coverage goes and building the systems that make that decision repeatable rather than instinctive. Scope: an AMER private-sector portfolio.
 - Helped build and launch the CSE Assigned motion — proactive, named technical coverage for accounts that do not have a Customer Success Manager. Authored the operating handbook, the inbound-account and exit processes, and the readiness framework that gated go-live against defined capability criteria.
 - Lead, coach, and develop the AMER Customer Success Engineering team, and authored the Associate-to-Intermediate development path now used for career progression across the function: competency scorecard, evidence standards, and promotion preparation grounded in sustained performance rather than activity volume.
-- Rebuilt CSE territory coverage across the AMER book, reconciling pod and org mapping against live CRM data, correcting ownership errors across multiple territories, and executing account reassignment through an organizational restructure.
 - Built the team's book-of-business reporting layer, sourced live from the CS platform — focus accounts, engagement coverage, renewal runway, and pool case work — replacing manual roll-ups as the basis for weekly prioritization.
-- Designed the measurement framework for the CSE Assigned motion, separating execution metrics the team controls from leading indicators and renewal outcomes, with observed and derived figures labeled separately so the analysis holds up to scrutiny.
 
 Principal Consultant
 Momentum Edge Consulting | May 2025 - Present | Remote

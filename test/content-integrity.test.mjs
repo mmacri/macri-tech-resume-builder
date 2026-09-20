@@ -116,7 +116,7 @@ test('person schema identifies the factual current role and verified profiles', 
 
 test('resume links share one cache-busted canonical artifact', () => {
   const career = read('src/data/careerData.ts');
-  assert.match(career, /resumeFile: 'resume\.pdf\?v=2026-09-20-3'/);
+  assert.match(career, /resumeFile: 'resume\.pdf\?v=2026-09-20-4'/);
   for (const page of ['src/pages/Home.tsx', 'src/pages/ExperienceImpact.tsx', 'src/pages/Resume.tsx']) {
     const source = read(page);
     assert.match(source, /profile\.resumeFile/);

@@ -24,14 +24,6 @@ const currentWork = [
     title: 'Book-of-business reporting layer',
     description: "A live operational view of the team's accounts, engagement coverage, renewal runway and pool case work, replacing manual roll-ups.",
   },
-  {
-    title: 'Measurement framework',
-    description: 'Three tiers separating execution, leading indicators and outcomes, with a rollout that establishes a baseline before setting any target.',
-  },
-  {
-    title: 'Territory coverage and pods',
-    description: 'Coverage mapping reconciled against live CRM data, and account reassignment executed through an organizational restructure.',
-  },
 ];
 
 const Home: React.FC = () => {
