@@ -7,8 +7,9 @@ export const Footer: React.FC = () => {
 
   const quickLinks = [
     { label: 'Home', href: '/' },
+    { label: 'Leadership', href: '/leadership' },
     { label: 'Experience', href: '/experience' },
-    { label: 'Selected Work', href: '/selected-work' },
+    { label: 'Work', href: '/selected-work' },
     { label: 'Projects', href: '/projects' },
     { label: 'About', href: '/about' },
     { label: 'Resume', href: '/resume' },
@@ -25,7 +26,7 @@ export const Footer: React.FC = () => {
               Michael Macri, MBA
             </h3>
             <p className="text-gray-300 mb-4 max-w-md">
-              Customer Success Engineering and technology leader at GitLab, with experience across DevSecOps, cloud, security, AI governance, solution engineering, partner ecosystems, and enterprise technology adoption.
+              Senior Customer Success Engineering leader at GitLab. Mike builds technical teams and operating systems that turn customer and product signals into focused action.
             </p>
             
             {/* Social Links */}
@@ -39,13 +40,13 @@ export const Footer: React.FC = () => {
               >
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a
-                href="/contact"
+              <Link
+                to="/contact"
                 className="flex items-center justify-center w-10 h-10 bg-macri-primary hover:bg-macri-primary-dark rounded-full transition-colors"
-                aria-label="Contact Form"
+                aria-label="Contact Mike Macri"
               >
                 <Mail className="w-5 h-5" />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -88,7 +89,7 @@ export const Footer: React.FC = () => {
         {/* Role Anchoring Statement */}
         <div className="border-t border-gray-800 mt-8 pt-8">
           <p className="text-gray-300 text-center mb-4 italic">
-            Building technical teams, programs, operating models, and platforms that connect complex technology with customer and business outcomes.
+            Customer Success Engineering leadership · Technical teams · DevSecOps and AI adoption
           </p>
         </div>
 

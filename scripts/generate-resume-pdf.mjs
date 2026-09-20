@@ -139,7 +139,15 @@ const splitMeta = (line) => {
 };
 
 const drawRole = (title, metaLine, roleSummary, bullets) => {
-  ensureSpace(82);
+  const contentWidth = page.width - page.marginX * 2;
+  const bulletWidth = contentWidth - 14;
+  const requiredHeight =
+    14 +
+    13 +
+    (roleSummary ? wrapText(roleSummary, 9.1, contentWidth).length * 11.8 + 2 : 0) +
+    bullets.reduce((height, bullet) => height + wrapText(bullet.replace(/^- /, ''), 9.3, bulletWidth).length * 12.2, 0) +
+    4;
+  ensureSpace(requiredHeight);
   const meta = splitMeta(metaLine);
   drawText({ text: title, size: 10.7, font: 'F2', color: colors.navy, leading: 14 });
   drawText({ text: meta.company, size: 9.3, font: 'F2', color: colors.blue, leading: 13 });

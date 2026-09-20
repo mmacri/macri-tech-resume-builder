@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Mike Macri social preview</title>
+  <desc id="desc">Customer Success Engineering and Technical Leadership. GitLab, ServiceNow, VMware.</desc>
+  <rect width="1200" height="630" fill="#0f172a"/>
+  <rect x="0" y="0" width="18" height="630" fill="#d95700"/>
+  <circle cx="1035" cy="118" r="190" fill="#1e293b"/>
+  <circle cx="1110" cy="560" r="260" fill="#172033"/>
+  <text x="86" y="150" fill="#fb923c" font-family="Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="4">MICHAEL MACRI, MBA</text>
+  <text x="86" y="265" fill="#ffffff" font-family="Arial, sans-serif" font-size="70" font-weight="700">Customer Success Engineering</text>
+  <text x="86" y="350" fill="#ffffff" font-family="Arial, sans-serif" font-size="70" font-weight="700">&amp; Technical Leadership</text>
+  <text x="86" y="438" fill="#cbd5e1" font-family="Arial, sans-serif" font-size="31">People leadership · Customer systems · DevSecOps + AI adoption</text>
+  <line x1="86" y1="500" x2="1114" y2="500" stroke="#334155" stroke-width="2"/>
+  <text x="86" y="558" fill="#94a3b8" font-family="Arial, sans-serif" font-size="27" font-weight="600">GITLAB  ·  SERVICENOW  ·  VMWARE</text>
+</svg>

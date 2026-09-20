@@ -3,7 +3,8 @@ import { Download, Linkedin, Award, GraduationCap, CheckCircle } from 'lucide-re
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { staticAwardsData, staticEducationData } from '@/data/staticResumeData';
+import { staticAwardsData } from '@/data/resume/awardsData';
+import { staticEducationData } from '@/data/resume/educationData';
 import { capabilities, experiences, keyAchievements, profile } from '@/data/careerData';
 
 const Resume: React.FC = () => {
@@ -12,7 +13,7 @@ const Resume: React.FC = () => {
   return (
     <>
       <SEOHead
-        title="Resume | Mike Macri MBA"
+        title="Resume | Michael Macri, MBA"
         description="Resume for Michael Macri, MBA, a Senior Customer Success Engineering leader scaling post-sales technical organizations and AMER customer success motions at GitLab."
         keywords="Michael Macri resume, GitLab Customer Success Engineering, DevSecOps, ServiceNow, VMware, MBA"
         url="https://mikemacri.com/resume"
@@ -72,7 +73,7 @@ const Resume: React.FC = () => {
                   <div>
                     <div className="mb-2 flex flex-wrap gap-2">
                       {experience.id === 'gitlab' && <Badge className="bg-macri-primary text-white">CURRENT</Badge>}
-                      {experience.advisory && <Badge variant="secondary">Independent Consulting / Advisory</Badge>}
+                      {experience.advisory && <Badge variant="secondary">Independent Advisory / Personal Consulting Practice</Badge>}
                     </div>
                     <h3 className="text-lg font-semibold text-macri-primary">{experience.title}</h3>
                     <p className="font-medium text-gray-900">{experience.organization}</p>

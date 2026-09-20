@@ -4,14 +4,14 @@ import { ArrowDown, ArrowRight, CheckCircle } from 'lucide-react';
 import { SEOHead } from '@/components/layout/SEOHead';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { caseStudies, cseProcess } from '@/data/careerData';
+import { caseStudies, caseStudyDetails, cseProcess } from '@/data/careerData';
 
 const SelectedWork: React.FC = () => {
   return (
     <>
       <SEOHead
-        title="Selected Work | Mike Macri MBA"
-        description="Case studies showing how Mike Macri builds technical programs, operating models, and platforms across customer success engineering, DevSecOps, governance, partner ecosystems, and solution engineering."
+        title="Selected Work | Mike Macri"
+        description="Leadership case studies showing Mike Macri’s role, operating approach, cross-functional partners, and outcomes across Customer Success Engineering, platform adoption, governance, and partner ecosystems."
         keywords="Mike Macri selected work, customer success engineering, ServiceNow Policy Hub, AI governance, VMware partner enablement, GitLab CSE"
         url="https://mikemacri.com/selected-work"
       />
@@ -20,7 +20,7 @@ const SelectedWork: React.FC = () => {
         <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
           <h1 className="mb-6 font-saira text-4xl font-bold text-macri-primary lg:text-5xl">Selected Work</h1>
           <p className="mx-auto max-w-3xl text-xl leading-8 text-gray-700">
-            Evidence of how Mike thinks and solves problems: understand the challenge, design the operating model, build reusable assets, and connect technical adoption to customer and business outcomes.
+            Evidence of how Mike approaches technical customer-success problems: clarify the environment, define his role, build a repeatable system, and show what changed.
           </p>
         </div>
       </section>
@@ -28,8 +28,10 @@ const SelectedWork: React.FC = () => {
       <section className="bg-white py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="space-y-8">
-            {caseStudies.map((study) => (
-              <article key={study.id} id={study.id} className="scroll-mt-24 overflow-hidden rounded-lg border border-gray-200 bg-gray-50 shadow-sm">
+            {caseStudies.map((study) => {
+              const detail = caseStudyDetails[study.id];
+              return (
+              <article key={study.id} id={study.id} className="scroll-mt-24 overflow-hidden rounded-xl border border-gray-200 bg-gray-50 shadow-sm">
                 <div className="grid grid-cols-1 lg:grid-cols-12">
                   {study.image && (
                     <div className="bg-gray-100 lg:col-span-4">
@@ -43,16 +45,28 @@ const SelectedWork: React.FC = () => {
 
                     <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                       <div>
-                        <h3 className="mb-2 font-semibold text-gray-900">Problem</h3>
+                        <h3 className="mb-2 font-semibold text-gray-900">Challenge</h3>
                         <p className="leading-7 text-gray-700">{study.problem}</p>
+                      </div>
+                      <div>
+                        <h3 className="mb-2 font-semibold text-gray-900">Environment / Constraints</h3>
+                        <p className="leading-7 text-gray-700">{detail.environment}</p>
+                      </div>
+                      <div>
+                        <h3 className="mb-2 font-semibold text-gray-900">My Role</h3>
+                        <p className="leading-7 text-gray-700">{detail.role}</p>
                       </div>
                       <div>
                         <h3 className="mb-2 font-semibold text-gray-900">Approach</h3>
                         <p className="leading-7 text-gray-700">{study.approach}</p>
                       </div>
                       <div>
-                        <h3 className="mb-2 font-semibold text-gray-900">Solution</h3>
-                        <p className="leading-7 text-gray-700">{study.solution}</p>
+                        <h3 className="mb-2 font-semibold text-gray-900">What Was Built / Changed</h3>
+                        <p className="leading-7 text-gray-700">{detail.changed}</p>
+                      </div>
+                      <div>
+                        <h3 className="mb-2 font-semibold text-gray-900">Cross-Functional Partners</h3>
+                        <p className="leading-7 text-gray-700">{detail.partners.join(' · ')}</p>
                       </div>
                       <div>
                         <h3 className="mb-2 font-semibold text-gray-900">Outcome</h3>
@@ -64,6 +78,10 @@ const SelectedWork: React.FC = () => {
                             </li>
                           ))}
                         </ul>
+                      </div>
+                      <div>
+                        <h3 className="mb-2 font-semibold text-gray-900">Leadership Lesson</h3>
+                        <p className="leading-7 text-gray-700">{detail.lesson}</p>
                       </div>
                     </div>
 
@@ -92,15 +110,10 @@ const SelectedWork: React.FC = () => {
                       </div>
                     )}
 
-                    {study.detailLink && study.id !== 'scaling-cse' && (
-                      <Button className="mt-6 border-macri-primary text-macri-primary hover:bg-macri-primary hover:text-white" variant="outline" asChild>
-                        <Link to={study.detailLink}>View Related Detail <ArrowRight className="ml-2 h-4 w-4" /></Link>
-                      </Button>
-                    )}
                   </div>
                 </div>
               </article>
-            ))}
+            );})}
           </div>
         </div>
       </section>

@@ -1,6 +1,6 @@
 Michael Macri, MBA
 Senior Customer Success Engineering Leader
-Senior Manager, Customer Success Engineering - AMER | GitLab | 2026 - Present | Remote
+Senior Manager, Customer Success Engineering - AMER | GitLab | March 2026 - Present | Remote
 LinkedIn: https://www.linkedin.com/in/mikemacri
 
 Senior Customer Success leader building and leading post-sales technical teams across GitLab, VMware, and ServiceNow. Drive enterprise adoption, consumption, customer health, expansion, retention, and value realization through data-driven operating models and partnership with Sales, Renewals, Product, and Engineering. Experienced leading teams and strategic customers across DevSecOps, AI/ML, cloud, security, and governance, translating complex technology into measurable customer and business outcomes.
@@ -13,7 +13,7 @@ Key Achievements
 Professional Experience
 
 Senior Manager, Customer Success Engineering - AMER
-GitLab | 2026 - Present | Remote
+GitLab | March 2026 - Present | Remote
 Lead a Customer Success Engineering team across AMER supporting private-sector customers across SMB, Mid-Market, Enterprise, Financial Services, and Key accounts. Own post-sales technical engagement across GitLab's subscription and usage-based offerings, aligning product and AI consumption, adoption, customer health, risk, expansion, and renewal outcomes.
 - Lead, coach, and develop 7 Customer Success Engineers through performance reviews, ongoing coaching, and operating standards for CTAs, quarterly health assessments, account documentation, and engagement across the customer lifecycle.
 - Built data-driven portfolio operating frameworks across ARR, product and AI consumption, customer health, engagement, renewal runway, risk, and expansion signals, enabling leadership to prioritize accounts, mitigate renewal risk, and surface growth opportunities.
@@ -21,7 +21,7 @@ Lead a Customer Success Engineering team across AMER supporting private-sector c
 
 Principal Consultant
 Momentum Edge Consulting | May 2025 - Present | Remote
-Technical advisor to regulated public sector and enterprise customers, focused on post-sale adoption readiness, operating models, and technical value realization.
+Limited independent advisory work through a personal consulting practice, supporting regulated public-sector and enterprise organizations with adoption readiness, operating models, and technical value realization.
 - Deliver executive-ready assessments and roadmaps that accelerate adoption and decision-making across utilities, government, and regulated industries.
 - Create reusable workshops, evaluation checklists, and implementation playbooks that remove adoption barriers and support scalable execution.
 

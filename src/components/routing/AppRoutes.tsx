@@ -1,31 +1,27 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-// Page components
-import Home from '@/pages/Home';
-import ExperienceImpact from '@/pages/ExperienceImpact';
-import SelectedWork from '@/pages/SelectedWork';
-import Resume from '@/pages/Resume';
-import MyWebsites from '@/pages/MyWebsites';
-import Contact from '@/pages/Contact';
-import About from '@/pages/About';
-import NotFound from '@/pages/NotFound';
 import Layout from '@/components/Layout';
 
-// Portfolio detail pages (accessible via Selected Work)
-import CustomerSuccess from '@/pages/portfolio/CustomerSuccess';
-import PartnerDevelopment from '@/pages/portfolio/PartnerDevelopment';
-import Compliance from '@/pages/portfolio/Compliance';
-import SolutionEngineering from '@/pages/portfolio/SolutionEngineering';
-import MomentumEdge from '@/pages/portfolio/MomentumEdge';
+const Home = lazy(() => import('@/pages/Home'));
+const Leadership = lazy(() => import('@/pages/Leadership'));
+const ExperienceImpact = lazy(() => import('@/pages/ExperienceImpact'));
+const SelectedWork = lazy(() => import('@/pages/SelectedWork'));
+const Resume = lazy(() => import('@/pages/Resume'));
+const MyWebsites = lazy(() => import('@/pages/MyWebsites'));
+const Contact = lazy(() => import('@/pages/Contact'));
+const About = lazy(() => import('@/pages/About'));
+const NotFound = lazy(() => import('@/pages/NotFound'));
 
 export const AppRoutes: React.FC = () => {
   return (
     <Layout>
+      <Suspense fallback={<div className="mx-auto max-w-6xl px-4 py-20 text-center text-gray-600" role="status">Loading page…</div>}>
       <Routes>
         {/* Primary navigation routes */}
         <Route path="/" element={<Home />} />
         <Route path="/experience" element={<ExperienceImpact />} />
+        <Route path="/leadership" element={<Leadership />} />
         <Route path="/selected-work" element={<SelectedWork />} />
         <Route path="/portfolio" element={<SelectedWork />} />
         <Route path="/resume" element={<Resume />} />
@@ -36,17 +32,18 @@ export const AppRoutes: React.FC = () => {
         <Route path="/index.html" element={<Navigate to="/" replace />} />
         
         {/* Portfolio detail pages (linked from Experience & Selected Work) */}
-        <Route path="/portfolio/customer-success" element={<CustomerSuccess />} />
-        <Route path="/portfolio/partner-development" element={<PartnerDevelopment />} />
-        <Route path="/portfolio/compliance" element={<Compliance />} />
-        <Route path="/portfolio/solution-engineering" element={<SolutionEngineering />} />
-        <Route path="/portfolio/momentum-edge" element={<MomentumEdge />} />
+        <Route path="/portfolio/customer-success" element={<Navigate to="/selected-work#customer-success-model" replace />} />
+        <Route path="/portfolio/partner-development" element={<Navigate to="/selected-work#partner-cosell" replace />} />
+        <Route path="/portfolio/compliance" element={<Navigate to="/selected-work#policy-hub" replace />} />
+        <Route path="/portfolio/solution-engineering" element={<Navigate to="/selected-work" replace />} />
+        <Route path="/portfolio/momentum-edge" element={<Navigate to="/projects" replace />} />
         
         {/* Redirects for old routes */}
         <Route path="/selected-work/*" element={<Navigate to="/selected-work" replace />} />
         
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </Suspense>
     </Layout>
   );
 };

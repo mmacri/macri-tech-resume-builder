@@ -14,9 +14,9 @@ export const profile = {
   name: 'Michael Macri, MBA',
   shortName: 'Mike Macri',
   headline: 'Senior Customer Success Engineering Leader',
-  currentRole: 'Senior Manager, Customer Success Engineering - AMER',
+  currentRole: 'Senior Manager, Customer Success Engineering – AMER',
   currentCompany: 'GitLab',
-  currentDates: '2026 - Present',
+  currentDates: 'March 2026 – Present',
   location: 'Remote',
   linkedin: 'https://www.linkedin.com/in/mikemacri',
   summary:
@@ -26,12 +26,6 @@ export const profile = {
   secondary:
     'Mike combines data-driven operating models with cross-functional leadership across DevSecOps, AI/ML, cloud, security, and governance environments.',
 };
-
-export const careerCompanies = [
-  { name: 'GitLab', years: '2026-Present', current: true },
-  { name: 'ServiceNow', years: '2021-2025' },
-  { name: 'VMware', years: '2011-2021' },
-];
 
 export const careerProgression = [
   'Technical Foundation',
@@ -65,15 +59,49 @@ export const capabilities = [
   },
 ];
 
+export const leadershipScope = [
+  { value: '7', label: 'Customer Success Engineers', detail: 'Lead, coach, and develop a distributed AMER team.' },
+  { value: 'AMER', label: 'Private-sector coverage', detail: 'SMB through Mid-Market, Enterprise, Financial Services, and Key Accounts.' },
+  { value: 'DevSecOps + AI', label: 'Platform adoption', detail: 'Subscription and usage-based offerings, including GitLab Duo and Agent Platform.' },
+];
+
+export const operatingMission = [
+  { title: 'Adoption & Consumption', description: 'Translate platform capabilities into sustained usage, technical adoption, and customer value.' },
+  { title: 'Retention & Expansion', description: 'Use customer health, product signals, technical engagement, and renewal timing to identify risk and growth opportunities.' },
+  { title: 'Team Scale', description: 'Build coaching practices, operating standards, and repeatable engagement models that let technical expertise scale.' },
+];
+
+export const leadershipPillars = [
+  { title: 'Lead Technical Teams', description: 'Build clarity, accountability, coaching, and operating standards for technical customer-facing organizations.' },
+  { title: 'Scale Customer Success', description: 'Design signal-driven engagement models that focus technical expertise where it creates the greatest value.' },
+  { title: 'Connect Technology to Outcomes', description: 'Translate DevSecOps, AI, cloud, security, and enterprise platforms into adoption and durable customer results.' },
+];
+
+export const managementPrinciples = [
+  { title: 'Clarity', description: 'Define the outcome, why it matters, how success is measured, and where people can exercise judgment.' },
+  { title: 'Coaching', description: 'Use 1:1s to build judgment and capability, with status handled through the operating system.' },
+  { title: 'Air Cover', description: 'Remove organizational friction and help the team navigate dependencies across Sales, Product, Support, Engineering, and leadership.' },
+  { title: 'Accountability', description: 'Pair empowerment with explicit expectations, ownership, follow-through, and consistent operating standards.' },
+  { title: 'Opportunity', description: 'Give strong performers visibility, stretch work, and meaningful opportunities to lead.' },
+];
+
+export const managementCadence = [
+  { horizon: 'Weekly', items: ['1:1 coaching', 'Portfolio priorities', 'Customer risk and escalations', 'Technical blockers', 'Cross-functional dependencies', 'Team support'] },
+  { horizon: 'Monthly', items: ['Customer health trends', 'Adoption and consumption', 'Engagement patterns', 'Renewal runway', 'Expansion signals', 'Team development', 'Operating consistency'] },
+  { horizon: 'Quarterly', items: ['Customer outcomes', 'Portfolio trends', 'Performance and development', 'Talent planning', 'Strategic priorities', 'Operating-model improvements'] },
+];
+
+export const healthSignals = ['Product usage', 'Engagement', 'Technical adoption', 'Support / escalation', 'Champion stability', 'Renewal timing', 'Business outcomes', 'Expansion potential'];
+
 export const experiences = [
   {
     id: 'gitlab',
-    title: 'Senior Manager, Customer Success Engineering - AMER',
+    title: 'Senior Manager, Customer Success Engineering – AMER',
     organization: 'GitLab',
     location: 'Remote',
-    startDate: '2026',
+    startDate: 'March 2026',
     endDate: 'Present',
-    period: '2026 - Present',
+    period: 'Mar 2026 – Present',
     current: true,
     theme: 'Customer Success Engineering Leadership',
     summary:
@@ -94,9 +122,9 @@ export const experiences = [
     period: 'May 2025 - Present',
     current: true,
     advisory: true,
-    theme: 'Independent Consulting / Advisory',
+    theme: 'Independent Advisory / Personal Consulting Practice',
     summary:
-      'Technical advisor to regulated public sector and enterprise customers, focused on post-sale adoption readiness, operating models, and technical value realization.',
+      'Limited independent advisory work for regulated public-sector and enterprise organizations, focused on post-sale adoption readiness, operating models, and technical value realization.',
     bullets: [
       'Deliver executive-ready assessments and roadmaps that accelerate adoption and decision-making across utilities, government, and regulated industries.',
       'Create reusable workshops, evaluation checklists, and implementation playbooks that remove adoption barriers and support scalable execution.',
@@ -197,11 +225,11 @@ export const keyAchievements = [
 export const metrics = [
   {
     metric: '$900M',
-    label: 'Enterprise Risk Reduction',
+    label: 'Enterprise Risk Exposure Addressed',
     organization: 'ServiceNow',
-    context: 'PolicyHub, governance, and compliance advisory work for regulated enterprise environments.',
-    contribution: 'Connected policy, controls, and risk workflows into executive-readable governance models.',
-    outcome: 'Supported quantifiable enterprise risk reduction without exposing confidential customer detail.',
+    context: 'Governance and compliance programs in regulated enterprise environments.',
+    contribution: 'Led solution advisory that connected policy, controls, workflow, evidence, and executive risk visibility.',
+    outcome: 'The broader program addressed $900M in quantified enterprise risk exposure; the figure is program context, not personal revenue or savings.',
   },
   {
     metric: '250%',
@@ -253,9 +281,9 @@ export const caseStudies = [
     problem: 'Enterprise organizations lacked a unified platform for policy lifecycle management, creating compliance gaps and audit exposure.',
     approach: 'Partnered across Legal, Security, Product, and customer-facing teams to translate policy lifecycle needs into practical workflows and executive insight.',
     solution: 'Created the PolicyHub module concept within ServiceNow IRM to streamline policy creation, approval workflows, compliance tracking, and governance reporting.',
-    outcomes: ['Contributed to $900M in quantifiable risk reduction', 'Established standardized policy governance across departments', 'Reduced audit preparation friction through streamlined documentation', 'Integrated compliance workflows into the ServiceNow ecosystem'],
+    outcomes: ['Supported a broader governance program addressing $900M in quantified enterprise risk exposure', 'Established standardized policy governance across departments', 'Reduced audit preparation friction through streamlined documentation', 'Integrated compliance workflows into the ServiceNow ecosystem'],
     image: policyHubScreenshot,
-    detailLink: '/portfolio/compliance',
+    detailLink: '/selected-work#policy-hub',
   },
   {
     id: 'ai-governance',
@@ -266,7 +294,7 @@ export const caseStudies = [
     approach: 'Defined reusable governance patterns and translated emerging AI risk concerns into reviewable policy and control language.',
     solution: "Served as SME for ServiceNow's inaugural AI risk policies and integrated AI/ML governance into enterprise compliance frameworks.",
     outcomes: ["Established ServiceNow's first AI risk policy framework", 'Created reusable governance templates', 'Reduced AI deployment risk through structured review processes', 'Enabled responsible AI adoption at enterprise scale'],
-    detailLink: '/portfolio/compliance',
+    detailLink: '/selected-work#ai-governance',
   },
   {
     id: 'partner-cosell',
@@ -278,7 +306,7 @@ export const caseStudies = [
     solution: 'Built partner enablement and co-selling motions for GSI, channel, and strategic ecosystem partners across the Americas.',
     outcomes: ['Two record-setting $50M+ partner-led deals', '$440M in routed pipeline through partners', '200% increase in certifications', '21% increase in partner-driven pipeline'],
     image: partnerEnablementScreenshot,
-    detailLink: '/portfolio/partner-development',
+    detailLink: '/selected-work#partner-cosell',
   },
   {
     id: 'customer-success-model',
@@ -290,7 +318,7 @@ export const caseStudies = [
     solution: 'Designed pooled and regional operating models for TAM, CSM, and Product Specialist teams.',
     outcomes: ['83 NPS score, 20 points above target', '20% renewal growth through adoption programs', 'Built three dispersed post-sales teams', 'Aligned technical success with expansion objectives'],
     image: customerSuccessScreenshot,
-    detailLink: '/portfolio/customer-success',
+    detailLink: '/selected-work#customer-success-model',
   },
 ];
 
@@ -303,6 +331,50 @@ export const cseProcess = [
   'Adoption / Value / Risk Signal',
   'Next Best Action',
 ];
+
+export const caseStudyDetails: Record<string, {
+  environment: string;
+  role: string;
+  changed: string;
+  partners: string[];
+  lesson: string;
+}> = {
+  'scaling-cse': {
+    environment: 'Large, segmented customer portfolios where CSE capacity must be directed by technical need rather than uniform activity.',
+    role: 'CSE leader and operating-model designer. This is a conceptual framework informed by current leadership practice; no GitLab performance result is claimed.',
+    changed: 'Defined complementary digital, pooled, one-to-many, and targeted human engagement motions around customer intent and product signals.',
+    partners: ['Sales', 'Renewals', 'Product', 'Engineering', 'Support', 'Regional leadership'],
+    lesson: 'Scale comes from making scarce technical expertise easier to focus, reuse, and coordinate—not from adding more meetings.',
+  },
+  'policy-hub': {
+    environment: 'Regulated enterprises with fragmented policy lifecycles, cross-functional ownership, and significant audit and risk exposure.',
+    role: 'Senior solution advisor and governance SME translating customer and internal requirements into an enterprise platform concept.',
+    changed: 'Connected policy creation, approval, controls, evidence, and reporting in a reusable ServiceNow IRM operating model.',
+    partners: ['Legal', 'Security', 'Product', 'Sales', 'Compliance leaders', 'Customer executives'],
+    lesson: 'Governance becomes usable when policy language is translated into clear ownership, workflow, evidence, and decisions.',
+  },
+  'ai-governance': {
+    environment: 'Enterprise AI adoption moving faster than policy, controls, and decision rights.',
+    role: 'AI/ML governance SME and solution advisor supporting ServiceNow’s initial enterprise AI usage guidance.',
+    changed: 'Created reusable policy and control patterns that made AI risk review more consistent and actionable.',
+    partners: ['Legal', 'Security', 'Product', 'Risk', 'Enterprise stakeholders'],
+    lesson: 'Responsible AI succeeds when governance is built into adoption—not added after deployment.',
+  },
+  'partner-cosell': {
+    environment: 'Large partner ecosystems requiring alignment across technical enablement, solution confidence, field execution, and joint commercial priorities.',
+    role: 'Americas partner and technical alliance leader responsible for joint planning, enablement, and co-sell execution.',
+    changed: 'Built repeatable partner plays, workshops, technical assets, and joint operating routines used by partner and field teams.',
+    partners: ['Partner executives', 'Sales', 'Product', 'Engineering', 'Solution architects', 'Field teams'],
+    lesson: 'Partner scale requires shared operating discipline as much as strong relationships.',
+  },
+  'customer-success-model': {
+    environment: 'Regional enterprise portfolios with inconsistent post-sales practices and limited visibility into adoption, health, and business outcomes.',
+    role: 'People leader for three dispersed post-sales teams spanning TAM, Customer Success, and Product Specialists.',
+    changed: 'Standardized engagement frameworks, success deliverables, coaching routines, and account visibility around customer business metrics.',
+    partners: ['Sales', 'Post-Sales leadership', 'TAMs', 'Customer Success', 'Product Specialists', 'Customer executives'],
+    lesson: 'Customer health only matters when teams share the context and use it to change what they do next.',
+  },
+};
 
 export const projects = [
   {
@@ -323,7 +395,7 @@ export const projects = [
     technologies: ['Customer Success', 'Adoption', 'Health Scoring'],
     image: customerSuccessScreenshot,
     projectUrl: 'https://mmacri.github.io/customer-engagement-tracker/',
-    caseStudyUrl: '/portfolio/customer-success',
+    caseStudyUrl: '/selected-work#customer-success-model',
   },
   {
     id: 'cip-audit-ready',
@@ -360,7 +432,7 @@ export const projects = [
     technologies: ['Consulting', 'AI Governance', 'GRC', 'ServiceNow IRM'],
     image: momentumEdgeScreenshot,
     projectUrl: 'https://www.momentumedgeconsulting.com',
-    caseStudyUrl: '/portfolio/momentum-edge',
+    caseStudyUrl: '/projects#momentum-edge',
   },
   {
     id: 'mec-grc',
@@ -390,11 +462,3 @@ export const projects = [
     projectUrl: 'https://mmacri.github.io/hoa-spotlight',
   },
 ];
-
-export const projectCategories = ['All', 'Customer Success & DevSecOps', 'Security, GRC & Training', 'Consulting & Business', 'Technical Experiments'];
-
-export const seoDefaults = {
-  title: 'Mike Macri MBA | Senior Customer Success Engineering Leader',
-  description:
-    'Senior Customer Success Engineering leader scaling post-sales technical organizations, operating models, and enablement across GitLab, VMware, and ServiceNow.',
-};

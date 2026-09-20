@@ -57,7 +57,23 @@
   }
 
   body {
-    @apply bg-macri-background text-foreground font-muli text-base leading-relaxed;
+    @apply overflow-x-hidden bg-macri-background text-foreground font-muli text-base leading-relaxed;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-macri-primary ring-offset-2;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {

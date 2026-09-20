@@ -7,16 +7,18 @@ interface SEOHeadProps {
   image?: string;
   url?: string;
   type?: string;
+  noIndex?: boolean;
 }
 
 // Lightweight SEO head manager without external providers
 export const SEOHead: React.FC<SEOHeadProps> = ({
-  title = 'Mike Macri MBA | Customer Success Engineering & Technology Leader',
-  description = 'Technology and Customer Success Engineering leader at GitLab with experience spanning DevSecOps, solution engineering, customer success, partner ecosystems, AI governance, security, and enterprise technology adoption.',
-  keywords = 'Mike Macri, GitLab, customer success engineering, DevSecOps, solution engineering, customer success, AI governance, security, enterprise technology adoption, MBA',
-  image = '/og-image.jpg',
+  title = 'Mike Macri | Customer Success Engineering & Technical Leadership',
+  description = 'Mike Macri leads Customer Success Engineering across AMER at GitLab, developing technical teams and scaling DevSecOps and AI adoption through signal-driven operating models.',
+  keywords = 'Mike Macri, GitLab, customer success engineering, technical customer success, DevSecOps, AI adoption, technical leadership, MBA',
+  image = 'https://mikemacri.com/og-image.png',
   url = typeof window !== 'undefined' ? window.location.href : 'https://mikemacri.com',
   type = 'website',
+  noIndex = false,
 }) => {
   useEffect(() => {
     // Helper: set or create meta tag
@@ -39,7 +41,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     setMeta('meta[name="description"]', { name: 'description', content: description });
     setMeta('meta[name="keywords"]', { name: 'keywords', content: keywords });
     setMeta('meta[name="author"]', { name: 'author', content: 'Mike Macri' });
-    setMeta('meta[name="robots"]', { name: 'robots', content: 'index, follow' });
+    setMeta('meta[name="robots"]', { name: 'robots', content: noIndex ? 'noindex, nofollow' : 'index, follow' });
 
     // Canonical link
     let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
@@ -76,29 +78,45 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     }
     const jsonLd = {
       '@context': 'https://schema.org',
-      '@type': 'Person',
-      name: 'Mike Macri',
-      jobTitle: 'Sr. Manager, Customer Success Engineering',
-      description,
-      url,
-      image,
-      sameAs: ['https://www.linkedin.com/in/mikemacri'],
-      worksFor: { '@type': 'Organization', name: 'GitLab' },
-      knowsAbout: [
-        'Customer Success Engineering',
-        'DevSecOps',
-        'Solution Engineering',
-        'Partner Ecosystems',
-        'AI Governance',
-        'Security',
-        'Enterprise Technology Adoption',
+      '@graph': [
+        {
+          '@type': 'WebSite',
+          '@id': 'https://mikemacri.com/#website',
+          url: 'https://mikemacri.com/',
+          name: 'Mike Macri | Customer Success Engineering & Technical Leadership',
+          publisher: { '@id': 'https://mikemacri.com/#person' },
+        },
+        {
+          '@type': 'Person',
+          '@id': 'https://mikemacri.com/#person',
+          name: 'Michael Macri',
+          alternateName: 'Mike Macri',
+          honorificSuffix: 'MBA',
+          jobTitle: 'Senior Manager, Customer Success Engineering – AMER',
+          description,
+          url: 'https://mikemacri.com/',
+          image,
+          sameAs: ['https://www.linkedin.com/in/mikemacri'],
+          worksFor: { '@type': 'Organization', name: 'GitLab', url: 'https://about.gitlab.com/' },
+          alumniOf: { '@type': 'CollegeOrUniversity', name: 'Xavier University' },
+          knowsAbout: ['Customer Success Engineering', 'Technical Customer Success', 'DevSecOps', 'AI adoption', 'Solution Engineering', 'Customer health'],
+        },
+        {
+          '@type': type === 'profile' ? 'ProfilePage' : 'WebPage',
+          '@id': `${url}#webpage`,
+          url,
+          name: fullTitle,
+          description,
+          isPartOf: { '@id': 'https://mikemacri.com/#website' },
+          about: { '@id': 'https://mikemacri.com/#person' },
+        },
       ],
     };
     (scriptEl as HTMLScriptElement).textContent = JSON.stringify(jsonLd);
 
     // Cleanup on unmount optional: keep tags for SPA navigation
     return () => {};
-  }, [title, description, keywords, image, url, type]);
+  }, [title, description, keywords, image, url, type, noIndex]);
 
   return null;
 };
