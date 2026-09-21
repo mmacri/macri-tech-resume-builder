@@ -27,7 +27,9 @@ const SelectedWork: React.FC = () => (
         {caseStudies.map((study) => {
           const detail = caseStudyDetails[study.id];
           return (
-            <article key={study.id} id={study.id} className="scroll-mt-24 overflow-hidden rounded-xl border border-gray-200 bg-gray-50 shadow-sm">
+            <React.Fragment key={study.id}>
+            {study.id === 'scaling-cse' && <span id="cse-assigned-motion" className="block scroll-mt-24" aria-hidden="true" />}
+            <article id={study.id} className="scroll-mt-24 overflow-hidden rounded-xl border border-gray-200 bg-gray-50 shadow-sm">
               <div className="grid grid-cols-1 lg:grid-cols-12">
                 {study.image && <div className="bg-gray-100 lg:col-span-4"><img src={study.image} alt={`${study.title} preview`} className="h-full min-h-64 w-full object-cover object-top" loading="lazy" /></div>}
                 <div className={study.image ? 'p-6 lg:col-span-8 lg:p-8' : 'p-6 lg:col-span-12 lg:p-8'}>
@@ -46,6 +48,7 @@ const SelectedWork: React.FC = () => (
                       <div><h3 className="mb-2 text-base font-semibold text-gray-900">Environment / Constraints</h3><p className="mb-0 text-sm leading-6 text-gray-700">{detail.environment}</p></div>
                       <div><h3 className="mb-2 text-base font-semibold text-gray-900">Approach</h3><p className="mb-0 text-sm leading-6 text-gray-700">{study.approach}</p></div>
                       <div><h3 className="mb-2 text-base font-semibold text-gray-900">What Changed</h3><p className="mb-0 text-sm leading-6 text-gray-700">{detail.changed}</p></div>
+                      {detail.sections?.map((section) => <div key={section.title} className="md:col-span-2"><h3 className="mb-2 text-base font-semibold text-gray-900">{section.title}</h3><p className="mb-0 text-sm leading-6 text-gray-700">{section.description}</p></div>)}
                       {detail.partners.length > 0 && <div><h3 className="mb-2 text-base font-semibold text-gray-900">Cross-Functional Partners</h3><p className="mb-0 text-sm leading-6 text-gray-700">{detail.partners.join(' · ')}</p></div>}
                       <div><h3 className="mb-2 text-base font-semibold text-gray-900">Detailed Outcomes</h3><ul className="space-y-2">{study.outcomes.map((outcome) => <li key={outcome} className="flex gap-2 text-sm leading-6 text-gray-700"><CheckCircle className="mt-0.5 h-4 w-4 flex-none text-green-600" />{outcome}</li>)}</ul></div>
                       <div><h3 className="mb-2 text-base font-semibold text-gray-900">Leadership Lesson</h3><p className="mb-0 text-sm leading-6 text-gray-700">{detail.lesson}</p></div>
@@ -54,6 +57,7 @@ const SelectedWork: React.FC = () => (
                 </div>
               </div>
             </article>
+            </React.Fragment>
           );
         })}
       </div>

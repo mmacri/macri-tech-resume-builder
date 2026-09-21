@@ -15,16 +15,6 @@ import {
 } from '@/data/careerData';
 
 const featuredIds = ['scaling-cse', 'customer-success-model', 'policy-hub'];
-const currentWork = [
-  {
-    title: 'Named CSE Coverage for 50:1 Scale Motions',
-    description: 'Building a proactive technical coverage model designed for customer-to-CSE ratios approaching 50:1, with named ownership, clear eligibility, defined engagement boundaries, and documented entry, exit, and readiness criteria.',
-  },
-  {
-    title: 'Making Technical Coverage Visible',
-    description: 'Building a live view of customer coverage, engagement, renewal timing, and technical workload so prioritization can happen from current data instead of manual roll-ups.',
-  },
-];
 
 const Home: React.FC = () => {
   const assetBase = import.meta.env.BASE_URL;
@@ -99,23 +89,6 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section className="bg-white py-14" aria-labelledby="current-work-heading">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 max-w-3xl">
-            <h2 id="current-work-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">What I'm Building Now</h2>
-            <p className="mb-0 text-gray-700">Current work at GitLab, described through the systems and practices behind technical coverage.</p>
-          </div>
-          <div className="grid grid-cols-1 gap-x-8 gap-y-8 border-t border-gray-200 pt-8 md:grid-cols-2">
-            {currentWork.map((item) => (
-              <article key={item.title} className="border-l-4 border-macri-primary pl-5">
-                <h3 className="mb-2 text-xl font-semibold text-slate-900">{item.title}</h3>
-                <p className="mb-0 text-sm leading-6 text-gray-700">{item.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="bg-white py-14" aria-labelledby="impact-heading">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-8 max-w-3xl"><h2 id="impact-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">Selected Outcomes</h2><p className="mb-0 text-gray-700">Selected VMware and ServiceNow outcomes, with the context behind each number.</p></div>
@@ -139,7 +112,7 @@ const Home: React.FC = () => {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div className="max-w-3xl"><h2 id="featured-work-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">Selected Leadership Work</h2><p className="mb-0 text-lg leading-8 text-gray-700">Examples of technical Customer Success, people leadership, and enterprise governance in practice.</p></div><Link to="/selected-work" className="inline-flex items-center font-semibold text-macri-primary hover:text-macri-primary-dark">All selected work <ArrowRight className="ml-2 h-4 w-4" /></Link></div>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {featuredWork.map((study) => { const detail = caseStudyDetails[study.id]; return <article key={study.id} className="flex h-full flex-col rounded-xl border border-gray-200 bg-gray-50 p-6"><p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-macri-primary">{study.category}</p><h3 className="mb-4 text-xl font-semibold text-slate-900">{study.title}</h3><dl className="space-y-4 text-sm leading-6 text-gray-700"><div><dt className="font-semibold text-slate-900">Challenge</dt><dd>{study.problem}</dd></div><div><dt className="font-semibold text-slate-900">My role</dt><dd>{detail.role}</dd></div><div><dt className="font-semibold text-slate-900">Why it matters</dt><dd>{detail.lesson}</dd></div></dl><Link to={`/selected-work#${study.id}`} className="mt-6 inline-flex items-center font-semibold text-macri-primary hover:text-macri-primary-dark">Explore case study <ArrowRight className="ml-2 h-4 w-4" /></Link></article>; })}
+            {featuredWork.map((study) => { const detail = caseStudyDetails[study.id]; return <article key={study.id} className="flex h-full flex-col rounded-xl border border-gray-200 bg-gray-50 p-6"><p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-macri-primary">{study.category}</p><h3 className="mb-4 text-xl font-semibold text-slate-900">{study.title}</h3><dl className="space-y-4 text-sm leading-6 text-gray-700"><div><dt className="font-semibold text-slate-900">Challenge</dt><dd>{detail.homepageChallenge ?? study.problem}</dd></div><div><dt className="font-semibold text-slate-900">My role</dt><dd>{detail.homepageRole ?? detail.role}</dd></div><div><dt className="font-semibold text-slate-900">Why it matters</dt><dd>{detail.homepageWhy ?? detail.lesson}</dd></div></dl><Link to={`/selected-work#${study.id}`} className="mt-6 inline-flex items-center font-semibold text-macri-primary hover:text-macri-primary-dark">Explore case study <ArrowRight className="ml-2 h-4 w-4" /></Link></article>; })}
           </div>
         </div>
       </section>

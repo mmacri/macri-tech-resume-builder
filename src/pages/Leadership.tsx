@@ -76,6 +76,8 @@ const Leadership: React.FC = () => (
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <article>
           <h2 id="scale-cse-heading" className="mb-3 font-saira text-3xl font-bold text-slate-900 sm:text-4xl">Scaling Technical Customer Success</h2>
+          <p className="mb-5 max-w-4xl text-base leading-7 text-gray-700">Traditional high-touch technical Customer Success does not translate directly to portfolios approaching 50 customers per CSE. At higher ratios, coverage has to be designed intentionally: who receives named technical ownership, what that ownership includes, when human expertise adds the most value, and where digital or pooled engagement provides greater leverage.</p>
+          <p className="mb-5 max-w-4xl text-base leading-7 text-gray-700">That model also requires visibility. Customer assignment alone does not show where technical capacity is actually being spent. Engagement, workload, renewal timing, customer signals, and unassigned work need to be visible enough for leaders to decide where technical expertise should—and should not—go.</p>
           <p className="mb-7 text-lg font-medium text-macri-primary">Digital creates reach. Signals create focus. Human expertise creates leverage where it matters most.</p>
           <Flow steps={cseProcess} label="Scaling technical Customer Success flow" />
           <div className="mt-7 grid grid-cols-2 gap-3 text-sm text-gray-700 sm:grid-cols-4">{['Digital engagement', 'One-to-many', 'Technical workshops', 'Hands-on labs', 'Reusable content', 'Customer-requested engagement', 'Targeted 1:1 engagement', 'Pooled expertise'].map((motion) => <div key={motion} className="rounded-lg bg-gray-50 p-3">{motion}</div>)}</div>

@@ -20,7 +20,7 @@ export const profile = {
   location: 'Remote',
   linkedin: 'https://www.linkedin.com/in/mikemacri',
   github: 'https://github.com/mmacri',
-  resumeFile: 'resume.pdf?v=2026-09-20-6',
+  resumeFile: 'resume.pdf?v=2026-09-21-1',
   summary:
     'Technology and Customer Success Engineering leader with experience building distributed post-sales teams, operating models, partner ecosystems, and enterprise governance initiatives across GitLab, VMware, and ServiceNow. Connects technical adoption, customer priorities, and commercial context so teams can focus their expertise where it matters most.',
   positioning:
@@ -180,9 +180,9 @@ export const experiences = [
     summary:
       'Lead the AMER Customer Success Engineering team, owning the post-sales technical operating model across adoption, early risk identification, expansion signals, and renewal outcomes. My job is deciding where limited technical coverage goes and building the systems that make that decision repeatable rather than instinctive.',
     bullets: [
-      'Helped build and launch named CSE coverage designed for customer-to-CSE ratios approaching 50:1, with proactive technical ownership, documented entry and exit processes, and readiness criteria for launch.',
+      'Designed named CSE coverage for customer portfolios approaching 50:1, defining ownership, engagement boundaries, eligibility, entry and exit criteria, and implementation-readiness requirements.',
       'Lead, coach, and develop the AMER Customer Success Engineering team, and authored the Associate-to-Intermediate development path now used for career progression across the function: competency scorecard, evidence standards, and promotion preparation grounded in sustained performance rather than activity volume.',
-      "Built the team's live operational view, sourced from the CS platform, to make customer coverage, engagement, renewal timing, and pool case work visible for weekly prioritization instead of relying on manual roll-ups.",
+      'Built a live operational view of customer coverage, engagement, renewal timing, and technical workload, replacing manual roll-ups as the basis for prioritization.',
       'Drive GitLab Duo Agent Platform adoption and partner with Regional Directors, Account Executives, and Renewal Managers in the account pod model on coverage and joint execution.',
     ],
   },
@@ -284,7 +284,7 @@ export const experiences = [
 export const keyAchievements = [
   {
     title: 'Customer Success Engineering Leadership',
-    description: 'Lead and develop the AMER Customer Success Engineering team, and helped build named proactive coverage designed for customer-to-CSE ratios approaching 50:1, with clear boundaries, lifecycle processes, and readiness criteria.',
+    description: 'Lead and develop the AMER Customer Success Engineering team, and designed named proactive coverage for high-ratio customer portfolios, with clear boundaries, lifecycle processes, and readiness criteria.',
   },
   {
     title: 'Adoption, Expansion & Retention',
@@ -351,40 +351,22 @@ export const caseStudies = [
   {
     id: 'scaling-cse',
     title: 'Making Technical Coverage Decidable',
-    subtitle: 'Building the live operational view behind Customer Success Engineering coverage decisions.',
+    subtitle: 'Designing technical coverage and the visibility leaders need to prioritize limited CSE capacity.',
     category: 'Customer Success Engineering',
     problem:
-      "A technical team's hardest decision is where not to spend time. Manual roll-ups were stale by the time anyone read them, and account-based reporting could not show pool case work because that work is assigned at the case level rather than the account level. Leaders lacked a current view of customer engagement, renewal timing, and total technical workload.",
+      'Technical Customer Success becomes increasingly difficult to manage as customer-to-CSE ratios grow. Traditional high-touch engagement cannot be applied uniformly, while account assignment alone does not reveal where technical capacity is actually being spent. The leadership challenge is to define meaningful coverage, make workload visible, and create enough signal to decide where human technical expertise can have the greatest impact.',
     approach:
-      'Define the coverage model before instrumenting it: what coverage means, who qualifies, how an account enters and exits, and what a good health assessment contains. Then build a live operational view from the system of record, represent assigned and pool work on their own terms, and document what the data cannot answer instead of approximating.',
+      'Define the coverage model before instrumenting it: who qualifies, what named technical ownership means, what the engagement includes and excludes, how customers enter and leave coverage, and what good technical engagement looks like. Then create visibility from the systems of record so assigned and pooled work can be understood without relying on manual roll-ups.',
     solution:
-      'A documented coverage model with defined eligibility, ownership, engagement boundaries, entry and exit processes, and launch-readiness criteria; plus a live operational view of focus accounts, engagement coverage, renewal timing, and pool case work.',
+      'A defined technical coverage model paired with a live operational view of customer coverage, engagement, renewal timing, and technical workload. Together they provide the structure and visibility needed to manage high-ratio CSE portfolios more intentionally.',
     outcomes: [
-      'Weekly prioritization uses one live operational view instead of manual roll-ups',
-      'Pool case work becomes visible alongside account-based coverage',
-      'Coverage standards are published and explicit rather than implied',
-      'Accounts enter and leave the motion through a defined, auditable process',
+      'Creates clear expectations for named technical ownership in high-ratio customer portfolios',
+      'Defines eligibility, engagement boundaries, and entry and exit criteria',
+      'Makes assigned and pooled technical workload more visible',
+      'Replaces manual roll-ups with a more current operational view',
+      'Gives leaders better information for prioritizing limited CSE capacity',
     ],
     detailLink: '/selected-work#scaling-cse',
-  },
-  {
-    id: 'cse-assigned-motion',
-    title: 'Named CSE Coverage for 50:1 Scale Motions',
-    subtitle: 'Designing proactive technical coverage that remains structured and intentional at high customer-to-CSE ratios.',
-    category: 'Customer Success Engineering',
-    problem:
-      'Traditional high-touch Customer Success models do not translate directly to customer-to-CSE ratios approaching 50:1. At the same time, accounts without dedicated Customer Success management still need proactive technical ownership. Help existed when customers opened cases, but there was no defined model for who owned the technical relationship, what recurring engagement should include, or how customers entered and exited coverage.',
-    approach:
-      'Treat the challenge as an operating-model problem rather than simply a staffing problem. Define who qualifies for coverage, what named CSE ownership means, what the motion does and does not include, how accounts enter and exit, and what capabilities must be ready before launch.',
-    solution:
-      'A documented coverage model defining eligibility, ownership, engagement cadence, role boundaries, capacity considerations, entry and exit processes, and launch-readiness criteria. The model creates structure around named technical ownership while preserving the leverage required for a high-ratio CSE motion.',
-    outcomes: [
-      'Qualifying customers gain named proactive technical ownership without requiring a support case to initiate engagement',
-      'CSE capacity is protected through explicit eligibility, engagement boundaries, and entry and exit criteria',
-      'Adjacent role responsibilities are documented rather than negotiated account by account',
-      'Launch readiness is based on defined capabilities rather than an arbitrary date',
-    ],
-    detailLink: '/selected-work#cse-assigned-motion',
   },
   {
     id: 'policy-hub',
@@ -451,20 +433,30 @@ export const caseStudyDetails: Record<string, {
   changed: string;
   partners: string[];
   lesson: string;
+  sections?: Array<{ title: string; description: string }>;
+  homepageChallenge?: string;
+  homepageRole?: string;
+  homepageWhy?: string;
 }> = {
   'scaling-cse': {
-    environment: "A technical team's hardest decision is where not to spend time. Manual roll-ups were stale by the time anyone read them, and account-based reporting could not show pool case work because that work is assigned at the case level rather than the account level. Leaders lacked a current view of customer engagement, renewal timing, and total technical workload.",
-    role: 'Define the motion before instrumenting it: what coverage means, who qualifies, how an account enters and exits, and what a good health assessment contains.',
-    changed: 'A documented coverage model with defined eligibility, ownership, engagement boundaries, entry and exit processes, and launch-readiness criteria; plus a live operational view of focus accounts, engagement coverage, renewal timing, and pool case work.',
+    environment: 'High-ratio customer portfolios require deliberate coverage boundaries, while assigned and pooled technical work must be visible together for leaders to make sound capacity decisions.',
+    role: 'Designed coverage principles around ownership, eligibility, engagement boundaries, and capacity, alongside the visibility needed to manage technical workload.',
+    changed: 'A defined technical coverage model paired with a live operational view of customer coverage, engagement, renewal timing, and technical workload.',
     partners: [],
     lesson: "A technical team's hardest decision is where not to spend time.",
-  },
-  'cse-assigned-motion': {
-    environment: 'Traditional high-touch Customer Success models do not translate directly to customer-to-CSE ratios approaching 50:1. Accounts without dedicated Customer Success management still need proactive technical ownership, but there was no defined model for ownership, recurring engagement, or how customers entered and exited coverage.',
-    role: 'Treat the challenge as an operating-model problem rather than simply a staffing problem.',
-    changed: 'A documented coverage model defining eligibility, ownership, engagement cadence, role boundaries, capacity considerations, entry and exit processes, and launch-readiness criteria. The model creates structure around named technical ownership while preserving the leverage required for a high-ratio CSE motion.',
-    partners: [],
-    lesson: 'Writing the boundaries down — including what the motion will not do — prevented more scope problems than any amount of staffing would have.',
+    sections: [
+      {
+        title: 'Named CSE Coverage at 50:1 Scale',
+        description: 'Designing proactive technical ownership for high-ratio customer portfolios requires more than assigning accounts. The model needs clear eligibility, ownership expectations, engagement boundaries, capacity considerations, and defined entry and exit criteria. At approximately 50 customers per CSE, traditional high-touch engagement is not viable across every account. Named coverage therefore has to define where human technical expertise adds value, what can be delivered through reusable or pooled engagement, and what falls outside the model.',
+      },
+      {
+        title: 'Making Technical Coverage Visible',
+        description: 'Coverage design only works if leaders can see where technical capacity is actually being spent. A live operational view of customer coverage, engagement, renewal timing, and technical workload replaces manual roll-ups and makes prioritization possible from current information. The goal is not another dashboard. The goal is enough visibility to decide where limited technical expertise should go next.',
+      },
+    ],
+    homepageChallenge: 'High customer-to-CSE ratios make traditional high-touch coverage impractical, while incomplete workload visibility makes prioritization difficult.',
+    homepageRole: 'Designed coverage principles around ownership, eligibility, engagement boundaries, and capacity, alongside the visibility needed to manage technical workload.',
+    homepageWhy: "A technical team's hardest decision is where not to spend time.",
   },
   'policy-hub': {
     environment: 'Regulated enterprises with fragmented policy lifecycles, cross-functional ownership, and significant audit and risk exposure.',

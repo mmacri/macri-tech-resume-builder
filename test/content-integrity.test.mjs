@@ -59,6 +59,7 @@ test('homepage presents leadership scope without centering current headcount', (
   assert.doesNotMatch(home, /Business Impact Across My Career/);
   assert.match(home, /A Career Built Across Different Kinds of Scale/);
   assert.match(home, /How I Build Technical Organizations/);
+  assert.doesNotMatch(home, /What I['’]m Building Now|currentWork/);
   assert.doesNotMatch(home, currentTeamHeadcount);
 });
 
@@ -75,17 +76,18 @@ test('leadership and project disclosure stay accurate', () => {
   assert.match(career, /Built independently with synthetic data\. Not affiliated with, endorsed by, or representative of any employer's internal systems\./);
   assert.match(projects, /Built independently with synthetic data/);
   assert.match(career, /id: 'scaling-cse'[\s\S]*title: 'Making Technical Coverage Decidable'/);
-  assert.match(career, /id: 'cse-assigned-motion'[\s\S]*title: 'Named CSE Coverage for 50:1 Scale Motions'/);
-  assert.match(home, /Named CSE Coverage for 50:1 Scale Motions/);
-  assert.match(home, /Making Technical Coverage Visible/);
-  assert.match(career, /customer-to-CSE ratios approaching 50:1/);
+  assert.doesNotMatch(career, /id: 'cse-assigned-motion'/);
+  assert.match(career, /Named CSE Coverage at 50:1 Scale/);
+  assert.match(career, /Making Technical Coverage Visible/);
+  assert.match(leadership, /portfolios approaching 50 customers per CSE/);
+  assert.match(career, /customer portfolios approaching 50:1/);
   assert.doesNotMatch(career, /customer-to-CSE ratios? (?:of|exactly) 50:1|defined revenue threshold/i);
-  assert.doesNotMatch(`${home}\n${career}`, /Launching the CSE Assigned Motion|Book-of-business reporting layer/);
+  assert.doesNotMatch(`${home}\n${career}`, /Launching the CSE Assigned Motion|Named CSE Coverage for 50:1 Scale Motions|Book-of-business reporting layer/);
   assert.match(career, /Served as an AI\/ML governance SME, helping define requirements, policy guidance, and reusable governance patterns/);
   assert.doesNotMatch(career, /Established ServiceNow's first AI risk policy framework|Served as SME for ServiceNow's inaugural AI risk policies/);
-  assert.match(career, /Writing the boundaries down — including what the motion will not do — prevented more scope problems than any amount of staffing would have\./);
+  assert.match(career, /A technical team's hardest decision is where not to spend time\./);
   assert.match(career, /detailLink: '\/selected-work#scaling-cse'/);
-  assert.match(career, /detailLink: '\/selected-work#cse-assigned-motion'/);
+  assert.match(work, /id="cse-assigned-motion"/);
   const caseStudyBlock = career.match(/export const caseStudies = \[([\s\S]*?)\n\];\n\nexport const cseProcess/)?.[1] ?? '';
   const caseStudyIds = [...caseStudyBlock.matchAll(/id: '([^']+)'/g)].map((match) => match[1]);
   assert.equal(new Set(caseStudyIds).size, caseStudyIds.length);
@@ -133,7 +135,7 @@ test('person schema identifies the factual current role and verified profiles', 
 
 test('resume links share one cache-busted canonical artifact', () => {
   const career = read('src/data/careerData.ts');
-  assert.match(career, /resumeFile: 'resume\.pdf\?v=2026-09-20-6'/);
+  assert.match(career, /resumeFile: 'resume\.pdf\?v=2026-09-21-1'/);
   for (const page of ['src/pages/Home.tsx', 'src/pages/ExperienceImpact.tsx', 'src/pages/Resume.tsx']) {
     const source = read(page);
     assert.match(source, /profile\.resumeFile/);
