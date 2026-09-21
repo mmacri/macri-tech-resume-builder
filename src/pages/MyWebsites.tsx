@@ -13,7 +13,7 @@ const narratives: Record<string, { problem: string; why: string; demonstrates: s
   'gitlab-health': {
     problem: 'Customer teams need a shared way to interpret adoption, utilization, health, and renewal readiness.',
     why: 'I wanted to explore how customer health could become an operating view rather than another score: what the customer is using, where adoption is changing, how they are engaging, what risks are emerging, and what the CSE should do next.',
-    demonstrates: 'Customer Success strategy, technical adoption, operating-model design, data visualization, and rapid prototyping.',
+    demonstrates: 'Customer Success strategy, technical adoption, coverage-model design, data visualization, and rapid prototyping.',
   },
   'framework-fusion': {
     problem: 'Teams working across multiple compliance frameworks repeatedly interpret overlapping controls by hand.',

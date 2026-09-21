@@ -20,7 +20,7 @@ export const profile = {
   location: 'Remote',
   linkedin: 'https://www.linkedin.com/in/mikemacri',
   github: 'https://github.com/mmacri',
-  resumeFile: 'resume.pdf?v=2026-09-20-5',
+  resumeFile: 'resume.pdf?v=2026-09-20-6',
   summary:
     'Technology and Customer Success Engineering leader with experience building distributed post-sales teams, operating models, partner ecosystems, and enterprise governance initiatives across GitLab, VMware, and ServiceNow. Connects technical adoption, customer priorities, and commercial context so teams can focus their expertise where it matters most.',
   positioning:
@@ -107,8 +107,8 @@ export const careerEras = [
   {
     organization: 'GitLab',
     era: 'Modern Technical Customer Success',
-    themes: 'Customer Success Engineering · Operating Models · DevSecOps · AI Adoption · Customer Health',
-    detail: 'Brings those perspectives together to lead modern technical Customer Success — building the operating model, not just running it.',
+    themes: 'Customer Success Engineering · Coverage Models · DevSecOps · AI Adoption · Customer Health',
+    detail: 'Brings those perspectives together to lead modern technical Customer Success — building the system behind the work, not just running it.',
   },
 ];
 
@@ -153,7 +153,7 @@ export const scopeBeyondOrgChart = [
   { title: 'Direct Leadership', detail: 'Customer Success Engineers, Technical Account Managers, Customer Success teams, Product Specialists, and technical customer-facing teams.' },
   { title: 'Cross-Functional Leadership', detail: 'Sales, Product, Engineering, Support, Renewals, Security, Legal, and regional leadership.' },
   { title: 'Ecosystem Leadership', detail: 'Global Systems Integrators, channel and technology partners, partner executives, solution architects, and field teams.' },
-  { title: 'Enterprise Influence', detail: 'AI governance, enterprise risk, compliance, security, platform adoption, technical transformation, and operating-model change.' },
+  { title: 'Enterprise Influence', detail: 'AI governance, enterprise risk, compliance, security, platform adoption, technical transformation, and organizational change.' },
 ];
 
 export const managementCadence = [
@@ -180,9 +180,9 @@ export const experiences = [
     summary:
       'Lead the AMER Customer Success Engineering team, owning the post-sales technical operating model across adoption, early risk identification, expansion signals, and renewal outcomes. My job is deciding where limited technical coverage goes and building the systems that make that decision repeatable rather than instinctive.',
     bullets: [
-      'Helped build and launch the CSE Assigned motion — proactive, named technical coverage for accounts that do not have a Customer Success Manager. Authored the operating handbook, the inbound-account and exit processes, and the readiness framework that gated go-live against defined capability criteria.',
+      'Helped build and launch named CSE coverage designed for customer-to-CSE ratios approaching 50:1, with proactive technical ownership, documented entry and exit processes, and readiness criteria for launch.',
       'Lead, coach, and develop the AMER Customer Success Engineering team, and authored the Associate-to-Intermediate development path now used for career progression across the function: competency scorecard, evidence standards, and promotion preparation grounded in sustained performance rather than activity volume.',
-      "Built the team's book-of-business reporting layer, sourced live from the CS platform — focus accounts, engagement coverage, renewal runway, and pool case work — replacing manual roll-ups as the basis for weekly prioritization.",
+      "Built the team's live operational view, sourced from the CS platform, to make customer coverage, engagement, renewal timing, and pool case work visible for weekly prioritization instead of relying on manual roll-ups.",
       'Drive GitLab Duo Agent Platform adoption and partner with Regional Directors, Account Executives, and Renewal Managers in the account pod model on coverage and joint execution.',
     ],
   },
@@ -217,8 +217,8 @@ export const experiences = [
       'Led post-sales solution advisory across Sales, Security, Legal, and Product, supporting platform adoption and governance work within a broader program addressing $900M in quantified enterprise risk exposure.',
     bullets: [
       'Standardized policy-to-process workflows across compliance frameworks, improving consistency and adoption across customer and internal teams.',
-      "Served as an AI/ML governance SME, defining requirements and guidance used for ServiceNow's first enterprise AI usage policies.",
-      'Translated regulatory and AI governance requirements into scalable operating models, dashboards, templates, and enablement playbooks used across enterprise stakeholders.',
+      "Served as an AI/ML governance SME, helping define requirements, policy guidance, and reusable governance patterns for ServiceNow's initial enterprise AI governance efforts.",
+      'Translated regulatory and AI governance requirements into practical guidance, dashboards, templates, and enablement playbooks used across enterprise stakeholders.',
     ],
   },
   {
@@ -284,7 +284,7 @@ export const experiences = [
 export const keyAchievements = [
   {
     title: 'Customer Success Engineering Leadership',
-    description: 'Lead and develop the AMER Customer Success Engineering team, and helped build the CSE Assigned operating motion — the handbook, processes, and readiness criteria behind proactive technical coverage.',
+    description: 'Lead and develop the AMER Customer Success Engineering team, and helped build named proactive coverage designed for customer-to-CSE ratios approaching 50:1, with clear boundaries, lifecycle processes, and readiness criteria.',
   },
   {
     title: 'Adoption, Expansion & Retention',
@@ -292,7 +292,7 @@ export const keyAchievements = [
   },
   {
     title: 'Systems That Make Coverage Decidable',
-    description: 'Built the reporting systems the AMER segment uses to decide where technical coverage goes, and previously served as an enterprise AI/ML governance SME at ServiceNow.',
+    description: 'Built the visibility the AMER segment uses to decide where technical coverage goes, and previously served as an AI/ML governance SME helping define ServiceNow’s initial enterprise AI governance requirements and policy guidance.',
   },
 ];
 
@@ -333,7 +333,7 @@ export const metrics = [
     metric: '20%',
     label: 'Renewal Growth',
     organization: 'VMware',
-    context: 'Customer Success and TAM operating models across regional post-sales teams.',
+    context: 'Customer Success and TAM engagement models across regional post-sales teams.',
     contribution: 'Aligned technical success planning, adoption programs, and customer health visibility.',
     outcome: 'Contributed to stronger renewal performance through consistent technical engagement and adoption practices.',
   },
@@ -351,17 +351,17 @@ export const caseStudies = [
   {
     id: 'scaling-cse',
     title: 'Making Technical Coverage Decidable',
-    subtitle: 'Building the operating model and reporting behind a Customer Success Engineering team.',
+    subtitle: 'Building the live operational view behind Customer Success Engineering coverage decisions.',
     category: 'Customer Success Engineering',
     problem:
-      "A technical team's hardest decision is where not to spend time. The book was tracked through manual roll-ups that took real effort to assemble and were stale by the time anyone read them. One form of the team's work — pool case coverage — was structurally invisible, because it is owned at the case level rather than by account assignment, so every account-based view showed a fully utilized engineer with no book.",
+      "A technical team's hardest decision is where not to spend time. Manual roll-ups were stale by the time anyone read them, and account-based reporting could not show pool case work because that work is assigned at the case level rather than the account level. Leaders lacked a current view of customer engagement, renewal timing, and total technical workload.",
     approach:
-      'Define the motion before instrumenting it: what coverage means, who qualifies, how an account enters and exits, and what a good health assessment contains. Then build reporting from the system of record rather than from exports, cover both the assigned and pool motions in their own terms, and document what the data genuinely cannot answer instead of approximating.',
+      'Define the coverage model before instrumenting it: what coverage means, who qualifies, how an account enters and exits, and what a good health assessment contains. Then build a live operational view from the system of record, represent assigned and pool work on their own terms, and document what the data cannot answer instead of approximating.',
     solution:
-      'A documented operating model with published inbound and exit processes and a readiness framework gating go-live against defined capability criteria; and a live book-of-business layer covering focus accounts, engagement coverage, renewal runway and pool cases.',
+      'A documented coverage model with defined eligibility, ownership, engagement boundaries, entry and exit processes, and launch-readiness criteria; plus a live operational view of focus accounts, engagement coverage, renewal timing, and pool case work.',
     outcomes: [
-      'Weekly prioritization runs from one live view rather than manual roll-ups',
-      'Pool case work is visible and attributable for the first time',
+      'Weekly prioritization uses one live operational view instead of manual roll-ups',
+      'Pool case work becomes visible alongside account-based coverage',
       'Coverage standards are published and explicit rather than implied',
       'Accounts enter and leave the motion through a defined, auditable process',
     ],
@@ -369,27 +369,27 @@ export const caseStudies = [
   },
   {
     id: 'cse-assigned-motion',
-    title: 'Launching the CSE Assigned Motion',
-    subtitle: 'Turning a coverage idea into a documented, operable motion with defined entry, exit, and readiness criteria.',
+    title: 'Named CSE Coverage for 50:1 Scale Motions',
+    subtitle: 'Designing proactive technical coverage that remains structured and intentional at high customer-to-CSE ratios.',
     category: 'Customer Success Engineering',
     problem:
-      'Accounts above a defined revenue threshold without a named Customer Success Manager had no proactive technical owner. Help existed, but only if someone opened a case. The gap was not capability — it was that nothing defined who owned the account, what the recurring work was, or how an account entered and left coverage.',
+      'Traditional high-touch Customer Success models do not translate directly to customer-to-CSE ratios approaching 50:1. At the same time, accounts without dedicated Customer Success management still need proactive technical ownership. Help existed when customers opened cases, but there was no defined model for who owned the technical relationship, what recurring engagement should include, or how customers entered and exited coverage.',
     approach:
-      'Treat it as an operating model rather than a staffing change. Define the motion boundaries — what it does and explicitly does not do — before assigning anyone. Write the processes down, publish them in the handbook as the authoritative version, and gate launch on capability readiness rather than on a date.',
+      'Treat the challenge as an operating-model problem rather than simply a staffing problem. Define who qualifies for coverage, what named CSE ownership means, what the motion does and does not include, how accounts enter and exit, and what capabilities must be ready before launch.',
     solution:
-      'An operating handbook defining the motion, its cadence, and its boundaries against adjacent roles; documented inbound and exit processes covering eligibility, manager review, approve/hold/reject/exception outcomes, capacity limits, and system validation; and a readiness framework scoring each required capability against exit criteria before go-live.',
+      'A documented coverage model defining eligibility, ownership, engagement cadence, role boundaries, capacity considerations, entry and exit processes, and launch-readiness criteria. The model creates structure around named technical ownership while preserving the leverage required for a high-ratio CSE motion.',
     outcomes: [
-      'Qualifying accounts have a named technical owner without needing to open a case',
-      'Entry and exit run through a defined process with recorded decisions and rationale',
-      'Role boundaries against adjacent functions are published rather than negotiated case by case',
-      'Launch gated on capability readiness, with unfinished capabilities named rather than assumed',
+      'Qualifying customers gain named proactive technical ownership without requiring a support case to initiate engagement',
+      'CSE capacity is protected through explicit eligibility, engagement boundaries, and entry and exit criteria',
+      'Adjacent role responsibilities are documented rather than negotiated account by account',
+      'Launch readiness is based on defined capabilities rather than an arbitrary date',
     ],
     detailLink: '/selected-work#cse-assigned-motion',
   },
   {
     id: 'policy-hub',
     title: 'ServiceNow Policy Hub',
-    subtitle: 'Turning policy and governance complexity into a more usable enterprise operating model.',
+    subtitle: 'Turning policy and governance complexity into a more usable enterprise governance model.',
     category: 'AI, Risk & Governance',
     problem: 'Enterprise organizations lacked a unified platform for policy lifecycle management, creating compliance gaps and audit exposure.',
     approach: 'Partnered across Legal, Security, Product, and customer-facing teams to translate policy lifecycle needs into practical workflows and executive insight.',
@@ -404,9 +404,9 @@ export const caseStudies = [
     subtitle: 'Helping organizations adopt AI with clearer policy, risk, and control models.',
     category: 'AI, Risk & Governance',
     problem: 'Organizations deploying AI/ML lacked structured governance frameworks, creating regulatory and ethical risk exposure.',
-    approach: 'Defined reusable governance patterns and translated emerging AI risk concerns into reviewable policy and control language.',
-    solution: "Served as SME for ServiceNow's inaugural AI risk policies and integrated AI/ML governance into enterprise compliance frameworks.",
-    outcomes: ["Established ServiceNow's first AI risk policy framework", 'Created reusable governance templates', 'Reduced AI deployment risk through structured review processes', 'Enabled responsible AI adoption at enterprise scale'],
+    approach: 'Translated emerging AI risk, policy, and control requirements into practical guidance and reusable governance patterns.',
+    solution: 'Served as an AI/ML governance SME, helping define policy requirements, control patterns, and practical guidance that integrated emerging AI risks into existing enterprise governance and compliance practices.',
+    outcomes: ['Contributed requirements and governance patterns used in ServiceNow’s initial enterprise AI policy framework', 'Developed reusable governance templates', 'Made emerging AI risks reviewable through structured policy and control guidance', 'Connected AI governance requirements to existing enterprise compliance practices'],
     detailLink: '/selected-work#ai-governance',
   },
   {
@@ -428,7 +428,7 @@ export const caseStudies = [
     category: 'Customer Success Engineering',
     problem: 'Regional customer success teams lacked standardized engagement frameworks, leading to inconsistent customer outcomes.',
     approach: 'Built engagement frameworks, team coaching routines, customer health visibility, and program deliverables tied to customer business metrics.',
-    solution: 'Designed pooled and regional operating models for TAM, CSM, and Product Specialist teams.',
+    solution: 'Designed pooled and regional engagement models for TAM, CSM, and Product Specialist teams.',
     outcomes: ['83 NPS score, 20 points above target', '20% renewal growth through adoption programs', 'Built three dispersed post-sales teams', 'Aligned technical success with expansion objectives'],
     image: customerSuccessScreenshot,
     detailLink: '/selected-work#customer-success-model',
@@ -453,30 +453,30 @@ export const caseStudyDetails: Record<string, {
   lesson: string;
 }> = {
   'scaling-cse': {
-    environment: "A technical team's hardest decision is where not to spend time. The book was tracked through manual roll-ups that took real effort to assemble and were stale by the time anyone read them. One form of the team's work — pool case coverage — was structurally invisible, because it is owned at the case level rather than by account assignment, so every account-based view showed a fully utilized engineer with no book.",
+    environment: "A technical team's hardest decision is where not to spend time. Manual roll-ups were stale by the time anyone read them, and account-based reporting could not show pool case work because that work is assigned at the case level rather than the account level. Leaders lacked a current view of customer engagement, renewal timing, and total technical workload.",
     role: 'Define the motion before instrumenting it: what coverage means, who qualifies, how an account enters and exits, and what a good health assessment contains.',
-    changed: 'A documented operating model with published inbound and exit processes and a readiness framework gating go-live against defined capability criteria; and a live book-of-business layer covering focus accounts, engagement coverage, renewal runway and pool cases.',
+    changed: 'A documented coverage model with defined eligibility, ownership, engagement boundaries, entry and exit processes, and launch-readiness criteria; plus a live operational view of focus accounts, engagement coverage, renewal timing, and pool case work.',
     partners: [],
     lesson: "A technical team's hardest decision is where not to spend time.",
   },
   'cse-assigned-motion': {
-    environment: 'Accounts above a defined revenue threshold without a named Customer Success Manager had no proactive technical owner. Help existed, but only if someone opened a case. The gap was not capability — it was that nothing defined who owned the account, what the recurring work was, or how an account entered and left coverage.',
-    role: 'Treat it as an operating model rather than a staffing change.',
-    changed: 'An operating handbook defining the motion, its cadence, and its boundaries against adjacent roles; documented inbound and exit processes covering eligibility, manager review, approve/hold/reject/exception outcomes, capacity limits, and system validation; and a readiness framework scoring each required capability against exit criteria before go-live.',
+    environment: 'Traditional high-touch Customer Success models do not translate directly to customer-to-CSE ratios approaching 50:1. Accounts without dedicated Customer Success management still need proactive technical ownership, but there was no defined model for ownership, recurring engagement, or how customers entered and exited coverage.',
+    role: 'Treat the challenge as an operating-model problem rather than simply a staffing problem.',
+    changed: 'A documented coverage model defining eligibility, ownership, engagement cadence, role boundaries, capacity considerations, entry and exit processes, and launch-readiness criteria. The model creates structure around named technical ownership while preserving the leverage required for a high-ratio CSE motion.',
     partners: [],
     lesson: 'Writing the boundaries down — including what the motion will not do — prevented more scope problems than any amount of staffing would have.',
   },
   'policy-hub': {
     environment: 'Regulated enterprises with fragmented policy lifecycles, cross-functional ownership, and significant audit and risk exposure.',
     role: 'Senior solution advisor and governance SME translating customer and internal requirements into an enterprise platform concept.',
-    changed: 'Connected policy creation, approval, controls, evidence, and reporting in a reusable ServiceNow IRM operating model.',
+    changed: 'Connected policy creation, approval, controls, evidence, and reporting in a reusable ServiceNow IRM governance model.',
     partners: ['Legal', 'Security', 'Product', 'Sales', 'Compliance leaders', 'Customer executives'],
     lesson: 'Governance becomes usable when policy language is translated into clear ownership, workflow, evidence, and decisions.',
   },
   'ai-governance': {
     environment: 'Enterprise AI adoption moving faster than policy, controls, and decision rights.',
-    role: 'AI/ML governance SME and solution advisor supporting ServiceNow’s initial enterprise AI usage guidance.',
-    changed: 'Created reusable policy and control patterns that made AI risk review more consistent and actionable.',
+    role: 'AI/ML governance SME and solution advisor helping define requirements and policy guidance for ServiceNow’s initial enterprise AI governance efforts.',
+    changed: 'Helped define policy requirements, control patterns, and practical guidance that integrated emerging AI risks into existing enterprise governance and compliance practices.',
     partners: ['Legal', 'Security', 'Product', 'Risk', 'Enterprise stakeholders'],
     lesson: 'Responsible AI succeeds when governance is built into adoption—not added after deployment.',
   },

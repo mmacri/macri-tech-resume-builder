@@ -17,12 +17,12 @@ import {
 const featuredIds = ['scaling-cse', 'customer-success-model', 'policy-hub'];
 const currentWork = [
   {
-    title: 'CSE Assigned motion',
-    description: 'Proactive named technical coverage for accounts without a Customer Success Manager. Operating handbook, entry and exit processes, and a readiness framework gating launch.',
+    title: 'Named CSE Coverage for 50:1 Scale Motions',
+    description: 'Building a proactive technical coverage model designed for customer-to-CSE ratios approaching 50:1, with named ownership, clear eligibility, defined engagement boundaries, and documented entry, exit, and readiness criteria.',
   },
   {
-    title: 'Book-of-business reporting layer',
-    description: "A live operational view of the team's accounts, engagement coverage, renewal runway and pool case work, replacing manual roll-ups.",
+    title: 'Making Technical Coverage Visible',
+    description: 'Building a live view of customer coverage, engagement, renewal timing, and technical workload so prioritization can happen from current data instead of manual roll-ups.',
   },
 ];
 

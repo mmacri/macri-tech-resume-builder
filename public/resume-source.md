@@ -16,9 +16,9 @@ Professional Experience
 Senior Manager, Customer Success Engineering – AMER
 GitLab | March 2026 - Present | Remote
 Lead the AMER Customer Success Engineering team, owning the post-sales technical operating model across adoption, early risk identification, expansion signals, and renewal outcomes. My job is deciding where limited technical coverage goes and building the systems that make that decision repeatable rather than instinctive. Scope: an AMER private-sector portfolio.
-- Helped build and launch the CSE Assigned motion — proactive, named technical coverage for accounts that do not have a Customer Success Manager. Authored the operating handbook, the inbound-account and exit processes, and the readiness framework that gated go-live against defined capability criteria.
+- Helped build and launch named CSE coverage designed for customer-to-CSE ratios approaching 50:1, with proactive technical ownership, documented entry and exit processes, and readiness criteria for launch.
 - Lead, coach, and develop the AMER Customer Success Engineering team, and authored the Associate-to-Intermediate development path now used for career progression across the function: competency scorecard, evidence standards, and promotion preparation grounded in sustained performance rather than activity volume.
-- Built the team's book-of-business reporting layer, sourced live from the CS platform — focus accounts, engagement coverage, renewal runway, and pool case work — replacing manual roll-ups as the basis for weekly prioritization.
+- Built the team's live operational view, sourced from the CS platform, to make customer coverage, engagement, renewal timing, and pool case work visible for weekly prioritization instead of relying on manual roll-ups.
 
 Principal Consultant
 Momentum Edge Consulting | May 2025 - Present | Remote
@@ -30,7 +30,7 @@ ServiceNow | Dec 2021 - May 2025 | Remote
 Led post-sales solution advisory within Legal, Ethics & Compliance, connecting governance requirements to ServiceNow IRM, automation, policy workflows, controls, and dashboards.
 - Partnered across Sales, Legal, Ethics, Compliance, Information System Security, Automation Engineering, Security, and Product.
 - Contributed to a broader governance program addressing approximately $900M in quantified enterprise risk exposure; the figure represents program context, not personal savings or revenue.
-- Served as an AI/ML governance SME, defining requirements and guidance used for ServiceNow's first enterprise AI usage policies and translating regulatory, security, and risk requirements into reusable policy and control models.
+- Served as an AI/ML governance SME, helping define requirements, policy guidance, and reusable governance patterns for ServiceNow's initial enterprise AI governance efforts.
 
 Partner Business & Technical Alliance Director - Americas
 VMware | Nov 2019 - Dec 2021 | San Francisco, CA

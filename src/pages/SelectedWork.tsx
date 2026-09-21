@@ -10,7 +10,7 @@ const SelectedWork: React.FC = () => (
   <>
     <SEOHead
       title="Selected Work | Mike Macri"
-      description="Leadership case studies showing Mike Macri’s role and results across Customer Success Engineering, customer operating models, enterprise governance, and partner ecosystems."
+      description="Leadership case studies showing Mike Macri’s role and results across Customer Success Engineering, customer coverage models, enterprise governance, and partner ecosystems."
       keywords="Mike Macri selected work, customer success engineering, ServiceNow Policy Hub, VMware customer success, partner enablement"
       url="https://mikemacri.com/selected-work"
     />
