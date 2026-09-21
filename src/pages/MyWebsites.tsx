@@ -67,7 +67,7 @@ const ProjectCard: React.FC<{ project: (typeof projects)[number]; compact?: bool
       <div className="flex flex-1 flex-col p-6">
         <Badge variant="secondary" className="mb-3 w-fit">{project.category}</Badge>
         <h3 className="mb-4 text-xl font-semibold text-slate-900">{project.name}</h3>
-        {(project.id === 'gitlab-health' || project.id === 'customer-success-dashboard') && <p className="mb-4 rounded-lg border border-orange-200 bg-orange-50 p-3 text-sm font-semibold leading-6 text-slate-900">Built independently with synthetic data. Not affiliated with, endorsed by, or representative of any employer's internal systems.</p>}
+        {(project.id === 'gitlab-health' || project.id === 'customer-success-dashboard') && <p className="mb-4 rounded-lg border border-orange-200 bg-orange-50 p-3 text-sm font-semibold leading-6 text-slate-900">Independent prototype using synthetic data. Not an internal GitLab system and not affiliated with or endorsed by GitLab.</p>}
         <dl className="space-y-4 text-sm leading-6 text-gray-700">
           <div><dt className="font-semibold text-slate-900">Problem</dt><dd>{narrative.problem}</dd></div>
           <div><dt className="font-semibold text-slate-900">Why I built it</dt><dd>{narrative.why}</dd></div>

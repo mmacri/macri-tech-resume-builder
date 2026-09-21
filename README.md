@@ -45,7 +45,7 @@ To enable a form later:
 
 ## Routing and deployment
 
-`public/_redirects` defines permanent legacy-route redirects before the SPA fallback on compatible static hosts. The post-build script also creates canonical, noindex static redirect pages for hosts that do not honor redirect rules. React Router provides the final client-side compatibility layer. See `PUBLIC-FOOTPRINT-CLEANUP.md` for the route inventory, exact host limitations, and post-deployment verification steps.
+`public/_redirects` defines permanent redirects for verified legacy routes on compatible static hosts. It intentionally has no blanket catch-all redirect. The post-build workflow creates page-specific HTML shells for canonical routes, a noindex `404.html`, and canonical/noindex compatibility pages for legacy routes on hosts that do not honor redirect rules. React Router provides the final client-side compatibility layer. See `PUBLIC-FOOTPRINT-CLEANUP.md` for the route inventory, verified production-host limitations, and post-deployment steps.
 
 `public/_headers` requests revalidation for `/resume.pdf` and identifies `/resume.pdf` as the canonical PDF resource. Hosts that ignore static header files require equivalent CDN/hosting configuration.
 

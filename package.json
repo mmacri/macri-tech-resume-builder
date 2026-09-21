@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "node scripts/generate-legacy-redirects.mjs",
+    "postbuild": "node scripts/generate-route-shells.mjs && node scripts/generate-legacy-redirects.mjs",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "test": "node --test test/*.test.mjs",

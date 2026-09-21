@@ -16,7 +16,8 @@ const redirects = new Map([
 ]);
 
 const page = (destination) => {
-  const canonical = `https://mikemacri.com${destination}`;
+  const canonicalPath = destination.split('#')[0];
+  const canonical = `https://mikemacri.com${canonicalPath}`;
   const escapedDestination = JSON.stringify(destination);
   return `<!doctype html>
 <html lang="en">

@@ -24,8 +24,6 @@ Momentum Edge Consulting is a limited independent advisory/personal consulting p
 | `/portfolio/compliance` | Compliance/GRC specialty page | `/selected-work#policy-hub` |
 | `/portfolio/solution-engineering` | Solution Engineering specialty page | `/selected-work` |
 | `/portfolio/momentum-edge` | Momentum Edge specialty page | `/projects#momentum-edge` |
-| `/selected-work/*` | Obsolete nested Selected Work paths | `/selected-work` |
-
 The retired specialty routes are not included in the sitemap and no longer render separate professional identities. Their verified material is represented in Experience, Selected Work, or Projects.
 
 ## Redirect implementation
@@ -37,6 +35,12 @@ Redirects are layered because static hosts do not all provide the same HTTP beha
 3. React Router keeps equivalent client-side redirects as the final SPA fallback.
 
 The static compatibility pages return `200` on hosts that ignore `_redirects`; they must not be described as HTTP 301 redirects. `/index.html` cannot have a separate static fallback because it is the application entry file. It relies on the hosting redirect rule, the homepage canonical, and the SPA redirect.
+
+Production verification on September 21, 2026 confirmed that the current host serves the generated compatibility pages with HTTP `200` and does not apply `public/_redirects` as server-side redirects. The compatibility pages correctly expose `noindex, follow`, a canonical destination, a meta refresh, and `location.replace`, but host-level 301/308 rules remain preferable. Production also returned `200` for `www.mikemacri.com`, `/index.html`, trailing-slash variants, and an unknown test route. The code declares `https://mikemacri.com` as canonical and provides a noindex `404.html`; the hosting platform still needs to enforce the non-`www` redirect and true 404 status. The live `/resume.pdf` response also did not expose the canonical `Link` or revalidation headers requested by `public/_headers`, so equivalent CDN configuration is required if those headers are desired in production.
+
+The production host already redirects HTTP to HTTPS with `301` and sends HSTS.
+
+Canonical route shells are generated during `npm run build` so direct requests and social crawlers receive page-specific titles, descriptions, canonical URLs, Open Graph/Twitter metadata, and JSON-LD before the React application loads.
 
 After deployment, inspect the response status and `Location` header for every route above. If the production host ignores `_redirects`, configure equivalent permanent redirects in that host's routing settings.
 
@@ -52,6 +56,8 @@ After deployment, verify both:
 The bytes should match the production build artifact and show GitLab as current with a March 2026 start date. If the bare URL remains stale, purge that URL in the production CDN and recheck it without relying on the query string.
 
 ## Google Search Console actions
+
+The maintained post-deployment procedure now lives in `SEO-SEARCH-CONSOLE-CHECKLIST.md`.
 
 After the production deployment:
 

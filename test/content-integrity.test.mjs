@@ -26,12 +26,12 @@ test('primary routes include leadership and preserve legacy redirects', () => {
   assert.match(routes, /path="\/portfolio\/customer-success"[\s\S]*Navigate/);
   assert.match(routes, /path="\/portfolio" element={<Navigate to="\/selected-work"/);
   assert.match(routes, /path="\/my-websites" element={<Navigate to="\/projects"/);
+  assert.doesNotMatch(routes, /path="\/selected-work\/\*"/);
 });
 
-test('hosting redirects point directly to canonical destinations before the SPA fallback', () => {
+test('hosting redirects map only verified legacy destinations', () => {
   const redirects = read('public/_redirects');
-  const catchAllIndex = redirects.indexOf('/* /index.html 200');
-  assert.ok(catchAllIndex > 0);
+  assert.match(redirects, /https:\/\/www\.mikemacri\.com\/\* https:\/\/mikemacri\.com\/:splat 301!/);
   for (const rule of [
     '/my-websites /projects 301',
     '/index.html / 301',
@@ -43,12 +43,27 @@ test('hosting redirects point directly to canonical destinations before the SPA 
     '/portfolio/momentum-edge /projects#momentum-edge 301',
   ]) {
     assert.ok(redirects.includes(rule), `missing redirect rule: ${rule}`);
-    assert.ok(redirects.indexOf(rule) < catchAllIndex, `redirect follows SPA fallback: ${rule}`);
   }
+  assert.doesNotMatch(redirects, /^\/\*/m);
+  assert.doesNotMatch(redirects, /\/selected-work\/\*/);
   const generator = read('scripts/generate-legacy-redirects.mjs');
   assert.match(generator, /noindex, follow/);
   assert.match(generator, /rel="canonical"/);
   assert.match(generator, /location\.replace/);
+  assert.match(generator, /destination\.split\('#'\)\[0\]/);
+});
+
+test('production build generates server-visible metadata for canonical routes and a noindex 404', () => {
+  const packageJson = read('package.json');
+  const generator = read('scripts/generate-route-shells.mjs');
+  assert.match(packageJson, /generate-route-shells\.mjs/);
+  for (const route of ['/', '/leadership', '/selected-work', '/projects', '/experience', '/resume', '/about', '/contact']) {
+    assert.match(generator, new RegExp(`path: '${route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'`));
+  }
+  assert.match(generator, /noindex, follow/);
+  assert.match(generator, /404\.html/);
+  assert.match(generator, /Senior Manager, Customer Success Engineering – AMER/);
+  assert.match(generator, /worksFor:[\s\S]*GitLab/);
 });
 
 test('homepage presents leadership scope without centering current headcount', () => {
@@ -73,8 +88,8 @@ test('leadership and project disclosure stay accurate', () => {
   assert.match(career, /Clear the Path/);
   assert.match(leadership, /Conceptual operating model\./);
   assert.doesNotMatch(`${leadership}\n${career}\n${work}`, /performance (?:metrics are implied|result is claimed)/i);
-  assert.match(career, /Built independently with synthetic data\. Not affiliated with, endorsed by, or representative of any employer's internal systems\./);
-  assert.match(projects, /Built independently with synthetic data/);
+  assert.match(career, /Independent prototype using synthetic data\. Not an internal GitLab system and not affiliated with or endorsed by GitLab\./);
+  assert.match(projects, /Independent prototype using synthetic data/);
   assert.match(career, /id: 'scaling-cse'[\s\S]*title: 'Making Technical Coverage Decidable'/);
   assert.doesNotMatch(career, /id: 'cse-assigned-motion'/);
   assert.match(career, /Named CSE Coverage at 50:1 Scale/);
@@ -159,6 +174,13 @@ test('major pages have unique canonical SEO titles', () => {
   ]);
   for (const [path, title] of expectations) assert.match(read(path), new RegExp(title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   assert.match(read('src/components/layout/SEOHead.tsx'), /title\.includes\('Michael Macri'\)/);
+});
+
+test('homepage fallback and runtime metadata use the same current identity', () => {
+  const description = 'Mike Macri is a Technology and Customer Success Engineering leader at GitLab with experience leading technical teams and customer programs across VMware and ServiceNow.';
+  for (const path of ['index.html', 'src/components/layout/SEOHead.tsx', 'src/pages/Home.tsx', 'scripts/generate-route-shells.mjs']) {
+    assert.ok(read(path).includes(description), `${path} does not contain the canonical homepage description`);
+  }
 });
 
 test('social preview is the intended 1200 by 630 image', () => {

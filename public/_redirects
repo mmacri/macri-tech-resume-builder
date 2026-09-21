@@ -1,3 +1,4 @@
+https://www.mikemacri.com/* https://mikemacri.com/:splat 301!
 /my-websites /projects 301
 /my-websites/ /projects 301
 /index.html / 301
@@ -13,5 +14,3 @@
 /portfolio/solution-engineering/ /selected-work 301
 /portfolio/momentum-edge /projects#momentum-edge 301
 /portfolio/momentum-edge/ /projects#momentum-edge 301
-/selected-work/* /selected-work 301
-/* /index.html 200

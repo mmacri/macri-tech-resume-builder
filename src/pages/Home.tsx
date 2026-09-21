@@ -26,7 +26,7 @@ const Home: React.FC = () => {
     <>
       <SEOHead
         title="Mike Macri | Technology & Customer Success Engineering Leader"
-        description="Mike Macri is a Customer Success Engineering leader at GitLab, building technical teams, coverage models, and the operating systems that make post-sales technical work visible and defensible."
+        description="Mike Macri is a Technology and Customer Success Engineering leader at GitLab with experience leading technical teams and customer programs across VMware and ServiceNow."
         url="https://mikemacri.com/"
       />
 

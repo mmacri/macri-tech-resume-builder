@@ -492,7 +492,7 @@ export const projects = [
   {
     id: 'gitlab-health',
     name: 'Customer Health Dashboard Prototype',
-    description: "Personal portfolio prototype exploring account health, adoption, license utilization, renewal timing, and recommended next action for a technical customer success team. Built independently with synthetic data. Not affiliated with, endorsed by, or representative of any employer's internal systems.",
+    description: 'Personal portfolio prototype exploring account health, adoption, license utilization, renewal timing, and recommended next action for a technical customer success team. Independent prototype using synthetic data. Not an internal GitLab system and not affiliated with or endorsed by GitLab.',
     category: 'Customer Success & DevSecOps',
     technologies: ['React', 'TypeScript', 'Data Visualization', 'Customer Health'],
     image: gitlabCsmScreenshot,
@@ -502,7 +502,7 @@ export const projects = [
   {
     id: 'customer-success-dashboard',
     name: 'Customer Success Dashboard',
-    description: "Analytics dashboard concept for customer engagement, adoption signals, and technical success planning. Built independently with synthetic data. Not affiliated with, endorsed by, or representative of any employer's internal systems.",
+    description: 'Analytics dashboard concept for customer engagement, adoption signals, and technical success planning. Independent prototype using synthetic data. Not an internal GitLab system and not affiliated with or endorsed by GitLab.',
     category: 'Customer Success & DevSecOps',
     technologies: ['Customer Success', 'Adoption', 'Health Scoring'],
     image: customerSuccessScreenshot,

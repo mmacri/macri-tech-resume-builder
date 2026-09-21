@@ -38,7 +38,6 @@ jobs:
 
       - name: Support SPA routes on refresh
         run: |
-          cp dist/index.html dist/404.html
           touch dist/.nojekyll
 
       - name: Upload Pages artifact

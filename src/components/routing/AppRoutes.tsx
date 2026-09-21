@@ -38,9 +38,6 @@ export const AppRoutes: React.FC = () => {
         <Route path="/portfolio/solution-engineering" element={<Navigate to="/selected-work" replace />} />
         <Route path="/portfolio/momentum-edge" element={<Navigate to="/projects#momentum-edge" replace />} />
         
-        {/* Redirects for old routes */}
-        <Route path="/selected-work/*" element={<Navigate to="/selected-work" replace />} />
-        
         <Route path="*" element={<NotFound />} />
       </Routes>
       </Suspense>
