@@ -90,7 +90,7 @@ test('leadership and project disclosure stay accurate', () => {
   assert.doesNotMatch(`${leadership}\n${career}\n${work}`, /performance (?:metrics are implied|result is claimed)/i);
   assert.match(career, /Independent prototype using synthetic data\. Not an internal GitLab system and not affiliated with or endorsed by GitLab\./);
   assert.match(projects, /Independent prototype using synthetic data/);
-  assert.match(career, /id: 'scaling-cse'[\s\S]*title: 'Making Technical Coverage Decidable'/);
+  assert.match(career, /id: 'scaling-cse'[\s\S]*title: 'Turning Technical Coverage Into Actionable Insight'/);
   assert.doesNotMatch(career, /id: 'cse-assigned-motion'/);
   assert.match(career, /Named CSE Coverage at 50:1 Scale/);
   assert.match(career, /Making Technical Coverage Visible/);
@@ -101,6 +101,7 @@ test('leadership and project disclosure stay accurate', () => {
   assert.match(career, /Served as an AI\/ML governance SME, helping define requirements, policy guidance, and reusable governance patterns/);
   assert.doesNotMatch(career, /Established ServiceNow's first AI risk policy framework|Served as SME for ServiceNow's inaugural AI risk policies/);
   assert.match(career, /A technical team's hardest decision is where not to spend time\./);
+  assert.match(career, /The goal is not another dashboard\. The goal is enough visibility to understand where technical expertise is being used and where it should go next\./);
   assert.match(career, /detailLink: '\/selected-work#scaling-cse'/);
   assert.match(work, /id="cse-assigned-motion"/);
   const caseStudyBlock = career.match(/export const caseStudies = \[([\s\S]*?)\n\];\n\nexport const cseProcess/)?.[1] ?? '';
@@ -150,7 +151,7 @@ test('person schema identifies the factual current role and verified profiles', 
 
 test('resume links share one cache-busted canonical artifact', () => {
   const career = read('src/data/careerData.ts');
-  assert.match(career, /resumeFile: 'resume\.pdf\?v=2026-09-21-1'/);
+  assert.match(career, /resumeFile: 'resume\.pdf\?v=2026-09-21-2'/);
   for (const page of ['src/pages/Home.tsx', 'src/pages/ExperienceImpact.tsx', 'src/pages/Resume.tsx']) {
     const source = read(page);
     assert.match(source, /profile\.resumeFile/);

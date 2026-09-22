@@ -58,7 +58,7 @@ const Home: React.FC = () => {
           <div className="mb-8 max-w-4xl">
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-orange-300">Current role</p>
             <h2 id="current-focus-heading" className="mb-3 font-saira text-3xl font-bold sm:text-4xl">Leading Customer Success Engineering Today</h2>
-            <p className="mb-0 text-lg leading-8 text-slate-300">Leading technical Customer Success across an AMER private-sector portfolio, shaping coverage decisions and the reporting that shows where technical expertise changes the outcome.</p>
+            <p className="mb-0 text-lg leading-8 text-slate-300">Leading technical Customer Success across an AMER private-sector portfolio, shaping technical coverage and the visibility leaders need to understand where expertise is being used and where it may be needed next.</p>
           </div>
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 border-y border-white/15 py-8 sm:grid-cols-2 lg:grid-cols-4">
             {currentFocus.map((item) => <div key={item.title}><h3 className="mb-2 text-lg font-semibold text-orange-300">{item.title}</h3><p className="mb-0 text-sm leading-6 text-slate-300">{item.detail}</p></div>)}

@@ -36,8 +36,8 @@ const SelectedWork: React.FC = () => (
                   <Badge variant="secondary" className="mb-4">{study.category}</Badge>
                   <h2 className="mb-2 font-saira text-2xl font-bold text-macri-primary">{study.title}</h2>
                   <p className="mb-6 text-lg text-gray-700">{study.subtitle}</p>
-                  <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-                    <div><h3 className="mb-2 text-base font-semibold text-gray-900">Challenge</h3><p className="mb-0 text-sm leading-6 text-gray-700">{study.problem}</p></div>
+                  <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+                    <div><h3 className="mb-2 text-base font-semibold text-gray-900">Challenge</h3><p className="mb-0 text-sm leading-6 text-gray-700">{detail.summaryChallenge ?? study.problem}</p></div>
                     <div><h3 className="mb-2 text-base font-semibold text-gray-900">My Role</h3><p className="mb-0 text-sm leading-6 text-gray-700">{detail.role}</p></div>
                     <div><h3 className="mb-2 text-base font-semibold text-gray-900">Result / Why It Matters</h3><ul className="space-y-2">{study.outcomes.slice(0, 3).map((outcome) => <li key={outcome} className="flex gap-2 text-sm leading-6 text-gray-700"><CheckCircle className="mt-0.5 h-4 w-4 flex-none text-green-600" />{outcome}</li>)}</ul></div>
                   </div>
@@ -45,6 +45,7 @@ const SelectedWork: React.FC = () => (
                   <details className="group mt-7 border-t border-gray-200 pt-5">
                     <summary className="flex min-h-11 cursor-pointer list-none items-center font-semibold text-macri-primary focus-visible:ring-2 focus-visible:ring-macri-primary">Explore case study <ChevronDown className="ml-2 h-4 w-4 transition-transform group-open:rotate-180" aria-hidden="true" /></summary>
                     <div className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-2">
+                      {detail.summaryChallenge && <div className="md:col-span-2"><h3 className="mb-2 text-base font-semibold text-gray-900">Problem</h3><p className="mb-0 text-sm leading-6 text-gray-700">{study.problem}</p></div>}
                       <div><h3 className="mb-2 text-base font-semibold text-gray-900">Environment / Constraints</h3><p className="mb-0 text-sm leading-6 text-gray-700">{detail.environment}</p></div>
                       <div><h3 className="mb-2 text-base font-semibold text-gray-900">Approach</h3><p className="mb-0 text-sm leading-6 text-gray-700">{study.approach}</p></div>
                       <div><h3 className="mb-2 text-base font-semibold text-gray-900">What Changed</h3><p className="mb-0 text-sm leading-6 text-gray-700">{detail.changed}</p></div>

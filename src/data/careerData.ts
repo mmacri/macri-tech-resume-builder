@@ -20,7 +20,7 @@ export const profile = {
   location: 'Remote',
   linkedin: 'https://www.linkedin.com/in/mikemacri',
   github: 'https://github.com/mmacri',
-  resumeFile: 'resume.pdf?v=2026-09-21-1',
+  resumeFile: 'resume.pdf?v=2026-09-21-2',
   summary:
     'Technology and Customer Success Engineering leader with experience building distributed post-sales teams, operating models, partner ecosystems, and enterprise governance initiatives across GitLab, VMware, and ServiceNow. Connects technical adoption, customer priorities, and commercial context so teams can focus their expertise where it matters most.',
   positioning:
@@ -178,11 +178,11 @@ export const experiences = [
     current: true,
     theme: 'Customer Success Engineering Leadership',
     summary:
-      'Lead the AMER Customer Success Engineering team, owning the post-sales technical operating model across adoption, early risk identification, expansion signals, and renewal outcomes. My job is deciding where limited technical coverage goes and building the systems that make that decision repeatable rather than instinctive.',
+      'Lead the AMER Customer Success Engineering team, owning the post-sales technical operating model across adoption, early risk identification, expansion signals, and renewal outcomes. My job is making technical coverage and workload visible enough to prioritize limited capacity, while building systems that make the approach repeatable rather than instinctive.',
     bullets: [
       'Designed named CSE coverage for customer portfolios approaching 50:1, defining ownership, engagement boundaries, eligibility, entry and exit criteria, and implementation-readiness requirements.',
       'Lead, coach, and develop the AMER Customer Success Engineering team, and authored the Associate-to-Intermediate development path now used for career progression across the function: competency scorecard, evidence standards, and promotion preparation grounded in sustained performance rather than activity volume.',
-      'Built a live operational view of customer coverage, engagement, renewal timing, and technical workload, replacing manual roll-ups as the basis for prioritization.',
+      'Built a live operational view of customer coverage, engagement, renewal timing, and technical workload, replacing manual roll-ups and giving leadership clearer visibility into where CSE capacity was being spent.',
       'Drive GitLab Duo Agent Platform adoption and partner with Regional Directors, Account Executives, and Renewal Managers in the account pod model on coverage and joint execution.',
     ],
   },
@@ -291,8 +291,8 @@ export const keyAchievements = [
     description: 'Built scalable customer and partner success motions contributing to 20% renewal growth, 250% pipeline growth, sustained platform adoption, and a 20-point NPS improvement at VMware.',
   },
   {
-    title: 'Systems That Make Coverage Decidable',
-    description: 'Built the visibility the AMER segment uses to decide where technical coverage goes, and previously served as an AI/ML governance SME helping define ServiceNow’s initial enterprise AI governance requirements and policy guidance.',
+    title: 'Making Technical Work Visible',
+    description: 'Built visibility into customer coverage, engagement, renewal timing, and technical workload so leaders can better prioritize limited CSE capacity, and previously served as an AI/ML governance SME helping define ServiceNow’s initial enterprise AI governance requirements and policy guidance.',
   },
 ];
 
@@ -350,21 +350,22 @@ export const metrics = [
 export const caseStudies = [
   {
     id: 'scaling-cse',
-    title: 'Making Technical Coverage Decidable',
-    subtitle: 'Designing technical coverage and the visibility leaders need to prioritize limited CSE capacity.',
+    title: 'Turning Technical Coverage Into Actionable Insight',
+    subtitle: 'Making customer coverage, technical workload, and engagement signals visible enough to guide where limited CSE capacity should go.',
     category: 'Customer Success Engineering',
     problem:
-      'Technical Customer Success becomes increasingly difficult to manage as customer-to-CSE ratios grow. Traditional high-touch engagement cannot be applied uniformly, while account assignment alone does not reveal where technical capacity is actually being spent. The leadership challenge is to define meaningful coverage, make workload visible, and create enough signal to decide where human technical expertise can have the greatest impact.',
+      'Customer assignment alone does not show where technical capacity is actually being spent. Some work occurs through assigned customer relationships, while other work happens through pooled engagement, cases, workshops, escalations, and other technical activity. When that information is fragmented across systems or assembled through manual roll-ups, leaders have an incomplete picture of where the team’s time is going and where technical expertise may be needed next. At customer-to-CSE ratios approaching 50:1, that visibility becomes increasingly important. Traditional high-touch engagement cannot be applied uniformly across every account, so leaders need enough information to understand customer coverage, engagement, workload, renewal timing, and technical signals before deciding where human expertise can have the greatest impact.',
     approach:
-      'Define the coverage model before instrumenting it: who qualifies, what named technical ownership means, what the engagement includes and excludes, how customers enter and leave coverage, and what good technical engagement looks like. Then create visibility from the systems of record so assigned and pooled work can be understood without relying on manual roll-ups.',
+      'Define the coverage model before instrumenting it: who receives named technical coverage, what that ownership means, what the engagement includes and excludes, how capacity is considered, how customers enter and leave coverage, and what should be handled through named, pooled, reusable, or digital engagement. Then surface customer coverage, engagement activity, technical workload, pooled work, renewal timing, customer signals, and areas receiving little or no engagement from the systems of record instead of relying on manual roll-ups.',
     solution:
-      'A defined technical coverage model paired with a live operational view of customer coverage, engagement, renewal timing, and technical workload. Together they provide the structure and visibility needed to manage high-ratio CSE portfolios more intentionally.',
+      'Created a defined technical coverage model paired with a live operational view of customer coverage, engagement, renewal timing, and technical workload. Together, they turned fragmented operational information into a clearer view of where CSE capacity was being spent and where technical attention might be needed next.',
     outcomes: [
-      'Creates clear expectations for named technical ownership in high-ratio customer portfolios',
-      'Defines eligibility, engagement boundaries, and entry and exit criteria',
-      'Makes assigned and pooled technical workload more visible',
-      'Replaces manual roll-ups with a more current operational view',
-      'Gives leaders better information for prioritizing limited CSE capacity',
+      'Made assigned and pooled technical workload more visible',
+      'Replaced manual roll-ups with a more current operational view',
+      'Connected customer coverage with engagement and renewal timing',
+      'Established clearer expectations for named technical ownership',
+      'Defined eligibility, engagement boundaries, and entry and exit criteria',
+      'Gave leaders better information for prioritizing limited CSE capacity',
     ],
     detailLink: '/selected-work#scaling-cse',
   },
@@ -434,14 +435,16 @@ export const caseStudyDetails: Record<string, {
   partners: string[];
   lesson: string;
   sections?: Array<{ title: string; description: string }>;
+  summaryChallenge?: string;
   homepageChallenge?: string;
   homepageRole?: string;
   homepageWhy?: string;
 }> = {
   'scaling-cse': {
-    environment: 'High-ratio customer portfolios require deliberate coverage boundaries, while assigned and pooled technical work must be visible together for leaders to make sound capacity decisions.',
-    role: 'Designed coverage principles around ownership, eligibility, engagement boundaries, and capacity, alongside the visibility needed to manage technical workload.',
-    changed: 'A defined technical coverage model paired with a live operational view of customer coverage, engagement, renewal timing, and technical workload.',
+    summaryChallenge: 'Customer assignment alone did not show where technical capacity was actually being spent, and fragmented workload information made prioritization harder as customer-to-CSE ratios grew.',
+    environment: 'Customer assignment did not provide a complete view of technical capacity because assigned relationships, pooled engagement, cases, workshops, and escalations were fragmented across systems or structurally invisible in account-based reporting.',
+    role: 'Defined coverage principles around ownership, eligibility, engagement boundaries, and capacity while creating the visibility needed to understand technical workload across the portfolio.',
+    changed: 'A defined technical coverage model paired with a live operational view that connects customer coverage, engagement, renewal timing, and technical workload.',
     partners: [],
     lesson: "A technical team's hardest decision is where not to spend time.",
     sections: [
@@ -451,11 +454,11 @@ export const caseStudyDetails: Record<string, {
       },
       {
         title: 'Making Technical Coverage Visible',
-        description: 'Coverage design only works if leaders can see where technical capacity is actually being spent. A live operational view of customer coverage, engagement, renewal timing, and technical workload replaces manual roll-ups and makes prioritization possible from current information. The goal is not another dashboard. The goal is enough visibility to decide where limited technical expertise should go next.',
+        description: 'Coverage design only works if leaders can see where technical capacity is actually being spent. A live operational view of customer coverage, engagement, renewal timing, and technical workload replaces manual roll-ups and makes prioritization possible from current information. The goal is not another dashboard. The goal is enough visibility to understand where technical expertise is being used and where it should go next.',
       },
     ],
-    homepageChallenge: 'High customer-to-CSE ratios make traditional high-touch coverage impractical, while incomplete workload visibility makes prioritization difficult.',
-    homepageRole: 'Designed coverage principles around ownership, eligibility, engagement boundaries, and capacity, alongside the visibility needed to manage technical workload.',
+    homepageChallenge: 'High customer-to-CSE ratios make traditional high-touch coverage impractical, while fragmented workload and engagement information makes it difficult to understand where technical capacity is actually being spent.',
+    homepageRole: 'Defined coverage principles around ownership, eligibility, engagement boundaries, and capacity while creating the visibility needed to understand technical workload across the portfolio.',
     homepageWhy: "A technical team's hardest decision is where not to spend time.",
   },
   'policy-hub': {

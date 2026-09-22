@@ -15,10 +15,10 @@ Professional Experience
 
 Senior Manager, Customer Success Engineering – AMER
 GitLab | March 2026 - Present | Remote
-Lead the AMER Customer Success Engineering team, owning the post-sales technical operating model across adoption, early risk identification, expansion signals, and renewal outcomes. My job is deciding where limited technical coverage goes and building the systems that make that decision repeatable rather than instinctive. Scope: an AMER private-sector portfolio.
+Lead the AMER Customer Success Engineering team, owning the post-sales technical operating model across adoption, early risk identification, expansion signals, and renewal outcomes. My job is making technical coverage and workload visible enough to prioritize limited capacity, while building systems that make the approach repeatable rather than instinctive. Scope: an AMER private-sector portfolio.
 - Designed named CSE coverage for customer portfolios approaching 50:1, defining ownership, engagement boundaries, eligibility, entry and exit criteria, and implementation-readiness requirements.
 - Lead, coach, and develop the AMER Customer Success Engineering team, and authored the Associate-to-Intermediate development path now used for career progression across the function: competency scorecard, evidence standards, and promotion preparation grounded in sustained performance rather than activity volume.
-- Built a live operational view of customer coverage, engagement, renewal timing, and technical workload, replacing manual roll-ups as the basis for prioritization.
+- Built a live operational view of customer coverage, engagement, renewal timing, and technical workload, replacing manual roll-ups and giving leadership clearer visibility into where CSE capacity was being spent.
 
 Principal Consultant
 Momentum Edge Consulting | May 2025 - Present | Remote
